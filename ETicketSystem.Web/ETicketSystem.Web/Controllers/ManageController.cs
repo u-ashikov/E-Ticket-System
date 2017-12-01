@@ -1,8 +1,9 @@
 ﻿namespace ETicketSystem.Web.Controllers
 {
 	using ETicketSystem.Data.Models;
-	using ETicketSystem.Web.Models.ManageViewModels;
-	using ETicketSystem.Web.Services;
+	using ETicketSystem.Services.Contracts;
+	using ETicketSystem.Web.Infrastructure.Extensions;
+	using ETicketSystem.Web.Models.Manage;
 	using Microsoft.AspNetCore.Authentication;
 	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Identity;

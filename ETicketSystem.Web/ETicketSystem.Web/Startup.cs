@@ -2,7 +2,8 @@
 {
 	using ETicketSystem.Data;
 	using ETicketSystem.Data.Models;
-	using ETicketSystem.Web.Services;
+	using ETicketSystem.Services.Contracts;
+	using ETicketSystem.Services.Implementations;
 	using Microsoft.AspNetCore.Builder;
 	using Microsoft.AspNetCore.Hosting;
 	using Microsoft.AspNetCore.Identity;

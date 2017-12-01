@@ -3,3 +3,14 @@ C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.
 C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Web\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs
 C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Web\obj\Debug\netcoreapp2.0\ETicketSystem.Web.AssemblyInfoInputs.cache
 C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Web\obj\Debug\netcoreapp2.0\ETicketSystem.Web.AssemblyInfo.cs
+C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Web\bin\Debug\netcoreapp2.0\ETicketSystem.Web.deps.json
+C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Web\bin\Debug\netcoreapp2.0\ETicketSystem.Web.runtimeconfig.json
+C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Web\bin\Debug\netcoreapp2.0\ETicketSystem.Web.runtimeconfig.dev.json
+C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Web\bin\Debug\netcoreapp2.0\ETicketSystem.Web.dll
+C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Web\bin\Debug\netcoreapp2.0\ETicketSystem.Web.pdb
+C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Web\bin\Debug\netcoreapp2.0\ETicketSystem.Data.dll
+C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Web\bin\Debug\netcoreapp2.0\ETicketSystem.Services.dll
+C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Web\bin\Debug\netcoreapp2.0\ETicketSystem.Data.pdb
+C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Web\bin\Debug\netcoreapp2.0\ETicketSystem.Services.pdb
+C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Web\obj\Debug\netcoreapp2.0\ETicketSystem.Web.dll
+C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Web\obj\Debug\netcoreapp2.0\ETicketSystem.Web.pdb

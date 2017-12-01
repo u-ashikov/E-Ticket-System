@@ -1,6 +1,6 @@
 namespace ETicketSystem.Web.Infrastructure.Extensions
 {
-	using ETicketSystem.Web.Services;
+	using ETicketSystem.Services.Contracts;
 	using System.Text.Encodings.Web;
 	using System.Threading.Tasks;
 
