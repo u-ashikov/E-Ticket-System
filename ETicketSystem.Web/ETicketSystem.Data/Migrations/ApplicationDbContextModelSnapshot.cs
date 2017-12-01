@@ -1,4 +1,4 @@
-﻿namespace ETicketSystem.Web.Data.Migrations
+﻿namespace ETicketSystem.Data.Migrations
 {
 	using ETicketSystem.Data;
 	using Microsoft.EntityFrameworkCore;
