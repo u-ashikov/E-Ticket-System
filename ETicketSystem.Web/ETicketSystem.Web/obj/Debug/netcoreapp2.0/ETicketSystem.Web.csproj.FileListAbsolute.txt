@@ -1,0 +1,5 @@
+C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Web\obj\Debug\netcoreapp2.0\ETicketSystem.Web.csprojResolveAssemblyReference.cache
+C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Web\obj\Debug\netcoreapp2.0\ETicketSystem.Web.csproj.CoreCompileInputs.cache
+C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Web\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs
+C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Web\obj\Debug\netcoreapp2.0\ETicketSystem.Web.AssemblyInfoInputs.cache
+C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Web\obj\Debug\netcoreapp2.0\ETicketSystem.Web.AssemblyInfo.cs

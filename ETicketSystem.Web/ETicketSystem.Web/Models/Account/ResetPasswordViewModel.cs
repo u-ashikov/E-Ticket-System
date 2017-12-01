@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace ETicketSystem.Web.Models.AccountViewModels
+﻿namespace ETicketSystem.Web.Models.Account
 {
-    public class ResetPasswordViewModel
+	using System.ComponentModel.DataAnnotations;
+
+	public class ResetPasswordViewModel
     {
         [Required]
         [EmailAddress]

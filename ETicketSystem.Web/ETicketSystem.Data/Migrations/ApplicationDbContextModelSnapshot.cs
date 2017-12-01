@@ -122,7 +122,7 @@
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("ETicketSystem.Web.Models.ApplicationUser", b =>
+            modelBuilder.Entity("ETicketSystem.Web.Models.User", b =>
                 {
                     b.Property<string>("Id");
 
@@ -181,7 +181,7 @@
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("ETicketSystem.Web.Models.ApplicationUser")
+                    b.HasOne("ETicketSystem.Web.Models.User")
                         .WithMany("Claims")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -189,7 +189,7 @@
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("ETicketSystem.Web.Models.ApplicationUser")
+                    b.HasOne("ETicketSystem.Web.Models.User")
                         .WithMany("Logins")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -202,7 +202,7 @@
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("ETicketSystem.Web.Models.ApplicationUser")
+                    b.HasOne("ETicketSystem.Web.Models.User")
                         .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);

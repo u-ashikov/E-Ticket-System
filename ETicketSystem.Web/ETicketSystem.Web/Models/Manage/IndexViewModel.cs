@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace ETicketSystem.Web.Models.ManageViewModels
+﻿namespace ETicketSystem.Web.Models.Manage
 {
-    public class IndexViewModel
+	using System.ComponentModel.DataAnnotations;
+
+	public class IndexViewModel
     {
         public string Username { get; set; }
 
