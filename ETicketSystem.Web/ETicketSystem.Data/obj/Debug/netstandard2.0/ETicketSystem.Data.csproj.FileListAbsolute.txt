@@ -1,0 +1,6 @@
+C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Data\bin\Debug\netstandard2.0\ETicketSystem.Data.deps.json
+C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Data\bin\Debug\netstandard2.0\ETicketSystem.Data.dll
+C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Data\obj\Debug\netstandard2.0\ETicketSystem.Data.csprojResolveAssemblyReference.cache
+C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Data\obj\Debug\netstandard2.0\ETicketSystem.Data.csproj.CoreCompileInputs.cache
+C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Data\obj\Debug\netstandard2.0\ETicketSystem.Data.AssemblyInfoInputs.cache
+C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Data\obj\Debug\netstandard2.0\ETicketSystem.Data.AssemblyInfo.cs

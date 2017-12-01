@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using ETicketSystem.Web.Models;
-
-namespace ETicketSystem.Web.Data
+﻿namespace ETicketSystem.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+	using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+	using Microsoft.EntityFrameworkCore;
+
+	public class ETicketSystemDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public ETicketSystemDbContext(DbContextOptions<ETicketSystemDbContext> options)
             : base(options)
         {
         }
