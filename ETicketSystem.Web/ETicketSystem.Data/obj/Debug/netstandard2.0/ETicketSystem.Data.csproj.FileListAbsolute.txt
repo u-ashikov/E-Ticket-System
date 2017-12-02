@@ -7,3 +7,5 @@ C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.
 C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Data\bin\Debug\netstandard2.0\ETicketSystem.Data.pdb
 C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Data\obj\Debug\netstandard2.0\ETicketSystem.Data.dll
 C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Data\obj\Debug\netstandard2.0\ETicketSystem.Data.pdb
+C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Data\bin\Debug\netstandard2.0\ETicketSystem.Common.dll
+C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Data\bin\Debug\netstandard2.0\ETicketSystem.Common.pdb

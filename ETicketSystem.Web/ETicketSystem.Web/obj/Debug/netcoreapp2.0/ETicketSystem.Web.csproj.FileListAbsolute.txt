@@ -14,3 +14,5 @@ C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.
 C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Web\bin\Debug\netcoreapp2.0\ETicketSystem.Services.pdb
 C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Web\obj\Debug\netcoreapp2.0\ETicketSystem.Web.dll
 C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Web\obj\Debug\netcoreapp2.0\ETicketSystem.Web.pdb
+C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Web\bin\Debug\netcoreapp2.0\ETicketSystem.Common.dll
+C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Web\bin\Debug\netcoreapp2.0\ETicketSystem.Common.pdb

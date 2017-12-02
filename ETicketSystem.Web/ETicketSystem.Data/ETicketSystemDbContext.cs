@@ -59,12 +59,14 @@
 			builder.Entity<Route>()
 				.HasOne(r => r.StartStation)
 				.WithMany(s => s.DepartureRoutes)
-				.HasForeignKey(r => r.StartStation);
+				.HasForeignKey(r => r.StartStationId)
+				.OnDelete(DeleteBehavior.Restrict);
 
 			builder.Entity<Route>()
 				.HasOne(r => r.EndStation)
 				.WithMany(s => s.ArrivalRoutes)
-				.HasForeignKey(r => r.EndStationId);
+				.HasForeignKey(r => r.EndStationId)
+				.OnDelete(DeleteBehavior.Restrict);
 
 			builder.Entity<Review>()
 				.HasOne(r => r.User)
@@ -84,7 +86,7 @@
 			builder.Entity<Ticket>()
 				.HasOne(t => t.Route)
 				.WithMany(r => r.Tickets)
-				.HasForeignKey(t => t.Route);
+				.HasForeignKey(t => t.RouteId);
 
             base.OnModelCreating(builder);
         }
