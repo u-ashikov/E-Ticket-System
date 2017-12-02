@@ -5029,10 +5029,21 @@
           "lib/netstandard1.3/Microsoft.WindowsAzure.Storage.dll": {}
         }
       },
+      "ETicketSystem.Common/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/ETicketSystem.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ETicketSystem.Common.dll": {}
+        }
+      },
       "ETicketSystem.Data/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
+          "ETicketSystem.Common": "1.0.0",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "2.0.1",
           "Microsoft.EntityFrameworkCore.SqlServer": "2.0.1",
           "Microsoft.EntityFrameworkCore.Tools": "2.0.1"
@@ -13137,6 +13148,11 @@
         "windowsazure.storage.8.1.4.nupkg.sha512",
         "windowsazure.storage.nuspec"
       ]
+    },
+    "ETicketSystem.Common/1.0.0": {
+      "type": "project",
+      "path": "../ETicketSystem.Common/ETicketSystem.Common.csproj",
+      "msbuildProject": "../ETicketSystem.Common/ETicketSystem.Common.csproj"
     },
     "ETicketSystem.Data/1.0.0": {
       "type": "project",
