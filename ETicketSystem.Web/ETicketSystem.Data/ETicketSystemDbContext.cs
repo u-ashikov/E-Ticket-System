@@ -1,5 +1,6 @@
 ﻿namespace ETicketSystem.Data
 {
+	using ETicketSystem.Common.Constants;
 	using ETicketSystem.Data.Models;
 	using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 	using Microsoft.EntityFrameworkCore;
@@ -25,6 +26,10 @@
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+			builder.Entity<User>()
+				.Property(u => u.UserName)
+				.HasMaxLength(DataConstants.User.UsernameMaxLength);
+
 			builder.Entity<Town>()
 				.HasMany(t => t.Stations)
 				.WithOne(s => s.Town)

@@ -63,5 +63,14 @@
 
 			public const int SeatMaxValue = 45;
 		}
+		
+		public class User
+		{
+			public const int UsernameMinLength = 4;
+
+			public const int UsernameMaxLength = 20;
+
+			public const int NameMaxLength = 35;
+		}
     }
 }
