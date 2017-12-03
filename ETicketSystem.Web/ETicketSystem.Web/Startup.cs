@@ -1,9 +1,11 @@
 ﻿namespace ETicketSystem.Web
 {
+	using ETicketSystem.Common.Constants;
 	using ETicketSystem.Data;
 	using ETicketSystem.Data.Models;
 	using ETicketSystem.Services.Contracts;
 	using ETicketSystem.Services.Implementations;
+	using ETicketSystem.Web.Infrastructure.Extensions;
 	using Microsoft.AspNetCore.Builder;
 	using Microsoft.AspNetCore.Hosting;
 	using Microsoft.AspNetCore.Identity;
@@ -25,9 +27,19 @@
             services.AddDbContext<ETicketSystemDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+			services.Configure<IdentityOptions>(options =>
+			{
+				options.Password.RequiredLength = DataConstants.User.PasswordMinLength;
+				options.Password.RequireNonAlphanumeric = false;
+				options.Password.RequireLowercase = false;
+				options.Password.RequireUppercase = false;
+
+				options.User.RequireUniqueEmail = true;
+			});
+
             services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<ETicketSystemDbContext>()
-                .AddDefaultTokenProviders();
+				.AddEntityFrameworkStores<ETicketSystemDbContext>()
+				.AddDefaultTokenProviders();
 
             services.AddTransient<IEmailSender, EmailSender>();
 
@@ -36,6 +48,8 @@
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+			app.UseDatabaseMigration();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

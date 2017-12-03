@@ -1,10 +1,11 @@
-﻿namespace ETicketSystem.Data.Migrations
-{
-	using Microsoft.EntityFrameworkCore.Metadata;
-	using Microsoft.EntityFrameworkCore.Migrations;
-	using System;
+﻿using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
+using System;
+using System.Collections.Generic;
 
-	public partial class InitialMigration : Migration
+namespace ETicketSystem.Data.Migrations
+{
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -31,6 +32,9 @@
                     ConcurrencyStamp = table.Column<string>(nullable: true),
                     Email = table.Column<string>(maxLength: 256, nullable: true),
                     EmailConfirmed = table.Column<bool>(nullable: false),
+                    FirstName = table.Column<string>(maxLength: 35, nullable: false),
+                    Gender = table.Column<int>(nullable: false),
+                    LastName = table.Column<string>(maxLength: 35, nullable: false),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),

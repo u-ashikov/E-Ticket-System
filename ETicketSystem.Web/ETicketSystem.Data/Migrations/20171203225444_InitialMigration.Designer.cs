@@ -12,8 +12,8 @@ using System;
 namespace ETicketSystem.Data.Migrations
 {
     [DbContext(typeof(ETicketSystemDbContext))]
-    [Migration("20171203205449_UserTableFirstLastNameGender")]
-    partial class UserTableFirstLastNameGender
+    [Migration("20171203225444_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
