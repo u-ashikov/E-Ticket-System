@@ -1,0 +1,30 @@
+﻿body {
+    background-color: #2FB489;
+}
+
+div.user-logo {
+    margin:20px 0 10px 0;
+    text-align:center;
+}
+
+div.user-logo > i.fa {
+    font-size:80px;
+    color:white;
+}
+
+form.login-form {
+    background-color:white;
+    padding:10px 20px;
+    border-radius:20px;
+    box-shadow:5px 5px 20px #ffffff;
+}
+
+.arrow-up {
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 15px solid white;
+    position:relative;
+    left:165px;
+}

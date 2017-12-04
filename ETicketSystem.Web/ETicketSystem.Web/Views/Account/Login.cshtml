@@ -9,12 +9,20 @@
     ViewData["Title"] = "Log in";
 }
 
-<h2>@ViewData["Title"]</h2>
+<environment include="Development">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/login.css" />
+</environment>
+
+<div class="user-logo">
+    <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+</div>
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4 col-md-offset-4">
         <section>
-            <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
-                <h4>Use a local account to log in.</h4>
+            <div class="arrow-up"></div>
+            <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="login-form">
+                <h4 class="text-center">Use a local account to log in.</h4>
                 <hr />
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
