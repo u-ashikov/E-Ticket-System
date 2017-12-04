@@ -16,7 +16,6 @@
 		[MaxLength(DataConstants.User.NameMaxLength)]
 		public string LastName { get; set; }
 
-		[Required]
 		public Gender Gender { get; set; }
 
 		public List<Review> Reviews { get; set; } = new List<Review>();

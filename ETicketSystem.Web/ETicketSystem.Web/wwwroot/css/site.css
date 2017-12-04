@@ -21,6 +21,11 @@
     width: 100%;
 }
 
+footer {
+    text-align:center;
+    background-color:white;
+}
+
 /* QR code generator */
 #qrCode {
     margin: 15px;

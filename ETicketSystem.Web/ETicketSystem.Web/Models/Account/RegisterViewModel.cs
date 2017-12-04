@@ -34,7 +34,6 @@
         [Compare(nameof(Password), ErrorMessage = WebConstants.Error.PasswordsMissmatch)]
         public string ConfirmPassword { get; set; }
 
-		[Required]
 		public Gender Gender { get; set; }
     }
 }
