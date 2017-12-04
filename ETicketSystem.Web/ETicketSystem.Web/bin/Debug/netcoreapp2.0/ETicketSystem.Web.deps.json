@@ -4079,6 +4079,9 @@
         }
       },
       "ETicketSystem.Services/1.0.0": {
+        "dependencies": {
+          "ETicketSystem.Data": "1.0.0"
+        },
         "runtime": {
           "ETicketSystem.Services.dll": {}
         },

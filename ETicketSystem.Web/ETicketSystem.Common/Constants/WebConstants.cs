@@ -24,6 +24,8 @@
 			public const string FirstName = "First name";
 
 			public const string LastName = "Last name";
+
+			public const string RememberMe = "Remember me?";
 		}
 
 		public class RegexPattern
@@ -40,6 +42,11 @@
 			public const string UsernameLength = "The {0} must be at least {2} and at max {1} characters long.";
 
 			public const string PasswordsMissmatch = "The password and confirmation password do not match.";
+		}
+
+		public class Area
+		{
+			public const string Admin = "Admin";
 		}
     }
 }

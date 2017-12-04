@@ -42,6 +42,7 @@
 				.AddDefaultTokenProviders();
 
             services.AddTransient<IEmailSender, EmailSender>();
+			services.AddTransient<IUserService, UserService>();
 
             services.AddMvc();
         }
