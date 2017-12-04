@@ -217,8 +217,17 @@
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = model.Email, Email = model.Email };
+                var user = new User
+				{
+					UserName = model.Username,
+					Email = model.Email,
+					FirstName = model.FirstName,
+					LastName = model.LastName,
+					Gender = model.Gender
+				};
+
                 var result = await _userManager.CreateAsync(user, model.Password);
+
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");

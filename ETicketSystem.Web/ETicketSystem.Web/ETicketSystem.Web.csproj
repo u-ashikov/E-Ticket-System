@@ -23,4 +23,8 @@
     <ProjectReference Include="..\ETicketSystem.Services\ETicketSystem.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\" />
+  </ItemGroup>
+
 </Project>

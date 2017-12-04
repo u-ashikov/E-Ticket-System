@@ -73,6 +73,8 @@
 			public const int NameMaxLength = 35;
 
 			public const int PasswordMinLength = 3;
+
+			public const int PasswordMaxLength = 100;
 		}
     }
 }

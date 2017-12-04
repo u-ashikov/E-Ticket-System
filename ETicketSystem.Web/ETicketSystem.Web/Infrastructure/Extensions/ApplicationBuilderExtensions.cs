@@ -43,7 +43,7 @@
 							FirstName = WebConstants.Admin.FirstName,
 							LastName = WebConstants.Admin.LastName,
 							Gender = Gender.Male,
-							UserName = WebConstants.Admin.Email
+							UserName = WebConstants.Admin.Username
 						};
 
 						await userManager.CreateAsync(adminUser, WebConstants.Admin.Password);
