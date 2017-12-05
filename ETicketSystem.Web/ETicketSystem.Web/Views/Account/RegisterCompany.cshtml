@@ -1,0 +1,85 @@
+﻿@model RegisterCompanyViewModel
+
+@{
+    ViewData["Title"] = "RegisterCompany";
+}
+
+<environment include="Development">
+    <link rel="stylesheet" href="~/css/register.css" />
+</environment>
+
+<div class="row">
+    <div class="col-md-12 col-md-offset-2">
+        <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post" enctype="multipart/form-data" class="register-form col-md-8">
+            <h4 class="text-center">Create a new company account.</h4>
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group col-md-6">
+                <label asp-for="Username"></label>
+                <input asp-for="Username" class="form-control" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="Password"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="ConfirmPassword"></label>
+                <input asp-for="ConfirmPassword" class="form-control" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="Logo"></label>
+                <input name="Logo" type="file" accept="image/*" />
+                <span asp-validation-for="Logo" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-12">
+                <label asp-for="Description"></label>
+                <textarea asp-for="Description" rows="8" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="UniqueReferenceNumber"></label>
+                <input asp-for="UniqueReferenceNumber" class="form-control" />
+                <span asp-validation-for="UniqueReferenceNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="ChiefFirstName"></label>
+                <input asp-for="ChiefFirstName" class="form-control" />
+                <span asp-validation-for="ChiefFirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="ChiefLastName"></label>
+                <input asp-for="ChiefLastName" class="form-control" />
+                <span asp-validation-for="ChiefLastName" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="Address"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="TownId"></label>
+                <input asp-for="TownId" class="form-control" />
+                <span asp-validation-for="TownId" class="text-danger"></span>
+            </div>
+            <button type="submit" class="register btn btn-success col-md-12 col-md-offset-3">Register</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
+

@@ -4,7 +4,7 @@
 	using ETicketSystem.Data.Enums;
 	using System.ComponentModel.DataAnnotations;
 
-	public class RegisterViewModel
+	public class RegisterUserViewModel
     {
         [Required]
         [RegularExpression(WebConstants.RegexPattern.Email,ErrorMessage = WebConstants.Error.InvalidEmail)]
