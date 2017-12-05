@@ -58,6 +58,8 @@
 		public class FilePath
 		{
 			public const string Towns = "../ETicketSystem.Data/SeedData/towns.csv";
+
+			public const string Stations = "../ETicketSystem.Data/SeedData/stations.csv";
 		}
     }
 }
