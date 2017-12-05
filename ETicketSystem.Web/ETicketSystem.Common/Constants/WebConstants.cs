@@ -54,5 +54,10 @@
 		{
 			public const string Admin = "Admin";
 		}
+
+		public class FilePath
+		{
+			public const string Towns = "../ETicketSystem.Data/SeedData/towns.csv";
+		}
     }
 }

@@ -66,9 +66,9 @@
 			{
 				var db = serviceScope.ServiceProvider.GetRequiredService<ETicketSystemDbContext>();
 
-				if (File.Exists("../ETicketSystem.Data/SeedData/towns.csv"))
+				if (File.Exists(WebConstants.FilePath.Towns))
 				{
-					var towns = File.ReadAllText("../ETicketSystem.Data/SeedData/towns.csv").Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+					var towns = File.ReadAllText(WebConstants.FilePath.Towns).Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
 
 					for (int i = 1; i < towns.Length; i++)
 					{

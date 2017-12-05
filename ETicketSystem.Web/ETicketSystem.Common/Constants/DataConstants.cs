@@ -10,6 +10,8 @@
 		public class Station
 		{
 			public const int NameMaxLength = 50;
+
+			public const int PhoneMaxLength = 15;
 		}
 
 		public class Company

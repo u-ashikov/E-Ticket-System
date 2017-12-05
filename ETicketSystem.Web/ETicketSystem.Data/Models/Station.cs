@@ -16,6 +16,9 @@
 
 		public Town Town { get; set; }
 
+		[MaxLength(DataConstants.Station.PhoneMaxLength)]
+		public string Phone { get; set; }
+
 		public List<Route> ArrivalRoutes { get; set; } = new List<Route>();
 
 		public List<Route> DepartureRoutes { get; set; } = new List<Route>();
