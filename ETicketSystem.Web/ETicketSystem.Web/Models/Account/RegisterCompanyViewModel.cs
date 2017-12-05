@@ -26,36 +26,41 @@
 		public string ConfirmPassword { get; set; }
 
 		[Required]
-		[StringLength(DataConstants.Company.NameMaxLength,MinimumLength = DataConstants.Company.NameMinLength)]
+		[StringLength(DataConstants.Company.NameMaxLength, ErrorMessage = WebConstants.Error.CompanyNameLength,MinimumLength = DataConstants.Company.NameMinLength)]
 		public string Name { get; set; }
 
 		[MaxLength(DataConstants.Company.LogoMaxLength)]
 		public byte[] Logo { get; set; }
 
 		[Required]
-		[StringLength(DataConstants.Company.DescriptionMaxLength,MinimumLength = DataConstants.Company.DescriptionMinLength)]
+		[StringLength(DataConstants.Company.DescriptionMaxLength, ErrorMessage = WebConstants.Error.CompanyDescriptionLength, MinimumLength = DataConstants.Company.DescriptionMinLength)]
 		public string Description { get; set; }
 
 		[Required]
-		[StringLength(DataConstants.Company.UniqueReferenceNumberMaxLength,MinimumLength = DataConstants.Company.UniqueReferenceNumberMinLength)]
+		[RegularExpression(WebConstants.RegexPattern.CompanyUniqueReferenceNumber, ErrorMessage = WebConstants.Error.UniqueReferenceNumberFormat)]
 		[Display(Name = WebConstants.FieldDisplay.UniqueReferenceNumber)]
 		public string UniqueReferenceNumber { get; set; }
 
 		[Required]
-		[MaxLength(DataConstants.Company.ChiefNameMaxLength)]
+		[MaxLength(DataConstants.Company.ChiefNameMaxLength, ErrorMessage = WebConstants.Error.CompanyChiefNameMaxLength)]
 		[Display(Name = WebConstants.FieldDisplay.ChiefFirstName)]
 		public string ChiefFirstName { get; set; }
 
 		[Required]
-		[MaxLength(DataConstants.Company.ChiefNameMaxLength)]
+		[MaxLength(DataConstants.Company.ChiefNameMaxLength, ErrorMessage = WebConstants.Error.CompanyChiefNameMaxLength)]
 		[Display(Name = WebConstants.FieldDisplay.ChiefLastName)]
 		public string ChiefLastName { get; set; }
 
 		[Required]
-		[StringLength(DataConstants.Company.AddressMaxLength,MinimumLength = DataConstants.Company.AddressMinLength)]
+		[StringLength(DataConstants.Company.AddressMaxLength, ErrorMessage = WebConstants.Error.CompanyAddressLength, MinimumLength = DataConstants.Company.AddressMinLength)]
 		public string Address { get; set; }
 
 		public int Town { get; set; }
+
+		[Required]
+		[RegularExpression(WebConstants.RegexPattern.Phone, ErrorMessage =  WebConstants.Error.PhoneNumberFormat)]
+		[Display(Name = WebConstants.FieldDisplay.PhoneNumber)]
+		public string PhoneNumber { get; set; }
 
 		public List<SelectListItem> Towns { get; set; } = new List<SelectListItem>();
 	}

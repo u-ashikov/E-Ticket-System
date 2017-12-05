@@ -32,11 +32,17 @@
 			public const string ChiefFirstName = "Chief first name";
 
 			public const string ChiefLastName = "Chief last name";
+
+			public const string PhoneNumber = "Phone";
 		}
 
 		public class RegexPattern
 		{
 			public const string Email = @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$";
+
+			public const string CompanyUniqueReferenceNumber = @"^\d{9,13}$";
+
+			public const string Phone = @"^0\d{9}$";
 		}
 
 		public class Error
@@ -47,7 +53,19 @@
 
 			public const string UsernameLength = "The {0} must be at least {2} and at max {1} characters long.";
 
+			public const string CompanyNameLength = "The {0} must be at least {2} and at max {1} characters long.";
+
+			public const string UniqueReferenceNumberFormat = "The {0} must be between 9 and 13 symbols long, containing only digits.";
+
+			public const string CompanyChiefNameMaxLength = "The {0} must be at max {1} symbols long.";
+
 			public const string PasswordsMissmatch = "The password and confirmation password do not match.";
+
+			public const string CompanyAddressLength = "The {0} must be between {2} and {1} symbols long.";
+
+			public const string CompanyDescriptionLength = "The {0} must be between {2} and {1} symbols long.";
+
+			public const string PhoneNumberFormat = "The {0} should start with '0' containing exactly 10 digits.";
 		}
 
 		public class Area

@@ -255,8 +255,52 @@
 		public IActionResult RegisterCompany() => 
 			View(new RegisterCompanyViewModel()
 			{
-				Towns = this.GenerateTownsSelectListItems(this.towns.GetTownsListItems())
+				Towns = this.GenerateTownsSelectListItems()
 			});
+
+		[HttpPost]
+		[AllowAnonymous]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> RegisterCompany(RegisterCompanyViewModel model, string returnUrl = null)
+		{
+			ViewData["ReturnUrl"] = returnUrl;
+			if (ModelState.IsValid)
+			{
+				var company = new Company
+				{
+					UserName = model.Username,
+					Email = model.Email,
+					Address = model.Address,
+					ChiefFirstName = model.ChiefFirstName,
+					ChiefLastName = model.ChiefLastName,
+					Description = model.Description,
+					Name = model.Name,
+					PhoneNumber = model.PhoneNumber,
+					TownId = model.Town,
+					UniqueReferenceNumber = model.UniqueReferenceNumber
+				};
+
+				var result = await _userManager.CreateAsync(company, model.Password);
+
+				if (result.Succeeded)
+				{
+					_logger.LogInformation("User created a new account with password.");
+
+					var code = await _userManager.GenerateEmailConfirmationTokenAsync(company);
+					var callbackUrl = Url.EmailConfirmationLink(company.Id, code, Request.Scheme);
+					await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
+
+					await _signInManager.SignInAsync(company, isPersistent: false);
+					_logger.LogInformation("User created a new account with password.");
+					return RedirectToLocal(returnUrl);
+				}
+
+				AddErrors(result);
+			}
+
+			model.Towns = this.GenerateTownsSelectListItems();
+			return View(model);
+		}
 
 		[HttpPost]
         [ValidateAntiForgeryToken]
@@ -454,9 +498,10 @@
             return View();
         }
 
-		private List<SelectListItem> GenerateTownsSelectListItems(IEnumerable<TownBaseServiceModel> towns)
+		private List<SelectListItem> GenerateTownsSelectListItems()
 		{
 			var list = new List<SelectListItem>();
+			var towns = this.towns.GetTownsListItems();
 
 			foreach (var town in towns)
 			{
