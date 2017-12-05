@@ -65,9 +65,9 @@
                 <span asp-validation-for="ChiefLastName" class="text-danger"></span>
             </div>
             <div class="form-group col-md-6">
-                <label asp-for="TownId"></label>
-                <input asp-for="TownId" class="form-control" />
-                <span asp-validation-for="TownId" class="text-danger"></span>
+                <label asp-for="Town"></label>
+                <select asp-for="Town" asp-items="@Model.Towns" class="form-control"></select>
+                <span asp-validation-for="Town" class="text-danger"></span>
             </div>
             <div class="form-group col-md-6">
                 <label asp-for="Address"></label>

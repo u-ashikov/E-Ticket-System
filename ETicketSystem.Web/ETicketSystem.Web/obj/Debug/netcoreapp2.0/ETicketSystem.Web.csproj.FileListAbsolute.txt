@@ -1,6 +1,5 @@
 C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Web\obj\Debug\netcoreapp2.0\ETicketSystem.Web.csprojResolveAssemblyReference.cache
 C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Web\obj\Debug\netcoreapp2.0\ETicketSystem.Web.csproj.CoreCompileInputs.cache
-C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Web\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs
 C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Web\obj\Debug\netcoreapp2.0\ETicketSystem.Web.AssemblyInfoInputs.cache
 C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Web\obj\Debug\netcoreapp2.0\ETicketSystem.Web.AssemblyInfo.cs
 C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Web\bin\Debug\netcoreapp2.0\ETicketSystem.Web.deps.json
@@ -16,3 +15,4 @@ C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.
 C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Web\obj\Debug\netcoreapp2.0\ETicketSystem.Web.pdb
 C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Web\bin\Debug\netcoreapp2.0\ETicketSystem.Common.dll
 C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Web\bin\Debug\netcoreapp2.0\ETicketSystem.Common.pdb
+C:\Users\Ulian\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Web\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs

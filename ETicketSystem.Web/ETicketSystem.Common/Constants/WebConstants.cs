@@ -19,7 +19,7 @@
 
 		public class FieldDisplay
 		{
-			public const string ConfirmPassword = "Confirm Password";
+			public const string ConfirmPassword = "Confirm password";
 
 			public const string FirstName = "First name";
 
@@ -27,7 +27,7 @@
 
 			public const string RememberMe = "Remember me?";
 
-			public const string UniqueReferenceNumber = "Unique Reference Number";
+			public const string UniqueReferenceNumber = "Unique reference number";
 
 			public const string ChiefFirstName = "Chief first name";
 
@@ -60,6 +60,11 @@
 			public const string Towns = "../ETicketSystem.Data/SeedData/towns.csv";
 
 			public const string Stations = "../ETicketSystem.Data/SeedData/stations.csv";
+		}
+
+		public class DbConnection
+		{
+			public const string DefaultConnection = "DefaultConnection";
 		}
     }
 }

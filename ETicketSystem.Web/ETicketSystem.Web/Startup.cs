@@ -1,5 +1,7 @@
 ﻿namespace ETicketSystem.Web
 {
+	using AutoMapper;
+	using ETicketSystem.Common.Automapper;
 	using ETicketSystem.Common.Constants;
 	using ETicketSystem.Data;
 	using ETicketSystem.Data.Models;
@@ -25,7 +27,7 @@
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ETicketSystemDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString(WebConstants.DbConnection.DefaultConnection)));
 
 			services.Configure<IdentityOptions>(options =>
 			{
@@ -43,8 +45,11 @@
 
             services.AddTransient<IEmailSender, EmailSender>();
 			services.AddTransient<IUserService, UserService>();
+			services.AddTransient<ITownService, TownService>();
 
-            services.AddMvc();
+			services.AddAutoMapper(opt => opt.AddProfile(new AutoMapperProfile()));
+
+			services.AddMvc();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

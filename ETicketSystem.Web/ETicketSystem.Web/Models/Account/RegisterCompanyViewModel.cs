@@ -55,7 +55,7 @@
 		[StringLength(DataConstants.Company.AddressMaxLength,MinimumLength = DataConstants.Company.AddressMinLength)]
 		public string Address { get; set; }
 
-		public int TownId { get; set; }
+		public int Town { get; set; }
 
 		public List<SelectListItem> Towns { get; set; } = new List<SelectListItem>();
 	}
