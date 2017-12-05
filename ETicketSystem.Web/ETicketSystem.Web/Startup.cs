@@ -51,6 +51,8 @@
         {
 			app.UseDatabaseMigration();
 
+			app.Seed();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
