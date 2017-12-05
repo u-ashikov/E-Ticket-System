@@ -1,0 +1,21 @@
+﻿div.registrations-holder {
+    text-align: center;
+    margin-top: 30px;
+}
+
+img.user-register-icon:hover,
+img.company-register-icon:hover {
+    box-shadow: 0 0 5px 5px #808080;
+    border-radius: 130px;
+}
+
+div.registration-type > a {
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+    div.registration-type > a > div {
+        margin-top: 10px;
+        font-size: 1.2em;
+        font-weight: 700;
+    }

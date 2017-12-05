@@ -201,7 +201,11 @@
             return View();
         }
 
-        [HttpGet]
+		[HttpGet]
+		[AllowAnonymous]
+		public IActionResult RegistrationType() => View();
+
+		[HttpGet]
         [AllowAnonymous]
         public IActionResult Register(string returnUrl = null)
         {
