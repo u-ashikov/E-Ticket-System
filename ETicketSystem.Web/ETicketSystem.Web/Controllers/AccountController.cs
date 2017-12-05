@@ -277,7 +277,8 @@
 					Name = model.Name,
 					PhoneNumber = model.PhoneNumber,
 					TownId = model.Town,
-					UniqueReferenceNumber = model.UniqueReferenceNumber
+					UniqueReferenceNumber = model.UniqueReferenceNumber,
+					Logo = model.Logo.GetFormFileBytes()
 				};
 
 				var result = await _userManager.CreateAsync(company, model.Password);

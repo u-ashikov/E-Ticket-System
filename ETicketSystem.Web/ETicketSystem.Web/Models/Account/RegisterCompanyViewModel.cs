@@ -1,11 +1,12 @@
 ﻿namespace ETicketSystem.Web.Models.Account
 {
 	using ETicketSystem.Common.Constants;
+	using Microsoft.AspNetCore.Http;
 	using Microsoft.AspNetCore.Mvc.Rendering;
 	using System.Collections.Generic;
 	using System.ComponentModel.DataAnnotations;
 
-	public class RegisterCompanyViewModel
+	public class RegisterCompanyViewModel : IValidatableObject
     {
 		[Required]
 		[StringLength(DataConstants.User.UsernameMaxLength, ErrorMessage = WebConstants.Error.UsernameLength, MinimumLength = DataConstants.User.UsernameMinLength)]
@@ -29,8 +30,7 @@
 		[StringLength(DataConstants.Company.NameMaxLength, ErrorMessage = WebConstants.Error.CompanyNameLength,MinimumLength = DataConstants.Company.NameMinLength)]
 		public string Name { get; set; }
 
-		[MaxLength(DataConstants.Company.LogoMaxLength)]
-		public byte[] Logo { get; set; }
+		public IFormFile Logo { get; set; }
 
 		[Required]
 		[StringLength(DataConstants.Company.DescriptionMaxLength, ErrorMessage = WebConstants.Error.CompanyDescriptionLength, MinimumLength = DataConstants.Company.DescriptionMinLength)]
@@ -63,5 +63,23 @@
 		public string PhoneNumber { get; set; }
 
 		public List<SelectListItem> Towns { get; set; } = new List<SelectListItem>();
+
+		public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+		{
+			if (this.Logo != null)
+			{
+				if (this.Logo.Length > DataConstants.Company.LogoMaxLength)
+				{
+					yield return new ValidationResult(WebConstants.Error.LogoMaxLength);
+				}
+
+				if (!this.Logo.FileName.EndsWith(WebConstants.PictureFormat.Jpg)
+					&& !this.Logo.FileName.EndsWith(WebConstants.PictureFormat.Bmp)
+					&& !this.Logo.FileName.EndsWith(WebConstants.PictureFormat.Png))
+				{
+					yield return new ValidationResult(WebConstants.Error.LogoAvailableFormats);
+				}
+			}
+		}
 	}
 }

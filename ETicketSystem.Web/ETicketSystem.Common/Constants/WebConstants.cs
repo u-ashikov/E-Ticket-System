@@ -65,6 +65,10 @@
 
 			public const string CompanyDescriptionLength = "The {0} must be between {2} and {1} symbols long.";
 
+			public const string LogoMaxLength = "The company logo cannot be larger than 500 KB.";
+
+			public const string LogoAvailableFormats = "The company logo can be in the following formats: .jpg, .png or .bmp.";
+
 			public const string PhoneNumberFormat = "The {0} should start with '0' containing exactly 10 digits.";
 		}
 
@@ -78,6 +82,15 @@
 			public const string Towns = "../ETicketSystem.Data/SeedData/towns.csv";
 
 			public const string Stations = "../ETicketSystem.Data/SeedData/stations.csv";
+		}
+
+		public class PictureFormat
+		{
+			public const string Jpg = ".jpg";
+
+			public const string Png = ".png";
+
+			public const string Bmp = ".bmp";
 		}
 
 		public class DbConnection
