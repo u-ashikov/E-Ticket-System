@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
+using Microsoft.EntityFrameworkCore.ValueGeneration;
 using System;
 
 namespace ETicketSystem.Data.Migrations
@@ -21,81 +22,12 @@ namespace ETicketSystem.Data.Migrations
                 .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("ETicketSystem.Data.Models.Company", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasMaxLength(95);
-
-                    b.Property<string>("ChiefFirstName")
-                        .IsRequired()
-                        .HasMaxLength(20);
-
-                    b.Property<string>("ChiefLastName")
-                        .IsRequired()
-                        .HasMaxLength(20);
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(3000);
-
-                    b.Property<int>("DownVotes");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(5);
-
-                    b.Property<bool>("IsApproved");
-
-                    b.Property<bool>("IsBlocked");
-
-                    b.Property<byte[]>("Logo")
-                        .HasMaxLength(512000);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100);
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasMaxLength(10);
-
-                    b.Property<int>("TownId");
-
-                    b.Property<string>("UniqueReferenceNumber")
-                        .IsRequired()
-                        .HasMaxLength(13);
-
-                    b.Property<int>("UpVotes");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Email")
-                        .IsUnique();
-
-                    b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.HasIndex("Phone")
-                        .IsUnique();
-
-                    b.HasIndex("TownId");
-
-                    b.HasIndex("UniqueReferenceNumber")
-                        .IsUnique();
-
-                    b.ToTable("Companies");
-                });
-
             modelBuilder.Entity("ETicketSystem.Data.Models.Review", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("CompanyId");
+                    b.Property<string>("CompanyId");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -123,7 +55,7 @@ namespace ETicketSystem.Data.Migrations
 
                     b.Property<int>("BusType");
 
-                    b.Property<int>("CompanyId");
+                    b.Property<string>("CompanyId");
 
                     b.Property<TimeSpan>("DepartureTime");
 
@@ -210,20 +142,13 @@ namespace ETicketSystem.Data.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
+
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(35);
-
-                    b.Property<int>("Gender");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(35);
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -259,6 +184,8 @@ namespace ETicketSystem.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -371,20 +298,90 @@ namespace ETicketSystem.Data.Migrations
 
             modelBuilder.Entity("ETicketSystem.Data.Models.Company", b =>
                 {
-                    b.HasOne("ETicketSystem.Data.Models.Town", "Town")
-                        .WithMany("Companies")
-                        .HasForeignKey("TownId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasBaseType("ETicketSystem.Data.Models.User");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(95);
+
+                    b.Property<string>("ChiefFirstName")
+                        .IsRequired()
+                        .HasMaxLength(20);
+
+                    b.Property<string>("ChiefLastName")
+                        .IsRequired()
+                        .HasMaxLength(20);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(3000);
+
+                    b.Property<int>("DownVotes");
+
+                    b.Property<bool>("IsApproved");
+
+                    b.Property<bool>("IsBlocked");
+
+                    b.Property<byte[]>("Logo")
+                        .HasMaxLength(512000);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.Property<int>("TownId");
+
+                    b.Property<string>("UniqueReferenceNumber")
+                        .IsRequired()
+                        .HasMaxLength(13);
+
+                    b.Property<int>("UpVotes");
+
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasFilter("[Name] IS NOT NULL");
+
+                    b.HasIndex("PhoneNumber")
+                        .IsUnique()
+                        .HasFilter("[PhoneNumber] IS NOT NULL");
+
+                    b.HasIndex("TownId");
+
+                    b.HasIndex("UniqueReferenceNumber")
+                        .IsUnique()
+                        .HasFilter("[UniqueReferenceNumber] IS NOT NULL");
+
+                    b.ToTable("Company");
+
+                    b.HasDiscriminator().HasValue("Company");
+                });
+
+            modelBuilder.Entity("ETicketSystem.Data.Models.RegularUser", b =>
+                {
+                    b.HasBaseType("ETicketSystem.Data.Models.User");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(35);
+
+                    b.Property<int>("Gender");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(35);
+
+                    b.ToTable("RegularUser");
+
+                    b.HasDiscriminator().HasValue("RegularUser");
                 });
 
             modelBuilder.Entity("ETicketSystem.Data.Models.Review", b =>
                 {
                     b.HasOne("ETicketSystem.Data.Models.Company", "Company")
                         .WithMany("Reviews")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CompanyId");
 
-                    b.HasOne("ETicketSystem.Data.Models.User", "User")
+                    b.HasOne("ETicketSystem.Data.Models.RegularUser", "User")
                         .WithMany("Reviews")
                         .HasForeignKey("UserId");
                 });
@@ -393,8 +390,7 @@ namespace ETicketSystem.Data.Migrations
                 {
                     b.HasOne("ETicketSystem.Data.Models.Company", "Company")
                         .WithMany("Routes")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CompanyId");
 
                     b.HasOne("ETicketSystem.Data.Models.Station", "EndStation")
                         .WithMany("ArrivalRoutes")
@@ -422,7 +418,7 @@ namespace ETicketSystem.Data.Migrations
                         .HasForeignKey("RouteId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("ETicketSystem.Data.Models.User", "User")
+                    b.HasOne("ETicketSystem.Data.Models.RegularUser", "User")
                         .WithMany("Tickets")
                         .HasForeignKey("UserId");
                 });
@@ -469,6 +465,14 @@ namespace ETicketSystem.Data.Migrations
                     b.HasOne("ETicketSystem.Data.Models.User")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ETicketSystem.Data.Models.Company", b =>
+                {
+                    b.HasOne("ETicketSystem.Data.Models.Town", "Town")
+                        .WithMany("Companies")
+                        .HasForeignKey("TownId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

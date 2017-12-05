@@ -217,7 +217,7 @@
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new User
+                var user = new RegularUser
 				{
 					UserName = model.Username,
 					Email = model.Email,

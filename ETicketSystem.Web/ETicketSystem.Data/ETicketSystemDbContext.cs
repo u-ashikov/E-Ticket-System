@@ -6,11 +6,13 @@
 
 	public class ETicketSystemDbContext : IdentityDbContext<User>
     {
+		public DbSet<RegularUser> RegularUsers { get; set; }
+
+		public DbSet<Company> Companies { get; set; }
+
 		public DbSet<Town> Towns { get; set; }
 
 		public DbSet<Station> Stations { get; set; }
-
-		public DbSet<Company> Companies { get; set; }
 
 		public DbSet<Route> Routes { get; set; }
 
@@ -36,11 +38,10 @@
 				.HasForeignKey(c => c.TownId);
 
 			builder.Entity<Company>()
-				.HasIndex(c => c.UniqueReferenceNumber)
-				.IsUnique();
+				.HasBaseType<User>();
 
 			builder.Entity<Company>()
-				.HasIndex(c => c.Email)
+				.HasIndex(c => c.UniqueReferenceNumber)
 				.IsUnique();
 
 			builder.Entity<Company>()
@@ -48,7 +49,7 @@
 				.IsUnique();
 
 			builder.Entity<Company>()
-				.HasIndex(c => c.Phone)
+				.HasIndex(c => c.PhoneNumber)
 				.IsUnique();
 
 			builder.Entity<Company>()
@@ -87,6 +88,9 @@
 				.HasOne(t => t.Route)
 				.WithMany(r => r.Tickets)
 				.HasForeignKey(t => t.RouteId);
+
+			builder.Entity<RegularUser>()
+				.HasBaseType<User>();
 
             base.OnModelCreating(builder);
         }

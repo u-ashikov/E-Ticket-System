@@ -1,7 +1,7 @@
 ﻿body {
     background-image: url('../images/register.jpg');
     background-repeat: no-repeat;
-    background-size:cover;
+    background-size: cover;
 }
 
 form.register-form {
@@ -13,12 +13,12 @@ form.register-form {
 }
 
 button.register {
-    margin-top:10px;
-    width:50%;
-    border-radius:20px;
-    background:none;
-    border:1px solid black;
-    padding:5px 10px;
-    outline:0 none;
-    color:black;
+    margin-top: 10px;
+    width: 50%;
+    border-radius: 20px;
+    background: none;
+    border: 1px solid black;
+    padding: 5px 10px;
+    outline: 0 none;
+    color: black;
 }

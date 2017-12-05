@@ -30,7 +30,7 @@
 		[Range(DataConstants.Route.PriceMinValue,double.MaxValue)]
 		public decimal Price { get; set; }
 
-		public int CompanyId { get; set; }
+		public string CompanyId { get; set; }
 
 		public Company Company { get; set; }
 

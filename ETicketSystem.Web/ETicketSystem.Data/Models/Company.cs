@@ -4,10 +4,8 @@
 	using System.Collections.Generic;
 	using System.ComponentModel.DataAnnotations;
 
-	public class Company
+	public class Company : User
 	{
-		public int Id { get; set; }
-
 		[Required]
 		[MinLength(DataConstants.Company.NameMinLength)]
 		[MaxLength(DataConstants.Company.NameMaxLength)]
@@ -35,16 +33,6 @@
 		public string ChiefLastName { get; set; }
 
 		[Required]
-		[MinLength(DataConstants.Company.EmailMinLength)]
-		[MaxLength(DataConstants.Company.EmailMinLength)]
-		public string Email { get; set; }
-
-		[Required]
-		[MinLength(DataConstants.Company.PhoneLength)]
-		[MaxLength(DataConstants.Company.PhoneLength)]
-		public string Phone { get; set; }
-
-		[Required]
 		[MinLength(DataConstants.Company.AddressMinLength)]
 		[MaxLength(DataConstants.Company.AddressMaxLength)]
 		public string Address { get; set; }
@@ -62,7 +50,5 @@
 		public bool IsBlocked { get; set; }
 
 		public List<Route> Routes { get; set; } = new List<Route>();
-
-		public List<Review> Reviews { get; set; } = new List<Review>();
 	}
 }

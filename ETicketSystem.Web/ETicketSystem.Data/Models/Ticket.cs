@@ -17,7 +17,7 @@
 
 		public string UserId { get; set; }
 
-		public User User { get; set; }
+		public RegularUser User { get; set; }
 
 		public DateTime DepartureTime { get; set; }
 

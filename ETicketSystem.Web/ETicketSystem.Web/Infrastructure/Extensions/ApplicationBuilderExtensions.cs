@@ -37,7 +37,7 @@
 
 					if (adminUser == null)
 					{
-						adminUser = new User()
+						adminUser = new RegularUser()
 						{
 							Email = WebConstants.Admin.Email,
 							FirstName = WebConstants.Admin.FirstName,

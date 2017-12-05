@@ -15,9 +15,9 @@
 
 		public string UserId { get; set; }
 
-		public User User { get; set; }
+		public RegularUser User { get; set; }
 
-		public int CompanyId { get; set; }
+		public string CompanyId { get; set; }
 
 		public Company Company { get; set; }
 

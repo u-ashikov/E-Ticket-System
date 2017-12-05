@@ -1,11 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
-using System;
-using System.Collections.Generic;
-
-namespace ETicketSystem.Data.Migrations
+﻿namespace ETicketSystem.Data.Migrations
 {
-    public partial class InitialMigration : Migration
+	using Microsoft.EntityFrameworkCore.Metadata;
+	using Microsoft.EntityFrameworkCore.Migrations;
+	using System;
+
+	public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -21,34 +20,6 @@ namespace ETicketSystem.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetRoles", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AspNetUsers",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false),
-                    ConcurrencyStamp = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(nullable: false),
-                    FirstName = table.Column<string>(maxLength: 35, nullable: false),
-                    Gender = table.Column<int>(nullable: false),
-                    LastName = table.Column<string>(maxLength: 35, nullable: false),
-                    LockoutEnabled = table.Column<bool>(nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
-                    NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
-                    PasswordHash = table.Column<string>(nullable: true),
-                    PhoneNumber = table.Column<string>(nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
-                    SecurityStamp = table.Column<string>(nullable: true),
-                    TwoFactorEnabled = table.Column<bool>(nullable: false),
-                    UserName = table.Column<string>(maxLength: 256, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -81,6 +52,73 @@ namespace ETicketSystem.Data.Migrations
                         name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUsers",
+                columns: table => new
+                {
+                    Address = table.Column<string>(maxLength: 95, nullable: true),
+                    ChiefFirstName = table.Column<string>(maxLength: 20, nullable: true),
+                    ChiefLastName = table.Column<string>(maxLength: 20, nullable: true),
+                    Description = table.Column<string>(maxLength: 3000, nullable: true),
+                    DownVotes = table.Column<int>(nullable: true),
+                    IsApproved = table.Column<bool>(nullable: true),
+                    IsBlocked = table.Column<bool>(nullable: true),
+                    Logo = table.Column<byte[]>(maxLength: 512000, nullable: true),
+                    Name = table.Column<string>(maxLength: 100, nullable: true),
+                    TownId = table.Column<int>(nullable: true),
+                    UniqueReferenceNumber = table.Column<string>(maxLength: 13, nullable: true),
+                    UpVotes = table.Column<int>(nullable: true),
+                    FirstName = table.Column<string>(maxLength: 35, nullable: true),
+                    Gender = table.Column<int>(nullable: true),
+                    LastName = table.Column<string>(maxLength: 35, nullable: true),
+                    Id = table.Column<string>(nullable: false),
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    ConcurrencyStamp = table.Column<string>(nullable: true),
+                    Discriminator = table.Column<string>(nullable: false),
+                    Email = table.Column<string>(maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(nullable: false),
+                    LockoutEnabled = table.Column<bool>(nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
+                    NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
+                    PasswordHash = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
+                    SecurityStamp = table.Column<string>(nullable: true),
+                    TwoFactorEnabled = table.Column<bool>(nullable: false),
+                    UserName = table.Column<string>(maxLength: 256, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_Towns_TownId",
+                        column: x => x.TownId,
+                        principalTable: "Towns",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Stations",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(maxLength: 50, nullable: false),
+                    TownId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Stations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Stations_Towns_TownId",
+                        column: x => x.TownId,
+                        principalTable: "Towns",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -171,64 +209,12 @@ namespace ETicketSystem.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Companies",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Address = table.Column<string>(maxLength: 95, nullable: false),
-                    ChiefFirstName = table.Column<string>(maxLength: 20, nullable: false),
-                    ChiefLastName = table.Column<string>(maxLength: 20, nullable: false),
-                    Description = table.Column<string>(maxLength: 3000, nullable: false),
-                    DownVotes = table.Column<int>(nullable: false),
-                    Email = table.Column<string>(maxLength: 5, nullable: false),
-                    IsApproved = table.Column<bool>(nullable: false),
-                    IsBlocked = table.Column<bool>(nullable: false),
-                    Logo = table.Column<byte[]>(maxLength: 512000, nullable: true),
-                    Name = table.Column<string>(maxLength: 100, nullable: false),
-                    Phone = table.Column<string>(maxLength: 10, nullable: false),
-                    TownId = table.Column<int>(nullable: false),
-                    UniqueReferenceNumber = table.Column<string>(maxLength: 13, nullable: false),
-                    UpVotes = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Companies", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Companies_Towns_TownId",
-                        column: x => x.TownId,
-                        principalTable: "Towns",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Stations",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(maxLength: 50, nullable: false),
-                    TownId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Stations", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Stations_Towns_TownId",
-                        column: x => x.TownId,
-                        principalTable: "Towns",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Reviews",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CompanyId = table.Column<int>(nullable: false),
+                    CompanyId = table.Column<string>(nullable: true),
                     Description = table.Column<string>(maxLength: 150, nullable: false),
                     PublishDate = table.Column<DateTime>(nullable: false),
                     UserId = table.Column<string>(nullable: true)
@@ -237,11 +223,11 @@ namespace ETicketSystem.Data.Migrations
                 {
                     table.PrimaryKey("PK_Reviews", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Reviews_Companies_CompanyId",
+                        name: "FK_Reviews_AspNetUsers_CompanyId",
                         column: x => x.CompanyId,
-                        principalTable: "Companies",
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Reviews_AspNetUsers_UserId",
                         column: x => x.UserId,
@@ -258,7 +244,7 @@ namespace ETicketSystem.Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ArrivalTime = table.Column<TimeSpan>(nullable: false),
                     BusType = table.Column<int>(nullable: false),
-                    CompanyId = table.Column<int>(nullable: false),
+                    CompanyId = table.Column<string>(nullable: true),
                     DepartureTime = table.Column<TimeSpan>(nullable: false),
                     EndStationId = table.Column<int>(nullable: false),
                     Price = table.Column<decimal>(nullable: false),
@@ -268,11 +254,11 @@ namespace ETicketSystem.Data.Migrations
                 {
                     table.PrimaryKey("PK_Routes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Routes_Companies_CompanyId",
+                        name: "FK_Routes_AspNetUsers_CompanyId",
                         column: x => x.CompanyId,
-                        principalTable: "Companies",
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Routes_Stations_EndStationId",
                         column: x => x.EndStationId,
@@ -344,6 +330,32 @@ namespace ETicketSystem.Data.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_Name",
+                table: "AspNetUsers",
+                column: "Name",
+                unique: true,
+                filter: "[Name] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_PhoneNumber",
+                table: "AspNetUsers",
+                column: "PhoneNumber",
+                unique: true,
+                filter: "[PhoneNumber] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_TownId",
+                table: "AspNetUsers",
+                column: "TownId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_UniqueReferenceNumber",
+                table: "AspNetUsers",
+                column: "UniqueReferenceNumber",
+                unique: true,
+                filter: "[UniqueReferenceNumber] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
                 name: "EmailIndex",
                 table: "AspNetUsers",
                 column: "NormalizedEmail");
@@ -354,35 +366,6 @@ namespace ETicketSystem.Data.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Companies_Email",
-                table: "Companies",
-                column: "Email",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Companies_Name",
-                table: "Companies",
-                column: "Name",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Companies_Phone",
-                table: "Companies",
-                column: "Phone",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Companies_TownId",
-                table: "Companies",
-                column: "TownId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Companies_UniqueReferenceNumber",
-                table: "Companies",
-                column: "UniqueReferenceNumber",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reviews_CompanyId",
@@ -456,9 +439,6 @@ namespace ETicketSystem.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "Companies");
 
             migrationBuilder.DropTable(
                 name: "Stations");
