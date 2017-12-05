@@ -26,6 +26,12 @@
 			public const string LastName = "Last name";
 
 			public const string RememberMe = "Remember me?";
+
+			public const string UniqueReferenceNumber = "Unique Reference Number";
+
+			public const string ChiefFirstName = "Chief first name";
+
+			public const string ChiefLastName = "Chief last name";
 		}
 
 		public class RegexPattern

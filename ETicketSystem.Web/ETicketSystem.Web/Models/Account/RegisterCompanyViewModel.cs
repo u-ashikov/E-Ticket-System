@@ -38,14 +38,17 @@
 
 		[Required]
 		[StringLength(DataConstants.Company.UniqueReferenceNumberMaxLength,MinimumLength = DataConstants.Company.UniqueReferenceNumberMinLength)]
+		[Display(Name = WebConstants.FieldDisplay.UniqueReferenceNumber)]
 		public string UniqueReferenceNumber { get; set; }
 
 		[Required]
 		[MaxLength(DataConstants.Company.ChiefNameMaxLength)]
+		[Display(Name = WebConstants.FieldDisplay.ChiefFirstName)]
 		public string ChiefFirstName { get; set; }
 
 		[Required]
 		[MaxLength(DataConstants.Company.ChiefNameMaxLength)]
+		[Display(Name = WebConstants.FieldDisplay.ChiefLastName)]
 		public string ChiefLastName { get; set; }
 
 		[Required]

@@ -2,6 +2,7 @@
     background-image: url('../images/register.jpg');
     background-repeat: no-repeat;
     background-size: cover;
+    overflow-x:hidden;
 }
 
 form.register-form {
