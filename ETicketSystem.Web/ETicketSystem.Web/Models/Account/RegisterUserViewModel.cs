@@ -16,12 +16,12 @@
 
 		[Required]
 		[Display(Name = WebConstants.FieldDisplay.FirstName)]
-		[MaxLength(DataConstants.User.NameMaxLength)]
+		[MaxLength(DataConstants.User.NameMaxLength, ErrorMessage = WebConstants.Error.RegularUserNameMaxLength)]
 		public string FirstName { get; set; }
 
 		[Required]
 		[Display(Name = WebConstants.FieldDisplay.LastName)]
-		[MaxLength(DataConstants.User.NameMaxLength)]
+		[MaxLength(DataConstants.User.NameMaxLength, ErrorMessage = WebConstants.Error.RegularUserNameMaxLength)]
 		public string LastName { get; set; }
 
         [Required]

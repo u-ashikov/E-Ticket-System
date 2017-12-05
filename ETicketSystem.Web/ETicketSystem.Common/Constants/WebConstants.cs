@@ -70,6 +70,8 @@
 			public const string LogoAvailableFormats = "The company logo can be in the following formats: .jpg, .png or .bmp.";
 
 			public const string PhoneNumberFormat = "The {0} should start with '0' containing exactly 10 digits.";
+
+			public const string RegularUserNameMaxLength = "The {0} must be at max {1} symbols long.";
 		}
 
 		public class Area
