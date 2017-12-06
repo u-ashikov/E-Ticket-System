@@ -27,18 +27,20 @@
 
 				Task.Run(async () =>
 				{
-					var adminRole = Role.Administrator.ToString();
-
-					var roleExists = await roleManager.RoleExistsAsync(adminRole);
-
-					if (!roleExists)
+					foreach (var roleName in Enum.GetNames(typeof(Role)))
 					{
-						await roleManager.CreateAsync(new IdentityRole()
+						var roleExists = await roleManager.RoleExistsAsync(roleName);
+
+						if (!roleExists)
 						{
-							Name = adminRole
-						});
+							await roleManager.CreateAsync(new IdentityRole()
+							{
+								Name = roleName
+							});
+						}
 					}
 
+					var adminRole = Role.Administrator.ToString();
 					var adminUser = await userManager.FindByEmailAsync(AdminConstants.Email);
 
 					if (adminUser == null)

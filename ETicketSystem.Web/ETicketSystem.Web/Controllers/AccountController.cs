@@ -1,6 +1,7 @@
 ﻿namespace ETicketSystem.Web.Controllers
 {
 	using ETicketSystem.Common.Constants;
+	using ETicketSystem.Common.Enums;
 	using ETicketSystem.Data.Models;
 	using ETicketSystem.Services.Contracts;
 	using ETicketSystem.Web.Infrastructure.Extensions;
@@ -290,6 +291,8 @@
 
 				if (result.Succeeded)
 				{
+					await this._userManager.AddToRoleAsync(company, Role.Company.ToString());
+
 					_logger.LogInformation("Company created a new account with password.");
 
 					var code = await _userManager.GenerateEmailConfirmationTokenAsync(company);
