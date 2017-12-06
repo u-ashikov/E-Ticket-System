@@ -1,6 +1,7 @@
 ﻿namespace ETicketSystem.Web.Infrastructure.Extensions
 {
 	using ETicketSystem.Common.Constants;
+	using ETicketSystem.Common.Enums;
 	using ETicketSystem.Data;
 	using ETicketSystem.Data.Enums;
 	using ETicketSystem.Data.Models;
@@ -26,13 +27,15 @@
 
 				Task.Run(async () =>
 				{
-					var roleExists = await roleManager.RoleExistsAsync(WebConstants.Admin.Role);
+					var adminRole = Role.Administrator.ToString();
+
+					var roleExists = await roleManager.RoleExistsAsync(adminRole);
 
 					if (!roleExists)
 					{
 						await roleManager.CreateAsync(new IdentityRole()
 						{
-							Name = WebConstants.Admin.Role
+							Name = adminRole
 						});
 					}
 
@@ -51,7 +54,7 @@
 
 						await userManager.CreateAsync(adminUser, WebConstants.Admin.Password);
 
-						await userManager.AddToRoleAsync(adminUser, WebConstants.Admin.Role);
+						await userManager.AddToRoleAsync(adminUser, adminRole);
 					}
 				})
 				.GetAwaiter()

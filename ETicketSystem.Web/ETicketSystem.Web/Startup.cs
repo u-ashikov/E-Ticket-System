@@ -47,6 +47,7 @@
 			services.AddTransient<IUserService, UserService>();
 			services.AddTransient<ITownService, TownService>();
 			services.AddTransient<ICompanyService, CompanyService>();
+			services.AddTransient<IAdminCompanyService, AdminCompanyService>();
 
 			services.AddAutoMapper(opt => opt.AddProfile(new AutoMapperProfile()));
 

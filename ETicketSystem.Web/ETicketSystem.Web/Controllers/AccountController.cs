@@ -230,7 +230,8 @@
 					Email = model.Email,
 					FirstName = model.FirstName,
 					LastName = model.LastName,
-					Gender = model.Gender
+					Gender = model.Gender,
+					RegistrationDate = DateTime.UtcNow
 				};
 
                 var result = await _userManager.CreateAsync(user, model.Password);
@@ -281,21 +282,22 @@
 					PhoneNumber = model.PhoneNumber,
 					TownId = model.Town,
 					UniqueReferenceNumber = model.UniqueReferenceNumber,
-					Logo = model.Logo.GetFormFileBytes()
+					Logo = model.Logo.GetFormFileBytes(),
+					RegistrationDate = DateTime.UtcNow
 				};
 
 				var result = await _userManager.CreateAsync(company, model.Password);
 
 				if (result.Succeeded)
 				{
-					_logger.LogInformation("User created a new account with password.");
+					_logger.LogInformation("Company created a new account with password.");
 
 					var code = await _userManager.GenerateEmailConfirmationTokenAsync(company);
 					var callbackUrl = Url.EmailConfirmationLink(company.Id, code, Request.Scheme);
 					await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
 
 					await _signInManager.SignInAsync(company, isPersistent: false);
-					_logger.LogInformation("User created a new account with password.");
+					_logger.LogInformation("Company created a new account with password.");
 					return RedirectToLocal(returnUrl);
 				}
 
