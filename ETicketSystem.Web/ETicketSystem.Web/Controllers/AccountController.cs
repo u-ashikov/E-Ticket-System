@@ -3,7 +3,6 @@
 	using ETicketSystem.Common.Constants;
 	using ETicketSystem.Data.Models;
 	using ETicketSystem.Services.Contracts;
-	using ETicketSystem.Services.Models.Town;
 	using ETicketSystem.Web.Infrastructure.Extensions;
 	using ETicketSystem.Web.Models.Account;
 	using Microsoft.AspNetCore.Authentication;
@@ -60,7 +59,7 @@
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
+        public async Task<IActionResult> Login(LoginFormModel model, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
@@ -220,7 +219,7 @@
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> RegisterUser(RegisterUserViewModel model, string returnUrl = null)
+        public async Task<IActionResult> RegisterUser(RegisterUserFormModel model, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
@@ -257,7 +256,7 @@
 		[HttpGet]
 		[AllowAnonymous]
 		public IActionResult RegisterCompany() => 
-			View(new RegisterCompanyViewModel()
+			View(new RegisterCompanyFormModel()
 			{
 				Towns = this.GenerateTownsSelectListItems()
 			});
@@ -265,7 +264,7 @@
 		[HttpPost]
 		[AllowAnonymous]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> RegisterCompany(RegisterCompanyViewModel model, string returnUrl = null)
+		public async Task<IActionResult> RegisterCompany(RegisterCompanyFormModel model, string returnUrl = null)
 		{
 			ViewData["ReturnUrl"] = returnUrl;
 			if (ModelState.IsValid)

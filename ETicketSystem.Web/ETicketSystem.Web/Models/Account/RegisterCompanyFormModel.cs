@@ -7,7 +7,7 @@
 	using System.Collections.Generic;
 	using System.ComponentModel.DataAnnotations;
 
-	public class RegisterCompanyViewModel : IValidatableObject
+	public class RegisterCompanyFormModel : IValidatableObject
     {
 		[Required]
 		[StringLength(DataConstants.User.UsernameMaxLength, ErrorMessage = WebConstants.Error.UsernameLength, MinimumLength = DataConstants.User.UsernameMinLength)]

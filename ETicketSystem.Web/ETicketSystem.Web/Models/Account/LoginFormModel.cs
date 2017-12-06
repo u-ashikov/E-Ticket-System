@@ -3,7 +3,7 @@
 	using ETicketSystem.Common.Constants;
 	using System.ComponentModel.DataAnnotations;
 
-	public class LoginViewModel
+	public class LoginFormModel
     {
         [Required]
         public string Username { get; set; }
