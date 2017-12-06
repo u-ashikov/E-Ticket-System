@@ -4,9 +4,9 @@
 	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Mvc;
 
-	[Route("Admin")]
+	[Route(WebConstants.Route.Admin)]
 	[Area(WebConstants.Area.Admin)]
-	[Authorize(Roles = WebConstants.Admin.Role)]
+	[Authorize(Roles = AdminConstants.Role)]
 	public abstract class AdminController : Controller
     {
     }

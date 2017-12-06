@@ -1,5 +1,6 @@
 ﻿namespace ETicketSystem.Web.Areas.Admin.Controllers
 {
+	using ETicketSystem.Common.Constants;
 	using ETicketSystem.Services.Contracts;
 	using Microsoft.AspNetCore.Mvc;
 
@@ -12,7 +13,7 @@
 			this.companies = companies;
 		}
 
-		[Route("Companies/All")]
+		[Route(WebConstants.Route.AllCompanies)]
 		public IActionResult All() => View(this.companies.All());
     }
 }

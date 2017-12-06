@@ -2,21 +2,6 @@
 {
 	public class WebConstants
     {
-		public class Admin
-		{
-			public const string Role = "Administrator";
-
-			public const string Username = "admin";
-
-			public const string Email = "admin@eticket.com";
-
-			public const string Password = "admin12";
-
-			public const string FirstName = "Gergan";
-
-			public const string LastName = "Gerganov";
-		}
-
 		public class FieldDisplay
 		{
 			public const string ConfirmPassword = "Confirm password";
@@ -83,6 +68,13 @@
 		public class Area
 		{
 			public const string Admin = "Admin";
+		}
+
+		public class Route
+		{
+			public const string Admin = "Admin";
+
+			public const string AllCompanies = "Companies/All";
 		}
 
 		public class Action

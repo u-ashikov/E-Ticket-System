@@ -39,20 +39,20 @@
 						});
 					}
 
-					var adminUser = await userManager.FindByEmailAsync(WebConstants.Admin.Email);
+					var adminUser = await userManager.FindByEmailAsync(AdminConstants.Email);
 
 					if (adminUser == null)
 					{
 						adminUser = new RegularUser()
 						{
-							Email = WebConstants.Admin.Email,
-							FirstName = WebConstants.Admin.FirstName,
-							LastName = WebConstants.Admin.LastName,
+							Email = AdminConstants.Email,
+							FirstName = AdminConstants.FirstName,
+							LastName = AdminConstants.LastName,
 							Gender = Gender.Male,
-							UserName = WebConstants.Admin.Username
+							UserName = AdminConstants.Username
 						};
 
-						await userManager.CreateAsync(adminUser, WebConstants.Admin.Password);
+						await userManager.CreateAsync(adminUser, AdminConstants.Password);
 
 						await userManager.AddToRoleAsync(adminUser, adminRole);
 					}
