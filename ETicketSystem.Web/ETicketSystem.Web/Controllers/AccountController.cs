@@ -1,5 +1,6 @@
 ﻿namespace ETicketSystem.Web.Controllers
 {
+	using ETicketSystem.Common.Constants;
 	using ETicketSystem.Data.Models;
 	using ETicketSystem.Services.Contracts;
 	using ETicketSystem.Services.Models.Town;
@@ -25,19 +26,22 @@
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
 		private readonly ITownService towns;
+		private readonly ICompanyService companies;
 
         public AccountController(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
             IEmailSender emailSender,
             ILogger<AccountController> logger,
-			ITownService towns)
+			ITownService towns,
+			ICompanyService companies)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
 			this.towns = towns;
+			this.companies = companies;
         }
 
         [TempData]
@@ -498,6 +502,39 @@
         {
             return View();
         }
+
+		[AllowAnonymous]
+		public IActionResult VerifyCompanyName(string name)
+		{
+			if (this.companies.IsCompanyNameRegistered(name))
+			{
+				return Json(data: WebConstants.Error.CompanyNameAlreadyTaken);
+			}
+
+			return Json(true);
+		}
+
+		[AllowAnonymous]
+		public IActionResult VerifyUrn(string uniqueReferenceNumber)
+		{
+			if (this.companies.IsUniqueReferenceNumberRegistered(uniqueReferenceNumber))
+			{
+				return Json(data: WebConstants.Error.CompanyUrnAlreadyTaken);
+			}
+
+			return Json(true);
+		}
+
+		[AllowAnonymous]
+		public IActionResult VerifyPhoneNumber(string phoneNumber)
+		{
+			if (this.companies.IsCompanyPhoneNumberRegistered(phoneNumber))
+			{
+				return Json(data: WebConstants.Error.CompanyPhoneAlreadyTaken);
+			}
+
+			return Json(true);
+		}
 
 		private List<SelectListItem> GenerateTownsSelectListItems()
 		{

@@ -72,11 +72,31 @@
 			public const string PhoneNumberFormat = "The {0} should start with '0' containing exactly 10 digits.";
 
 			public const string RegularUserNameMaxLength = "The {0} must be at max {1} symbols long.";
+
+			public const string CompanyNameAlreadyTaken = "Company with that name is already registered.";
+
+			public const string CompanyUrnAlreadyTaken = "Company with that URN already exists.";
+
+			public const string CompanyPhoneAlreadyTaken = "That phone number is already in use.";
 		}
 
 		public class Area
 		{
 			public const string Admin = "Admin";
+		}
+
+		public class Action
+		{
+			public const string VerifyCompanyName = "VerifyCompanyName";
+
+			public const string VerifyUrn = "VerifyUrn";
+
+			public const string VerifyPhoneNumber = "VerifyPhoneNumber";
+		}
+
+		public class Controller
+		{
+			public const string Account = "Account";
 		}
 
 		public class FilePath

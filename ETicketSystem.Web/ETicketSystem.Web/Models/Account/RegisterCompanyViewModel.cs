@@ -2,6 +2,7 @@
 {
 	using ETicketSystem.Common.Constants;
 	using Microsoft.AspNetCore.Http;
+	using Microsoft.AspNetCore.Mvc;
 	using Microsoft.AspNetCore.Mvc.Rendering;
 	using System.Collections.Generic;
 	using System.ComponentModel.DataAnnotations;
@@ -27,6 +28,7 @@
 		public string ConfirmPassword { get; set; }
 
 		[Required]
+		[Remote(action:WebConstants.Action.VerifyCompanyName,controller: WebConstants.Controller.Account)]
 		[StringLength(DataConstants.Company.NameMaxLength, ErrorMessage = WebConstants.Error.CompanyNameLength,MinimumLength = DataConstants.Company.NameMinLength)]
 		public string Name { get; set; }
 
@@ -38,6 +40,7 @@
 
 		[Required]
 		[RegularExpression(WebConstants.RegexPattern.CompanyUniqueReferenceNumber, ErrorMessage = WebConstants.Error.UniqueReferenceNumberFormat)]
+		[Remote(action: WebConstants.Action.VerifyUrn,controller:WebConstants.Controller.Account)]
 		[Display(Name = WebConstants.FieldDisplay.UniqueReferenceNumber)]
 		public string UniqueReferenceNumber { get; set; }
 
@@ -59,6 +62,7 @@
 
 		[Required]
 		[RegularExpression(WebConstants.RegexPattern.Phone, ErrorMessage =  WebConstants.Error.PhoneNumberFormat)]
+		[Remote(action:WebConstants.Action.VerifyPhoneNumber,controller:WebConstants.Controller.Account)]
 		[Display(Name = WebConstants.FieldDisplay.PhoneNumber)]
 		public string PhoneNumber { get; set; }
 

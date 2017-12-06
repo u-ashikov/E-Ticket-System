@@ -46,6 +46,7 @@
             services.AddTransient<IEmailSender, EmailSender>();
 			services.AddTransient<IUserService, UserService>();
 			services.AddTransient<ITownService, TownService>();
+			services.AddTransient<ICompanyService, CompanyService>();
 
 			services.AddAutoMapper(opt => opt.AddProfile(new AutoMapperProfile()));
 
@@ -56,7 +57,7 @@
         {
 			app.UseDatabaseMigration();
 
-			app.Seed();
+			//app.Seed();
 
             if (env.IsDevelopment())
             {
