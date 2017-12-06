@@ -74,6 +74,8 @@
 		public class Area
 		{
 			public const string Admin = "Admin";
+
+			public const string Company = "Company";
 		}
 
 		public class Route
@@ -125,6 +127,11 @@
 			public const string Message = "Message";
 
 			public const string AlertType = "AlertType";
+		}
+
+		public class Role
+		{
+			public const string CompanyRole = "Company";
 		}
     }
 }

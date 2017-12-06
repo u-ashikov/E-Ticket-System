@@ -37,6 +37,12 @@
                             <a asp-area="Admin" asp-controller="AdminCompanies" asp-action="All">Companies</a>
                         </li>
                     }
+                    @if (User.IsInRole(Role.Company.ToString()))
+                    {
+                        <li>
+                            <a asp-area="Company" asp-controller="Companies" asp-action="Routes">Routes</a>
+                        </li>
+                    }
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                 </ul>

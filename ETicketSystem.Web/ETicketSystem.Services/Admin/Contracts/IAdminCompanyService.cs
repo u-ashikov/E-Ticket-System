@@ -1,11 +1,11 @@
-﻿namespace ETicketSystem.Services.Contracts
+﻿namespace ETicketSystem.Services.Admin.Contracts
 {
-	using ETicketSystem.Services.Models.Company;
+	using ETicketSystem.Services.Admin.Models;
 	using System.Collections.Generic;
 
 	public interface IAdminCompanyService
     {
-		IEnumerable<CompanyListingServiceModel> All();
+		IEnumerable<AdminCompanyListingServiceModel> All();
 
 		bool CompanyExists(string id);
 

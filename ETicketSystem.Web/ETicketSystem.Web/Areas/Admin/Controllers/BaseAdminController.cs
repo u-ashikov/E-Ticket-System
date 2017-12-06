@@ -8,7 +8,7 @@
 	[Route(WebConstants.Route.Admin)]
 	[Area(WebConstants.Area.Admin)]
 	[Authorize(Roles = AdminConstants.Role)]
-	public abstract class AdminController : BaseController
+	public abstract class BaseAdminController : BaseController
     {
     }
 }

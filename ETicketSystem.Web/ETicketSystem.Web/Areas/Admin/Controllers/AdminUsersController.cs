@@ -2,7 +2,7 @@
 {
 	using ETicketSystem.Services.Contracts;
 
-	public class AdminUsersController : AdminController
+	public class AdminUsersController : BaseAdminController
     {
 		public IUserService users;
 

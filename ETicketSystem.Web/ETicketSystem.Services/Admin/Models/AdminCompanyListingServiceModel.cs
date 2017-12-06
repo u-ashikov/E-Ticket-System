@@ -1,10 +1,10 @@
-﻿namespace ETicketSystem.Services.Models.Company
+﻿namespace ETicketSystem.Services.Admin.Models
 {
 	using AutoMapper;
 	using Data.Models;
 	using ETicketSystem.Common.Automapper;
 
-	public class CompanyListingServiceModel : IMapFrom<Company>, IHaveCustomMapping
+	public class AdminCompanyListingServiceModel : IMapFrom<Company>, IHaveCustomMapping
     {
 		public string Id { get; set; }
 
@@ -24,7 +24,7 @@
 
 		public void ConfigureMapping(Profile mapper)
 		{
-			mapper.CreateMap<Company, CompanyListingServiceModel>()
+			mapper.CreateMap<Company, AdminCompanyListingServiceModel>()
 				.ForMember(dest => dest.Address, cfg => cfg.MapFrom(src => $"{src.Town.Name}, {src.Address}"))
 				.ForMember(dest => dest.Chief, cfg => cfg.MapFrom(src => $"{src.ChiefFirstName} {src.ChiefLastName}"));
 		}

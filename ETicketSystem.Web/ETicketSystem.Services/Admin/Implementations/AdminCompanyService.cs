@@ -1,9 +1,9 @@
-﻿namespace ETicketSystem.Services.Implementations
+﻿namespace ETicketSystem.Services.Admin.Implementations
 {
 	using AutoMapper.QueryableExtensions;
+	using Contracts;
 	using ETicketSystem.Data;
-	using ETicketSystem.Services.Contracts;
-	using ETicketSystem.Services.Models.Company;
+	using Models;
 	using System.Collections.Generic;
 	using System.Linq;
 
@@ -16,10 +16,10 @@
 			this.db = db;
 		}
 
-		public IEnumerable<CompanyListingServiceModel> All() =>
+		public IEnumerable<AdminCompanyListingServiceModel> All() =>
 			this.db.Companies
 				.OrderBy(c => c.RegistrationDate)
-				.ProjectTo<CompanyListingServiceModel>()
+				.ProjectTo<AdminCompanyListingServiceModel>()
 				.ToList();
 
 		public bool CompanyExists(string id) => this.db.Companies.Any(c => c.Id == id);

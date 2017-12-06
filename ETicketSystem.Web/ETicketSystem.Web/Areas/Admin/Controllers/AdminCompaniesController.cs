@@ -5,7 +5,7 @@
 	using ETicketSystem.Services.Contracts;
 	using Microsoft.AspNetCore.Mvc;
 
-	public class AdminCompaniesController : AdminController
+	public class AdminCompaniesController : BaseAdminController
     {
 		private readonly IAdminCompanyService companies;
 
