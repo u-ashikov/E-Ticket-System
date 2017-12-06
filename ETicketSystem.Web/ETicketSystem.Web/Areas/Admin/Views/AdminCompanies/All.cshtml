@@ -41,7 +41,7 @@ else
                         }
                         else
                         {
-                            <a class="btn btn-primary" asp-action="Approve" asp-controller="AdminCompanies">Approve</a>
+                            <a class="btn btn-primary" asp-action="Approve" asp-controller="AdminCompanies" asp-route-companyId="@company.Id">Approve</a>
                         }
                     </td>
                 </tr>

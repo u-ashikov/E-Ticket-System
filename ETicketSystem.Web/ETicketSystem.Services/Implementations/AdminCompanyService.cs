@@ -21,5 +21,32 @@
 				.OrderBy(c => c.RegistrationDate)
 				.ProjectTo<CompanyListingServiceModel>()
 				.ToList();
+
+		public bool CompanyExists(string id) => this.db.Companies.Any(c => c.Id == id);
+
+		public bool Approve(string id)
+		{
+			var company = this.db.Companies.FirstOrDefault(c => c.Id == id);
+
+			if (company.IsApproved)
+			{
+				return false;
+			}
+
+			company.IsApproved = true;
+			this.db.SaveChanges();
+
+			return true;
+		}
+
+		public string GetCompanyName(string id)
+		{
+			if (!this.CompanyExists(id))
+			{
+				return string.Empty;
+			}
+
+			return this.db.Companies.FirstOrDefault(c => c.Id == id).Name;
+		}
 	}
 }

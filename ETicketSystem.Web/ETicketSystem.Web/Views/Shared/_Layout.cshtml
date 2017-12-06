@@ -44,6 +44,16 @@
             </div>
         </div>
     </nav>
+    @if (TempData.ContainsKey(WebConstants.TempDataKey.Message))
+    {   
+        <div class="alert alert-@TempData[WebConstants.TempDataKey.AlertType] alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <p class="alert-message text-center">
+                @TempData[WebConstants.TempDataKey.Message]
+            </p>
+        </div>
+    }
+
     <div class="container body-content">
         @RenderBody()
         <hr />

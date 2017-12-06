@@ -6,5 +6,11 @@
 	public interface IAdminCompanyService
     {
 		IEnumerable<CompanyListingServiceModel> All();
+
+		bool CompanyExists(string id);
+
+		bool Approve(string id);
+
+		string GetCompanyName(string id);
 	}
 }

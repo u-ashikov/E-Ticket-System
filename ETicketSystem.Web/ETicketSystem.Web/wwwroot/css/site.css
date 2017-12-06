@@ -18,6 +18,10 @@
     width: 100%;
 }
 
+p.alert-message {
+    font-size:1.2em;
+}
+
 footer {
     text-align:center;
     background-color:white;

@@ -63,6 +63,12 @@
 			public const string CompanyUrnAlreadyTaken = "Company with that URN already exists.";
 
 			public const string CompanyPhoneAlreadyTaken = "That phone number is already in use.";
+
+			public const string NonExistingCompany = "Company with id: {0} does not exist!";
+
+			public const string CompanyAlreadyApproved = "Company {0} is already approved!";
+
+			public const string CompanyApproved = "Company {0} approved successfully!";
 		}
 
 		public class Area
@@ -75,6 +81,8 @@
 			public const string Admin = "Admin";
 
 			public const string AllCompanies = "Companies/All";
+
+			public const string ApproveCompany = "Companies/Approve/{companyId}";
 		}
 
 		public class Action
@@ -110,6 +118,13 @@
 		public class DbConnection
 		{
 			public const string DefaultConnection = "DefaultConnection";
+		}
+
+		public class TempDataKey
+		{
+			public const string Message = "Message";
+
+			public const string AlertType = "AlertType";
 		}
     }
 }
