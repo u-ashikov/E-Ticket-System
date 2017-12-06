@@ -18,11 +18,11 @@
 
 		public Station EndStation { get; set; }
 
-		[Range(typeof(TimeSpan),DataConstants.Route.TimeMinValue,DataConstants.Route.TimeMaxValue)]
+		[Range(typeof(TimeSpan),DataConstants.Route.DepartureTimeMinValue,DataConstants.Route.DepartureTimeMaxValue)]
 		public TimeSpan DepartureTime { get; set; }
 
-		[Range(typeof(TimeSpan), DataConstants.Route.TimeMinValue, DataConstants.Route.TimeMaxValue)]
-		public TimeSpan ArrivalTime { get; set; }
+		[Range(typeof(TimeSpan), DataConstants.Route.DurationMinValue, DataConstants.Route.DurationMaxValue)]
+		public TimeSpan Duration { get; set; }
 
 		[Required]
 		public BusType BusType { get; set; }
@@ -33,6 +33,8 @@
 		public string CompanyId { get; set; }
 
 		public Company Company { get; set; }
+
+		public bool IsActive { get; set; }
 
 		public List<Ticket> Tickets { get; set; }
 	}

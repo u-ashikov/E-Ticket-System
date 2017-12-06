@@ -1,0 +1,41 @@
+﻿@model CompanyRouteFormModel
+
+@{
+    ViewData["Title"] = "Add Route";
+}
+
+<h2>@ViewData["Title"]</h2>
+<form method="post">
+    <hr />
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="StartStation"></label>
+        <select asp-for="StartStation" asp-items="@Model.TownsStations" class="form-control"></select>
+        <span asp-validation-for="StartStation" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="EndStation"></label>
+        <select asp-for="EndStation" asp-items="@Model.TownsStations" class="form-control"></select>
+        <span asp-validation-for="EndStation" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DepartureTime"></label>
+        <input asp-for="DepartureTime" class="form-control"/>
+        <span asp-validation-for="DepartureTime" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Duration"></label>
+        <input asp-for="Duration" class="form-control" />
+        <span asp-validation-for="Duration" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Price"></label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+    <input type="submit" class="btn btn-success" value="Save Route"/>
+</form>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

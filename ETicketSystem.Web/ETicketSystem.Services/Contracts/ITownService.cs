@@ -6,5 +6,7 @@
 	public interface ITownService
     {
 		IEnumerable<TownBaseServiceModel> GetTownsListItems();
+
+		IEnumerable<TownStationsServiceModel> GetTownsWithStations();
     }
 }

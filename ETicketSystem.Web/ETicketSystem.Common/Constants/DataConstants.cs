@@ -45,11 +45,15 @@
 
 		public class Route
 		{
-			public const string TimeMinValue = "00:00";
+			public const string DepartureTimeMinValue = "00:00";
 
-			public const string TimeMaxValue = "23:59";
+			public const string DepartureTimeMaxValue = "23:59";
 
 			public const int PriceMinValue = 0;
+
+			public const string DurationMinValue = "00:00";
+
+			public const string DurationMaxValue = "24:00";
 		}
 
 		public class Review

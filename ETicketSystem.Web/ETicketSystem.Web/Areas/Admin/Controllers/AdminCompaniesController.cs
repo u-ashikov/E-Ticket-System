@@ -2,7 +2,7 @@
 {
 	using ETicketSystem.Common.Constants;
 	using ETicketSystem.Common.Enums;
-	using ETicketSystem.Services.Contracts;
+	using ETicketSystem.Services.Admin.Contracts;
 	using Microsoft.AspNetCore.Mvc;
 
 	public class AdminCompaniesController : BaseAdminController
