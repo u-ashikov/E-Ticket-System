@@ -30,6 +30,8 @@
 		[Range(DataConstants.Route.PriceMinValue, double.MaxValue)]
 		public decimal Price { get; set; }
 
+		public bool IsEdit { get; set; }
+
 		public List<SelectListItem> TownsStations { get; set; }
 
 		public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

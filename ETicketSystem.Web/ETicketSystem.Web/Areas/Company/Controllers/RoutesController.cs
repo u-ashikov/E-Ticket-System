@@ -34,6 +34,14 @@
 			this.companies = companies;
 		}
 
+		[Route(WebConstants.Route.AllRoutes)]
+		public IActionResult All()
+		{
+			var companyId = this.userManager.GetUserId(User);
+
+			return View(this.routes.All(companyId));
+		}
+
 		[Route(WebConstants.Route.AddRoute)]
 		public IActionResult Add()
 		{
@@ -85,12 +93,9 @@
 			return RedirectToAction(nameof(All));
 		}
 
-		[Route(WebConstants.Route.AllRoutes)]
-		public IActionResult All()
+		public IActionResult Edit(int routeId)
 		{
-			var companyId = this.userManager.GetUserId(User);
-
-			return View(this.routes.All(companyId));
+			return null;
 		}
 
 		private List<SelectListItem> GenerateTownStationsSelectListItems()

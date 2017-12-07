@@ -37,7 +37,7 @@ else
                     <td>$ @route.Price</td>
                     <td>@(route.IsActive ? "Active" : "Inacitve")</td>
                     <td>
-                        <a class="btn btn-primary">Edit</a>
+                        <a asp-controller="Routes" asp-action="Edit" asp-route-routeId="@route.Id" class="btn btn-primary">Edit</a>
                     </td>
                 </tr>
             }
