@@ -43,6 +43,8 @@
 				options.User.RequireUniqueEmail = true;
 			});
 
+			services.AddRouting(options => options.LowercaseUrls = true);
+
             services.AddIdentity<User, IdentityRole>()
 				.AddEntityFrameworkStores<ETicketSystemDbContext>()
 				.AddDefaultTokenProviders();
