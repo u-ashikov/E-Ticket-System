@@ -163,10 +163,10 @@
 			return RedirectToAction(nameof(All));
 		}
 
-		[Route(WebConstants.Route.DeactivateCompanyRoute)]
-		public IActionResult Deactivate(int id)
+		[Route(WebConstants.Route.ChangeCompanyRouteStatus)]
+		public IActionResult ChangeStatus(int id)
 		{
-			var success = this.routes.Deactivate(id, this.userManager.GetUserId(User));
+			var success = this.routes.ChangeStatus(id, this.userManager.GetUserId(User));
 
 			if (!success)
 			{
@@ -174,9 +174,9 @@
 				return RedirectToAction(nameof(All));
 			}
 
-			var deactivatedRouteInfo = this.routes.GetRouteBaseInfo(id, this.userManager.GetUserId(User));
+			var route = this.routes.GetRouteBaseInfo(id, this.userManager.GetUserId(User));
 
-			this.GenerateAlertMessage(string.Format(WebConstants.Message.RouteDeacitvated, deactivatedRouteInfo.StartStationTownName,deactivatedRouteInfo.EndStationTownName,deactivatedRouteInfo.DepartureTime), Alert.Success);
+			this.GenerateAlertMessage(string.Format(WebConstants.Message.RouteStatusChanged, route.StartStationTownName,route.EndStationTownName,route.DepartureTime,route.Status), Alert.Success);
 
 			return RedirectToAction(nameof(All));
 		}

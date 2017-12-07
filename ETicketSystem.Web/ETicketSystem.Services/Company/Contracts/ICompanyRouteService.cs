@@ -10,7 +10,7 @@
 
 		bool Edit(int routeId,int startStation, int endStatio, TimeSpan departureTime, TimeSpan duration, BusType busType, decimal price, string companyId);
 
-		bool Deactivate(int routeId, string companyId);
+		bool ChangeStatus(int routeId, string companyId);
 
 		CompanyRoutesServiceModel All(string companyId);
 

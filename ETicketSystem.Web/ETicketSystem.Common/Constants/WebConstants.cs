@@ -92,7 +92,7 @@
 
 			public const string SuccessfullyEditedRoute = "Successfully edited route from {0} to {1}!";
 
-			public const string RouteDeacitvated = "Route from {0} to {1} departing at {2} deactivated!";
+			public const string RouteStatusChanged = "Route from {0} to {1} departing at {2} {3}!";
 		}
 
 		public class Area
@@ -118,7 +118,7 @@
 
 			public const string EditCompanyRoute = "Routes/Edit/{id}";
 
-			public const string DeactivateCompanyRoute = "Routes/Deactivate/{id}";
+			public const string ChangeCompanyRouteStatus = "Routes/ChangeStatus/{id}";
 		}
 
 		public class Action
