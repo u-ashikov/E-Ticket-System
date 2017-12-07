@@ -67,7 +67,7 @@
 
 			this.GenerateAlertMessage(string.Format(WebConstants.Message.RouteAdded, startTownName, endTownName), Alert.Success);
 
-			return RedirectToAction(nameof(HomeController.Index),"Home");
+			return RedirectToAction(nameof(All));
 		}
 
 		[Route(WebConstants.Route.AllRoutes)]
