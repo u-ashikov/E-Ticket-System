@@ -8,7 +8,6 @@
 	using ETicketSystem.Services.Company.Models;
 	using Microsoft.EntityFrameworkCore;
 	using System;
-	using System.Collections.Generic;
 	using System.Linq;
 
 	public class CompanyRouteService : ICompanyRouteService
@@ -52,6 +51,13 @@
 				.Include(c => c.Routes)
 				.Where(c => c.Id == companyId)
 				.ProjectTo<CompanyRoutesServiceModel>()
+				.FirstOrDefault();
+
+		public CompanyRouteEditServiceModel GetRouteToEdit(string companyId, int routeId) =>
+			this.db
+				.Routes
+				.Where(r => r.Id == routeId && r.CompanyId == companyId)
+				.ProjectTo<CompanyRouteEditServiceModel>()
 				.FirstOrDefault();
 	}
 }

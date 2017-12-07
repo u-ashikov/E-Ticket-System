@@ -87,6 +87,8 @@
 			public const string RouteAdded = "Route from {0} to {1} added successfully!";
 
 			public const string NotApproved = "You cannot add routes yet because you are still not approved by the site administrator!";
+
+			public const string NotRouteOwner = "You are not owner of that route!";
 		}
 
 		public class Area
@@ -106,9 +108,11 @@
 
 			public const string Company = "Company";
 
-			public const string AddRoute = "Routes/Add";
+			public const string AddCompanyRoute = "Routes/Add";
 
-			public const string AllRoutes = "Routes/All";
+			public const string AllCompanyRoutes = "Routes/All";
+
+			public const string EditCompanyRoute = "Routes/Edit/{id}";
 		}
 
 		public class Action

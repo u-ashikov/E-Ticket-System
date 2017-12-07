@@ -34,7 +34,7 @@
 			this.companies = companies;
 		}
 
-		[Route(WebConstants.Route.AllRoutes)]
+		[Route(WebConstants.Route.AllCompanyRoutes)]
 		public IActionResult All()
 		{
 			var companyId = this.userManager.GetUserId(User);
@@ -42,7 +42,7 @@
 			return View(this.routes.All(companyId));
 		}
 
-		[Route(WebConstants.Route.AddRoute)]
+		[Route(WebConstants.Route.AddCompanyRoute)]
 		public IActionResult Add()
 		{
 			if (!this.companies.IsApproved(this.userManager.GetUserId(User)))
@@ -61,7 +61,7 @@
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		[Route(WebConstants.Route.AddRoute)]
+		[Route(WebConstants.Route.AddCompanyRoute)]
 		public IActionResult Add(RouteFormModel model)
 		{
 			if (!this.companies.IsApproved(this.userManager.GetUserId(User)))
@@ -93,9 +93,28 @@
 			return RedirectToAction(nameof(All));
 		}
 
+		[Route(WebConstants.Route.EditCompanyRoute)]
 		public IActionResult Edit(int routeId)
 		{
-			return null;
+			var routeToEdit = this.routes.GetRouteToEdit(this.userManager.GetUserId(User), routeId);
+
+			if (routeToEdit == null)
+			{
+				this.GenerateAlertMessage(WebConstants.Message.NotRouteOwner, Alert.Danger);
+
+				return RedirectToAction(nameof(All));
+			}
+
+			return View(new RouteFormModel()
+			{
+				StartStation = routeToEdit.StartStation,
+				EndStation = routeToEdit.EndStation,
+				DepartureTime = routeToEdit.DepartureTime,
+				Duration = routeToEdit.Duration,
+				BusType = routeToEdit.BusType,
+				Price = routeToEdit.Price,
+				IsEdit = true
+			});
 		}
 
 		private List<SelectListItem> GenerateTownStationsSelectListItems()

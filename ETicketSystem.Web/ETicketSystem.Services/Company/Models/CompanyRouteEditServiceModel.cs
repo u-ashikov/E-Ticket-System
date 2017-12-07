@@ -10,11 +10,11 @@
     {
 		public int Id { get; set; }
 
-		public string StartStation { get; set; }
+		public int StartStation { get; set; }
 
-		public string EndStation { get; set; }
+		public int EndStation { get; set; }
 
-		public TimeSpan DepartureTime { get; set; }
+		public DateTime DepartureTime { get; set; }
 
 		public TimeSpan Duration { get; set; }
 
@@ -25,8 +25,7 @@
 		public void ConfigureMapping(Profile mapper)
 		{
 			mapper.CreateMap<Route, CompanyRouteEditServiceModel>()
-				.ForMember(dest => dest.StartStation, cfg => cfg.MapFrom(src => $"{src.StartStation.Town.Name}, {src.StartStation.Name}"))
-				.ForMember(dest => dest.EndStation, cfg => cfg.MapFrom(src => $"{src.EndStation.Town.Name}, {src.EndStation.Name}"));
+				.ForMember(dest => dest.DepartureTime, cfg => cfg.MapFrom(src => new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day, src.DepartureTime.Hours, src.DepartureTime.Minutes, src.DepartureTime.Seconds)));
 		}
 	}
 }
