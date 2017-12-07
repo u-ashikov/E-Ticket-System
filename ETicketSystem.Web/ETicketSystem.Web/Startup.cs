@@ -49,12 +49,7 @@
 				.AddEntityFrameworkStores<ETicketSystemDbContext>()
 				.AddDefaultTokenProviders();
 
-            services.AddTransient<IEmailSender, EmailSender>();
-			services.AddTransient<IUserService, UserService>();
-			services.AddTransient<ITownService, TownService>();
-			services.AddTransient<ICompanyService, CompanyService>();
-			services.AddTransient<IAdminCompanyService, AdminCompanyService>();
-			services.AddTransient<ICompanyRouteService, CompanyRouteService>();
+			services.AddDomainServices();
 
 			services.AddAutoMapper(opt => opt.AddProfile(new AutoMapperProfile()));
 
