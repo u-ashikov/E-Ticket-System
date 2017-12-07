@@ -25,7 +25,7 @@
 				.Include(c=>c.Routes)
 				.FirstOrDefault(c=>c.Id == companyId);
 
-			if (company.Routes.Any(r=> r.StartStationId == startStation && r.EndStationId == endStation && r.DepartureTime == departureTime))
+			if (this.RouteAlreadyExist(startStation,endStation,departureTime,companyId))
 			{
 				return false;
 			}
@@ -59,5 +59,27 @@
 				.Where(r => r.Id == routeId && r.CompanyId == companyId)
 				.ProjectTo<CompanyRouteEditServiceModel>()
 				.FirstOrDefault();
+
+		public bool Edit(int routeId, int startStation, int endStation, TimeSpan departureTime, TimeSpan duration, BusType busType, decimal price, string companyId)
+		{
+			var route = this.db.Routes.FirstOrDefault(r => r.Id == routeId && r.CompanyId == companyId);
+
+			if (route == null)
+			{
+				return false;
+			}
+
+			route.DepartureTime = departureTime;
+			route.Duration = duration;
+			route.BusType = busType;
+			route.Price = price;
+
+			this.db.SaveChanges();
+
+			return true;
+		}
+
+		public bool RouteAlreadyExist(int startStation, int endStation, TimeSpan departureTime, string companyId) =>
+			this.db.Routes.Any(r => r.StartStationId == startStation && r.EndStationId == endStation && r.DepartureTime == departureTime && r.CompanyId == companyId);
 	}
 }

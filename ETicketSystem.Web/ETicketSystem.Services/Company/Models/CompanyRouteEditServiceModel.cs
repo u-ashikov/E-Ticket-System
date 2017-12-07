@@ -10,9 +10,9 @@
     {
 		public int Id { get; set; }
 
-		public int StartStation { get; set; }
+		public int StartStationId { get; set; }
 
-		public int EndStation { get; set; }
+		public int EndStationId { get; set; }
 
 		public DateTime DepartureTime { get; set; }
 

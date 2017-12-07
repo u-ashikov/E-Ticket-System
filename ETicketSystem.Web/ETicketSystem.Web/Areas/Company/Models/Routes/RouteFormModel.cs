@@ -36,11 +36,6 @@
 
 		public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
 		{
-			if (this.StartStation == this.EndStation)
-			{
-				yield return new ValidationResult(WebConstants.Message.StartStationEqualToEndStation);
-			}
-
 			if (this.Duration == new TimeSpan(0,0,0))
 			{
 				yield return new ValidationResult(WebConstants.Message.RouteDurationZeroLength);

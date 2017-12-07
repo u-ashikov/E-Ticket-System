@@ -9,12 +9,12 @@
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="form-group">
         <label asp-for="StartStation"></label>
-        <select asp-for="StartStation" asp-items="@Model.TownsStations" class="form-control @(Model.IsEdit ? "disabled" : string.Empty)"></select>
+        <select asp-for="StartStation" asp-items="@Model.TownsStations" class="form-control" readonly="@(Model.IsEdit ? "true" : string.Empty)"></select>
         <span asp-validation-for="StartStation" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="EndStation"></label>
-        <select asp-for="EndStation" asp-items="@Model.TownsStations" class="form-control @(Model.IsEdit ? "disabled" : string.Empty)"></select>
+        <select asp-for="EndStation" asp-items="@Model.TownsStations" class="form-control" readonly="@(Model.IsEdit ? "true" : string.Empty)"></select>
         <span asp-validation-for="EndStation" class="text-danger"></span>
     </div>
     <div class="form-group">

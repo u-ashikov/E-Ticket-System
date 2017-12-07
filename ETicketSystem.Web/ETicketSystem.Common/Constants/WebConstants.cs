@@ -89,6 +89,8 @@
 			public const string NotApproved = "You cannot add routes yet because you are still not approved by the site administrator!";
 
 			public const string NotRouteOwner = "You are not owner of that route!";
+
+			public const string SuccessfullyEditedRoute = "Successfully edited route from {0} to {1}!";
 		}
 
 		public class Area

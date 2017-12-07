@@ -70,6 +70,13 @@
 				return RedirectToAction(nameof(HomeController.Index), WebConstants.Controller.Home);
 			}
 
+			if (model.StartStation == model.EndStation)
+			{
+				ModelState.AddModelError(string.Empty,WebConstants.Message.StartStationEqualToEndStation);
+				model.TownsStations = this.GenerateTownStationsSelectListItems();
+				return View(model);
+			}
+
 			if (!ModelState.IsValid)
 			{
 				model.TownsStations = this.GenerateTownStationsSelectListItems();
@@ -94,9 +101,9 @@
 		}
 
 		[Route(WebConstants.Route.EditCompanyRoute)]
-		public IActionResult Edit(int routeId)
+		public IActionResult Edit(int id)
 		{
-			var routeToEdit = this.routes.GetRouteToEdit(this.userManager.GetUserId(User), routeId);
+			var routeToEdit = this.routes.GetRouteToEdit(this.userManager.GetUserId(User), id);
 
 			if (routeToEdit == null)
 			{
@@ -107,14 +114,53 @@
 
 			return View(new RouteFormModel()
 			{
-				StartStation = routeToEdit.StartStation,
-				EndStation = routeToEdit.EndStation,
+				StartStation = routeToEdit.StartStationId,
+				EndStation = routeToEdit.EndStationId,
 				DepartureTime = routeToEdit.DepartureTime,
 				Duration = routeToEdit.Duration,
 				BusType = routeToEdit.BusType,
 				Price = routeToEdit.Price,
-				IsEdit = true
+				IsEdit = true,
+				TownsStations = this.GenerateTownStationsSelectListItems()
 			});
+		}
+
+		[HttpPost]
+		[Route(WebConstants.Route.EditCompanyRoute)]
+		public IActionResult Edit(RouteFormModel model, int id)
+		{
+			var companyId = this.userManager.GetUserId(User);
+
+			if (!ModelState.IsValid)
+			{
+				model.TownsStations = this.GenerateTownStationsSelectListItems();
+				return View(model);
+			}
+
+			var alreadyExists = this.routes.RouteAlreadyExist(model.StartStation, model.EndStation, model.DepartureTime.TimeOfDay, companyId);
+
+			if (alreadyExists)
+			{
+				model.TownsStations = this.GenerateTownStationsSelectListItems();
+				ModelState.AddModelError(string.Empty, WebConstants.Message.CompanyRouteDuplication);
+				return View(model);
+			}
+
+			var success = this.routes.Edit(id,model.StartStation,model.EndStation, model.DepartureTime.TimeOfDay, model.Duration, model.BusType, model.Price, companyId);
+
+			if (!success)
+			{
+				this.GenerateAlertMessage(WebConstants.Message.NotRouteOwner, Alert.Danger);
+
+				return RedirectToAction(nameof(All));
+			}
+
+			var startTownName = this.towns.GetTownNameByStationId(model.StartStation);
+			var endTownName = this.towns.GetTownNameByStationId(model.EndStation);
+
+			this.GenerateAlertMessage(string.Format(WebConstants.Message.SuccessfullyEditedRoute, startTownName, endTownName), Alert.Success);
+
+			return RedirectToAction(nameof(All));
 		}
 
 		private List<SelectListItem> GenerateTownStationsSelectListItems()
