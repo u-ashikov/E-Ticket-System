@@ -49,6 +49,8 @@
 
 			public const string DepartureTimeMaxValue = "23:59";
 
+			public const string DepartureTimeFormat = "{0:HH:mm}";
+
 			public const int PriceMinValue = 0;
 
 			public const string DurationMinValue = "00:00";

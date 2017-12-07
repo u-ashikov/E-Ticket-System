@@ -512,7 +512,7 @@
 		{
 			if (this.companies.IsCompanyNameRegistered(name))
 			{
-				return Json(data: WebConstants.Error.CompanyNameAlreadyTaken);
+				return Json(data: WebConstants.Message.CompanyNameAlreadyTaken);
 			}
 
 			return Json(true);
@@ -523,7 +523,7 @@
 		{
 			if (this.companies.IsUniqueReferenceNumberRegistered(uniqueReferenceNumber))
 			{
-				return Json(data: WebConstants.Error.CompanyUrnAlreadyTaken);
+				return Json(data: WebConstants.Message.CompanyUrnAlreadyTaken);
 			}
 
 			return Json(true);
@@ -534,7 +534,7 @@
 		{
 			if (this.companies.IsCompanyPhoneNumberRegistered(phoneNumber))
 			{
-				return Json(data: WebConstants.Error.CompanyPhoneAlreadyTaken);
+				return Json(data: WebConstants.Message.CompanyPhoneAlreadyTaken);
 			}
 
 			return Json(true);

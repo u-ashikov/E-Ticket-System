@@ -1,10 +1,10 @@
 ﻿namespace ETicketSystem.Services.Implementations
 {
 	using AutoMapper.QueryableExtensions;
+	using Contracts;
 	using ETicketSystem.Data;
-	using ETicketSystem.Services.Contracts;
-	using ETicketSystem.Services.Models.Town;
 	using Microsoft.EntityFrameworkCore;
+	using Models.Town;
 	using System.Collections.Generic;
 	using System.Linq;
 
@@ -29,5 +29,17 @@
 				.Include(t=>t.Stations)
 				.ProjectTo<TownStationsServiceModel>()
 				.ToList();
+
+		public string GetTownNameByStationId(int id)
+		{
+			var town = this.db.Towns.FirstOrDefault(t => t.Stations.Any(s => s.Id == id));
+
+			if (town != null)
+			{
+				return town.Name;
+			}
+
+			return null;
+		}
 	}
 }

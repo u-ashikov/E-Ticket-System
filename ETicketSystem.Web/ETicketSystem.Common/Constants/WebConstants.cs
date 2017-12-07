@@ -38,7 +38,7 @@
 			public const string Phone = @"^0\d{9}$";
 		}
 
-		public class Error
+		public class Message
 		{
 			public const string InvalidEmail = "Invalid email address!";
 
@@ -79,6 +79,12 @@
 			public const string CompanyApproved = "Company {0} approved successfully!";
 
 			public const string StartStationEqualToEndStation = "Start station and end station cannot be same.";
+
+			public const string RouteDurationZeroLength = "Route duration must be greater than 00:00.";
+
+			public const string CompanyRouteDuplication = "This route already exists!";
+
+			public const string RouteAdded = "Route from {0} to {1} added successfully!";
 		}
 
 		public class Area
@@ -95,6 +101,10 @@
 			public const string AllCompanies = "Companies/All";
 
 			public const string ApproveCompany = "Companies/Approve/{companyId}";
+
+			public const string Company = "Company";
+
+			public const string AddRoute = "Routes/Add";
 		}
 
 		public class Action

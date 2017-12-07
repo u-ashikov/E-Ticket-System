@@ -1,37 +1,42 @@
 ﻿namespace ETicketSystem.Web.Areas.Company.Controllers
 {
-	using ETicketSystem.Common.Constants;
-	using ETicketSystem.Services.Company.Contracts;
-	using ETicketSystem.Services.Contracts;
-	using ETicketSystem.Web.Areas.Company.Models.Companies;
-	using ETicketSystem.Web.Controllers;
+	using Common.Constants;
+	using Data.Models;
+	using ETicketSystem.Common.Enums;
 	using Microsoft.AspNetCore.Authorization;
+	using Microsoft.AspNetCore.Identity;
 	using Microsoft.AspNetCore.Mvc;
 	using Microsoft.AspNetCore.Mvc.Rendering;
-	using System;
+	using Models.Routes;
+	using Services.Company.Contracts;
+	using Services.Contracts;
 	using System.Collections.Generic;
+	using Web.Controllers;
 
-	[Route("Company")]
+	[Route(WebConstants.Route.Company)]
 	[Area(WebConstants.Area.Company)]
 	[Authorize(Roles = WebConstants.Role.CompanyRole)]
 	public class RoutesController : BaseController
     {
-		private readonly ICompanyRouteService companies;
+		private readonly ICompanyRouteService routes;
 
 		private readonly ITownService towns;
 
-		public RoutesController(ICompanyRouteService companies, ITownService towns)
+		private readonly UserManager<User> userManager;
+
+		public RoutesController(ICompanyRouteService routes, ITownService towns, UserManager<User> userManager)
 		{
-			this.companies = companies;
+			this.routes = routes;
 			this.towns = towns;
+			this.userManager = userManager;
 		}
 
-		[Route("Routes/Add")]
+		[Route(WebConstants.Route.AddRoute)]
 		public IActionResult AddRoute()
 		{
 			var townsWithStationsList = this.GenerateTownStationsSelectListItems();
 
-			return View(new CompanyRouteFormModel()
+			return View(new RouteFormModel()
 			{
 				TownsStations = townsWithStationsList
 			});
@@ -39,14 +44,30 @@
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		[Route("Routes/Add")]
-		public IActionResult AddRoute(CompanyRouteFormModel model)
+		[Route(WebConstants.Route.AddRoute)]
+		public IActionResult AddRoute(RouteFormModel model)
 		{
 			if (!ModelState.IsValid)
 			{
 				model.TownsStations = this.GenerateTownStationsSelectListItems();
 				return View(model);
 			}
+
+			var isAdded = this.routes.Add(model.StartStation, model.EndStation, model.DepartureTime.TimeOfDay, model.Duration, model.BusType, model.Price, this.userManager.GetUserId(User));
+
+			if (!isAdded)
+			{
+				model.TownsStations = this.GenerateTownStationsSelectListItems();
+				ModelState.AddModelError(string.Empty, WebConstants.Message.CompanyRouteDuplication);
+				return View(model);
+			}
+
+			var startTownName = this.towns.GetTownNameByStationId(model.StartStation);
+			var endTownName = this.towns.GetTownNameByStationId(model.EndStation);
+
+			this.GenerateAlertMessage(string.Format(WebConstants.Message.RouteAdded, startTownName, endTownName), Alert.Success);
+
+			return RedirectToAction(nameof(HomeController.Index),"Home");
 
 			//if (model.DepartureTime.TimeOfDay >= new TimeSpan(12,00,00) && model.ArrivalTime.TimeOfDay >= new TimeSpan(12, 00, 00) && model.DepartureTime.TimeOfDay <= new TimeSpan(23,59,59) && model.ArrivalTime.TimeOfDay <= new TimeSpan(23, 59, 59))
 			//{
@@ -63,8 +84,6 @@
 			//		return View();
 			//	}
 			//}
-
-			return null;
 		}
 
 		private List<SelectListItem> GenerateTownStationsSelectListItems()

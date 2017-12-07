@@ -2,6 +2,7 @@
 {
 	using ETicketSystem.Common.Constants;
 	using ETicketSystem.Data.Enums;
+	using Microsoft.AspNetCore.Mvc;
 	using Microsoft.AspNetCore.Mvc.Rendering;
 	using System;
 	using System.Collections.Generic;
@@ -17,7 +18,7 @@
 
 		[DataType(DataType.Time)]
 		[Display(Name = WebConstants.FieldDisplay.RouteDepartureTime)]
-		[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:HH:mm}")]
+		[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = DataConstants.Route.DepartureTimeFormat)]
 		public DateTime DepartureTime { get; set; }
 
 		[DataType(DataType.Time)]
@@ -36,7 +37,12 @@
 		{
 			if (this.StartStation == this.EndStation)
 			{
-				yield return new ValidationResult(WebConstants.Error.StartStationEqualToEndStation);
+				yield return new ValidationResult(WebConstants.Message.StartStationEqualToEndStation);
+			}
+
+			if (this.Duration == new TimeSpan(0,0,0))
+			{
+				yield return new ValidationResult(WebConstants.Message.RouteDurationZeroLength);
 			}
 		}
 	}

@@ -8,5 +8,7 @@
 		IEnumerable<TownBaseServiceModel> GetTownsListItems();
 
 		IEnumerable<TownStationsServiceModel> GetTownsWithStations();
+
+		string GetTownNameByStationId(int id);
     }
 }

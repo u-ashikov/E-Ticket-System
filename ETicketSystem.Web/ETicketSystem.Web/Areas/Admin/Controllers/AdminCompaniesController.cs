@@ -22,7 +22,7 @@
 		{
 			if (!this.companies.CompanyExists(companyId))
 			{
-				this.GenerateAlertMessage(string.Format(WebConstants.Error.NonExistingCompany, companyId), Alert.Danger);
+				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingCompany, companyId), Alert.Danger);
 				return RedirectToAction(nameof(All));
 			}
 
@@ -31,11 +31,11 @@
 
 			if (!isApproved)
 			{
-				this.GenerateAlertMessage(string.Format(WebConstants.Error.CompanyAlreadyApproved, companyName), Alert.Warning);
+				this.GenerateAlertMessage(string.Format(WebConstants.Message.CompanyAlreadyApproved, companyName), Alert.Warning);
 			}
 			else
 			{
-				this.GenerateAlertMessage(string.Format(WebConstants.Error.CompanyApproved, companyName), Alert.Success);
+				this.GenerateAlertMessage(string.Format(WebConstants.Message.CompanyApproved, companyName), Alert.Success);
 			}
 
 			return RedirectToAction(nameof(All));
