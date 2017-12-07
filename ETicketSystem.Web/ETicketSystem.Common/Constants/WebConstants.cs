@@ -19,6 +19,14 @@
 			public const string ChiefLastName = "Chief last name";
 
 			public const string PhoneNumber = "Phone";
+
+			public const string RouteStartStation = "Start station";
+
+			public const string RouteEndStation = "End station";
+
+			public const string RouteDepartureTime = "Departure time";
+
+			public const string RouteBusType = "Bus type";
 		}
 
 		public class RegexPattern
@@ -69,6 +77,8 @@
 			public const string CompanyAlreadyApproved = "Company {0} is already approved!";
 
 			public const string CompanyApproved = "Company {0} approved successfully!";
+
+			public const string StartStationEqualToEndStation = "Start station and end station cannot be same.";
 		}
 
 		public class Area

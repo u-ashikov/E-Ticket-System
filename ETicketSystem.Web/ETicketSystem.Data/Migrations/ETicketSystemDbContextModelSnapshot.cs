@@ -57,8 +57,6 @@ namespace ETicketSystem.Data.Migrations
 
                     b.Property<TimeSpan>("DepartureTime");
 
-                    b.Property<TimeSpan>("Duration");
-
                     b.Property<int>("EndStationId");
 
                     b.Property<bool>("IsActive");
