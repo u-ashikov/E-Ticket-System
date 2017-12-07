@@ -105,6 +105,8 @@
 			public const string Company = "Company";
 
 			public const string AddRoute = "Routes/Add";
+
+			public const string AllRoutes = "Routes/All";
 		}
 
 		public class Action

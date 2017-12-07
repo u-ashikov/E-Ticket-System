@@ -1,0 +1,47 @@
+﻿@model CompanyRoutesServiceModel
+
+@{
+    ViewData["Title"] = "All Routes";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+
+@if(Model.Routes.Count() == 0)
+{
+    <h3>No routes!</h3>
+}
+else
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Start station</th>
+                <th>End station</th>
+                <th>Departure time</th>
+                <th>Duration</th>
+                <th>Bus type</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var route in Model.Routes)
+            {
+                <tr>
+                    <td>@route.StartStation</td>
+                    <td>@route.EndStation</td>
+                    <td>@route.DepartureTime</td>
+                    <td>@route.Duration</td>
+                    <td>@route.BusType</td>
+                    <td>$ @route.Price</td>
+                    <td>@(route.IsActive ? "Active" : "Inacitve")</td>
+                    <td>
+                        <a class="btn btn-primary">Edit</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+

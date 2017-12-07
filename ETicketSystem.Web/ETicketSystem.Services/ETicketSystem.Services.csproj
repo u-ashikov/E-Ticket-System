@@ -8,8 +8,4 @@
     <ProjectReference Include="..\ETicketSystem.Data\ETicketSystem.Data.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Company\Models\" />
-  </ItemGroup>
-
 </Project>

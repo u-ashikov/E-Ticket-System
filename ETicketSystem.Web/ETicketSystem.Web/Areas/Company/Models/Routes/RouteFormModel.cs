@@ -2,7 +2,6 @@
 {
 	using ETicketSystem.Common.Constants;
 	using ETicketSystem.Data.Enums;
-	using Microsoft.AspNetCore.Mvc;
 	using Microsoft.AspNetCore.Mvc.Rendering;
 	using System;
 	using System.Collections.Generic;

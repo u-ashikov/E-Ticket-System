@@ -32,7 +32,7 @@
 		}
 
 		[Route(WebConstants.Route.AddRoute)]
-		public IActionResult AddRoute()
+		public IActionResult Add()
 		{
 			var townsWithStationsList = this.GenerateTownStationsSelectListItems();
 
@@ -45,7 +45,7 @@
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		[Route(WebConstants.Route.AddRoute)]
-		public IActionResult AddRoute(RouteFormModel model)
+		public IActionResult Add(RouteFormModel model)
 		{
 			if (!ModelState.IsValid)
 			{
@@ -68,22 +68,14 @@
 			this.GenerateAlertMessage(string.Format(WebConstants.Message.RouteAdded, startTownName, endTownName), Alert.Success);
 
 			return RedirectToAction(nameof(HomeController.Index),"Home");
+		}
 
-			//if (model.DepartureTime.TimeOfDay >= new TimeSpan(12,00,00) && model.ArrivalTime.TimeOfDay >= new TimeSpan(12, 00, 00) && model.DepartureTime.TimeOfDay <= new TimeSpan(23,59,59) && model.ArrivalTime.TimeOfDay <= new TimeSpan(23, 59, 59))
-			//{
-			//	if (model.DepartureTime.TimeOfDay >= model.ArrivalTime.TimeOfDay)
-			//	{
-			//		return View();
-			//	}
-			//}
+		[Route(WebConstants.Route.AllRoutes)]
+		public IActionResult All()
+		{
+			var companyId = this.userManager.GetUserId(User);
 
-			//if (model.DepartureTime.TimeOfDay >= new TimeSpan(00, 00, 00) && model.ArrivalTime.TimeOfDay >= new TimeSpan(00, 00, 00) && model.DepartureTime.TimeOfDay <= new TimeSpan(11, 59, 59) && model.ArrivalTime.TimeOfDay <= new TimeSpan(11, 59, 59))
-			//{
-			//	if (model.DepartureTime.TimeOfDay >= model.ArrivalTime.TimeOfDay)
-			//	{
-			//		return View();
-			//	}
-			//}
+			return View(this.routes.All(companyId));
 		}
 
 		private List<SelectListItem> GenerateTownStationsSelectListItems()

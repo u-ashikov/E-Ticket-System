@@ -1,11 +1,14 @@
 ﻿namespace ETicketSystem.Services.Company.Implementations
 {
+	using AutoMapper.QueryableExtensions;
 	using Contracts;
 	using Data;
 	using Data.Enums;
 	using Data.Models;
+	using ETicketSystem.Services.Company.Models;
 	using Microsoft.EntityFrameworkCore;
 	using System;
+	using System.Collections.Generic;
 	using System.Linq;
 
 	public class CompanyRouteService : ICompanyRouteService
@@ -42,5 +45,13 @@
 			this.db.SaveChanges();
 			return true;
 		}
+
+		public CompanyRoutesServiceModel All(string companyId) =>
+			this.db
+				.Companies
+				.Include(c => c.Routes)
+				.Where(c => c.Id == companyId)
+				.ProjectTo<CompanyRoutesServiceModel>()
+				.FirstOrDefault();
 	}
 }
