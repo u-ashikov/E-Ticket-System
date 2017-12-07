@@ -85,6 +85,8 @@
 			public const string CompanyRouteDuplication = "This route already exists!";
 
 			public const string RouteAdded = "Route from {0} to {1} added successfully!";
+
+			public const string NotApproved = "You cannot add routes yet because you are still not approved by the site administrator!";
 		}
 
 		public class Area
@@ -121,6 +123,8 @@
 		public class Controller
 		{
 			public const string Account = "Account";
+
+			public const string Home = "Home";
 		}
 
 		public class FilePath

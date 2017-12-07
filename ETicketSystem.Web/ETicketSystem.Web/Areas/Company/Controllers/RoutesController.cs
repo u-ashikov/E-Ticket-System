@@ -22,18 +22,27 @@
 
 		private readonly ITownService towns;
 
+		private readonly ICompanyService companies;
+
 		private readonly UserManager<User> userManager;
 
-		public RoutesController(ICompanyRouteService routes, ITownService towns, UserManager<User> userManager)
+		public RoutesController(ICompanyRouteService routes, ITownService towns, UserManager<User> userManager, ICompanyService companies)
 		{
 			this.routes = routes;
 			this.towns = towns;
 			this.userManager = userManager;
+			this.companies = companies;
 		}
 
 		[Route(WebConstants.Route.AddRoute)]
 		public IActionResult Add()
 		{
+			if (!this.companies.IsApproved(this.userManager.GetUserId(User)))
+			{
+				this.GenerateAlertMessage(WebConstants.Message.NotApproved, Alert.Warning);
+				return RedirectToAction(nameof(HomeController.Index), WebConstants.Controller.Home);
+			}
+
 			var townsWithStationsList = this.GenerateTownStationsSelectListItems();
 
 			return View(new RouteFormModel()
@@ -47,6 +56,12 @@
 		[Route(WebConstants.Route.AddRoute)]
 		public IActionResult Add(RouteFormModel model)
 		{
+			if (!this.companies.IsApproved(this.userManager.GetUserId(User)))
+			{
+				this.GenerateAlertMessage(WebConstants.Message.NotApproved, Alert.Warning);
+				return RedirectToAction(nameof(HomeController.Index), WebConstants.Controller.Home);
+			}
+
 			if (!ModelState.IsValid)
 			{
 				model.TownsStations = this.GenerateTownStationsSelectListItems();

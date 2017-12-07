@@ -21,5 +21,8 @@
 
 		public bool IsCompanyPhoneNumberRegistered(string phoneNumber) =>
 			this.db.Companies.Any(c => c.PhoneNumber == phoneNumber);
+
+		public bool IsApproved(string companyId) =>
+			this.db.Companies.FirstOrDefault(c => c.Id == companyId).IsApproved;
 	}
 }

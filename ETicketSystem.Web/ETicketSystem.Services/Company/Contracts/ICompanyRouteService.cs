@@ -3,7 +3,6 @@
 	using ETicketSystem.Data.Enums;
 	using ETicketSystem.Services.Company.Models;
 	using System;
-	using System.Collections.Generic;
 
 	public interface ICompanyRouteService
     {

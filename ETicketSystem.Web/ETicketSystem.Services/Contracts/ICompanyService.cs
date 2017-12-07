@@ -7,5 +7,7 @@
 		bool IsUniqueReferenceNumberRegistered(string uniqueReferenceNumber);
 
 		bool IsCompanyPhoneNumberRegistered(string phoneNumber);
+
+		bool IsApproved(string companyId);
     }
 }
