@@ -1,15 +1,16 @@
 ﻿@model RouteFormModel
 
 @{
-    ViewData["Title"] = "Add Route";
+    ViewData["Title"] = "Edit Route";
 }
 
-<h2 class="text-center">@ViewData["Title"]</h2>
+<h2>@ViewData["Title"]</h2>
 
 <div class="row">
-   @Html.Partial("_RouteForm", Model)
+    @Html.Partial("_RouteForm", Model)
 </div>
 
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
 }
+
