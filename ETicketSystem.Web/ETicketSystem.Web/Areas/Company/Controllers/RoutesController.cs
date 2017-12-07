@@ -14,13 +14,13 @@
 	[Route("Company")]
 	[Area(WebConstants.Area.Company)]
 	[Authorize(Roles = WebConstants.Role.CompanyRole)]
-	public class CompaniesController : BaseController
+	public class RoutesController : BaseController
     {
 		private readonly ICompanyRouteService companies;
 
 		private readonly ITownService towns;
 
-		public CompaniesController(ICompanyRouteService companies, ITownService towns)
+		public RoutesController(ICompanyRouteService companies, ITownService towns)
 		{
 			this.companies = companies;
 			this.towns = towns;

@@ -1,4 +1,4 @@
-﻿namespace ETicketSystem.Web.Areas.Company.Models.Companies
+﻿namespace ETicketSystem.Web.Areas.Company.Models.Routes
 {
 	using ETicketSystem.Common.Constants;
 	using ETicketSystem.Data.Enums;
@@ -7,7 +7,7 @@
 	using System.Collections.Generic;
 	using System.ComponentModel.DataAnnotations;
 
-	public class CompanyRouteFormModel : IValidatableObject
+	public class RouteFormModel : IValidatableObject
     {
 		[Display(Name = WebConstants.FieldDisplay.RouteStartStation)]
 		public int StartStation { get; set; }

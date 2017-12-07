@@ -5,12 +5,6 @@
 	using ETicketSystem.Common.Constants;
 	using ETicketSystem.Data;
 	using ETicketSystem.Data.Models;
-	using ETicketSystem.Services.Admin.Contracts;
-	using ETicketSystem.Services.Admin.Implementations;
-	using ETicketSystem.Services.Company.Contracts;
-	using ETicketSystem.Services.Company.Implementations;
-	using ETicketSystem.Services.Contracts;
-	using ETicketSystem.Services.Implementations;
 	using Infrastructure.Extensions;
 	using Microsoft.AspNetCore.Builder;
 	using Microsoft.AspNetCore.Hosting;
