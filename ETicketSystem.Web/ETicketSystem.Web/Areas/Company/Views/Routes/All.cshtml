@@ -38,6 +38,14 @@ else
                     <td>@(route.IsActive ? "Active" : "Inacitve")</td>
                     <td>
                         <a asp-controller="Routes" asp-action="Edit" asp-route-id="@route.Id" class="btn btn-primary">Edit</a>
+                        @if (route.IsActive)
+                        {
+                            <a asp-controller="Routes" asp-action="Deactivate" asp-route-id="@route.Id" class="btn btn-danger">Deactivate</a>
+                        }
+                        else
+                        {
+                            <a asp-controller="Routes" asp-action="Activate" asp-route-id="@route.Id" class="btn btn-success">Activate</a>
+                        }
                     </td>
                 </tr>
             }

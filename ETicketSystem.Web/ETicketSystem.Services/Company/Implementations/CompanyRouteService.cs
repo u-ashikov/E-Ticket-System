@@ -81,5 +81,28 @@
 
 		public bool RouteAlreadyExist(int startStation, int endStation, TimeSpan departureTime, string companyId) =>
 			this.db.Routes.Any(r => r.StartStationId == startStation && r.EndStationId == endStation && r.DepartureTime == departureTime && r.CompanyId == companyId);
+
+		public bool Deactivate(int routeId, string companyId)
+		{
+			var routeToDeactivate = this.db
+				.Routes
+				.FirstOrDefault(r => r.Id == routeId && r.CompanyId == companyId);
+
+			if (routeToDeactivate == null || !routeToDeactivate.IsActive)
+			{
+				return false;
+			}
+
+			routeToDeactivate.IsActive = false;
+			this.db.SaveChanges();
+
+			return true;
+		}
+
+		public CompanyRouteBaseSerivceModel GetRouteBaseInfo(int routeId, string companyId) =>
+			this.db.Routes
+				.Where(r => r.Id == routeId && r.CompanyId == companyId)
+				.ProjectTo<CompanyRouteBaseSerivceModel>()
+				.FirstOrDefault();
 	}
 }

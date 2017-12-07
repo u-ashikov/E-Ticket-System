@@ -107,7 +107,7 @@
 
 			if (routeToEdit == null)
 			{
-				this.GenerateAlertMessage(WebConstants.Message.NotRouteOwner, Alert.Danger);
+				this.GenerateAlertMessage(WebConstants.Message.InvalidRoute, Alert.Danger);
 
 				return RedirectToAction(nameof(All));
 			}
@@ -150,7 +150,7 @@
 
 			if (!success)
 			{
-				this.GenerateAlertMessage(WebConstants.Message.NotRouteOwner, Alert.Danger);
+				this.GenerateAlertMessage(WebConstants.Message.InvalidRoute, Alert.Danger);
 
 				return RedirectToAction(nameof(All));
 			}
@@ -159,6 +159,24 @@
 			var endTownName = this.towns.GetTownNameByStationId(model.EndStation);
 
 			this.GenerateAlertMessage(string.Format(WebConstants.Message.SuccessfullyEditedRoute, startTownName, endTownName), Alert.Success);
+
+			return RedirectToAction(nameof(All));
+		}
+
+		[Route(WebConstants.Route.DeactivateCompanyRoute)]
+		public IActionResult Deactivate(int id)
+		{
+			var success = this.routes.Deactivate(id, this.userManager.GetUserId(User));
+
+			if (!success)
+			{
+				this.GenerateAlertMessage(WebConstants.Message.InvalidRoute,Alert.Danger);
+				return RedirectToAction(nameof(All));
+			}
+
+			var deactivatedRouteInfo = this.routes.GetRouteBaseInfo(id, this.userManager.GetUserId(User));
+
+			this.GenerateAlertMessage(string.Format(WebConstants.Message.RouteDeacitvated, deactivatedRouteInfo.StartStationTownName,deactivatedRouteInfo.EndStationTownName,deactivatedRouteInfo.DepartureTime), Alert.Success);
 
 			return RedirectToAction(nameof(All));
 		}
