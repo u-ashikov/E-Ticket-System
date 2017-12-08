@@ -11,5 +11,5 @@
 			TempData[WebConstants.TempDataKey.AlertType] = alertType.ToString().ToLower();
 			TempData[WebConstants.TempDataKey.Message] = message;
 		}
-    }
+	}
 }

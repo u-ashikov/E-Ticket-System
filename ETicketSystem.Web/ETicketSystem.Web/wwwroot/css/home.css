@@ -22,3 +22,7 @@
     border-radius:15px;
     margin-top:50px;
 }
+
+div.form-errors {
+    margin-bottom:10px;
+}

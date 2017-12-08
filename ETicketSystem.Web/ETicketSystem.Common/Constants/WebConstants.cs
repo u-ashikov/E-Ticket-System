@@ -1,7 +1,7 @@
 ﻿namespace ETicketSystem.Common.Constants
 {
 	public class WebConstants
-    {
+	{
 		public class FieldDisplay
 		{
 			public const string ConfirmPassword = "Confirm password";
@@ -27,6 +27,10 @@
 			public const string RouteDepartureTime = "Departure time";
 
 			public const string RouteBusType = "Bus type";
+
+			public const string StartDestination = "Start destination";
+
+			public const string EndDestination = "End destination";
 		}
 
 		public class RegexPattern
@@ -169,5 +173,12 @@
 		{
 			public const string CompanyRole = "Company";
 		}
-    }
+
+		public class SearchForm
+		{
+			public const string SearchDefaultStartTown = "Sofia";
+
+			public const string SearchDefaultEndTown = "Varna";
+		}
+	}
 }
