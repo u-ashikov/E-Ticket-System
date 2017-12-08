@@ -41,5 +41,9 @@
 
 			return null;
 		}
+
+		public bool TownExists(int id) =>
+			this.db.Towns
+				.Any(t => t.Id == id);
 	}
 }

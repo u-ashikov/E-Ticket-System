@@ -10,5 +10,7 @@
 		IEnumerable<TownStationsServiceModel> GetTownsWithStations();
 
 		string GetTownNameByStationId(int id);
+
+		bool TownExists(int id);
     }
 }

@@ -1,10 +1,11 @@
 ﻿namespace ETicketSystem.Services.Contracts
 {
+	using ETicketSystem.Services.Models.Route;
 	using System;
 	using System.Collections.Generic;
-	using System.Text;
 
 	public interface IRouteService
     {
+		IEnumerable<RouteSearchListingServiceModel> GetSearchedRoutes(int startTown, int endTown, DateTime date);
     }
 }

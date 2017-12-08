@@ -94,6 +94,8 @@
 
 			public const string InvalidRoute = "Invalid route!";
 
+			public const string InvalidTown = "Invalid town!";
+
 			public const string SuccessfullyEditedRoute = "Successfully edited route from {0} to {1}!";
 
 			public const string RouteStatusChanged = "Route from {0} to {1} departing at {2} {3}!";
@@ -123,6 +125,8 @@
 			public const string EditCompanyRoute = "Routes/Edit/{id}";
 
 			public const string ChangeCompanyRouteStatus = "Routes/ChangeStatus/{id}";
+
+			public const string RoutesSearch = "Routes/Search";
 		}
 
 		public class Action
