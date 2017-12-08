@@ -96,6 +96,8 @@
 
 			public const string InvalidTown = "Invalid town!";
 
+			public const string InvalidDate = "Invalid date!";
+
 			public const string SuccessfullyEditedRoute = "Successfully edited route from {0} to {1}!";
 
 			public const string RouteStatusChanged = "Route from {0} to {1} departing at {2} {3}!";

@@ -19,7 +19,7 @@
 
 		public IEnumerable<RouteSearchListingServiceModel> GetSearchedRoutes(int startTown, int endTown, DateTime date)
 		{
-			if (date > DateTime.UtcNow)
+			if (date.Date > DateTime.UtcNow.Date)
 			{
 				return this.db
 							.Routes

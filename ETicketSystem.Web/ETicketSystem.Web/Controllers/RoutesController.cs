@@ -5,6 +5,7 @@
 	using ETicketSystem.Services.Contracts;
 	using Microsoft.AspNetCore.Mvc;
 	using Models.Routes;
+	using System;
 
 	public class RoutesController : BaseController
     {
@@ -24,6 +25,12 @@
 			if (!this.towns.TownExists(model.StartTown) || !this.towns.TownExists(model.StartTown))
 			{
 				this.GenerateAlertMessage(WebConstants.Message.InvalidTown,Alert.Danger);
+				return RedirectToAction(nameof(HomeController.Index), WebConstants.Controller.Home);
+			}
+
+			if (model.Date.Date < DateTime.UtcNow.Date)
+			{
+				this.GenerateAlertMessage(WebConstants.Message.InvalidDate, Alert.Danger);
 				return RedirectToAction(nameof(HomeController.Index), WebConstants.Controller.Home);
 			}
 
