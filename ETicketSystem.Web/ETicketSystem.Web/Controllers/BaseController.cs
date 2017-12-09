@@ -11,5 +11,10 @@
 			TempData[WebConstants.TempDataKey.AlertType] = alertType.ToString().ToLower();
 			TempData[WebConstants.TempDataKey.Message] = message;
 		}
+
+		protected IActionResult RedirectToHome()
+		{
+			return RedirectToAction(nameof(HomeController.Index), WebConstants.Controller.Home);
+		}
 	}
 }

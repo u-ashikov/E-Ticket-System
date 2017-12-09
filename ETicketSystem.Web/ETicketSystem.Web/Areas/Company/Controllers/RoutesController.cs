@@ -48,7 +48,7 @@
 			if (!this.companies.IsApproved(this.userManager.GetUserId(User)))
 			{
 				this.GenerateAlertMessage(WebConstants.Message.NotApproved, Alert.Warning);
-				return RedirectToAction(nameof(HomeController.Index), WebConstants.Controller.Home);
+				return this.RedirectToHome();
 			}
 
 			var townsWithStationsList = this.GenerateTownStationsSelectListItems();
@@ -67,7 +67,7 @@
 			if (!this.companies.IsApproved(this.userManager.GetUserId(User)))
 			{
 				this.GenerateAlertMessage(WebConstants.Message.NotApproved, Alert.Warning);
-				return RedirectToAction(nameof(HomeController.Index), WebConstants.Controller.Home);
+				return this.RedirectToHome();
 			}
 
 			if (model.StartStation == model.EndStation)

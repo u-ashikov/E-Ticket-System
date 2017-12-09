@@ -25,13 +25,13 @@
 			if (!this.towns.TownExists(model.StartTown) || !this.towns.TownExists(model.StartTown))
 			{
 				this.GenerateAlertMessage(WebConstants.Message.InvalidTown,Alert.Danger);
-				return RedirectToAction(nameof(HomeController.Index), WebConstants.Controller.Home);
+				return this.RedirectToHome();
 			}
 
 			if (model.Date.Date < DateTime.UtcNow.Date)
 			{
 				this.GenerateAlertMessage(WebConstants.Message.InvalidDate, Alert.Danger);
-				return RedirectToAction(nameof(HomeController.Index), WebConstants.Controller.Home);
+				return this.RedirectToHome();
 			}
 
 			return View(this.routes.GetSearchedRoutes(model.StartTown, model.EndTown, model.Date));
