@@ -49,14 +49,19 @@ ol {
     opacity: 0;
 }
 
-.seat input[type=checkbox]:checked + label {
-    background: #bada55;
+ol.seats > li.seat > input[type="checkbox"]:checked~label {
+    background-color: #ff0000;
 }
 
-.seat input[type=checkbox]:disabled + label {
+.seat input[type=checkbox]:disabled~label {
     background: #dddddd;
     text-indent: -9999px;
     overflow: hidden;
+}
+
+li.seat > label.disabled {
+    pointer-events:none;
+    background:red;
 }
 
 .seat input[type=checkbox]:disabled + label:after {
@@ -82,7 +87,7 @@ ol {
     font-weight: bold;
     line-height: 1.5rem;
     padding: 4px 0;
-    background: #F42536;
+    background: #80f59c;
     border-radius: 5px;
 }
 

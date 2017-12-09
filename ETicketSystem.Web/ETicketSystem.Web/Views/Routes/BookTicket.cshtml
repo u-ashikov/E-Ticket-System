@@ -20,10 +20,11 @@
                         @for (int c = r; c <= 40; c += 4)
                         {
                             <li class="seat">
-                                <input type="checkbox" asp-for="@Model.Seats[c-1].Checked" />
+                                <input type="checkbox" asp-for="@Model.Seats[c-1].Checked"/>
                                 <input type="hidden" asp-for="@Model.Seats[c-1].Text" />
                                 <input type="hidden" asp-for="@Model.Seats[c-1].Value" />
-                                <label asp-for="@Model.Seats[c-1].Checked">@Model.Seats[c-1].Text</label>
+                                <input type="hidden" asp-for="@Model.Seats[c-1].Disabled" />
+                                <label class="@(Model.Seats[c-1].Disabled ? "disabled" : string.Empty)" asp-for="@Model.Seats[c-1].Checked">@Model.Seats[c-1].Text</label>
                             </li>
                         }
                     </ol>
@@ -31,16 +32,6 @@
             }
         </ol>
     </div>
-
-   @*@for (var i = 0; i < Model.Seats.Count; i++)
-   {
-    <div class="checkbox-inline">
-        <input type="checkbox" asp-for="@Model.Seats[i].Checked" />
-        <input type="hidden" asp-for="@Model.Seats[i].Text" />
-        <input type="hidden" asp-for="@Model.Seats[i].Value" />
-        <label asp-for="@Model.Seats[i].Checked">@Model.Seats[i].Text</label>
-    </div>
-   }*@
     <input type="submit" value="Buy" class="btn btn-success" />
 </form>
 

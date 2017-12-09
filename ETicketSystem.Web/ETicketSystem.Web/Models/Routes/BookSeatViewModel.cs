@@ -12,5 +12,7 @@
 		public string Text { get; set; }
 
 		public bool Checked { get; set; }
+
+		public bool Disabled { get; set; }
 	}
 }

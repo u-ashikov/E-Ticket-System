@@ -48,7 +48,8 @@
 				{
 					Value = i,
 					Checked = false,
-					Text = i.ToString()
+					Text = i.ToString(),
+					Disabled = i % 2 == 0
 				});
 			}
 
