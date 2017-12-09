@@ -43,5 +43,14 @@
 						.ProjectTo<RouteSearchListingServiceModel>()
 						.ToList();
 		}
+
+		public RouteBookTicketInfoServiceModel GetRouteTicketBookingInfo(int id, DateTime date) =>
+			this.db
+				.Routes
+					.Include(r => r.Company)
+					.Include(r => r.Tickets)
+				.Where(r => r.Id == id)
+				.ProjectTo<RouteBookTicketInfoServiceModel>(new { ticketDate = date})
+				.FirstOrDefault();
 	}
 }

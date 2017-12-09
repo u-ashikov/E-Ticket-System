@@ -38,8 +38,10 @@
 		}
 
 		[Route(WebConstants.Route.BookRouteTicket)]
-		public IActionResult BookTicket(int id, int startTown, int endTown, DateTime date)
+		public IActionResult BookTicket(int id, int startTown, int endTown,TimeSpan departureTime, DateTime date)
 		{
+			var info = this.routes.GetRouteTicketBookingInfo(id, new DateTime(date.Year, date.Month, date.Day, departureTime.Hours, departureTime.Minutes, departureTime.Seconds));
+
 			var form = new BookTicketFormModel();
 
 			for (int i = 1; i <= 40; i++)

@@ -3,33 +3,17 @@
 	using AutoMapper;
 	using Data.Models;
 	using ETicketSystem.Common.Automapper;
-	using System;
 
-	public class RouteSearchListingServiceModel : IMapFrom<Route>, IHaveCustomMapping
+	public class RouteSearchListingServiceModel : RouteBaseInfoServiceModel,IMapFrom<Route>, IHaveCustomMapping
     {
-		public int Id { get; set; }
-
 		public byte[] CompanyLogo { get; set; }
 
-		public string CompanyName { get; set; }
-
-		public TimeSpan DepartureTime { get; set; }
-
-		public TimeSpan Duration { get; set; }
-
-		public string StartStation { get; set; }
-
-		public string EndStation { get; set; }
-
-		public decimal Price { get; set; }
-
-		public void ConfigureMapping(Profile mapper)
+		public override void ConfigureMapping(Profile mapper)
 		{
+			base.ConfigureMapping(mapper);
+
 			mapper.CreateMap<Route, RouteSearchListingServiceModel>()
-				.ForMember(dest => dest.StartStation, cfg => cfg.MapFrom(src => src.StartStation.Name))
-				.ForMember(dest => dest.EndStation, cfg => cfg.MapFrom(src => src.EndStation.Name))
-				.ForMember(dest => dest.CompanyLogo, cfg => cfg.MapFrom(src => src.Company.Logo))
-				.ForMember(dest => dest.CompanyName, cfg => cfg.MapFrom(src => src.Company.Name));
+				.ForMember(dest => dest.CompanyLogo, cfg => cfg.MapFrom(src => src.Company.Logo));
 		}
 	}
 }
