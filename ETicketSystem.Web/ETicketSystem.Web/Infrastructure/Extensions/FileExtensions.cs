@@ -1,10 +1,11 @@
 ﻿namespace ETicketSystem.Web.Infrastructure.Extensions
 {
 	using Microsoft.AspNetCore.Http;
+	using System;
 	using System.IO;
 	using System.Threading.Tasks;
 
-	public static class FormFileExtensions
+	public static class FileExtensions
     {
 		public static byte[] GetFormFileBytes(this IFormFile file)
 		{
@@ -26,6 +27,18 @@
 			.Wait();
 
 			return fileBytes;
+		}
+
+		public static string ConvertBytesToImage(this byte[] image)
+		{
+			if (image == null)
+			{
+				return string.Empty;
+			}
+
+			var base64 = Convert.ToBase64String(image,0,image.Length);
+			
+			return String.Format("data:image/png;base64,{0}", base64);
 		}
     }
 }

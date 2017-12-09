@@ -1,0 +1,63 @@
+﻿@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+
+div.route-container > div:not(:first-child) {
+    display:inline-block;
+    margin-top:50px;
+}
+
+div.company-logo {
+    display:inline-block;
+}
+
+div.route-info {
+    vertical-align: middle;
+    line-height:120px;
+}
+
+div.route-container {
+    transition: all .2s ease-in-out;
+}
+
+div.route-container:hover {
+    transform: scale(1.1);
+    z-index: 1;
+}
+
+div.company-logo img.img-responsive {
+    width:140px;
+    height:140px;
+}
+
+div > span.departure-time {
+    font-size:1.6em;
+    font-weight:400;
+}
+
+div > span.departure-time::before {
+    font-family: Fontawesome,sans-serif;
+    content: '\f017';
+    font-size: 1.6em;
+    position:relative;
+    top:5px;
+    left:-5px;
+}
+
+div.stations > span {
+    display:block;
+    font-size:1.3em;
+}
+
+div.price {
+    font-size:1.6em;
+    padding-top:10px;
+}
+
+div.tickets form {
+    margin-top:10px;
+}
+
+div.company-name {
+    font-size:1.4em;
+    font-weight:900;
+    text-align:center;
+}

@@ -129,6 +129,8 @@
 			public const string ChangeCompanyRouteStatus = "Routes/ChangeStatus/{id}";
 
 			public const string RoutesSearch = "Routes/Search";
+
+			public const string BookRouteTicket = "Routes/BookTicket/{id}";
 		}
 
 		public class Action

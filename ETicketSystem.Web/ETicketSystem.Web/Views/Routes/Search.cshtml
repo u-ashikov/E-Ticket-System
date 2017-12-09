@@ -4,6 +4,10 @@
     ViewData["Title"] = "Search Routes";
 }
 
+<environment include="Development">
+    <link rel="stylesheet" href="~/css/list-routes.css" />
+</environment>
+
 <h2 class="text-center">@ViewData["Title"]</h2>
 
 @if(Model.Count() == 0)
@@ -12,28 +16,41 @@
 }
 else
 {
-    <table class="table table-bordered table-hover">
-        <thead>
-            <tr>
-                <th>Start station</th>
-                <th>End station</th>
-                <th>Departure time</th>
-                <th>Duration</th>
-                <th>Price</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var r in Model)
-            {
-                <tr>
-                    <td>@r.StartStation</td>
-                    <td>@r.EndStation</td>
-                    <td>@r.DepartureTime</td>
-                    <td>@r.Duration</td>
-                    <td>@r.Price</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <div class="container-fluid ticket-list">
+        @foreach (var route in Model)
+        {
+            <div class="route-container row">
+                <div class="col-md-2 col-sm-2 col-lg-2">
+                    <div class="company-name">@route.CompanyName</div>
+                    @if (route.CompanyLogo == null)
+                    {
+                        <img class="img-responsive" src="~/images/common/no-logo.png" alt="@route.CompanyName" />
+                    }
+                    else
+                    {
+                        <img class="img-responsive" src="@route.CompanyLogo.ConvertBytesToImage()" alt="@route.CompanyName" />
+                    }
+                </div>
+                <div class="col-md-2 col-sm-2 col-lg-2">
+                    <span class="departure-time">@route.DepartureTime.ToHoursAndMinutes()</span>
+                </div>
+                <div class="stations col-md-4 col-sm-4 col-lg-4 text-center">
+                    <span>@route.StartStation > @route.EndStation</span>
+                    <span>
+                        (@route.Duration.Hours Hours @route.Duration.Minutes Minutes)
+                    </span>
+                </div>
+                <div class="price col-md-2 col-sm-2 col-lg-2">
+                    <span>@route.Price.ToString("0.00") $</span>
+                </div>
+                <div class="tickets col-md-2 col-sm-2 col-lg-2">
+                    <form asp-controller="Routes" asp-action="BookTicket" asp-route-id="@route.Id" asp-route-startTown ="@Context.Request.Query["StartTown"]" asp-route-endTown="@Context.Request.Query["EndTown"]" asp-route-date="@Context.Request.Query["Date"]">
+                        <input class="btn btn-success" type="submit" value="Tickets" />
+                    </form>
+                </div>
+            </div>
+            <hr />
+        }
+    </div>
 }
 

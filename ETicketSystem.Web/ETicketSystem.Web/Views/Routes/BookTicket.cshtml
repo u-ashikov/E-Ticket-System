@@ -1,0 +1,47 @@
+﻿@model BookTicketFormModel
+
+@{
+    ViewData["Title"] = "Book Ticket";
+}
+
+<environment include="Development">
+    <link rel="stylesheet" href="~/css/book-ticket.css" />
+</environment>
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+
+<form method="post" asp-controller="Routes" asp-action="BuyTicket">
+    <div class="bus">
+        <ol class="cabin fuselage">
+            @for (int r = 4; r > 0; r--)
+            {
+                <li class="row">
+                    <ol class="seats">
+                        @for (int c = r; c <= 40; c += 4)
+                        {
+                            <li class="seat">
+                                <input type="checkbox" asp-for="@Model.Seats[c-1].Checked" />
+                                <input type="hidden" asp-for="@Model.Seats[c-1].Text" />
+                                <input type="hidden" asp-for="@Model.Seats[c-1].Value" />
+                                <label asp-for="@Model.Seats[c-1].Checked">@Model.Seats[c-1].Text</label>
+                            </li>
+                        }
+                    </ol>
+                </li>   
+            }
+        </ol>
+    </div>
+
+   @*@for (var i = 0; i < Model.Seats.Count; i++)
+   {
+    <div class="checkbox-inline">
+        <input type="checkbox" asp-for="@Model.Seats[i].Checked" />
+        <input type="hidden" asp-for="@Model.Seats[i].Text" />
+        <input type="hidden" asp-for="@Model.Seats[i].Value" />
+        <label asp-for="@Model.Seats[i].Checked">@Model.Seats[i].Text</label>
+    </div>
+   }*@
+    <input type="submit" value="Buy" class="btn btn-success" />
+</form>
+
+

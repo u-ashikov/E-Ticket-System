@@ -6,7 +6,7 @@
 	using System.Collections.Generic;
 	using System.ComponentModel.DataAnnotations;
 
-	public class SearchRouteFormModel : IValidatableObject
+	public class SearchRouteFormModel
     {
 		[Display(Name = WebConstants.FieldDisplay.StartDestination)]
 		public int StartTown { get; set; }
@@ -18,13 +18,5 @@
 		public DateTime Date { get; set; }
 
 		public IEnumerable<SelectListItem> Towns { get; set; }
-
-		public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-		{
-			if (this.StartTown == this.EndTown)
-			{
-				yield return new ValidationResult(WebConstants.Message.StartStationEqualToEndStation);
-			}
-		}
 	}
 }

@@ -9,6 +9,10 @@
     {
 		public int Id { get; set; }
 
+		public byte[] CompanyLogo { get; set; }
+
+		public string CompanyName { get; set; }
+
 		public TimeSpan DepartureTime { get; set; }
 
 		public TimeSpan Duration { get; set; }
@@ -23,7 +27,9 @@
 		{
 			mapper.CreateMap<Route, RouteSearchListingServiceModel>()
 				.ForMember(dest => dest.StartStation, cfg => cfg.MapFrom(src => src.StartStation.Name))
-				.ForMember(dest => dest.EndStation, cfg => cfg.MapFrom(src => src.EndStation.Name));
+				.ForMember(dest => dest.EndStation, cfg => cfg.MapFrom(src => src.EndStation.Name))
+				.ForMember(dest => dest.CompanyLogo, cfg => cfg.MapFrom(src => src.Company.Logo))
+				.ForMember(dest => dest.CompanyName, cfg => cfg.MapFrom(src => src.Company.Name));
 		}
 	}
 }

@@ -1,10 +1,10 @@
 ﻿namespace ETicketSystem.Web.Controllers
 {
 	using ETicketSystem.Services.Contracts;
-	using ETicketSystem.Web.Models;
-	using ETicketSystem.Web.Models.Routes;
 	using Microsoft.AspNetCore.Mvc;
 	using Microsoft.AspNetCore.Mvc.Rendering;
+	using Models;
+	using Models.Routes;
 	using System.Collections.Generic;
 	using System.Diagnostics;
 

@@ -36,5 +36,31 @@
 
 			return View(this.routes.GetSearchedRoutes(model.StartTown, model.EndTown, model.Date));
 		}
+
+		[Route(WebConstants.Route.BookRouteTicket)]
+		public IActionResult BookTicket(int id, int startTown, int endTown, DateTime date)
+		{
+			var form = new BookTicketFormModel();
+
+			for (int i = 1; i <= 40; i++)
+			{
+				form.Seats.Add(new BookSeatViewModel()
+				{
+					Value = i,
+					Checked = false,
+					Text = i.ToString()
+				});
+			}
+
+
+			return View(form);
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public IActionResult BuyTicket(BookTicketFormModel model)
+		{
+			return null;
+		}
 	}
 }
