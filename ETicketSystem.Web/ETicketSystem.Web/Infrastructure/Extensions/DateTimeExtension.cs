@@ -8,5 +8,10 @@
 		{
 			return time.ToString(@"hh\:mm");
 		}
+
+		public static string ToFormatedDate(this DateTime dateTime)
+		{
+			return dateTime.ToString("yyyy-MM-dd");
+		}
     }
 }

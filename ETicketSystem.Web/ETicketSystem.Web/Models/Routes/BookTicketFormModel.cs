@@ -20,7 +20,11 @@
 
 		public string EndStation { get; set; }
 
-		[AtLeastOneRequired(ErrorMessage = "Please check at least one checkbox.")]
+		public int StartTownId { get; set; }
+
+		public int EndTownId { get; set; }
+
+		[AtLeastOneRequired]
 		public List<BookSeatViewModel> Seats { get; set; } = new List<BookSeatViewModel>();
     }
 }

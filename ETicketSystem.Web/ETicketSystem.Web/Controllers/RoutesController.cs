@@ -34,7 +34,7 @@
 		[AllowAnonymous]
 		public IActionResult Search(SearchRouteFormModel model)
 		{
-			if (!this.towns.TownExists(model.StartTown) || !this.towns.TownExists(model.StartTown))
+			if (!this.towns.TownExists(model.StartTown) || !this.towns.TownExists(model.EndTown))
 			{
 				this.GenerateAlertMessage(WebConstants.Message.InvalidTown,Alert.Danger);
 				return this.RedirectToHome();
@@ -67,9 +67,11 @@
 			this.GenerateBusSchemaSeats(form, info);
 
 			form.BusSeats = (int)info.BusType;
-			form.DepartureDateTime = new DateTime(date.Year, date.Month, date.Day, departureTime.Hours, departureTime.Minutes, departureTime.Seconds);
+			form.DepartureDateTime = departureDateTime;
 			form.Duration = info.Duration;
 			form.RouteId = id;
+			form.StartTownId = info.StartTownId;
+			form.EndTownId = info.EndTownId;
 			form.CompanyName = info.CompanyName;
 			form.StartStation = info.StartStation;
 			form.EndStation = info.EndStation;

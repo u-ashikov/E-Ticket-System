@@ -12,6 +12,10 @@
     {
 		public BusType BusType { get; set; }
 
+		public int StartTownId { get; set; }
+
+		public int EndTownId { get; set; }
+
 		public IList<int> ReservedTickets { get; set; }
 
 		public override void ConfigureMapping(Profile mapper)
@@ -21,7 +25,9 @@
 			mapper.CreateMap<Route, RouteBookTicketInfoServiceModel>()
 				.ForMember(dest => dest.ReservedTickets, cfg => cfg.MapFrom(src => src.Tickets.Where(t => t.DepartureTime == ticketDate).Select(t => t.SeatNumber)))
 				.ForMember(dest => dest.StartStation, cfg => cfg.MapFrom(src => src.StartStation.Name))
-				.ForMember(dest => dest.EndStation, cfg => cfg.MapFrom(src => src.EndStation.Name));
+				.ForMember(dest => dest.EndStation, cfg => cfg.MapFrom(src => src.EndStation.Name))
+				.ForMember(dest => dest.StartTownId, cfg => cfg.MapFrom(src => src.StartStation.TownId))
+				.ForMember(dest => dest.EndTownId, cfg => cfg.MapFrom(src => src.EndStation.TownId));
 
 			base.ConfigureMapping(mapper);
 		}
