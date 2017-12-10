@@ -23,7 +23,7 @@
 
 		public virtual void ConfigureMapping(Profile mapper)
 		{
-			mapper.CreateMap<Route, RouteSearchListingServiceModel>()
+			mapper.CreateMap<Route, RouteBaseInfoServiceModel>()
 				.ForMember(dest => dest.StartStation, cfg => cfg.MapFrom(src => src.StartStation.Name))
 				.ForMember(dest => dest.EndStation, cfg => cfg.MapFrom(src => src.EndStation.Name))
 				.ForMember(dest => dest.CompanyName, cfg => cfg.MapFrom(src => src.Company.Name));

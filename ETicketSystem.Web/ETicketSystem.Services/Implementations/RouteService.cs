@@ -1,10 +1,10 @@
 ﻿namespace ETicketSystem.Services.Implementations
 {
 	using AutoMapper.QueryableExtensions;
+	using Contracts;
 	using ETicketSystem.Data;
-	using ETicketSystem.Services.Contracts;
-	using ETicketSystem.Services.Models.Route;
 	using Microsoft.EntityFrameworkCore;
+	using Models.Route;
 	using System;
 	using System.Collections.Generic;
 	using System.Linq;
@@ -52,5 +52,9 @@
 				.Where(r => r.Id == id)
 				.ProjectTo<RouteBookTicketInfoServiceModel>(new { ticketDate = date})
 				.FirstOrDefault();
+
+		public bool RouteExists(int id, TimeSpan departureTime) =>
+			this.db.Routes
+				.Any(r => r.Id == id && r.DepartureTime == departureTime);
 	}
 }

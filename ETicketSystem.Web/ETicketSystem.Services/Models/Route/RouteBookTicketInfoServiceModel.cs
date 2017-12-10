@@ -16,12 +16,14 @@
 
 		public override void ConfigureMapping(Profile mapper)
 		{
-			base.ConfigureMapping(mapper);
-
 			DateTime ticketDate = default(DateTime);
 
 			mapper.CreateMap<Route, RouteBookTicketInfoServiceModel>()
-				.ForMember(dest => dest.ReservedTickets, cfg => cfg.MapFrom(src => src.Tickets.Where(t=>t.DepartureTime == ticketDate).Select(t => t.SeatNumber)));
+				.ForMember(dest => dest.ReservedTickets, cfg => cfg.MapFrom(src => src.Tickets.Where(t => t.DepartureTime == ticketDate).Select(t => t.SeatNumber)))
+				.ForMember(dest => dest.StartStation, cfg => cfg.MapFrom(src => src.StartStation.Name))
+				.ForMember(dest => dest.EndStation, cfg => cfg.MapFrom(src => src.EndStation.Name));
+
+			base.ConfigureMapping(mapper);
 		}
 	}
 }

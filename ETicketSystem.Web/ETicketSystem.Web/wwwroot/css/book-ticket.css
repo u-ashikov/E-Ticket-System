@@ -59,9 +59,10 @@ ol.seats > li.seat > input[type="checkbox"]:checked~label {
     overflow: hidden;
 }
 
-li.seat > label.disabled {
-    pointer-events:none;
-    background:red;
+li.seat > label.disabled,
+li.seat > input.disabled {
+    pointer-events: none;
+    background: red;
 }
 
 .seat input[type=checkbox]:disabled + label:after {

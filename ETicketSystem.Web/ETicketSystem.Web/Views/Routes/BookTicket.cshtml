@@ -10,17 +10,29 @@
 
 <h2 class="text-center">@ViewData["Title"]</h2>
 
-<form method="post" asp-controller="Routes" asp-action="BuyTicket">
+<p>
+    @Model.StartStation - @Model.EndStation @Model.Duration, @Model.CompanyName, @Model.DepartureDateTime
+</p>
+
+<form method="post" class="col-md-12">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="DepartureDateTime" />
+    <input type="hidden" asp-for="Duration" />
+    <input type="hidden" asp-for="RouteId" />
+    <input type="hidden" asp-for="BusSeats" />
+    <input type="hidden" asp-for="StartStation" />
+    <input type="hidden" asp-for="EndStation" />
+    <input type="hidden" asp-for="CompanyName"/>
     <div class="bus">
         <ol class="cabin fuselage">
-            @for (int r = 4; r > 0; r--)
+            @for (int r = Model.BusSeats/10; r > 0; r--)
             {
                 <li class="row">
                     <ol class="seats">
-                        @for (int c = r; c <= 40; c += 4)
+                        @for (int c = r; c <= Model.BusSeats; c += Model.BusSeats/10)
                         {
                             <li class="seat">
-                                <input type="checkbox" asp-for="@Model.Seats[c-1].Checked"/>
+                                <input type="checkbox" class="@(Model.Seats[c-1].Disabled ? "disabled" : string.Empty)" asp-for="@Model.Seats[c-1].Checked"/>
                                 <input type="hidden" asp-for="@Model.Seats[c-1].Text" />
                                 <input type="hidden" asp-for="@Model.Seats[c-1].Value" />
                                 <input type="hidden" asp-for="@Model.Seats[c-1].Disabled" />
@@ -32,7 +44,11 @@
             }
         </ol>
     </div>
-    <input type="submit" value="Buy" class="btn btn-success" />
+    <input type="submit" value="Buy" class="btn btn-success col-md-2 col-md-offset-5" />
 </form>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
 
 

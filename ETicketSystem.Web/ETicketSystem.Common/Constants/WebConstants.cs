@@ -101,6 +101,10 @@
 			public const string SuccessfullyEditedRoute = "Successfully edited route from {0} to {1}!";
 
 			public const string RouteStatusChanged = "Route from {0} to {1} departing at {2} {3}!";
+
+			public const string NoneSelectedSeats = "You have to choose at least one seat.";
+
+			public const string SuccessfullyTicketReservation = "You have successfully reservated seats: {0}, for route {1} - {2}, departing at {3}.";
 		}
 
 		public class Area
@@ -130,7 +134,7 @@
 
 			public const string RoutesSearch = "Routes/Search";
 
-			public const string BookRouteTicket = "Routes/BookTicket/{id}";
+			public const string BookRouteTicket = "Routes/BookTicket/{id}/{departureTime}/{date}";
 		}
 
 		public class Action

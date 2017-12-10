@@ -10,10 +10,10 @@
 
 		public override void ConfigureMapping(Profile mapper)
 		{
-			base.ConfigureMapping(mapper);
-
 			mapper.CreateMap<Route, RouteSearchListingServiceModel>()
-				.ForMember(dest => dest.CompanyLogo, cfg => cfg.MapFrom(src => src.Company.Logo));
+				.ForMember(dest => dest.StartStation, cfg => cfg.MapFrom(src => src.StartStation.Name))
+				.ForMember(dest => dest.EndStation, cfg => cfg.MapFrom(src => src.EndStation.Name))
+				.ForMember(dest => dest.CompanyName, cfg => cfg.MapFrom(src => src.Company.Name));
 		}
 	}
 }
