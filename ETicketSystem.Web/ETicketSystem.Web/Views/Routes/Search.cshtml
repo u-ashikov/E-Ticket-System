@@ -44,7 +44,6 @@ else
                     <span>@route.Price.ToFormatedPrice() $</span>
                 </div>
                 <div class="tickets col-md-2 col-sm-2 col-lg-2">
-                    <form method="get" asp-controller="Routes" asp-action="BookTicket" asp-route-id="@route.Id" asp-route-departureTime ="@route.DepartureTime" asp-route-date="@Context.Request.Query["Date"]">
                         <input class="btn btn-success" type="submit" value="Tickets" />
                     </form>
                 </div>
