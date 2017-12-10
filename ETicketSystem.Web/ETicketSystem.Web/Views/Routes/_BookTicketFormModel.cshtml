@@ -1,0 +1,41 @@
+﻿@model BookTicketFormModel
+
+@{
+    ViewData["Title"] = "_BookTicketFormModel";
+}
+
+<form method="post" class="col-md-12">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="DepartureDateTime" />
+    <input type="hidden" asp-for="Duration" />
+    <input type="hidden" asp-for="RouteId" />
+    <input type="hidden" asp-for="BusSeats" />
+    <input type="hidden" asp-for="StartStation" />
+    <input type="hidden" asp-for="EndStation" />
+    <input type="hidden" asp-for="CompanyName" />
+    <div class="bus">
+        <ol class="cabin fuselage">
+            @for (int r = Model.BusSeats / 10; r > 0; r--)
+            {
+                <li class="row">
+                    <ol class="seats">
+                        @for (int c = r; c <= Model.BusSeats; c += Model.BusSeats / 10)
+                        {
+                            <li class="seat">
+                                <input type="checkbox" class="@(Model.Seats[c-1].Disabled ? "disabled" : string.Empty)" asp-for="@Model.Seats[c-1].Checked" />
+                                <input type="hidden" asp-for="@Model.Seats[c-1].Text" />
+                                <input type="hidden" asp-for="@Model.Seats[c-1].Value" />
+                                <input type="hidden" asp-for="@Model.Seats[c-1].Disabled" />
+                                <label class="@(Model.Seats[c-1].Disabled ? "disabled" : string.Empty)" asp-for="@Model.Seats[c-1].Checked">@Model.Seats[c - 1].Text</label>
+                            </li>
+                        }
+                    </ol>
+                </li> 
+            }
+        </ol>
+    </div>
+    <input type="submit" value="Buy" class="btn btn-success col-md-2 col-md-offset-5" />
+</form>
+
+
+
