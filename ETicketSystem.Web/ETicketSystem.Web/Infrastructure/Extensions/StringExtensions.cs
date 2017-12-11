@@ -1,5 +1,6 @@
 ﻿namespace ETicketSystem.Web.Infrastructure.Extensions
 {
+	using ETicketSystem.Common.Constants;
 	using System.Text.RegularExpressions;
 
 	public static class StringExtensions
@@ -8,6 +9,18 @@
 			price.ToString("0.00");
 
 		public static string ToFriendlyUrl(this string text)
-			=> Regex.Replace(text, @"[^A-Za-z0-9_\.~]+", "-").ToLower();
+			=> Regex.Replace(text, WebConstants.RegexPattern.FriendlyUrl, "-").ToLower();
+
+		public static string ToShortDescription(this string description)
+		{
+			var minLength = WebConstants.Company.ShortDescriptionLength;
+
+			if (string.IsNullOrEmpty(description) || description.Length < minLength)
+			{
+				return description;
+			}
+
+			return description.Substring(0, minLength) + "...";
+		}
 	}
 }

@@ -75,72 +75,72 @@
 				var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<User>>();
 				var roleManager = serviceScope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-				//if (File.Exists(WebConstants.FilePath.Towns))
-				//{
-				//	var towns = File.ReadAllText(WebConstants.FilePath.Towns).Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+				if (File.Exists(WebConstants.FilePath.Towns))
+				{
+					var towns = File.ReadAllText(WebConstants.FilePath.Towns).Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
 
-				//	for (int i = 1; i < towns.Length; i++)
-				//	{
-				//		var town = new Town()
-				//		{
-				//			Name = towns[i]
-				//		};
+					for (int i = 1; i < towns.Length; i++)
+					{
+						var town = new Town()
+						{
+							Name = towns[i]
+						};
 
-				//		Task.Run(async () =>
-				//		{
-				//			var townExists = await db.Towns.AnyAsync(t => t.Name.ToLower() == towns[i].ToLower());
+						Task.Run(async () =>
+						{
+							var townExists = await db.Towns.AnyAsync(t => t.Name.ToLower() == towns[i].ToLower());
 
-				//			if (!townExists)
-				//			{
-				//				await db.Towns.AddAsync(town);
-				//				await db.SaveChangesAsync();
-				//			}
-				//		})
-				//		.Wait();
-				//	}
-				//}
+							if (!townExists)
+							{
+								await db.Towns.AddAsync(town);
+								await db.SaveChangesAsync();
+							}
+						})
+						.Wait();
+					}
+				}
 
-				//if (File.Exists(WebConstants.FilePath.Stations))
-				//{
-				//	var stations = File.ReadAllText(WebConstants.FilePath.Stations).Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+				if (File.Exists(WebConstants.FilePath.Stations))
+				{
+					var stations = File.ReadAllText(WebConstants.FilePath.Stations).Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
 
-				//	for (int i = 1; i < stations.Length; i++)
-				//	{
-				//		var stationInfo = stations[i].Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+					for (int i = 1; i < stations.Length; i++)
+					{
+						var stationInfo = stations[i].Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
-				//		var stationName = stationInfo[0];
-				//		var townId = int.Parse(stationInfo[1]);
-				//		var phone = stationInfo[2];
+						var stationName = stationInfo[0];
+						var townId = int.Parse(stationInfo[1]);
+						var phone = stationInfo[2];
 
-				//		var station = new Station()
-				//		{
-				//			Name = stationName,
-				//			TownId = townId,
-				//			Phone = phone
-				//		};
+						var station = new Station()
+						{
+							Name = stationName,
+							TownId = townId,
+							Phone = phone
+						};
 
-				//		Task.Run(async () =>
-				//		{
-				//			var townExists = await db.Towns.AnyAsync(t => t.Id == townId);
+						Task.Run(async () =>
+						{
+							var townExists = await db.Towns.AnyAsync(t => t.Id == townId);
 
-				//			if (townExists)
-				//			{
-				//				var town = db.Towns
-				//					.Include(t => t.Stations)
-				//					.FirstOrDefault(t => t.Id == townId);
+							if (townExists)
+							{
+								var town = db.Towns
+									.Include(t => t.Stations)
+									.FirstOrDefault(t => t.Id == townId);
 
-				//				var stationExists = town.Stations.Any(s => s.Name.ToLower() == stationName.ToLower() && s.Phone == phone);
+								var stationExists = town.Stations.Any(s => s.Name.ToLower() == stationName.ToLower() && s.Phone == phone);
 
-				//				if (!stationExists)
-				//				{
-				//					await db.Stations.AddAsync(station);
-				//					await db.SaveChangesAsync();
-				//				}
-				//			}
-				//		})
-				//		.Wait();
-				//	}
-				//}
+								if (!stationExists)
+								{
+									await db.Stations.AddAsync(station);
+									await db.SaveChangesAsync();
+								}
+							}
+						})
+						.Wait();
+					}
+				}
 
 				if (File.Exists(WebConstants.FilePath.Companies))
 				{

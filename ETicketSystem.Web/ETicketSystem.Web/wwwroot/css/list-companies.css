@@ -1,0 +1,26 @@
+﻿body {
+    background-color: #F2F7F8;
+}
+
+div.companies-container {
+    overflow:hidden;
+}
+
+div.company-card {
+    background-color: white;
+    margin: 10px;
+    padding: 10px 20px;
+    height: 58vh;
+    border-radius: 10px;
+}
+
+div.company-card img.logo {
+    width:200px;
+    height:200px;
+    margin:0 auto;
+}
+
+p.description,
+div.company-name {
+    margin-top:10px;
+}

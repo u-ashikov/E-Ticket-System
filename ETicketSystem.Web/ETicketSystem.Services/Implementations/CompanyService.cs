@@ -1,8 +1,11 @@
 ﻿namespace ETicketSystem.Services.Implementations
 {
-	using ETicketSystem.Data;
-	using ETicketSystem.Services.Contracts;
+	using Data;
+	using Contracts;
+	using Models.Company;
+	using System.Collections.Generic;
 	using System.Linq;
+	using AutoMapper.QueryableExtensions;
 
 	public class CompanyService : ICompanyService
     {
@@ -12,6 +15,14 @@
 		{
 			this.db = db;
 		}
+
+		public IEnumerable<CompanyListingServiceModel> All(int page, int pageSize = 10) =>
+			this.db.Companies
+				.Skip((page - 1) * pageSize)
+				.Take(pageSize)
+				.OrderBy(c => c.Name)
+				.ProjectTo<CompanyListingServiceModel>()
+				.ToList();
 
 		public bool IsCompanyNameRegistered(string name) =>
 			this.db.Companies.Any(c => c.Name.ToLower() == name.ToLower());
@@ -24,5 +35,8 @@
 
 		public bool IsApproved(string companyId) =>
 			this.db.Companies.FirstOrDefault(c => c.Id == companyId).IsApproved;
+
+		public int TotalCompanies() =>
+			this.db.Companies.Count();
 	}
 }

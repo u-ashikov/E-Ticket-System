@@ -1,10 +1,10 @@
 ﻿namespace ETicketSystem.Web
 {
 	using AutoMapper;
-	using ETicketSystem.Common.Automapper;
-	using ETicketSystem.Common.Constants;
-	using ETicketSystem.Data;
-	using ETicketSystem.Data.Models;
+	using Common.Automapper;
+	using Common.Constants;
+	using Data;
+	using Data.Models;
 	using Infrastructure.Extensions;
 	using Microsoft.AspNetCore.Builder;
 	using Microsoft.AspNetCore.Hosting;
@@ -54,7 +54,7 @@
         {
 			app.UseDatabaseMigration();
 
-			app.Seed();
+			//app.Seed();
 
             if (env.IsDevelopment())
             {
@@ -64,7 +64,7 @@
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler(WebConstants.Route.HomeError);
             }
 
             app.UseStaticFiles();

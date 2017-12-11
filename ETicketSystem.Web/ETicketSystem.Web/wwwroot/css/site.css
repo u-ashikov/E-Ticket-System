@@ -9,13 +9,9 @@
     padding-right: 15px;
 }
 
-.carousel-caption p {
-    font-size: 20px;
-    line-height: 1.4;
-}
-
-.carousel-inner .item img[src$=".svg"] {
-    width: 100%;
+li.active,
+li.blocked {
+    pointer-events: none;
 }
 
 .alert-message {
@@ -30,14 +26,4 @@ footer {
 select.disabled {
     opacity: 0.7;
     pointer-events: none;
-}
-
-#qrCode {
-    margin: 15px;
-}
-
-@media screen and (max-width: 767px) {
-    .carousel-caption {
-        display: none;
-    }
 }

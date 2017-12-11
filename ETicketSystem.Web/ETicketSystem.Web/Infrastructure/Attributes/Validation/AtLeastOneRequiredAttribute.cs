@@ -8,9 +8,9 @@
 	{
 		protected override ValidationResult IsValid(object value, ValidationContext context)
 		{
-			var vm = (BookTicketFormModel)context.ObjectInstance;
+			var bookTicketForm = (BookTicketFormModel)context.ObjectInstance;
 
-			if (vm.Seats.Any(v => v.Checked))
+			if (bookTicketForm.Seats.Any(v => v.Checked))
 			{
 				return ValidationResult.Success;
 			}

@@ -1,0 +1,47 @@
+﻿@model AllCompaniesViewModel
+
+@{
+    ViewData["Title"] = "All Companies";
+}
+
+<environment include="Development">
+    <link rel="stylesheet" href="~/css/list-companies.css" />
+</environment>
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+
+@if(Model.Companies.Count() == 0)
+{
+    <h3>No companies!</h3>
+}
+else
+{
+    <div class="companies-container container-fluid col-md-12 col-lg-12 col-sm-12">
+        <div class="row col-md-12 col-sm-12 col-lg-12 col-md-offset-1 col-sm-offset-1 col-lg-offset-1">
+            @foreach (var company in Model.Companies)
+            {
+                <div class="col-md-3 col-lg-3 col-sm-3 company-card text-center">
+                    <div class="company-image container-fluid">
+                        @if (company.Logo == null)
+                        {
+                            <img class="img-responsive logo" src="~/images/common/no-logo.png" alt="@company.Name" />
+                        }
+                        else
+                        {
+                            <img class="img-responsive logo" src="@company.Logo.ConvertBytesToImage()" alt="@company.Name" />
+                        }
+                    </div>
+                    <div class="company-name container-fluid">
+                        <strong>@company.Name</strong>
+                    </div>
+                    <p class="description">
+                        @company.Description.ToShortDescription().Trim()
+                    </p>
+                </div>
+            }
+        </div>
+    </div>
+}
+
+@Html.Partial("_Pagination",Model.Pagination)
+

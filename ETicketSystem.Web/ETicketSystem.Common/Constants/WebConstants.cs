@@ -40,6 +40,8 @@
 			public const string CompanyUniqueReferenceNumber = @"^\d{9,13}$";
 
 			public const string Phone = @"^0\d{9}$";
+
+			public const string FriendlyUrl = @"[^A-Za-z0-9_\.~]+";
 		}
 
 		public class Message
@@ -118,6 +120,8 @@
 		{
 			public const string Admin = "Admin";
 
+			public const string HomeError = "/Home/Error";
+
 			public const string AllCompanies = "Companies/All";
 
 			public const string ApproveCompany = "Companies/Approve/{companyId}";
@@ -195,6 +199,16 @@
 			public const string SearchDefaultStartTown = "Sofia";
 
 			public const string SearchDefaultEndTown = "Varna";
+		}
+
+		public class Company
+		{
+			public const int ShortDescriptionLength = 100;
+		}
+
+		public class Pagination
+		{
+			public const int CompaniesPageSize = 12;
 		}
 	}
 }
