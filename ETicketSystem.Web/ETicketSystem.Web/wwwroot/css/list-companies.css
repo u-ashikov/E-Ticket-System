@@ -2,7 +2,7 @@
     background-color: #F2F7F8;
 }
 
-div.companies-container {
+.companies-container {
     overflow:hidden;
 }
 
@@ -14,13 +14,22 @@ div.company-card {
     border-radius: 10px;
 }
 
-div.company-card img.logo {
+.company-card .logo {
     width:200px;
     height:200px;
     margin:0 auto;
 }
 
-p.description,
-div.company-name {
+.description,
+.company-name {
     margin-top:10px;
+}
+
+.search-companies {
+    margin:40px 0 10px 0;
+}
+
+.search-title h3 {
+    padding:0;
+    margin:0;
 }

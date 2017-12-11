@@ -5,7 +5,7 @@
 
 	public interface ICompanyService
     {
-		IEnumerable<CompanyListingServiceModel> All(int page, int pageSize = 10);
+		IEnumerable<CompanyListingServiceModel> All(int page, string searchTerm, int pageSize = 10);
 
 		bool IsCompanyNameRegistered(string name);
 
@@ -15,6 +15,6 @@
 
 		bool IsApproved(string companyId);
 
-		int TotalCompanies();
+		int TotalCompanies(string searchTerm);
     }
 }

@@ -4,6 +4,8 @@
 
 	public class PaginationViewModel
     {
+		public string SearchTerm { get; set; }
+
 		public int TotalElements { get; set; }
 
 		public int CurrentPage { get; set; }

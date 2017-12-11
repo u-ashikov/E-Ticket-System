@@ -15,7 +15,7 @@
 			this.companies = companies;
 		}
 
-		public IActionResult All(int page = 1)
+		public IActionResult All(string searchTerm, int page = 1)
 		{
 			if (page < 1)
 			{
@@ -26,17 +26,18 @@
 			{
 				CurrentPage = page,
 				PageSize = WebConstants.Pagination.CompaniesPageSize,
-				TotalElements = this.companies.TotalCompanies()
+				TotalElements = this.companies.TotalCompanies(searchTerm),
+				SearchTerm = searchTerm
 			};
 
-			if (page > companiesPagination.TotalPages)
+			if (page > companiesPagination.TotalPages && companiesPagination.TotalPages != 0)
 			{
 				return RedirectToAction(nameof(All), new { page = companiesPagination.TotalPages });
 			}
 
 			return View(new AllCompaniesViewModel()
 			{
-				Companies = this.companies.All(page, WebConstants.Pagination.CompaniesPageSize),
+				Companies = this.companies.All(page,searchTerm, WebConstants.Pagination.CompaniesPageSize),
 				Pagination = companiesPagination
 			});
 		}
