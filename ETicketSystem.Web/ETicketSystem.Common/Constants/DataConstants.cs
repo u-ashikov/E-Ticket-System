@@ -53,6 +53,8 @@
 
 			public const int PriceMinValue = 0;
 
+			public const int PriceMaxValue = 200;
+
 			public const string DurationMinValue = "00:00";
 
 			public const string DurationMaxValue = "24:00";

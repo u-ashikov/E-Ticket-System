@@ -158,6 +158,10 @@
 			public const string Towns = "../ETicketSystem.Data/SeedData/towns.csv";
 
 			public const string Stations = "../ETicketSystem.Data/SeedData/stations.csv";
+
+			public const string Companies = "../ETicketSystem.Data/SeedData/companies.csv";
+
+			public const string CompaniesImages = "../ETicketSystem.Data/SeedData/Images/Companies/";
 		}
 
 		public class PictureFormat
