@@ -3,6 +3,7 @@
     public enum Role
     {
 		Administrator = 0,
-		Company = 1
+		Company = 1,
+		Moderator = 2
     }
 }
