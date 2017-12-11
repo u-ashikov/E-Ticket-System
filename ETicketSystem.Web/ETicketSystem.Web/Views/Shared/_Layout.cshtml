@@ -51,9 +51,10 @@
                             </ul>
                         </li>
                     }
+                    <li class="bus-tickets"><a asp-area="" asp-controller="Home" asp-action="Index">Bus Tickets</a></li>
                     @if (!User.IsInRole(AdminConstants.Role))
                     {
-                        <li><a asp-area="" asp-controller="Companies" asp-action="All">Companies</a></li>
+                        <li class="bus-companies"><a asp-area="" asp-controller="Companies" asp-action="All">Companies</a></li>
                     }
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
