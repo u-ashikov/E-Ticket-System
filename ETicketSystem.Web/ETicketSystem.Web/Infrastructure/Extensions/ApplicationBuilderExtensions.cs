@@ -187,7 +187,7 @@
 														.Include(c => c.Routes)
 														.FirstOrDefault();
 
-								for (int r = 1; r <= statiosnCount * 2; r++)
+								for (int r = 1; r <= statiosnCount * 4; r++)
 								{
 									var startStationId = random.Next(firstStationId, firstStationId + statiosnCount);
 									var endStationId = random.Next(firstStationId, firstStationId + statiosnCount);
