@@ -41,5 +41,10 @@
 				Pagination = companiesPagination
 			});
 		}
+
+		public IActionResult Details(int id)
+		{
+			return null;
+		}
     }
 }

@@ -66,163 +66,209 @@
 			return app;
 		}
 
-		//public static IApplicationBuilder Seed(this IApplicationBuilder app)
-		//{
-		//	using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
-		//	{
-		//		var db = serviceScope.ServiceProvider.GetRequiredService<ETicketSystemDbContext>();
+		public static IApplicationBuilder Seed(this IApplicationBuilder app)
+		{
+			using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+			{
+				var db = serviceScope.ServiceProvider.GetRequiredService<ETicketSystemDbContext>();
 
-		//		var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<User>>();
-		//		var roleManager = serviceScope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+				var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<User>>();
+				var roleManager = serviceScope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-		//		if (File.Exists(WebConstants.FilePath.Towns))
-		//		{
-		//			var towns = File.ReadAllText(WebConstants.FilePath.Towns).Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+				//SeedTowns(db);
+				//SeedStations(db);
+				//SeedCompanies(db, userManager);
 
-		//			for (int i = 1; i < towns.Length; i++)
-		//			{
-		//				var town = new Town()
-		//				{
-		//					Name = towns[i]
-		//				};
+				if (File.Exists(WebConstants.FilePath.Users))
+				{
+					var users = File.ReadAllText(WebConstants.FilePath.Users).Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
 
-		//				Task.Run(async () =>
-		//				{
-		//					var townExists = await db.Towns.AnyAsync(t => t.Name.ToLower() == towns[i].ToLower());
+					for (int i = 1; i < users.Length; i++)
+					{
+						var userInfo = users[i].Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
-		//					if (!townExists)
-		//					{
-		//						await db.Towns.AddAsync(town);
-		//						await db.SaveChangesAsync();
-		//					}
-		//				})
-		//				.Wait();
-		//			}
-		//		}
+						var password = userInfo[4];
+						var username = userInfo[0];
+						var email = userInfo[1];
 
-		//		if (File.Exists(WebConstants.FilePath.Stations))
-		//		{
-		//			var stations = File.ReadAllText(WebConstants.FilePath.Stations).Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+						var user = new RegularUser()
+						{
+							UserName = username,
+							Email = email,
+							FirstName = userInfo[2],
+							LastName = userInfo[3]
+						};
 
-		//			for (int i = 1; i < stations.Length; i++)
-		//			{
-		//				var stationInfo = stations[i].Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+						Task.Run(async () =>
+						{
+							var userExists = await db.Users.AnyAsync(u => u.UserName.ToLower() == username.ToLower() && u.Email.ToLower() == email.ToLower());
 
-		//				var stationName = stationInfo[0];
-		//				var townId = int.Parse(stationInfo[1]);
-		//				var phone = stationInfo[2];
+							if (!userExists)
+							{
+								await userManager.CreateAsync(user, password);
+							}
+						})
+						.Wait();
+					}
+				}
+			}
+			return app;
+		}
 
-		//				var station = new Station()
-		//				{
-		//					Name = stationName,
-		//					TownId = townId,
-		//					Phone = phone
-		//				};
+		private static void SeedCompanies(ETicketSystemDbContext db, UserManager<User> userManager)
+		{
+			if (File.Exists(WebConstants.FilePath.Companies))
+			{
+				var companies = File.ReadAllText(WebConstants.FilePath.Companies).Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
 
-		//				Task.Run(async () =>
-		//				{
-		//					var townExists = await db.Towns.AnyAsync(t => t.Id == townId);
+				var random = new Random();
+				var townsCount = db.Towns.Count();
+				var firstTownId = db.Towns.First().Id;
+				var statiosnCount = db.Stations.Count();
+				var firstStationId = db.Stations.First().Id;
 
-		//					if (townExists)
-		//					{
-		//						var town = db.Towns
-		//							.Include(t => t.Stations)
-		//							.FirstOrDefault(t => t.Id == townId);
+				for (int i = 1; i < companies.Length; i++)
+				{
+					var companyInfo = companies[i].Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
-		//						var stationExists = town.Stations.Any(s => s.Name.ToLower() == stationName.ToLower() && s.Phone == phone);
+					var password = companyInfo[2];
 
-		//						if (!stationExists)
-		//						{
-		//							await db.Stations.AddAsync(station);
-		//							await db.SaveChangesAsync();
-		//						}
-		//					}
-		//				})
-		//				.Wait();
-		//			}
-		//		}
+					var company = new Company()
+					{
+						UserName = companyInfo[0],
+						Email = companyInfo[1],
+						Name = companyInfo[3],
+						Logo = File.ReadAllBytes(WebConstants.FilePath.CompaniesImages + companyInfo[4]),
+						Description = companyInfo[5],
+						UniqueReferenceNumber = companyInfo[6],
+						ChiefFirstName = companyInfo[7],
+						ChiefLastName = companyInfo[8],
+						Address = companyInfo[9],
+						PhoneNumber = companyInfo[10],
+						TownId = random.Next(firstTownId, townsCount)
+					};
 
-		//		if (File.Exists(WebConstants.FilePath.Companies))
-		//		{
-		//			var companies = File.ReadAllText(WebConstants.FilePath.Companies).Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+					Task.Run(async () =>
+					{
+						var companyExists = await db.Companies.AnyAsync(c => c.Name.ToLower() == company.Name.ToLower() && c.UserName == company.UserName);
 
-		//			var random = new Random();
-		//			var townsCount = db.Towns.Count();
-		//			var firstTownId = db.Towns.First().Id;
-		//			var statiosnCount = db.Stations.Count();
-		//			var firstStationId = db.Stations.First().Id;
+						if (!companyExists)
+						{
+							await userManager.CreateAsync(company, password);
+							await userManager.AddToRoleAsync(company, Role.Company.ToString());
 
-		//			for (int i = 1; i < companies.Length; i++)
-		//			{
-		//				var companyInfo = companies[i].Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+							var currentCompany = db.Companies
+													.Where(c => c.UserName == company.UserName)
+													.Include(c => c.Routes)
+													.FirstOrDefault();
 
-		//				var password = companyInfo[2];
+							for (int r = 1; r <= statiosnCount * 4; r++)
+							{
+								var startStationId = random.Next(firstStationId, firstStationId + statiosnCount);
+								var endStationId = random.Next(firstStationId, firstStationId + statiosnCount);
+								var departureTime = new TimeSpan(random.Next(0, 23), random.Next(0, 59), 0);
+								var duration = new TimeSpan(random.Next(0, 23), random.Next(0, 59), 0);
 
-		//				var company = new Company()
-		//				{
-		//					UserName = companyInfo[0],
-		//					Email = companyInfo[1],
-		//					Name = companyInfo[3],
-		//					Logo = File.ReadAllBytes(WebConstants.FilePath.CompaniesImages + companyInfo[4]),
-		//					Description = companyInfo[5],
-		//					UniqueReferenceNumber = companyInfo[6],
-		//					ChiefFirstName = companyInfo[7],
-		//					ChiefLastName = companyInfo[8],
-		//					Address = companyInfo[9],
-		//					PhoneNumber = companyInfo[10],
-		//					TownId = random.Next(firstTownId, townsCount)
-		//				};
+								if (startStationId == endStationId)
+								{
+									continue;
+								}
 
-		//				Task.Run(async () =>
-		//				{
-		//					var companyExists = await db.Companies.AnyAsync(c => c.Name.ToLower() == company.Name.ToLower() && c.UserName == company.UserName);
+								var route = new Route()
+								{
+									BusType = r % 2 == 0 ? BusType.Mini : BusType.Standart,
+									StartStationId = startStationId,
+									EndStationId = endStationId,
+									Price = random.Next(DataConstants.Route.PriceMinValue, DataConstants.Route.PriceMaxValue),
+									DepartureTime = departureTime,
+									Duration = duration,
+									IsActive = true
+								};
 
-		//					if (!companyExists)
-		//					{
-		//						await userManager.CreateAsync(company, password);
-		//						await userManager.AddToRoleAsync(company, Role.Company.ToString());
+								if (!currentCompany.Routes.Any(cr => cr.StartStationId == startStationId && cr.EndStationId == endStationId))
+								{
+									currentCompany.Routes.Add(route);
+									db.SaveChanges();
+								}
+							}
+						}
+					})
+					.Wait();
+				}
+			}
+		}
 
-		//						var currentCompany = db.Companies
-		//												.Where(c => c.UserName == company.UserName)
-		//												.Include(c => c.Routes)
-		//												.FirstOrDefault();
+		private static void SeedStations(ETicketSystemDbContext db)
+		{
+			if (File.Exists(WebConstants.FilePath.Stations))
+			{
+				var stations = File.ReadAllText(WebConstants.FilePath.Stations).Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
 
-		//						for (int r = 1; r <= statiosnCount * 4; r++)
-		//						{
-		//							var startStationId = random.Next(firstStationId, firstStationId + statiosnCount);
-		//							var endStationId = random.Next(firstStationId, firstStationId + statiosnCount);
-		//							var departureTime = new TimeSpan(random.Next(0, 23), random.Next(0, 59), 0);
-		//							var duration = new TimeSpan(random.Next(0, 23), random.Next(0, 59), 0);
+				for (int i = 1; i < stations.Length; i++)
+				{
+					var stationInfo = stations[i].Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
-		//							if (startStationId == endStationId)
-		//							{
-		//								continue;
-		//							}
+					var stationName = stationInfo[0];
+					var townId = int.Parse(stationInfo[1]);
+					var phone = stationInfo[2];
 
-		//							var route = new Route()
-		//							{
-		//								BusType = r % 2 == 0 ? BusType.Mini : BusType.Standart,
-		//								StartStationId = startStationId,
-		//								EndStationId = endStationId,
-		//								Price = random.Next(DataConstants.Route.PriceMinValue, DataConstants.Route.PriceMaxValue),
-		//								DepartureTime = departureTime,
-		//								Duration = duration,
-		//								IsActive = true
-		//							};
+					var station = new Station()
+					{
+						Name = stationName,
+						TownId = townId,
+						Phone = phone
+					};
 
-		//							if (!currentCompany.Routes.Any(cr => cr.StartStationId == startStationId && cr.EndStationId == endStationId))
-		//							{
-		//								currentCompany.Routes.Add(route);
-		//								db.SaveChanges();
-		//							}
-		//						}
-		//					}
-		//				})
-		//				.Wait();
-		//			}
-		//		}
-		//	}
-		//	return app;
-		//}
-    }
+					Task.Run(async () =>
+					{
+						var townExists = await db.Towns.AnyAsync(t => t.Id == townId);
+
+						if (townExists)
+						{
+							var town = db.Towns
+								.Include(t => t.Stations)
+								.FirstOrDefault(t => t.Id == townId);
+
+							var stationExists = town.Stations.Any(s => s.Name.ToLower() == stationName.ToLower() && s.Phone == phone);
+
+							if (!stationExists)
+							{
+								await db.Stations.AddAsync(station);
+								await db.SaveChangesAsync();
+							}
+						}
+					})
+					.Wait();
+				}
+			}
+		}
+
+		private static void SeedTowns(ETicketSystemDbContext db)
+		{
+			if (File.Exists(WebConstants.FilePath.Towns))
+			{
+				var towns = File.ReadAllText(WebConstants.FilePath.Towns).Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+
+				for (int i = 1; i < towns.Length; i++)
+				{
+					var town = new Town()
+					{
+						Name = towns[i]
+					};
+
+					Task.Run(async () =>
+					{
+						var townExists = await db.Towns.AnyAsync(t => t.Name.ToLower() == towns[i].ToLower());
+
+						if (!townExists)
+						{
+							await db.Towns.AddAsync(town);
+							await db.SaveChangesAsync();
+						}
+					})
+					.Wait();
+				}
+			}
+		}
+	}
 }

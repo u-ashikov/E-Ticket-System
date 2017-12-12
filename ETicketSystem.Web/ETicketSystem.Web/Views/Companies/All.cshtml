@@ -33,17 +33,21 @@ else
             {
                 <div class="col-md-3 col-lg-3 col-sm-3 company-card text-center">
                     <div class="company-image container-fluid">
-                        @if (company.Logo == null)
-                        {
-                            <img class="img-responsive logo" src="~/images/common/no-logo.png" alt="@company.Name" />
-                        }
-                        else
-                        {
-                            <img class="img-responsive logo" src="@company.Logo.ConvertBytesToImage()" alt="@company.Name" />
-                        }
+                        <a asp-controller="Companies" asp-action="Details" asp-route-id="@company.Id">
+                            @if (company.Logo == null)
+                            {
+                                <img class="img-responsive logo" src="~/images/common/no-logo.png" alt="@company.Name" />
+                            }
+                            else
+                            {
+                                <img class="img-responsive logo" src="@company.Logo.ConvertBytesToImage()" alt="@company.Name" />
+                            }
+                        </a>
                     </div>
                     <div class="company-name container-fluid">
-                        <strong>@company.Name</strong>
+                        <a asp-controller="Companies" asp-action="Details" asp-route-id="@company.Id">
+                            <strong>@company.Name</strong>
+                        </a>
                     </div>
                     <p class="description">
                         @company.Description.ToShortDescription().Trim()

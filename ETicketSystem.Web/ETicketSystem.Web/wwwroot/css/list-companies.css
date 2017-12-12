@@ -25,6 +25,11 @@ div.company-card {
     margin-top:10px;
 }
 
+.company-name a {
+    text-decoration:none;
+    color:black;
+}
+
 .search-companies {
     margin:40px 0 10px 0;
 }

@@ -165,6 +165,8 @@
 
 			public const string Companies = "../ETicketSystem.Data/SeedData/companies.csv";
 
+			public const string Users = "../ETicketSystem.Data/SeedData/users.csv";
+
 			public const string CompaniesImages = "../ETicketSystem.Data/SeedData/Images/Companies/";
 		}
 
