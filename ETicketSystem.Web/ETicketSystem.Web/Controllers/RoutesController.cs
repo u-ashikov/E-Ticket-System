@@ -20,6 +20,8 @@
 
 		private readonly ITicketService tickets;
 
+		private readonly ICompanyService companies;
+
 		private readonly UserManager<User> userManager;
 
 		public RoutesController(ITownService towns, IRouteService routes, ITicketService tickets, UserManager<User> userManager)
@@ -46,7 +48,7 @@
 				return this.RedirectToHome();
 			}
 
-			return View(this.routes.GetSearchedRoutes(model.StartTown, model.EndTown, model.Date));
+			return View(this.routes.GetSearchedRoutes(model.StartTown, model.EndTown, model.Date,model.CompanyId));
 		}
 
 		[Route(WebConstants.Route.BookRouteTicket)]

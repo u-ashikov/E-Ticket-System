@@ -7,6 +7,7 @@
 <environment include="Development">
     <link rel="stylesheet" href="~/css/search-form.css" />
     <link rel="stylesheet" href="~/css/company-details.css" />
+    <script src="~/lib/jquery/dist/jquery.js"></script>
 </environment>
 
 <a class="btn btn-primary back" asp-controller="Companies" asp-action="All">Back</a>
@@ -60,8 +61,10 @@
         {
             <div class="route-info-container col-md-6">
                 <p class="route-info">
+                    <span class="start-town-id" hidden>@route.StartTown</span>
+                    <span class="end-town-id" hidden>@route.EndTown</span>
                     <span class="col-md-8"><strong>@route.StartTownName</strong> - <strong>@route.EndTownName</strong> Bus Tickets</span>
-                    <a class="btn btn-primary col-md-2">
+                    <a class="btn btn-primary col-md-2" onclick="getSearchedRouteTowns(this)">
                         @route.Price.ToFormatedPrice() $
                     </a>
                 </p>
@@ -69,4 +72,20 @@
         }
     </div>
 </div>
+
+@section Scripts {
+    <script type="text/javascript" src="~/js/route/search-form-validation.js"></script>
+    <script>
+        function getSearchedRouteTowns(event) {
+            let startTownId = $(event).parent().find('span.start-town-id').text();
+            let endTownId = $(event).parent().find('span.end-town-id').text();
+
+            $('form.search-form select.start-town').val(startTownId);
+            $('form.search-form select.end-town').val(endTownId);
+
+            $('form.search-form').submit();
+        }
+    </script>
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
 

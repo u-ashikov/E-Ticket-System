@@ -26,7 +26,8 @@
             <input asp-for="Date" value="dd/MM/yyyy" min="@DateTime.UtcNow.ToString("yyyy-MM-dd")" class="form-control" />
             <span asp-validation-for="Date" class="text-danger"></span>
         </div>
-        <input type="submit" value="Search" class="btn btn-success" onclick="checkTownsEquality()" />
+        <input type="hidden" asp-for="CompanyId"/>
+        <input type="submit" value="Search" class="btn btn-success search-route" onclick="checkTownsEquality()" />
     </form>
 </div>
 

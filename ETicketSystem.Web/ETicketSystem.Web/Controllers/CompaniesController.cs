@@ -61,6 +61,7 @@
 				Company = company,
 				SearchForm = new SearchRouteFormModel()
 				{
+					CompanyId = id,
 					Towns = this.GenerateSelectListTowns()
 				}
 			});

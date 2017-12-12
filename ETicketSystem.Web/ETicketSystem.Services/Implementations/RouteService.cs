@@ -1,5 +1,6 @@
 ﻿namespace ETicketSystem.Services.Implementations
 {
+	using AutoMapper;
 	using AutoMapper.QueryableExtensions;
 	using Contracts;
 	using ETicketSystem.Data;
@@ -18,30 +19,35 @@
 			this.db = db;
 		}
 
-		public IEnumerable<RouteSearchListingServiceModel> GetSearchedRoutes(int startTown, int endTown, DateTime date)
+		public IEnumerable<RouteSearchListingServiceModel> GetSearchedRoutes(int startTown, int endTown, DateTime date, string companyId)
 		{
-			if (date.Date > DateTime.UtcNow.Date)
+			var routes = this.db.Routes
+								.Include(r=>r.StartStation)
+								.Include(r=>r.EndStation)
+								.Include(r => r.Company)
+								.ToList();
+
+			if (!string.IsNullOrEmpty(companyId))
 			{
-				return this.db
-							.Routes
-							.Include(c=>c.Company)
-							.Where(r => r.StartStation.TownId == startTown
-									&& r.EndStation.TownId == endTown
-									&& r.DepartureTime >= new TimeSpan(0,0,0))
-							.OrderBy(r=>r.DepartureTime)
-							.ProjectTo<RouteSearchListingServiceModel>()
-							.ToList();
+				routes = routes.Where(r => r.CompanyId == companyId).ToList();
 			}
 
-			return this.db
-						.Routes
-						.Include(c => c.Company)
+			if (date.Date > DateTime.UtcNow.Date)
+			{
+				return Mapper.Map<IEnumerable<RouteSearchListingServiceModel>>(routes
+					.Where(r => r.StartStation.TownId == startTown
+									&& r.EndStation.TownId == endTown
+									&& r.DepartureTime >= new TimeSpan(0, 0, 0))
+							.OrderBy(r => r.DepartureTime)
+							.ToList());
+			}
+
+			return Mapper.Map<IEnumerable<RouteSearchListingServiceModel>>(routes
 						.Where(r => r.StartStation.TownId == startTown
 								&& r.EndStation.TownId == endTown
 								&& r.DepartureTime > DateTime.UtcNow.TimeOfDay)
 						.OrderBy(r => r.DepartureTime)
-						.ProjectTo<RouteSearchListingServiceModel>()
-						.ToList();
+						.ToList());
 		}
 
 		public RouteBookTicketInfoServiceModel GetRouteTicketBookingInfo(int id, DateTime date) =>

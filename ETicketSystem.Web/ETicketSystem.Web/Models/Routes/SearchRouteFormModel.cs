@@ -1,6 +1,6 @@
 ﻿namespace ETicketSystem.Web.Models.Routes
 {
-	using ETicketSystem.Common.Constants;
+	using Common.Constants;
 	using Microsoft.AspNetCore.Mvc.Rendering;
 	using System;
 	using System.Collections.Generic;
@@ -16,6 +16,8 @@
 
 		[DataType(DataType.Date)]
 		public DateTime Date { get; set; }
+
+		public string CompanyId { get; set; }
 
 		public IEnumerable<SelectListItem> Towns { get; set; }
 	}
