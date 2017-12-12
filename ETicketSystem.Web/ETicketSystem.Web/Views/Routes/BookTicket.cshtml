@@ -16,7 +16,7 @@
     @Model.StartStation - @Model.EndStation @Model.Duration, @Model.CompanyName, @Model.DepartureDateTime
 </p>
 
-@Html.Partial("_BookTicketFormModel", Model)
+@Html.Partial("_BookTicketForm", Model)
 
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
