@@ -30,7 +30,9 @@
 				CurrentPage = page,
 				PageSize = WebConstants.Pagination.CompaniesPageSize,
 				TotalElements = this.companies.TotalCompanies(searchTerm),
-				SearchTerm = searchTerm
+				SearchTerm = searchTerm,
+				Action = nameof(All),
+				Controller = WebConstants.Controller.Companies
 			};
 
 			if (page > companiesPagination.TotalPages && companiesPagination.TotalPages != 0)

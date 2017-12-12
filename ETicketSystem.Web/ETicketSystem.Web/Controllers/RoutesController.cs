@@ -3,6 +3,7 @@
 	using Common.Constants;
 	using Common.Enums;
 	using Data.Models;
+	using ETicketSystem.Web.Models.Pagination;
 	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Identity;
 	using Microsoft.AspNetCore.Mvc;
@@ -20,8 +21,6 @@
 
 		private readonly ITicketService tickets;
 
-		private readonly ICompanyService companies;
-
 		private readonly UserManager<User> userManager;
 
 		public RoutesController(ITownService towns, IRouteService routes, ITicketService tickets, UserManager<User> userManager)
@@ -34,7 +33,7 @@
 
 		[Route(WebConstants.Route.RoutesSearch)]
 		[AllowAnonymous]
-		public IActionResult Search(SearchRouteFormModel model)
+		public IActionResult Search(SearchRouteFormModel model, int page = 1)
 		{
 			if (!this.towns.TownExists(model.StartTown) || !this.towns.TownExists(model.EndTown))
 			{
@@ -48,7 +47,16 @@
 				return this.RedirectToHome();
 			}
 
-			return View(this.routes.GetSearchedRoutes(model.StartTown, model.EndTown, model.Date,model.CompanyId));
+			return View(new SearchedRoutes()
+			{
+				Routes = this.routes.GetSearchedRoutes(model.StartTown, model.EndTown, model.Date, model.CompanyId, page, WebConstants.Pagination.SearchedRoutesPageSize),
+				Pagination = new PaginationViewModel()
+				{
+					CurrentPage = page,
+					PageSize = WebConstants.Pagination.SearchedRoutesPageSize,
+					TotalElements = this.routes.GetSearchedRoutesCount(model.StartTown, model.EndTown, model.Date, model.CompanyId)
+				}
+			});
 		}
 
 		[Route(WebConstants.Route.BookRouteTicket)]

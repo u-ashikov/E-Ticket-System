@@ -155,6 +155,10 @@
 			public const string Account = "Account";
 
 			public const string Home = "Home";
+
+			public const string Routes = "Routes";
+
+			public const string Companies = "Companies";
 		}
 
 		public class FilePath
@@ -213,6 +217,8 @@
 		public class Pagination
 		{
 			public const int CompaniesPageSize = 12;
+
+			public const int SearchedRoutesPageSize = 5;
 		}
 	}
 }

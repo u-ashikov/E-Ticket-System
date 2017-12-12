@@ -19,7 +19,7 @@
 			this.db = db;
 		}
 
-		public IEnumerable<RouteSearchListingServiceModel> GetSearchedRoutes(int startTown, int endTown, DateTime date, string companyId)
+		public IEnumerable<RouteSearchListingServiceModel> GetSearchedRoutes(int startTown, int endTown, DateTime date, string companyId, int page, int pageSize = 10)
 		{
 			var routes = this.db.Routes
 								.Include(r=>r.StartStation)
@@ -39,12 +39,16 @@
 				return Mapper.Map<IEnumerable<RouteSearchListingServiceModel>>(routes
 					.Where(r => r.DepartureTime >= new TimeSpan(0, 0, 0))
 							.OrderBy(r => r.DepartureTime)
+							.Skip((page-1)*pageSize)
+							.Take(pageSize)
 							.ToList());
 			}
 
 			return Mapper.Map<IEnumerable<RouteSearchListingServiceModel>>(routes
 						.Where(r => r.DepartureTime > DateTime.UtcNow.TimeOfDay)
 						.OrderBy(r => r.DepartureTime)
+						.Skip((page - 1) * pageSize)
+						.Take(pageSize)
 						.ToList());
 		}
 
@@ -60,5 +64,33 @@
 		public bool RouteExists(int id, TimeSpan departureTime) =>
 			this.db.Routes
 				.Any(r => r.Id == id && r.DepartureTime == departureTime);
+
+		public int GetSearchedRoutesCount(int startTown, int endTown, DateTime date, string companyId)
+		{
+			var routes = this.db.Routes
+							.Where(r => r.StartStation.TownId == startTown
+							&& r.EndStation.TownId == endTown)
+							.AsQueryable();
+
+			if (date.Date > DateTime.UtcNow.Date)
+			{
+				routes = routes
+							.Where(r => r.DepartureTime >= new TimeSpan(0, 0, 0))
+							.AsQueryable();
+			}
+			else
+			{
+				routes = routes
+							.Where(r => r.DepartureTime > DateTime.UtcNow.TimeOfDay)
+							.AsQueryable();
+			}
+
+			if (!string.IsNullOrEmpty(companyId))
+			{
+				return routes.Count(r => r.CompanyId == companyId);
+			}
+
+			return routes.Count();
+		}
 	}
 }

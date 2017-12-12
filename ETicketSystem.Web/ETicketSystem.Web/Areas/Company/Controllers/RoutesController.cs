@@ -1,8 +1,8 @@
 ﻿namespace ETicketSystem.Web.Areas.Company.Controllers
 {
 	using Common.Constants;
+	using Common.Enums;
 	using Data.Models;
-	using ETicketSystem.Common.Enums;
 	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Identity;
 	using Microsoft.AspNetCore.Mvc;

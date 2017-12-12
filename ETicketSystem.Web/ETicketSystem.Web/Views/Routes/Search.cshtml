@@ -1,4 +1,4 @@
-﻿@model IEnumerable<RouteSearchListingServiceModel>
+﻿@model SearchedRoutes
 
 @{
     ViewData["Title"] = "Search Routes";
@@ -10,14 +10,14 @@
 
 <h2 class="text-center">@ViewData["Title"]</h2>
 
-@if(Model.Count() == 0)
+@if(Model.Routes.Count() == 0)
 {
     <h3>No routes found!</h3>
 }
 else
 {
     <div class="container-fluid ticket-list">
-        @foreach (var route in Model)
+        @foreach (var route in Model.Routes)
         {
             <div class="route-container row">
                 <div class="col-md-2 col-sm-2 col-lg-2">
@@ -51,6 +51,23 @@ else
             </div>
             <hr />
         }
+    </div>
+
+    <div class="container-fluid text-center">
+        <ul class="pagination">
+            <li class="page-item @(1 == Model.Pagination.CurrentPage ? "blocked":string.Empty)">
+                <a class="page-link" asp-controller="Routes" asp-action="Search">Previous</a>
+            </li>
+            @for (int i = 1; i <= Model.Pagination.TotalPages; i++)
+            {
+                <li class="page-item @(i == Model.Pagination.CurrentPage ? "active blocked":string.Empty)">
+                    <a class="page-link" asp-controller="Routes" asp-action="Search">@i</a>
+                </li>
+            }
+            <li class="page-item @(Model.Pagination.TotalPages == Model.Pagination.CurrentPage ? "blocked":string.Empty)">
+                <a class="page-link" asp-controller="Routes" asp-action="Search">Next</a>
+            </li>
+        </ul>
     </div>
 }
 

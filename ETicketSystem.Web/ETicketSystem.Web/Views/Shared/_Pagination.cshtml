@@ -3,16 +3,16 @@
 <div class="container-fluid text-center">
     <ul class="pagination">
         <li class="page-item @(1 == Model.CurrentPage ? "blocked":string.Empty)">
-            <a class="page-link" href="/companies/all?@(Model.SearchTerm == null ? string.Empty : "searchTerm=@Model.SearchTerm&")page=@Model.PreviousPage">Previous</a>
+            <a class="page-link" href="/@Model.Controller/@Model.Action?@(Model.SearchTerm == null ? string.Empty : $"searchTerm={Model.SearchTerm}&")page=@Model.PreviousPage">Previous</a>
         </li>
         @for (int i = 1; i <= Model.TotalPages; i++)
         {
             <li class="page-item @(i == Model.CurrentPage ? "active blocked":string.Empty)">
-                <a class="page-link" href="/companies/all?@(Model.SearchTerm == null ? string.Empty : "searchTerm=@Model.SearchTerm&")page=@i">@i</a>
+                <a class="page-link" href="/@Model.Controller/@Model.Action?@(Model.SearchTerm == null ? string.Empty : $"searchTerm={Model.SearchTerm}&")page=@i">@i</a>
             </li>
         }
         <li class="page-item @(Model.TotalPages == Model.CurrentPage ? "blocked":string.Empty)">
-            <a class="page-link" href="/companies/all?@(Model.SearchTerm == null ? string.Empty : "searchTerm=@Model.SearchTerm&")page=@Model.NextPage">Next</a>
+            <a class="page-link" href="/@Model.Controller/@Model.Action?@(Model.SearchTerm == null ? string.Empty : $"searchTerm={Model.SearchTerm}&")page=@Model.NextPage">Next</a>
         </li>
     </ul>
 </div>
