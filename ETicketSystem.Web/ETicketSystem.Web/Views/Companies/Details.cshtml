@@ -1,8 +1,66 @@
-﻿
+﻿@model  CompanyDetailsViewModel
 
 @{
     ViewData["Title"] = "Company Details";
 }
 
-<h2>Details</h2>
+<environment include="Development">
+    <link rel="stylesheet" href="~/css/company-details.css" />
+</environment>
+<a class="back btn btn-primary" asp-controller="Companies" asp-action="All">
+    Back
+</a>
+<div class="container-fluid text-center">
+    @if (Model.Company.Logo == null)
+    {
+        <img class="img-responsive logo" src="~/images/common/no-logo.png" alt="@Model.Company.Name" />
+    }
+    else
+    {
+        <img class="img-responsive logo" src="@Model.Company.Logo.ConvertBytesToImage()" alt="@Model.Company.Name" />
+    }
+    <h1>@Model.Company.Name</h1>
+    <div class="row base-info">
+        <p class="description">
+            @Model.Company.Description
+        </p>
+        <div class="icons col-md-12 col-md-offset-1">
+            <div class="info tickets-sold">
+                <i class="fa fa-ticket" aria-hidden="true"></i>
+                <div class="icon-title text-uppercase">tickets</div>
+                <h3>@Model.Company.TicketsSold Tickets sold</h3>
+            </div>
+            <div class="info residence">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <div class="icon-title text-uppercase">residence</div>
+                <h3>@Model.Company.Town</h3>
+            </div>
+            <div class="info chief">
+                <i class="fa fa-id-card" aria-hidden="true"></i>
+                <div class="icon title text-uppercase">chief</div>
+                <h3>@Model.Company.Chief</h3>
+            </div>
+            <div class="info phone">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <div class="icon title text-uppercase">phone</div>
+                <h3>@Model.Company.PhoneNumber</h3>
+            </div>
+        </div>
+    </div>
+    <div class="popular-routes row">
+        <h3>Most popular routes</h3>
+        <hr />
+        @foreach (var route in Model.Company.Routes)
+        {
+            <div class="route-info-container col-md-6">
+                <p class="route-info">
+                    <span class="col-md-8"><strong>@route.StartTownName</strong> - <strong>@route.EndTownName</strong> Bus Tickets</span>
+                    <a class="btn btn-primary col-md-2">
+                        @route.Price.ToFormatedPrice() $
+                    </a>
+                </p>
+            </div>
+        }
+    </div>
+</div>
 

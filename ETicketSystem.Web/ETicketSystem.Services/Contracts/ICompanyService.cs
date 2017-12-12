@@ -16,5 +16,7 @@
 		bool IsApproved(string companyId);
 
 		int TotalCompanies(string searchTerm);
+
+		CompanyDetailsServiceModel CompanyDetails(string id);
     }
 }

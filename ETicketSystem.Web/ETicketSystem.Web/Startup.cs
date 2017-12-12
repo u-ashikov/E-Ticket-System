@@ -54,7 +54,7 @@
         {
 			app.UseDatabaseMigration();
 
-			app.Seed();
+			//app.Seed();
 
             if (env.IsDevelopment())
             {

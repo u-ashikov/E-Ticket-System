@@ -56,5 +56,11 @@
 
 			return this.db.Companies.Count();
 		}
+
+		public CompanyDetailsServiceModel CompanyDetails(string id) =>
+			this.db.Companies
+				.Where(c => c.Id == id)
+				.ProjectTo<CompanyDetailsServiceModel>()
+				.FirstOrDefault();
 	}
 }

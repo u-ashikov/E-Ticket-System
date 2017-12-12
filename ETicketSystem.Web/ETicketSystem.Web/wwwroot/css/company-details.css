@@ -1,0 +1,57 @@
+﻿@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+
+body {
+}
+
+img.logo {
+    width:100px;
+    height:100px;
+    display:inline-block;
+    margin-top:20px;
+}
+
+.description {
+    line-height:20px;
+    margin:10px 0 10px 0;
+}
+
+.back {
+    margin-top:20px;
+}
+
+.icons {
+    margin:40px 0;
+}
+
+.icons div.info {
+    display:inline-block;
+    border-right:1px solid black;
+    margin-right:40px;
+    padding-right:40px;
+}
+
+.fa {
+    display:block;
+    color:red;
+    font-size:2.9em;
+    margin-bottom:10px;
+}
+
+.popular-routes {
+    margin-top:20px;
+}
+
+.popular-routes h3 {
+    font-size:2.4em;
+    font-weight:600;
+    letter-spacing:3px;
+}
+
+.route-info span {
+    font-size:1.2em;
+    font-weight:500;
+}
+
+.route-info a {
+    margin-bottom:10px;
+}

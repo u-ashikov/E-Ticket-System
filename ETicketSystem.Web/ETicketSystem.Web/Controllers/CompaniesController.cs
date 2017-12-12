@@ -1,6 +1,8 @@
 ﻿namespace ETicketSystem.Web.Controllers
 {
 	using Common.Constants;
+	using ETicketSystem.Common.Enums;
+	using ETicketSystem.Web.Models.Routes;
 	using Microsoft.AspNetCore.Mvc;
 	using Models.Companies;
 	using Models.Pagination;
@@ -42,9 +44,22 @@
 			});
 		}
 
-		public IActionResult Details(int id)
+		public IActionResult Details(string id)
 		{
-			return null;
+			var company = this.companies.CompanyDetails(id);
+
+			if (company == null)
+			{
+				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingCompany,id), Alert.Warning);
+
+				return RedirectToAction(nameof(All));
+			}
+
+			return View(new CompanyDetailsViewModel()
+			{
+				Company = company,
+				SearchForm = new SearchRouteFormModel()
+			});
 		}
     }
 }

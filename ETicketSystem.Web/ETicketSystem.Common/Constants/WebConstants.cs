@@ -206,6 +206,8 @@
 		public class Company
 		{
 			public const int ShortDescriptionLength = 100;
+
+			public const int TopRoutesCount = 10;
 		}
 
 		public class Pagination

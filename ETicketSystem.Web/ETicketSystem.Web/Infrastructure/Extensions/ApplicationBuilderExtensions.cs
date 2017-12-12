@@ -79,89 +79,93 @@
 				//SeedStations(db);
 				//SeedCompanies(db, userManager);
 				//SeedUsers(db, userManager);
+				//SeedTickets(db);
+			}
 
-				var userIds = db.RegularUsers.Select(u => u.Id).ToList();
+			return app;
+		}
 
-				var companiesRoutes = db.Companies.Select(c => new
+		private static void SeedTickets(ETicketSystemDbContext db)
+		{
+			var userIds = db.RegularUsers.Select(u => u.Id).ToList();
+
+			var companiesRoutes = db.Companies.Select(c => new
+			{
+				Routes = c.Routes.Select(r => new
 				{
-					Routes = c.Routes.Select(r => new
-					{
-						Id = r.Id,
-						BusSeatsCount = (int)r.BusType,
-						DepartureTime = r.DepartureTime,
-						IsActive = r.IsActive
-					})
-					.ToList()
+					Id = r.Id,
+					BusSeatsCount = (int)r.BusType,
+					DepartureTime = r.DepartureTime,
+					IsActive = r.IsActive
 				})
-				.ToList();
+				.ToList()
+			})
+			.ToList();
 
-				var random = new Random();
+			var random = new Random();
 
-				const int month = 11;
-				const int year = 2017;
-				const int startDay = 20;
-				const int endDay = 23;
-				const int maxRoutesCount = 10;
+			const int month = 11;
+			const int year = 2017;
+			const int startDay = 20;
+			const int endDay = 23;
+			const int maxRoutesCount = 10;
 
-				Task.Run(async () =>
+			Task.Run(async () =>
+			{
+				for (int i = 0; i < companiesRoutes.Count; i++)
 				{
-					for (int i = 0; i < companiesRoutes.Count; i++)
+					for (int r = 1; r <= maxRoutesCount; r++)
 					{
-						for (int r = 1; r <= maxRoutesCount; r++)
+						if (!companiesRoutes[i].Routes.Any())
 						{
-							if (!companiesRoutes[i].Routes.Any())
+							continue;
+						}
+
+						var firstRouteId = companiesRoutes[i].Routes.First().Id;
+						var routeId = random.Next(firstRouteId, firstRouteId + companiesRoutes[i].Routes.Count);
+
+						var route = companiesRoutes[i].Routes.FirstOrDefault(ro => ro.Id == routeId);
+
+						if (!route.IsActive || route == null)
+						{
+							continue;
+						}
+
+						var totalDays = random.Next(startDay, endDay);
+
+						for (int day = startDay; day <= totalDays; day++)
+						{
+							var ticketDepartureTime = new DateTime(year, month, day, route.DepartureTime.Hours, route.DepartureTime.Minutes, route.DepartureTime.Seconds);
+
+							var totalSeats = random.Next(1, route.BusSeatsCount);
+
+							for (int seat = 1; seat <= totalSeats; seat++)
 							{
-								continue;
-							}
+								var userIdIndex = random.Next(0, userIds.Count);
+								var userId = userIds[userIdIndex];
 
-							var firstRouteId = companiesRoutes[i].Routes.First().Id;
-							var routeId = random.Next(firstRouteId, firstRouteId + companiesRoutes[i].Routes.Count);
-
-							var route = companiesRoutes[i].Routes.FirstOrDefault(ro => ro.Id == routeId);
-
-							if (!route.IsActive || route == null)
-							{
-								continue;
-							}
-
-							var totalDays = random.Next(startDay, endDay);
-
-							for (int day = startDay; day <= totalDays; day++)
-							{
-								var ticketDepartureTime = new DateTime(year, month, day, route.DepartureTime.Hours, route.DepartureTime.Minutes, route.DepartureTime.Seconds);
-
-								var totalSeats = random.Next(1, route.BusSeatsCount);
-
-								for (int seat = 1; seat <= totalSeats; seat++)
+								if (!db.Tickets.Any(t => t.RouteId == routeId
+									&& t.DepartureTime == ticketDepartureTime
+									&& t.SeatNumber == seat
+									))
 								{
-									var userIdIndex = random.Next(0, userIds.Count);
-									var userId = userIds[userIdIndex];
-
-									if (!db.Tickets.Any(t => t.RouteId == routeId
-										&& t.DepartureTime == ticketDepartureTime
-										&& t.SeatNumber == seat
-										))
+									db.Tickets.Add(new Ticket()
 									{
-										db.Tickets.Add(new Ticket()
-										{
-											DepartureTime = ticketDepartureTime,
-											IsCancelled = false,
-											RouteId = routeId,
-											SeatNumber = seat,
-											UserId = userId
-										});
+										DepartureTime = ticketDepartureTime,
+										IsCancelled = false,
+										RouteId = routeId,
+										SeatNumber = seat,
+										UserId = userId
+									});
 
-										await db.SaveChangesAsync();
-									}
+									await db.SaveChangesAsync();
 								}
 							}
 						}
 					}
-				})
-				.Wait();
-			}
-
-			return app;
+				}
+			})
+			.Wait();
 		}
 
 		private static void SeedUsers(ETicketSystemDbContext db, UserManager<User> userManager)
