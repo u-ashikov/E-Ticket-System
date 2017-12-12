@@ -25,6 +25,8 @@
 								.Include(r=>r.StartStation)
 								.Include(r=>r.EndStation)
 								.Include(r => r.Company)
+								.Where(r=> r.StartStation.TownId == startTown
+									&& r.EndStation.TownId == endTown)
 								.ToList();
 
 			if (!string.IsNullOrEmpty(companyId))
@@ -35,17 +37,13 @@
 			if (date.Date > DateTime.UtcNow.Date)
 			{
 				return Mapper.Map<IEnumerable<RouteSearchListingServiceModel>>(routes
-					.Where(r => r.StartStation.TownId == startTown
-									&& r.EndStation.TownId == endTown
-									&& r.DepartureTime >= new TimeSpan(0, 0, 0))
+					.Where(r => r.DepartureTime >= new TimeSpan(0, 0, 0))
 							.OrderBy(r => r.DepartureTime)
 							.ToList());
 			}
 
 			return Mapper.Map<IEnumerable<RouteSearchListingServiceModel>>(routes
-						.Where(r => r.StartStation.TownId == startTown
-								&& r.EndStation.TownId == endTown
-								&& r.DepartureTime > DateTime.UtcNow.TimeOfDay)
+						.Where(r => r.DepartureTime > DateTime.UtcNow.TimeOfDay)
 						.OrderBy(r => r.DepartureTime)
 						.ToList());
 		}
