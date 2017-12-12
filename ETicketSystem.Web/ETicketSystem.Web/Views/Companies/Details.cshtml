@@ -5,11 +5,17 @@
 }
 
 <environment include="Development">
+    <link rel="stylesheet" href="~/css/search-form.css" />
     <link rel="stylesheet" href="~/css/company-details.css" />
 </environment>
-<a class="back btn btn-primary" asp-controller="Companies" asp-action="All">
-    Back
-</a>
+
+<a class="btn btn-primary back" asp-controller="Companies" asp-action="All">Back</a>
+<div class="container-fluid details-container">
+    <div class="row search-container">
+        @Html.Partial("_SearchRoutesForm", Model.SearchForm)
+    </div>
+</div>
+
 <div class="container-fluid text-center">
     @if (Model.Company.Logo == null)
     {

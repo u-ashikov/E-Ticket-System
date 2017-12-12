@@ -2,27 +2,3 @@
     margin:0 auto;
     width:100%;
 }
-
-.search-container {
-    width: 100vw;
-    position: relative;
-    margin-left: -50vw;
-    height: 480px;
-    left: 50%;
-    background: linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) ), url('../images/home/home-search-background.jpg');
-    background-repeat:no-repeat;
-    background-size:100%;
-    background-position:center;
-    overflow-x:hidden;
-}
-
-.search-form {
-    background-color:white;
-    padding:16px;
-    border-radius:15px;
-    margin-top:50px;
-}
-
-div.form-errors {
-    margin-bottom:10px;
-}

@@ -1,18 +1,19 @@
 ﻿namespace ETicketSystem.Web.Controllers
 {
 	using Common.Constants;
-	using ETicketSystem.Common.Enums;
-	using ETicketSystem.Web.Models.Routes;
+	using Common.Enums;
 	using Microsoft.AspNetCore.Mvc;
 	using Models.Companies;
 	using Models.Pagination;
+	using Models.Routes;
 	using Services.Contracts;
 
 	public class CompaniesController : BaseController
     {
 		private readonly ICompanyService companies;
 
-		public CompaniesController(ICompanyService companies)
+		public CompaniesController(ICompanyService companies,ITownService towns)
+			:base(towns)
 		{
 			this.companies = companies;
 		}
@@ -59,6 +60,9 @@
 			{
 				Company = company,
 				SearchForm = new SearchRouteFormModel()
+				{
+					Towns = this.GenerateSelectListTowns()
+				}
 			});
 		}
     }
