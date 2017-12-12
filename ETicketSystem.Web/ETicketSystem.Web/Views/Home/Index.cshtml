@@ -1,7 +1,7 @@
 ﻿@model SearchRouteFormModel
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
 <environment include="Development">
@@ -10,7 +10,12 @@
 </environment>
 
 <div class="container-fluid home-container">
-    @Html.Partial("_SearchRoutesForm", Model)
+    <div class="row search-container">
+        @Html.Partial("_SearchRoutesForm", Model)
+        <div class="col-lg-6">
+            <h1>Some icons here</h1>
+        </div>
+    </div>
 </div>
 
 @section Scripts {
