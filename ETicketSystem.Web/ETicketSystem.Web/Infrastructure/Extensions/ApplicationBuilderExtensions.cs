@@ -78,41 +78,126 @@
 				//SeedTowns(db);
 				//SeedStations(db);
 				//SeedCompanies(db, userManager);
+				//SeedUsers(db, userManager);
 
-				if (File.Exists(WebConstants.FilePath.Users))
+				var userIds = db.RegularUsers.Select(u => u.Id).ToList();
+
+				var companiesRoutes = db.Companies.Select(c => new
 				{
-					var users = File.ReadAllText(WebConstants.FilePath.Users).Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
-
-					for (int i = 1; i < users.Length; i++)
+					Routes = c.Routes.Select(r => new
 					{
-						var userInfo = users[i].Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+						Id = r.Id,
+						BusSeatsCount = (int)r.BusType,
+						DepartureTime = r.DepartureTime,
+						IsActive = r.IsActive
+					})
+					.ToList()
+				})
+				.ToList();
 
-						var password = userInfo[4];
-						var username = userInfo[0];
-						var email = userInfo[1];
+				var random = new Random();
 
-						var user = new RegularUser()
+				const int month = 11;
+				const int year = 2017;
+				const int startDay = 20;
+				const int endDay = 23;
+				const int maxRoutesCount = 10;
+
+				Task.Run(async () =>
+				{
+					for (int i = 0; i < companiesRoutes.Count; i++)
+					{
+						for (int r = 1; r <= maxRoutesCount; r++)
 						{
-							UserName = username,
-							Email = email,
-							FirstName = userInfo[2],
-							LastName = userInfo[3]
-						};
-
-						Task.Run(async () =>
-						{
-							var userExists = await db.Users.AnyAsync(u => u.UserName.ToLower() == username.ToLower() && u.Email.ToLower() == email.ToLower());
-
-							if (!userExists)
+							if (!companiesRoutes[i].Routes.Any())
 							{
-								await userManager.CreateAsync(user, password);
+								continue;
 							}
-						})
-						.Wait();
+
+							var firstRouteId = companiesRoutes[i].Routes.First().Id;
+							var routeId = random.Next(firstRouteId, firstRouteId + companiesRoutes[i].Routes.Count);
+
+							var route = companiesRoutes[i].Routes.FirstOrDefault(ro => ro.Id == routeId);
+
+							if (!route.IsActive || route == null)
+							{
+								continue;
+							}
+
+							var totalDays = random.Next(startDay, endDay);
+
+							for (int day = startDay; day <= totalDays; day++)
+							{
+								var ticketDepartureTime = new DateTime(year, month, day, route.DepartureTime.Hours, route.DepartureTime.Minutes, route.DepartureTime.Seconds);
+
+								var totalSeats = random.Next(1, route.BusSeatsCount);
+
+								for (int seat = 1; seat <= totalSeats; seat++)
+								{
+									var userIdIndex = random.Next(0, userIds.Count);
+									var userId = userIds[userIdIndex];
+
+									if (!db.Tickets.Any(t => t.RouteId == routeId
+										&& t.DepartureTime == ticketDepartureTime
+										&& t.SeatNumber == seat
+										))
+									{
+										db.Tickets.Add(new Ticket()
+										{
+											DepartureTime = ticketDepartureTime,
+											IsCancelled = false,
+											RouteId = routeId,
+											SeatNumber = seat,
+											UserId = userId
+										});
+
+										await db.SaveChangesAsync();
+									}
+								}
+							}
+						}
 					}
+				})
+				.Wait();
+			}
+
+			return app;
+		}
+
+		private static void SeedUsers(ETicketSystemDbContext db, UserManager<User> userManager)
+		{
+			if (File.Exists(WebConstants.FilePath.Users))
+			{
+				var users = File.ReadAllText(WebConstants.FilePath.Users).Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+
+				for (int i = 1; i < users.Length; i++)
+				{
+					var userInfo = users[i].Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+					var password = userInfo[4];
+					var username = userInfo[0];
+					var email = userInfo[1];
+
+					var user = new RegularUser()
+					{
+						UserName = username,
+						Email = email,
+						FirstName = userInfo[2],
+						LastName = userInfo[3]
+					};
+
+					Task.Run(async () =>
+					{
+						var userExists = await db.Users.AnyAsync(u => u.UserName.ToLower() == username.ToLower() && u.Email.ToLower() == email.ToLower());
+
+						if (!userExists)
+						{
+							await userManager.CreateAsync(user, password);
+						}
+					})
+					.Wait();
 				}
 			}
-			return app;
 		}
 
 		private static void SeedCompanies(ETicketSystemDbContext db, UserManager<User> userManager)

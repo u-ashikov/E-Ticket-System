@@ -1,11 +1,11 @@
 ﻿namespace ETicketSystem.Services.Implementations
 {
-	using Data;
+	using AutoMapper.QueryableExtensions;
 	using Contracts;
+	using Data;
 	using Models.Company;
 	using System.Collections.Generic;
 	using System.Linq;
-	using AutoMapper.QueryableExtensions;
 
 	public class CompanyService : ICompanyService
     {
