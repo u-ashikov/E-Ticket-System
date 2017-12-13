@@ -188,6 +188,8 @@
 			public const string Companies = "Companies";
 
 			public const string Users = "Users";
+
+			public const string AdminCompanies = "AdminCompanies";
 		}
 
 		public class FilePath
@@ -250,6 +252,8 @@
 			public const int SearchedRoutesPageSize = 5;
 
 			public const int UserTicketsPageSize = 10;
+
+			public const int AdminCompaniesListing = 10;
 		}
 
 		public class Pdf

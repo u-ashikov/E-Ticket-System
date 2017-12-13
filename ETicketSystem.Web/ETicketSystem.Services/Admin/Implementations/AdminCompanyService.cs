@@ -16,9 +16,11 @@
 			this.db = db;
 		}
 
-		public IEnumerable<AdminCompanyListingServiceModel> All() =>
+		public IEnumerable<AdminCompanyListingServiceModel> All(int page, int pageSize = 10) =>
 			this.db.Companies
 				.OrderBy(c => c.RegistrationDate)
+				.Skip((page-1)*pageSize)
+				.Take(pageSize)
 				.ProjectTo<AdminCompanyListingServiceModel>()
 				.ToList();
 
@@ -48,5 +50,7 @@
 
 			return this.db.Companies.FirstOrDefault(c => c.Id == id).Name;
 		}
+
+		public int TotalCompanies() => this.db.Companies.Count();
 	}
 }

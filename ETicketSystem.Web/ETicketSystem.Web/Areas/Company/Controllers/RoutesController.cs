@@ -20,16 +20,14 @@
     {
 		private readonly ICompanyRouteService routes;
 
-		private readonly ITownService towns;
-
 		private readonly ICompanyService companies;
 
 		private readonly UserManager<User> userManager;
 
 		public RoutesController(ICompanyRouteService routes, ITownService towns, UserManager<User> userManager, ICompanyService companies)
+			:base(towns)
 		{
 			this.routes = routes;
-			this.towns = towns;
 			this.userManager = userManager;
 			this.companies = companies;
 		}

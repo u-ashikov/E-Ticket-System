@@ -1,9 +1,11 @@
 ﻿namespace ETicketSystem.Web.Areas.Admin.Controllers
 {
-	using ETicketSystem.Common.Constants;
-	using ETicketSystem.Common.Enums;
-	using ETicketSystem.Services.Admin.Contracts;
+	using Common.Constants;
+	using Common.Enums;
+	using ETicketSystem.Web.Models.Pagination;
 	using Microsoft.AspNetCore.Mvc;
+	using Models.AdminCompanies;
+	using Services.Admin.Contracts;
 
 	public class AdminCompaniesController : BaseAdminController
     {
@@ -15,7 +17,33 @@
 		}
 
 		[Route(WebConstants.Route.AllCompanies)]
-		public IActionResult All() => View(this.companies.All());
+		public IActionResult All(int page = 1)
+		{
+			if (page < 1)
+			{
+				return RedirectToAction(nameof(All));
+			}
+
+			var companiesPagination = new PaginationViewModel()
+			{
+				Action = nameof(All),
+				Controller = WebConstants.Controller.AdminCompanies,
+				CurrentPage = page,
+				PageSize = WebConstants.Pagination.AdminCompaniesListing,
+				TotalElements = this.companies.TotalCompanies()
+			};
+
+			if (page > companiesPagination.TotalPages && companiesPagination.TotalPages != 0)
+			{
+				return RedirectToAction(nameof(All), new { page = companiesPagination.TotalPages });
+			}
+
+			return View(new AllCompanies()
+			{
+				Companies = this.companies.All(page, WebConstants.Pagination.AdminCompaniesListing),
+				Pagination = companiesPagination
+			});
+		}
 
 		[Route(WebConstants.Route.ApproveCompany)]
 		public IActionResult Approve(string companyId)
