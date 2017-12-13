@@ -35,15 +35,17 @@ else
         {
             <div class="route-container row">
                 <div class="col-md-2 col-sm-2 col-lg-2">
-                    <div class="company-name">@route.CompanyName</div>
-                    @if (route.CompanyLogo == null)
-                    {
-                        <img class="img-responsive" src="~/images/common/no-logo.png" alt="@route.CompanyName" />
-                    }
-                    else
-                    {
-                        <img class="img-responsive" src="@route.CompanyLogo.ConvertBytesToImage()" alt="@route.CompanyName" />
-                    }
+                    <a class="company-name" asp-controller="Companies" asp-action="Details" asp-route-id="@route.CompanyId">@route.CompanyName</a>
+                    <a asp-controller="Companies" asp-action="Details" asp-route-id="@route.CompanyId">
+                        @if (route.CompanyLogo == null)
+                        {
+                            <img class="img-responsive" src="~/images/common/no-logo.png"   alt="@route.CompanyName" />
+                        }
+                        else
+                        {
+                            <img class="img-responsive" src="@route.CompanyLogo.ConvertBytesToImage()"              alt="@route.CompanyName" />
+                        }
+                    </a>
                 </div>
                 <div class="col-md-2 col-sm-2 col-lg-2">
                     <span class="departure-time">@route.DepartureTime.ToHoursAndMinutes()</span>

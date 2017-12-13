@@ -56,8 +56,11 @@ div.tickets form {
     margin-top:10px;
 }
 
-div.company-name {
+a.company-name {
     font-size:1.4em;
     font-weight:900;
     text-align:center;
+    text-decoration:none;
+    color:black;
+    margin:0 auto;
 }
