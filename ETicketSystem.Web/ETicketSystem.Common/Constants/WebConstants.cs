@@ -31,6 +31,8 @@
 			public const string StartDestination = "Start destination";
 
 			public const string EndDestination = "End destination";
+
+			public const string Company = "Company";
 		}
 
 		public class RegexPattern

@@ -6,13 +6,27 @@
 
 <environment include="Development">
     <link rel="stylesheet" href="~/css/list-routes.css" />
+    <link rel="stylesheet" href="~/css/horizontal-search-form.css" />
+    <script src="~/lib/jquery/dist/jquery.js"></script>
 </environment>
 
 <h2 class="text-center">@ViewData["Title"]</h2>
 
-@if(Model.Routes.Count() == 0)
+<div class="container-fluid">
+    <div class="row search-container">
+        @Html.Partial("_SearchRoutesWithCompaniesForm", Model.SearchForm)
+    </div>
+</div>
+<hr />
+
+@if (Model.Routes.Count() == 0)
 {
-    <h3>No routes found!</h3>
+    <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Oooops!</h4>
+        <p>We couldn't find any routes matching your criteria!</p>
+        <hr>
+        <p class="mb-0">Just have another try or contact us so we can help you immediately!</p>
+    </div>
 }
 else
 {
@@ -52,22 +66,10 @@ else
             <hr />
         }
     </div>
+}
 
-    <div class="container-fluid text-center">
-        <ul class="pagination">
-            <li class="page-item @(1 == Model.Pagination.CurrentPage ? "blocked":string.Empty)">
-                <a class="page-link" asp-controller="Routes" asp-action="Search">Previous</a>
-            </li>
-            @for (int i = 1; i <= Model.Pagination.TotalPages; i++)
-            {
-                <li class="page-item @(i == Model.Pagination.CurrentPage ? "active blocked":string.Empty)">
-                    <a class="page-link" asp-controller="Routes" asp-action="Search">@i</a>
-                </li>
-            }
-            <li class="page-item @(Model.Pagination.TotalPages == Model.Pagination.CurrentPage ? "blocked":string.Empty)">
-                <a class="page-link" asp-controller="Routes" asp-action="Search">Next</a>
-            </li>
-        </ul>
-    </div>
+@section Scripts {
+    <script type="text/javascript" src="~/js/route/search-form-validation.js"></script>
+    @await Html.PartialAsync("_ValidationScriptsPartial")
 }
 

@@ -9,5 +9,7 @@
 		public IEnumerable<RouteSearchListingServiceModel> Routes;
 
 		public PaginationViewModel Pagination { get; set; }
+
+		public SearchRouteFormModel SearchForm { get; set; }
 	}
 }

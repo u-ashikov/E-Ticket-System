@@ -6,7 +6,7 @@
 
 	public interface IRouteService
     {
-		IEnumerable<RouteSearchListingServiceModel> GetSearchedRoutes(int startTown, int endTown, DateTime date, string companyId, int page, int pageSize = 10);
+		IEnumerable<RouteSearchListingServiceModel> GetSearchedRoutes(int startTown, int endTown, DateTime date, string companyId);
 
 		RouteBookTicketInfoServiceModel GetRouteTicketBookingInfo(int id, DateTime date);
 

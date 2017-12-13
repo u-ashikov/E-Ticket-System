@@ -62,5 +62,11 @@
 				.Where(c => c.Id == id)
 				.ProjectTo<CompanyDetailsServiceModel>()
 				.FirstOrDefault();
+
+		public IEnumerable<CompanyBaseServiceModel> GetCompaniesSelectListItems() =>
+			this.db.Companies
+				.OrderBy(c => c.Name)
+				.ProjectTo<CompanyBaseServiceModel>()
+				.ToList();
 	}
 }

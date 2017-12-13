@@ -17,6 +17,8 @@
 
 		int TotalCompanies(string searchTerm);
 
+		IEnumerable<CompanyBaseServiceModel> GetCompaniesSelectListItems();
+
 		CompanyDetailsServiceModel CompanyDetails(string id);
     }
 }

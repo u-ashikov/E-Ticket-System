@@ -9,11 +9,11 @@
 
 	public abstract class BaseController : Controller
     {
-		private readonly ITownService towns;
+		protected readonly ITownService towns;
 
-		public BaseController() { }
+		protected BaseController() { }
 
-		public BaseController(ITownService towns)
+		protected BaseController(ITownService towns)
 			:this()
 		{
 			this.towns = towns;

@@ -17,8 +17,11 @@
 		[DataType(DataType.Date)]
 		public DateTime Date { get; set; }
 
+		[Display(Name = WebConstants.FieldDisplay.Company)]
 		public string CompanyId { get; set; }
 
 		public IEnumerable<SelectListItem> Towns { get; set; }
+
+		public IEnumerable<SelectListItem> Companies { get; set; }
 	}
 }

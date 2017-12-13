@@ -19,7 +19,7 @@
 			this.db = db;
 		}
 
-		public IEnumerable<RouteSearchListingServiceModel> GetSearchedRoutes(int startTown, int endTown, DateTime date, string companyId, int page, int pageSize = 10)
+		public IEnumerable<RouteSearchListingServiceModel> GetSearchedRoutes(int startTown, int endTown, DateTime date, string companyId)
 		{
 			var routes = this.db.Routes
 								.Include(r=>r.StartStation)
@@ -39,16 +39,12 @@
 				return Mapper.Map<IEnumerable<RouteSearchListingServiceModel>>(routes
 					.Where(r => r.DepartureTime >= new TimeSpan(0, 0, 0))
 							.OrderBy(r => r.DepartureTime)
-							.Skip((page-1)*pageSize)
-							.Take(pageSize)
 							.ToList());
 			}
 
 			return Mapper.Map<IEnumerable<RouteSearchListingServiceModel>>(routes
 						.Where(r => r.DepartureTime > DateTime.UtcNow.TimeOfDay)
 						.OrderBy(r => r.DepartureTime)
-						.Skip((page - 1) * pageSize)
-						.Take(pageSize)
 						.ToList());
 		}
 
