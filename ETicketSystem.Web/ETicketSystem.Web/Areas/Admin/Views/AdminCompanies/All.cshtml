@@ -53,6 +53,15 @@ else
                         {
                             <a class="btn btn-primary" asp-action="Approve" asp-controller="AdminCompanies" asp-route-companyId="@company.Id">Approve</a>
                         }
+
+                        @if (!company.IsBlocked)
+                        {
+                            <a class="btn btn-danger" asp-action="Block" asp-controller="AdminCompanies" asp-route-companyId="@company.Id">Block</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-success" asp-action="Block" asp-controller="AdminCompanies" asp-route-companyId="@company.Id">Unblock</a>
+                        }
                     </td>
                 </tr>
             }
@@ -69,7 +78,7 @@ else
                 <li class="page-item @(i == Model.Pagination.CurrentPage ? "active blocked":string.Empty)">
                     <a class="page-link" asp-controller="@Model.Pagination.Controller" asp-action="@Model.Pagination.Action" asp-route-filter="@Model.Filter" asp-route-page="@i">@i</a>
                 </li>
-}
+            }
             <li class="page-item @(Model.Pagination.TotalPages == Model.Pagination.CurrentPage ? "blocked":string.Empty)">
                 <a class="page-link" asp-controller="@Model.Pagination.Controller" asp-action="@Model.Pagination.Action" asp-route-filter="@Model.Filter" asp-route-page="@Model.Pagination.NextPage">Next</a>
             </li>

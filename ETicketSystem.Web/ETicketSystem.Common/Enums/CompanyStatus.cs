@@ -4,7 +4,7 @@
     {
 		All = 0,
 		Approved = 1,
-		Banned = 2,
+		Blocked = 2,
 		Unapproved = 3
     }
 }

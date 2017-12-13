@@ -1,9 +1,9 @@
 ﻿namespace ETicketSystem.Services.Admin.Implementations
 {
 	using AutoMapper.QueryableExtensions;
+	using Common.Enums;
 	using Contracts;
-	using ETicketSystem.Common.Enums;
-	using ETicketSystem.Data;
+	using Data;
 	using Models;
 	using System.Collections.Generic;
 	using System.Linq;
@@ -23,19 +23,17 @@
 				.OrderBy(c => c.RegistrationDate)
 				.AsQueryable();
 
-			switch (filter)
+			if (filter == CompanyStatus.Approved.ToString())
 			{
-				case "Approved":
-					companies = companies.Where(c => c.IsApproved);
-					break;
-				case "Banned":
-					companies = companies.Where(c => c.IsBlocked);
-					break;
-				case "Unapproved":
-					companies = companies.Where(c => !c.IsApproved);
-					break;
-				default:
-					break;
+				companies = companies.Where(c => c.IsApproved);
+			}
+			else if (filter == CompanyStatus.Unapproved.ToString())
+			{
+				companies = companies.Where(c => !c.IsApproved);
+			}
+			else if (filter == CompanyStatus.Blocked.ToString())
+			{
+				companies = companies.Where(c => c.IsBlocked);
 			}
 
 			return companies
