@@ -98,6 +98,8 @@
 
 			public const string NotApproved = "You cannot add routes yet because you are still not approved by the site administrator!";
 
+			public const string Blocked = "You cannot add routes because you have been blocked by the site administrator!";
+
 			public const string InvalidRoute = "Invalid route!";
 
 			public const string InvalidTown = "Invalid town!";
@@ -125,6 +127,10 @@
 			public const string ProfileEdited = "Profile edited successfully!";
 
 			public const string InvalidTicket = "Invalid ticket!";
+
+			public const string BlockCompanyUnavailable = "Company must be approved before been blocked!";
+
+			public const string CompanyStatusChanged = "Company {0} status has been changed to {1}!";
 		}
 
 		public class ContentType

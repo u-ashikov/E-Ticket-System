@@ -17,7 +17,7 @@
 
 @if(Model.Companies.Count() == 0)
 {
-    <h3 class="text-center">No companies registered yet!</h3>
+    <h3 class="text-center">No companies found!</h3>
 }
 else
 {
@@ -45,20 +45,16 @@ else
                     <td>@company.Email</td>
                     <td>@company.PhoneNumber</td>
                     <td>
-                        @if(company.IsApproved)
-                        {
-                            <span class="text-success">Approved</span>
-                        }
-                        else
+                        @if (!company.IsApproved)
                         {
                             <a class="btn btn-primary" asp-action="Approve" asp-controller="AdminCompanies" asp-route-companyId="@company.Id">Approve</a>
                         }
 
-                        @if (!company.IsBlocked)
+                        @if (!company.IsBlocked && company.IsApproved)
                         {
                             <a class="btn btn-danger" asp-action="Block" asp-controller="AdminCompanies" asp-route-companyId="@company.Id">Block</a>
                         }
-                        else
+                        else if (company.IsBlocked)
                         {
                             <a class="btn btn-success" asp-action="Block" asp-controller="AdminCompanies" asp-route-companyId="@company.Id">Unblock</a>
                         }

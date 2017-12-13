@@ -47,6 +47,9 @@
 		public bool IsApproved(string companyId) =>
 			this.db.Companies.FirstOrDefault(c => c.Id == companyId).IsApproved;
 
+		public bool IsBlocked(string companyId) =>
+			this.db.Companies.FirstOrDefault(c => c.Id == companyId).IsBlocked;
+
 		public int TotalCompanies(string searchTerm)
 		{
 			if (!string.IsNullOrEmpty(searchTerm))

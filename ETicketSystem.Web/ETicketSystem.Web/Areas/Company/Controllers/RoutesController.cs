@@ -49,6 +49,12 @@
 				return this.RedirectToHome();
 			}
 
+			if (this.companies.IsBlocked(this.userManager.GetUserId(User)))
+			{
+				this.GenerateAlertMessage(WebConstants.Message.Blocked, Alert.Warning);
+				return this.RedirectToHome();
+			}
+
 			var townsWithStationsList = this.GenerateTownStationsSelectListItems();
 
 			return View(new RouteFormModel()

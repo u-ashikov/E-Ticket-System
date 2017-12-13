@@ -89,5 +89,40 @@
 
 			return this.db.Companies.Count(c => c.IsBlocked);
 		}
+
+		public bool ChangeStatus(string id)
+		{
+			var company = this.db.Companies.FirstOrDefault(c=>c.Id == id && c.IsApproved);
+
+			if (company == null)
+			{
+				return false;
+			}
+
+			if (company.IsBlocked)
+			{
+				company.IsBlocked = false;
+			}
+			else
+			{
+				company.IsBlocked = true;
+			}
+
+			this.db.SaveChanges();
+
+			return true;
+		}
+
+		public string GetBlockStatus(string id)
+		{
+			var company = this.db.Companies.FirstOrDefault(c => c.Id == id);
+
+			if (company == null)
+			{
+				return string.Empty;
+			}
+
+			return company.IsBlocked ? "blocked" : "unblocked";
+		}
 	}
 }

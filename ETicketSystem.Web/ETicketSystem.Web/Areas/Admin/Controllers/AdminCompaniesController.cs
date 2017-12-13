@@ -70,5 +70,29 @@
 
 			return RedirectToAction(nameof(All));
 		}
+
+		public IActionResult Block(string companyId)
+		{
+			if (!this.companies.CompanyExists(companyId))
+			{
+				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingCompany, companyId), Alert.Danger);
+				return RedirectToAction(nameof(All));
+			}
+
+			bool statusChanged = this.companies.ChangeStatus(companyId);
+
+			if (!statusChanged)
+			{
+				this.GenerateAlertMessage(string.Format(WebConstants.Message.BlockCompanyUnavailable, companyId), Alert.Danger);
+				return RedirectToAction(nameof(All));
+			}
+
+			var companyName = this.companies.GetCompanyName(companyId);
+			var companyStatus = this.companies.GetBlockStatus(companyId);
+
+			this.GenerateAlertMessage(string.Format(WebConstants.Message.CompanyStatusChanged, companyName, companyStatus), Alert.Success);
+
+			return RedirectToAction(nameof(All));
+		}
     }
 }

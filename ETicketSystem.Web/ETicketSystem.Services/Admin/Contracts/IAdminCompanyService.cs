@@ -11,6 +11,10 @@
 
 		bool Approve(string id);
 
+		bool ChangeStatus(string id);
+
+		string GetBlockStatus(string id);
+
 		string GetCompanyName(string id);
 
 		int TotalCompanies(string filter);
