@@ -2,6 +2,7 @@
 {
 	using AutoMapper.QueryableExtensions;
 	using Contracts;
+	using ETicketSystem.Common.Enums;
 	using ETicketSystem.Data;
 	using Models;
 	using System.Collections.Generic;
@@ -16,13 +17,33 @@
 			this.db = db;
 		}
 
-		public IEnumerable<AdminCompanyListingServiceModel> All(int page, int pageSize = 10) =>
-			this.db.Companies
+		public IEnumerable<AdminCompanyListingServiceModel> All(int page, string filter, int pageSize = 10)
+		{
+			var companies = this.db.Companies
 				.OrderBy(c => c.RegistrationDate)
-				.Skip((page-1)*pageSize)
-				.Take(pageSize)
-				.ProjectTo<AdminCompanyListingServiceModel>()
-				.ToList();
+				.AsQueryable();
+
+			switch (filter)
+			{
+				case "Approved":
+					companies = companies.Where(c => c.IsApproved);
+					break;
+				case "Banned":
+					companies = companies.Where(c => c.IsBlocked);
+					break;
+				case "Unapproved":
+					companies = companies.Where(c => !c.IsApproved);
+					break;
+				default:
+					break;
+			}
+
+			return companies
+						.Skip((page - 1) * pageSize)
+						.Take(pageSize)
+						.ProjectTo<AdminCompanyListingServiceModel>()
+						.ToList();
+		}
 
 		public bool CompanyExists(string id) => this.db.Companies.Any(c => c.Id == id);
 
@@ -51,6 +72,24 @@
 			return this.db.Companies.FirstOrDefault(c => c.Id == id).Name;
 		}
 
-		public int TotalCompanies() => this.db.Companies.Count();
+		public int TotalCompanies(string filter)
+		{
+			if (string.IsNullOrEmpty(filter) || filter == CompanyStatus.All.ToString())
+			{
+				return this.db.Companies.Count();
+			}
+
+			if (filter == CompanyStatus.Approved.ToString())
+			{
+				return this.db.Companies.Count(c => c.IsApproved);
+			}
+
+			if (filter == CompanyStatus.Unapproved.ToString())
+			{
+				return this.db.Companies.Count(c => !c.IsApproved);
+			}
+
+			return this.db.Companies.Count(c => c.IsBlocked);
+		}
 	}
 }

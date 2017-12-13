@@ -5,7 +5,7 @@
 
 	public interface IAdminCompanyService
     {
-		IEnumerable<AdminCompanyListingServiceModel> All(int page, int pageSize = 10);
+		IEnumerable<AdminCompanyListingServiceModel> All(int page, string filter, int pageSize = 10);
 
 		bool CompanyExists(string id);
 
@@ -13,6 +13,6 @@
 
 		string GetCompanyName(string id);
 
-		int TotalCompanies();
+		int TotalCompanies(string filter);
 	}
 }

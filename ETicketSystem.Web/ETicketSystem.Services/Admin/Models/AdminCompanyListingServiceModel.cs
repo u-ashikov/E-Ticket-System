@@ -1,8 +1,8 @@
 ﻿namespace ETicketSystem.Services.Admin.Models
 {
 	using AutoMapper;
+	using Common.Automapper;
 	using Data.Models;
-	using ETicketSystem.Common.Automapper;
 
 	public class AdminCompanyListingServiceModel : IMapFrom<Company>, IHaveCustomMapping
     {
@@ -21,6 +21,8 @@
 		public string PhoneNumber { get; set; }
 
 		public bool IsApproved { get; set; }
+
+		public bool IsBlocked { get; set; }
 
 		public void ConfigureMapping(Profile mapper)
 		{

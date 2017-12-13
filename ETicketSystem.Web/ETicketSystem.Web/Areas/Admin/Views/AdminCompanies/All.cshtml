@@ -7,12 +7,21 @@
 <h2 class="text-center">@ViewData["Title"]</h2>
 <hr />
 
+<form method="get" asp-controller="AdminCompanies" asp-action="All" class="form-inline row">
+    <label asp-for="@Model.Filter"></label>
+    <div class="form-group">
+        <select asp-for="@Model.Filter" asp-items="Html.GetEnumSelectList<CompanyStatus>()" class="form-control"></select>
+    </div>
+    <input type="submit" value="Filter" class="btn btn-success" />
+</form>
+
 @if(Model.Companies.Count() == 0)
 {
     <h3 class="text-center">No companies registered yet!</h3>
 }
 else
 {
+    <hr />
     <table class="table table-bordered table-hover">
         <thead>
             <tr>
@@ -50,6 +59,21 @@ else
         </tbody>
     </table>
 
-    @Html.Partial("_Pagination",Model.Pagination)
+    <div class="container-fluid text-center">
+        <ul class="pagination">
+            <li class="page-item @(1 == Model.Pagination.CurrentPage ? "blocked":string.Empty)">
+                <a class="page-link" asp-controller="@Model.Pagination.Controller" asp-action="@Model.Pagination.Action" asp-route-filter="@Model.Filter" asp-route-page="@Model.Pagination.PreviousPage">Previous</a>
+            </li>
+            @for (int i = 1; i <= Model.Pagination.TotalPages; i++)
+            {
+                <li class="page-item @(i == Model.Pagination.CurrentPage ? "active blocked":string.Empty)">
+                    <a class="page-link" asp-controller="@Model.Pagination.Controller" asp-action="@Model.Pagination.Action" asp-route-filter="@Model.Filter" asp-route-page="@i">@i</a>
+                </li>
+}
+            <li class="page-item @(Model.Pagination.TotalPages == Model.Pagination.CurrentPage ? "blocked":string.Empty)">
+                <a class="page-link" asp-controller="@Model.Pagination.Controller" asp-action="@Model.Pagination.Action" asp-route-filter="@Model.Filter" asp-route-page="@Model.Pagination.NextPage">Next</a>
+            </li>
+        </ul>
+    </div>
 }
 

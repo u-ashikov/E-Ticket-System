@@ -17,11 +17,11 @@
 		}
 
 		[Route(WebConstants.Route.AllCompanies)]
-		public IActionResult All(int page = 1)
+		public IActionResult All(CompanyStatus filter,int page = 1)
 		{
 			if (page < 1)
 			{
-				return RedirectToAction(nameof(All));
+				return RedirectToAction(nameof(All), new { filter = filter});
 			}
 
 			var companiesPagination = new PaginationViewModel()
@@ -30,18 +30,20 @@
 				Controller = WebConstants.Controller.AdminCompanies,
 				CurrentPage = page,
 				PageSize = WebConstants.Pagination.AdminCompaniesListing,
-				TotalElements = this.companies.TotalCompanies()
+				TotalElements = this.companies.TotalCompanies(filter.ToString()),
+				SearchTerm = filter.ToString()
 			};
 
 			if (page > companiesPagination.TotalPages && companiesPagination.TotalPages != 0)
 			{
-				return RedirectToAction(nameof(All), new { page = companiesPagination.TotalPages });
+				return RedirectToAction(nameof(All), new { page = companiesPagination.TotalPages, filter = filter });
 			}
 
 			return View(new AllCompanies()
 			{
-				Companies = this.companies.All(page, WebConstants.Pagination.AdminCompaniesListing),
-				Pagination = companiesPagination
+				Companies = this.companies.All(page, filter.ToString(), WebConstants.Pagination.AdminCompaniesListing),
+				Pagination = companiesPagination,
+				Filter = filter
 			});
 		}
 
