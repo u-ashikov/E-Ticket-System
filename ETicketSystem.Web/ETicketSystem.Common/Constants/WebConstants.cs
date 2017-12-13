@@ -123,6 +123,13 @@
 			public const string BothPasswordFieldsRequired = "Both password fields are required!";
 
 			public const string ProfileEdited = "Profile edited successfully!";
+
+			public const string InvalidTicket = "Invalid ticket!";
+		}
+
+		public class ContentType
+		{
+			public const string Pdf = "application/pdf";
 		}
 
 		public class Area
@@ -243,6 +250,13 @@
 			public const int SearchedRoutesPageSize = 5;
 
 			public const int UserTicketsPageSize = 10;
+		}
+
+		public class Pdf
+		{
+			public const string Ticket = "<h3>Company: {0}</h3><h3>Route: {1}</h3><h3>Seat: {2}</h3><h3>Departure time: {3}</h3>";
+
+			public const string TicketName = "E-Ticket.pdf";
 		}
 	}
 }

@@ -1,9 +1,10 @@
 ﻿namespace ETicketSystem.Services.Implementations
 {
 	using AutoMapper.QueryableExtensions;
+	using Common.Constants;
 	using Contracts;
+	using Data;
 	using Data.Models;
-	using ETicketSystem.Data;
 	using Microsoft.EntityFrameworkCore;
 	using Models.Ticket;
 	using System;
@@ -14,9 +15,12 @@
     {
 		private readonly ETicketSystemDbContext db;
 
-		public TicketService(ETicketSystemDbContext db)
+		private readonly IPdfGenerator pdfGenerator;
+
+		public TicketService(ETicketSystemDbContext db, IPdfGenerator pdfGenerator)
 		{
 			this.db = db;
+			this.pdfGenerator = pdfGenerator;
 		}
 
 		public bool Add(int routeId, DateTime departureTime, IEnumerable<int> seats, string userId)
@@ -64,5 +68,26 @@
 		public int UserTicketsCount(string id) =>
 			this.db.Tickets
 				.Count(t => t.UserId == id);
+
+		public byte[] GetPdfTicket(int ticketId, string userId)
+		{
+			var ticket = this.db.Tickets
+				.Where(t => t.Id == ticketId && t.UserId == userId)
+				.Select(t => new
+				{
+					Company = t.Route.Company.Name,
+					Route = $"{t.Route.StartStation.Town.Name}, {t.Route.StartStation.Name} -> {t.Route.EndStation.Town.Name}, {t.Route.EndStation.Name}",
+					Seat = t.SeatNumber,
+					DepartureTime = t.DepartureTime
+				})
+				.FirstOrDefault();
+
+			if (ticket == null)
+			{
+				return null;
+			}
+
+			return this.pdfGenerator.GeneratePdfFromHtml(string.Format(WebConstants.Pdf.Ticket, ticket.Company, ticket.Route, ticket.Seat, ticket.DepartureTime));
+		}
 	}
 }

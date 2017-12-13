@@ -10,6 +10,8 @@
 
 		IEnumerable<UserTicketListingServiceModel> GetUserTickets(string id, int page, int pageSize = 10);
 
+		byte[] GetPdfTicket(int ticketId, string userId);
+
 		int UserTicketsCount(string id);
 	}
 }
