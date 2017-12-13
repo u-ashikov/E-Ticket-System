@@ -1,0 +1,23 @@
+﻿@model RegularUserProfileServiceModel
+
+<h2 class="text-center">Profile Info</h2>
+
+<div class="profile-info">
+    <div class="profile-fragment">
+        <span><strong>Username: </strong></span>
+        <span>@Model.Username</span>
+    </div>
+    <div class="profile-fragment">
+        <span><strong>Name: </strong></span>
+        <span>@Model.Name</span>
+    </div>
+    <div class="profile-fragment">
+        <span><strong>Email: </strong></span>
+        <span>@Model.Email</span>
+    </div>
+    <div class="profile-fragment">
+        <span><strong>Roles: </strong></span>
+        <span>@(Model.Roles.Count() == 0 ? "None" : string.Join(", ", Model.Roles))</span>
+    </div>
+</div>
+

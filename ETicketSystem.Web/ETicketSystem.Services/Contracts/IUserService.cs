@@ -1,10 +1,10 @@
 ﻿namespace ETicketSystem.Services.Contracts
 {
-	using System;
-	using System.Collections.Generic;
-	using System.Text;
+	using Models.User;
+	using System.Threading.Tasks;
 
 	public interface IUserService
     {
-    }
+		Task<RegularUserProfileServiceModel> GetRegularUserProfileDetailsAsync(string id);
+	}
 }

@@ -109,6 +109,10 @@
 			public const string NoneSelectedSeats = "You have to choose at least one seat.";
 
 			public const string SuccessfullyTicketReservation = "You have successfully reservated seats: {0}, for route {1} - {2}, departing at {3}.";
+
+			public const string NotProfileOwner = "You are not owner of that profile!";
+
+			public const string NonExistingUser = "User with id: {0} does not exist!";
 		}
 
 		public class Area

@@ -1,0 +1,47 @@
+﻿body {
+    padding:0;
+}
+
+nav {
+    background:black;
+    position:fixed;
+    top:0;
+    left:0;
+    height:100%;
+}
+
+nav ul.side-nav {
+    list-style-type:none;
+}
+
+nav ul.side-nav li {
+    margin-top:10px;
+}
+
+nav ul.side-nav li a,
+button.logout-btn {
+    text-decoration:none;
+    color:white;
+    font-size:1.2em;
+}
+
+nav ul.side-nav li a:hover,
+button.logout-btn:hover {
+    color:#1dc8d9;
+}
+
+form button.logout-btn {
+    background:none;
+    border:0 none;
+    color:white;
+}
+
+div.profile-fragment {
+    margin-bottom:10px;
+}
+
+span.role-badge {
+    padding:5px 20px;
+    font-size:1.1em;
+    text-align:center;
+}
