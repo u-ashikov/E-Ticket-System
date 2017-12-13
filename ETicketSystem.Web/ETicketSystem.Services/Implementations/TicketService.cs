@@ -1,9 +1,11 @@
 ﻿namespace ETicketSystem.Services.Implementations
 {
+	using AutoMapper.QueryableExtensions;
 	using Contracts;
 	using Data.Models;
 	using ETicketSystem.Data;
 	using Microsoft.EntityFrameworkCore;
+	using Models.Ticket;
 	using System;
 	using System.Collections.Generic;
 	using System.Linq;
@@ -49,5 +51,18 @@
 
 			return true;
 		}
+
+		public IEnumerable<UserTicketListingServiceModel> GetUserTickets(string id, int page, int pageSize = 10) =>
+			this.db.Tickets
+				.Where(t => t.UserId == id)
+				.OrderByDescending(t=>t.DepartureTime)
+				.Skip((page-1) * pageSize)
+				.Take(pageSize)
+				.ProjectTo<UserTicketListingServiceModel>()
+				.ToList();
+
+		public int UserTicketsCount(string id) =>
+			this.db.Tickets
+				.Count(t => t.UserId == id);
 	}
 }

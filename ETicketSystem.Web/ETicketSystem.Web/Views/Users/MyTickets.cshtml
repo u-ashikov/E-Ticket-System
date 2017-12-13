@@ -1,0 +1,46 @@
+﻿@model UserTickets
+
+@{
+    ViewData["Title"] = "My Tickets";
+    Layout = "_ProfileLayout";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+
+@if(Model.Tickets.Count() == 0)
+{
+    <h3 class="text-center">No tickets!</h3>
+}
+else
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Company</th>
+                <th>Route</th>
+                <th>Seat</th>
+                <th>Departure time</th>
+                <th>Price</th>
+                <th>Download</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var t in Model.Tickets)
+            {
+                <tr>
+                    <td>@t.CompanyName</td>
+                    <td>@t.Route</td>
+                    <td>@t.SeatNumber</td>
+                    <td>@t.DepartureTime</td>
+                    <td>@t.Price</td>
+                    <td>
+                        <a asp-controller="Tickets" asp-action="Download" asp-route-id="@t.Id" class="btn btn-primary">Download</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @Html.Partial("_Pagination",Model.Pagination)
+}
+

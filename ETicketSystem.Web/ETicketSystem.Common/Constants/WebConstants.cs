@@ -157,6 +157,8 @@
 			public const string BookRouteTicket = "Routes/BookTicket/{id}/{departureTime}/{date}";
 
 			public const string EditUser = "Users/Profile/Edit/{id}";
+
+			public const string UserTickets = "Users/MyTickets/{id}";
 		}
 
 		public class Action
@@ -177,6 +179,8 @@
 			public const string Routes = "Routes";
 
 			public const string Companies = "Companies";
+
+			public const string Users = "Users";
 		}
 
 		public class FilePath
@@ -237,6 +241,8 @@
 			public const int CompaniesPageSize = 12;
 
 			public const int SearchedRoutesPageSize = 5;
+
+			public const int UserTicketsPageSize = 10;
 		}
 	}
 }
