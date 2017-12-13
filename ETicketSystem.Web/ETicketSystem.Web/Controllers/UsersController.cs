@@ -92,6 +92,8 @@
 				return View(profile);
 			}
 
+			this.GenerateAlertMessage(WebConstants.Message.ProfileEdited, Alert.Success);
+
 			return RedirectToAction(nameof(Profile), new { id = id });
 		}
 	}

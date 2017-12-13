@@ -27,11 +27,13 @@
             </ul>
         </nav>
         <div class="profile-info col-md-10">
-            @if (TempData["message"] != null)
+            @if (TempData.ContainsKey(WebConstants.TempDataKey.Message))
             {
-                <div class="alert alert-@TempData["type"] alert-dismissible text-center" role="alert">
+                <div class="alert alert-@TempData[WebConstants.TempDataKey.AlertType] alert-dismissible" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    @TempData["message"]
+                    <p class="alert-message text-center">
+                        @TempData[WebConstants.TempDataKey.Message]
+                    </p>
                 </div>
             }
             @RenderBody()

@@ -121,6 +121,8 @@
 			public const string IncorrectOldPassword = "Old password is incorrect.";
 
 			public const string BothPasswordFieldsRequired = "Both password fields are required!";
+
+			public const string ProfileEdited = "Profile edited successfully!";
 		}
 
 		public class Area
