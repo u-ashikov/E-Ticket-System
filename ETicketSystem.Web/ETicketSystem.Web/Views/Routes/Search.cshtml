@@ -68,10 +68,33 @@ else
             <hr />
         }
     </div>
+
+    <div class="container-fluid text-center">
+        <ul class="pagination">
+            <li class="page-item @(1 == Model.Pagination.CurrentPage ? "blocked":string.Empty)">
+                <a class="page-link" asp-controller="Routes" asp-action="Search" asp-route-page="@Model.Pagination.PreviousPage" onclick="sendSearchFormOnPageChange()">Previous</a>
+            </li>
+            @for (int i = 1; i <= Model.Pagination.TotalPages; i++)
+            {
+                <li class="page-item @(i == Model.Pagination.CurrentPage ? "active blocked":string.Empty)">
+                    <a class="page-link" asp-controller="Routes" asp-action="Search" asp-route-page="@i" onclick="sendSearchFormOnPageChange()">@i</a>
+                </li>
+            }
+            <li class="page-item @(Model.Pagination.TotalPages == Model.Pagination.CurrentPage ? "blocked":string.Empty)">
+                <a class="page-link" asp-controller="Routes" asp-action="Search" asp-route-page="@Model.Pagination.NextPage" onclick="sendSearchFormOnPageChange()">Next</a>
+            </li>
+        </ul>
+    </div>
 }
 
 @section Scripts {
     <script type="text/javascript" src="~/js/route/search-form-validation.js"></script>
+    <script>
+        function sendSearchFormOnPageChange() {
+            alert('clicked');
+            $('form.search-form input[type=submit]').click();
+        }
+    </script>
     @await Html.PartialAsync("_ValidationScriptsPartial")
 }
 

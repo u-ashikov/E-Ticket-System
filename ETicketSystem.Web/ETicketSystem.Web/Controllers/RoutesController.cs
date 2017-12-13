@@ -3,11 +3,11 @@
 	using Common.Constants;
 	using Common.Enums;
 	using Data.Models;
+	using ETicketSystem.Web.Models.Pagination;
 	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Identity;
 	using Microsoft.AspNetCore.Mvc;
 	using Microsoft.AspNetCore.Mvc.Rendering;
-	using Models.Pagination;
 	using Models.Routes;
 	using Services.Contracts;
 	using System;
@@ -36,7 +36,7 @@
 
 		[Route(WebConstants.Route.RoutesSearch)]
 		[AllowAnonymous]
-		public IActionResult Search(SearchRouteFormModel model)
+		public IActionResult Search(SearchRouteFormModel model, int page = 1)
 		{
 			if (!this.towns.TownExists(model.StartTown) || !this.towns.TownExists(model.EndTown))
 			{
@@ -55,8 +55,16 @@
 
 			return View(new SearchedRoutes()
 			{
-				Routes = this.routes.GetSearchedRoutes(model.StartTown, model.EndTown, model.Date, model.CompanyId),
-				SearchForm = model
+				Routes = this.routes.GetSearchedRoutes(model.StartTown, model.EndTown, model.Date, model.CompanyId, page, WebConstants.Pagination.SearchedRoutesPageSize),
+				SearchForm = model,
+				Pagination = new PaginationViewModel()
+				{
+					Action = nameof(Search),
+					Controller = WebConstants.Controller.Routes,
+					CurrentPage = page,
+					PageSize = WebConstants.Pagination.SearchedRoutesPageSize,
+					TotalElements = this.routes.GetSearchedRoutesCount(model.StartTown,model.EndTown,model.Date,model.CompanyId)
+				}
 			});
 		}
 
@@ -138,7 +146,7 @@
 
 			list.Add(new SelectListItem()
 			{
-				Text = " -- Select company -- ",
+				Text = " -- All -- ",
 				Value = string.Empty,
 				Selected = true
 			});
