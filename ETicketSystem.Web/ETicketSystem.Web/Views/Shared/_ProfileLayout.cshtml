@@ -11,7 +11,13 @@
         <nav class="col-md-2">
             <ul class="side-nav">
                 <li>
-                    <a asp-controller="Account" asp-action="Edit">Edit Profile</a>
+                    <a asp-controller="Home" asp-action="Index">Buy Tickets</a>
+                </li>
+                <li>
+                    <a asp-controller="Tickets" asp-action="My Tickets">My Tickets</a>
+                </li>
+                <li>
+                    <a asp-controller="Users" asp-action="EditUser">Edit Profile</a>
                 </li>
                 <li>
                     <form method="post" asp-action="Logout" asp-controller="Account">
@@ -36,6 +42,7 @@
         </div>
     </div>
 </div>
+
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
 }

@@ -5,7 +5,9 @@
 	using Data.Models;
 	using Microsoft.AspNetCore.Identity;
 	using Microsoft.AspNetCore.Mvc;
+	using Models.Users;
 	using Services.Contracts;
+	using System.Linq;
 	using System.Threading.Tasks;
 
 	public class UsersController : BaseController
@@ -38,5 +40,59 @@
 
 			return View(user);
 		}
-    }
+
+		[Route(WebConstants.Route.EditUser)]
+		public IActionResult EditUser(string id)
+		{
+			if (!this.users.UserExists(id))
+			{
+				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingUser, id), Alert.Danger);
+				return RedirectToHome();
+			}
+
+			if (this.userManager.GetUserId(User) != id)
+			{
+				this.GenerateAlertMessage(string.Format(WebConstants.Message.NotProfileOwner, id), Alert.Danger);
+				return RedirectToHome();
+			}
+
+			var user = this.users.GetRegularUserProfileToEdit(id);
+
+			return View(new EditUserProfileFormModel()
+			{
+				Username = user.Username,
+				Email = user.Email
+			});
+		}
+
+		[HttpPost]
+		[Route(WebConstants.Route.EditUser)]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> EditUser(string id, EditUserProfileFormModel profile)
+		{
+			if (!ModelState.IsValid)
+			{
+				return View(profile);
+			}
+
+			if (!this.users.UserExists(id) || this.userManager.GetUserId(User) != id)
+			{
+				return BadRequest();
+			}
+
+			var errors = await this.users.EditRegularUserAsync(id, profile.Username, profile.Email, profile.NewPassword, profile.Password);
+
+			if (errors.Count() != 0)
+			{
+				foreach (var error in errors)
+				{
+					ModelState.AddModelError("", error.Description);
+				}
+
+				return View(profile);
+			}
+
+			return RedirectToAction(nameof(Profile), new { id = id });
+		}
+	}
 }

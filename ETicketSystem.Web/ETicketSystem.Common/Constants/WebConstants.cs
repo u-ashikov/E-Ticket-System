@@ -33,6 +33,8 @@
 			public const string EndDestination = "End destination";
 
 			public const string Company = "Company";
+
+			public const string NewPassword = "New password";
 		}
 
 		public class RegexPattern
@@ -113,6 +115,12 @@
 			public const string NotProfileOwner = "You are not owner of that profile!";
 
 			public const string NonExistingUser = "User with id: {0} does not exist!";
+
+			public const string EmptyUsername = "Username cannot be empty!";
+
+			public const string IncorrectOldPassword = "Old password is incorrect.";
+
+			public const string BothPasswordFieldsRequired = "Both password fields are required!";
 		}
 
 		public class Area
@@ -145,6 +153,8 @@
 			public const string RoutesSearch = "Routes/Search";
 
 			public const string BookRouteTicket = "Routes/BookTicket/{id}/{departureTime}/{date}";
+
+			public const string EditUser = "Users/Profile/Edit/{id}";
 		}
 
 		public class Action
