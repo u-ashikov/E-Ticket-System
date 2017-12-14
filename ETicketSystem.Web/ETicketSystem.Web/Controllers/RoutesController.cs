@@ -3,6 +3,7 @@
 	using Common.Constants;
 	using Common.Enums;
 	using Data.Models;
+	using ETicketSystem.Web.Infrastructure.Extensions;
 	using ETicketSystem.Web.Models.Pagination;
 	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Identity;
@@ -40,7 +41,7 @@
 		{
 			if (page < 1)
 			{
-				return RedirectToAction(nameof(Search), new { startTown = startTown, endTown = endTown, date = date.ToString("yyyy-MM-dd"), companyId = companyId, page = 1 });
+				return RedirectToAction(nameof(Search), new { startTown = startTown, endTown = endTown, date = date.ToFormatedDate(), companyId = companyId, page = 1 });
 			}
 
 			if (!this.towns.TownExists(startTown) || !this.towns.TownExists(endTown))
@@ -66,7 +67,7 @@
 
 			if (page > routesPagination.TotalPages && routesPagination.TotalPages != 0)
 			{
-				return RedirectToAction(nameof(Search), new { startTown = startTown, endTown = endTown, date = date.ToString("yyyy-MM-dd"), companyId = companyId, page = routesPagination.TotalPages });
+				return RedirectToAction(nameof(Search), new { startTown = startTown, endTown = endTown, date = date.ToFormatedDate(), companyId = companyId, page = routesPagination.TotalPages });
 			}
 
 			return View(new SearchedRoutes()
@@ -83,7 +84,7 @@
 		}
 
 		[Route(WebConstants.Route.BookRouteTicket)]
-		public IActionResult BookTicket(int id, TimeSpan departureTime, DateTime date)
+		public IActionResult BookTicket(int id, TimeSpan departureTime, DateTime date, string companyId)
 		{
 			var departureDateTime = new DateTime(date.Year, date.Month, date.Day, departureTime.Hours, departureTime.Minutes, departureTime.Seconds);
 
@@ -106,6 +107,7 @@
 			form.StartTownId = info.StartTownId;
 			form.EndTownId = info.EndTownId;
 			form.CompanyName = info.CompanyName;
+			form.CompanyId = companyId;
 			form.StartStation = info.StartStation;
 			form.EndStation = info.EndStation;
 

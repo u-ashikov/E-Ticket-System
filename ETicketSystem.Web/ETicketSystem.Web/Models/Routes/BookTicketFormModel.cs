@@ -8,6 +8,8 @@
     {
 		public int RouteId { get; set; }
 
+		public string CompanyId { get; set; }
+
 		public string CompanyName { get; set; }
 
 		public DateTime DepartureDateTime { get; set; }

@@ -173,7 +173,7 @@
 
 			public const string RoutesSearch = "Routes/Search";
 
-			public const string BookRouteTicket = "Routes/BookTicket/{id}/{departureTime}/{date}";
+			public const string BookRouteTicket = "Routes/BookTicket/{id}/{departureTime}/{date}/{companyId?}";
 
 			public const string EditUser = "Users/Profile/Edit/{id}";
 

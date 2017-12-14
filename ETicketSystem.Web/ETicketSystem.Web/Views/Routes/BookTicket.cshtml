@@ -10,7 +10,7 @@
 
 <h2 class="text-center">@ViewData["Title"]</h2>
 
-<a class="btn btn-primary" href="/routes/search?StartTown=@Model.StartTownId&EndTown=@Model.EndTownId&Date=@Model.DepartureDateTime.ToFormatedDate()">Back</a>
+<a class="btn btn-primary" href="/routes/search?StartTown=@Model.StartTownId&EndTown=@Model.EndTownId&Date=@Model.DepartureDateTime.ToFormatedDate()@(string.IsNullOrEmpty(Model.CompanyId) ? string.Empty : $"&CompanyId={Model.CompanyId}")">Back</a>
 
 <p>
     @Model.StartStation - @Model.EndStation @Model.Duration, @Model.CompanyName, @Model.DepartureDateTime
