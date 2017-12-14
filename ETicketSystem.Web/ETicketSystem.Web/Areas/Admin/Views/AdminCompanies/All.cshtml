@@ -47,16 +47,16 @@ else
                     <td>
                         @if (!company.IsApproved)
                         {
-                            <a class="btn btn-primary" asp-action="Approve" asp-controller="AdminCompanies" asp-route-companyId="@company.Id">Approve</a>
+                            <a class="btn btn-primary" asp-action="Approve" asp-controller="AdminCompanies" asp-route-companyId="@company.Id" asp-route-filter="@Model.Filter" asp-route-page="@Model.Pagination.CurrentPage">Approve</a>
                         }
 
                         @if (!company.IsBlocked && company.IsApproved)
                         {
-                            <a class="btn btn-danger" asp-action="Block" asp-controller="AdminCompanies" asp-route-companyId="@company.Id">Block</a>
+                            <a class="btn btn-danger" asp-action="Block" asp-controller="AdminCompanies" asp-route-companyId="@company.Id" asp-route-filter="@Model.Filter" asp-route-page="@Model.Pagination.CurrentPage">Block</a>
                         }
                         else if (company.IsBlocked)
                         {
-                            <a class="btn btn-success" asp-action="Block" asp-controller="AdminCompanies" asp-route-companyId="@company.Id">Unblock</a>
+                            <a class="btn btn-success" asp-action="Block" asp-controller="AdminCompanies" asp-route-companyId="@company.Id" asp-route-filter="@Model.Filter" asp-route-page="@Model.Pagination.CurrentPage">Unblock</a>
                         }
                     </td>
                 </tr>

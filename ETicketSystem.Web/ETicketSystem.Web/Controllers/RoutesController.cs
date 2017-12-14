@@ -3,12 +3,12 @@
 	using Common.Constants;
 	using Common.Enums;
 	using Data.Models;
-	using ETicketSystem.Web.Infrastructure.Extensions;
-	using ETicketSystem.Web.Models.Pagination;
+	using Infrastructure.Extensions;
 	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Identity;
 	using Microsoft.AspNetCore.Mvc;
 	using Microsoft.AspNetCore.Mvc.Rendering;
+	using Models.Pagination;
 	using Models.Routes;
 	using Services.Contracts;
 	using System;

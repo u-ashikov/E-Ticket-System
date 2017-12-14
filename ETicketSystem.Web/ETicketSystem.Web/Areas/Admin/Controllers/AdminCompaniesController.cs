@@ -48,7 +48,7 @@
 		}
 
 		[Route(WebConstants.Route.ApproveCompany)]
-		public IActionResult Approve(string companyId)
+		public IActionResult Approve(string companyId, CompanyStatus filter, int page)
 		{
 			if (!this.companies.CompanyExists(companyId))
 			{
@@ -68,10 +68,10 @@
 				this.GenerateAlertMessage(string.Format(WebConstants.Message.CompanyApproved, companyName), Alert.Success);
 			}
 
-			return RedirectToAction(nameof(All));
+			return RedirectToAction(nameof(All), new { page = page, filter = filter});
 		}
 
-		public IActionResult Block(string companyId)
+		public IActionResult Block(string companyId, CompanyStatus filter, int page)
 		{
 			if (!this.companies.CompanyExists(companyId))
 			{
@@ -92,7 +92,7 @@
 
 			this.GenerateAlertMessage(string.Format(WebConstants.Message.CompanyStatusChanged, companyName, companyStatus), Alert.Success);
 
-			return RedirectToAction(nameof(All));
+			return RedirectToAction(nameof(All), new { page = page, filter = filter});
 		}
     }
 }
