@@ -14,7 +14,34 @@
 
 <div class="container-fluid">
     <div class="row search-container">
-        @Html.Partial("_SearchRoutesWithCompaniesForm", Model.SearchForm)
+        <form method="get" asp-controller="Routes" asp-action="Search" class="search-form col-md-12">
+            <div class="text-danger text-center form-errors" hidden>
+                Start destination and end destination cannot be equal!
+            </div>
+            <div class="form-fields row">
+                <div class="form-group col-md-3">
+                    <label asp-for="StartTown"></label>
+                    <select asp-for="StartTown" asp-items="Model.Towns" class="form-control start-town" required></select>
+                    <span asp-validation-for="StartTown" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="EndTown"></label>
+                    <select asp-for="EndTown" asp-items="Model.Towns" class="form-control end-town" required></select>
+                    <span asp-validation-for="EndTown" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="Date"></label>
+                    <input asp-for="Date" min="@DateTime.UtcNow.ToString("yyyy-MM-dd")" class="form-control"/>
+                    <span asp-validation-for="Date" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="CompanyId"></label>
+                    <select asp-for="CompanyId" asp-items="Model.Companies" class="form-control end-town"></select>
+                    <span asp-validation-for="CompanyId" class="text-danger"></span>
+                </div>
+            </div>
+            <input type="submit" value="Search" class="btn btn-success" onclick="checkTownsEquality()" />
+        </form>
     </div>
 </div>
 <hr />
@@ -39,11 +66,11 @@ else
                     <a asp-controller="Companies" asp-action="Details" asp-route-id="@route.CompanyId">
                         @if (route.CompanyLogo == null)
                         {
-                            <img class="img-responsive" src="~/images/common/no-logo.png"   alt="@route.CompanyName" />
+                            <img class="img-responsive" src="~/images/common/no-logo.png" alt="@route.CompanyName" />
                         }
                         else
                         {
-                            <img class="img-responsive" src="@route.CompanyLogo.ConvertBytesToImage()"              alt="@route.CompanyName" />
+                            <img class="img-responsive" src="@route.CompanyLogo.ConvertBytesToImage()" alt="@route.CompanyName" />
                         }
                     </a>
                 </div>
@@ -60,7 +87,7 @@ else
                     <span>@route.Price.ToFormatedPrice() $</span>
                 </div>
                 <div class="tickets col-md-2 col-sm-2 col-lg-2">
-                    <form method="get" asp-controller="Routes" asp-action="BookTicket" asp-route-id="@route.Id" asp-route-departureTime ="@route.DepartureTime.ToHoursAndMinutes()" asp-route-date="@Context.Request.Query["Date"]">
+                    <form method="get" asp-controller="Routes" asp-action="BookTicket" asp-route-id="@route.Id" asp-route-departureTime="@route.DepartureTime.ToHoursAndMinutes()" asp-route-date="@Context.Request.Query["Date"]">
                         <input class="btn btn-success" type="submit" value="Tickets" />
                     </form>
                 </div>
@@ -72,16 +99,16 @@ else
     <div class="container-fluid text-center">
         <ul class="pagination">
             <li class="page-item @(1 == Model.Pagination.CurrentPage ? "blocked":string.Empty)">
-                <a class="page-link" asp-controller="Routes" asp-action="Search" asp-route-page="@Model.Pagination.PreviousPage" onclick="sendSearchFormOnPageChange(this)">Previous</a>
+                <a class="page-link" asp-controller="@Model.Pagination.Controller" asp-action="@Model.Pagination.Action" asp-route-startTown="@Model.StartTown" asp-route-endTown="@Model.EndTown" asp-route-companyId="@Model.CompanyId" asp-route-date="@Model.Date.ToString("yyyy-MM-dd")" asp-route-page="@Model.Pagination.PreviousPage">Previous</a>
             </li>
             @for (int i = 1; i <= Model.Pagination.TotalPages; i++)
             {
                 <li class="page-item @(i == Model.Pagination.CurrentPage ? "active blocked":string.Empty)">
-                    <a class="page-link" asp-controller="Routes" asp-action="Search" asp-route-page="@i" onclick="sendSearchFormOnPageChange(this)">@i</a>
+                    <a class="page-link" asp-controller="@Model.Pagination.Controller" asp-action="@Model.Pagination.Action" asp-route-startTown="@Model.StartTown" asp-route-endTown="@Model.EndTown" asp-route-companyId="@Model.CompanyId" asp-route-date="@Model.Date.ToString("yyyy-MM-dd")" asp-route-page="@i">@i</a>
                 </li>
             }
             <li class="page-item @(Model.Pagination.TotalPages == Model.Pagination.CurrentPage ? "blocked":string.Empty)">
-                <a class="page-link" asp-controller="Routes" asp-action="Search" asp-route-page="@Model.Pagination.NextPage" onclick="sendSearchFormOnPageChange(this)">Next</a>
+                <a class="page-link" asp-controller="@Model.Pagination.Controller" asp-action="@Model.Pagination.Action" asp-route-startTown="@Model.StartTown" asp-route-endTown="@Model.EndTown" asp-route-companyId="@Model.CompanyId" asp-route-date="@Model.Date.ToString("yyyy-MM-dd")" asp-route-page="@Model.Pagination.NextPage">Next</a>
             </li>
         </ul>
     </div>
@@ -89,13 +116,5 @@ else
 
 @section Scripts {
     <script type="text/javascript" src="~/js/route/search-form-validation.js"></script>
-    <script>
-        function sendSearchFormOnPageChange() {
-            let date = $('form.search-form input[type=date]').val();
-            console.log($('form.search-form input[type=submit]'));
-            $('form.search-form input[type=submit]').submit();
-        }
-    </script>
     @await Html.PartialAsync("_ValidationScriptsPartial")
 }
-

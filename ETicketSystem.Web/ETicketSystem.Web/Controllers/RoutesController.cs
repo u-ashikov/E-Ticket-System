@@ -34,37 +34,51 @@
 			this.companies = companies;
 		}
 
-		[Route(WebConstants.Route.RoutesSearch)]
 		[AllowAnonymous]
-		public IActionResult Search(SearchRouteFormModel model, int page = 1)
+		[Route(WebConstants.Route.RoutesSearch)]
+		public IActionResult Search(int startTown, int endTown, DateTime date, string companyId, int page = 1)
 		{
-			if (!this.towns.TownExists(model.StartTown) || !this.towns.TownExists(model.EndTown))
+			if (page < 1)
 			{
-				this.GenerateAlertMessage(WebConstants.Message.InvalidTown,Alert.Danger);
+				return RedirectToAction(nameof(Search), new { startTown = startTown, endTown = endTown, date = date.ToString("yyyy-MM-dd"), companyId = companyId, page = 1 });
+			}
+
+			if (!this.towns.TownExists(startTown) || !this.towns.TownExists(endTown))
+			{
+				this.GenerateAlertMessage(WebConstants.Message.InvalidTown, Alert.Danger);
 				return this.RedirectToHome();
 			}
 
-			if (model.Date.Date < DateTime.UtcNow.Date)
+			if (date.Date < DateTime.UtcNow.Date)
 			{
 				this.GenerateAlertMessage(WebConstants.Message.InvalidDate, Alert.Danger);
 				return this.RedirectToHome();
 			}
 
-			model.Towns = this.GenerateSelectListTowns();
-			model.Companies = this.GenerateSelectListCompanies();
+			var routesPagination = new PaginationViewModel()
+			{
+				Action = nameof(Search),
+				Controller = WebConstants.Controller.Routes,
+				CurrentPage = page,
+				PageSize = WebConstants.Pagination.SearchedRoutesPageSize,
+				TotalElements = this.routes.GetSearchedRoutesCount(startTown, endTown, date, companyId)
+			};
+
+			if (page > routesPagination.TotalPages && routesPagination.TotalPages != 0)
+			{
+				return RedirectToAction(nameof(Search), new { startTown = startTown, endTown = endTown, date = date.ToString("yyyy-MM-dd"), companyId = companyId, page = routesPagination.TotalPages });
+			}
 
 			return View(new SearchedRoutes()
 			{
-				Routes = this.routes.GetSearchedRoutes(model.StartTown, model.EndTown, model.Date, model.CompanyId, page, WebConstants.Pagination.SearchedRoutesPageSize),
-				SearchForm = model,
-				Pagination = new PaginationViewModel()
-				{
-					Action = nameof(Search),
-					Controller = WebConstants.Controller.Routes,
-					CurrentPage = page,
-					PageSize = WebConstants.Pagination.SearchedRoutesPageSize,
-					TotalElements = this.routes.GetSearchedRoutesCount(model.StartTown,model.EndTown,model.Date,model.CompanyId)
-				}
+				Routes = this.routes.GetSearchedRoutes(startTown, endTown, date, companyId, page, WebConstants.Pagination.SearchedRoutesPageSize),
+				Towns = this.GenerateSelectListTowns(),
+				Companies = this.GenerateSelectListCompanies(),
+				StartTown = startTown,
+				EndTown = endTown,
+				Date = date,
+				CompanyId = companyId,
+				Pagination = routesPagination
 			});
 		}
 
