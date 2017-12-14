@@ -42,6 +42,18 @@
 			return null;
 		}
 
+		public string GetTownNameById(int id)
+		{
+			var town = this.db.Towns.FirstOrDefault(t => t.Id == id);
+
+			if (town != null)
+			{
+				return town.Name;
+			}
+
+			return null;
+		}
+
 		public bool TownExists(int id) =>
 			this.db.Towns
 				.Any(t => t.Id == id);

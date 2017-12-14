@@ -11,6 +11,8 @@
 
 		string GetTownNameByStationId(int id);
 
+		string GetTownNameById(int id);
+
 		bool TownExists(int id);
     }
 }

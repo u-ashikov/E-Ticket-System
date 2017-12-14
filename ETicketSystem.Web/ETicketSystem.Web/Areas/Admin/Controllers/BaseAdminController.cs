@@ -3,6 +3,7 @@
 	using Common.Constants;
 	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Mvc;
+	using Services.Contracts;
 	using Web.Controllers;
 
 	[Route(WebConstants.Route.Admin)]
@@ -10,5 +11,9 @@
 	[Authorize(Roles = AdminConstants.Role)]
 	public abstract class BaseAdminController : BaseController
     {
+		protected BaseAdminController() { }
+
+		protected BaseAdminController(ITownService towns)
+			:base(towns) { }
     }
 }

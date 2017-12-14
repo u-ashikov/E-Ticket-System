@@ -35,6 +35,8 @@
 			public const string Company = "Company";
 
 			public const string NewPassword = "New password";
+
+			public const string Town = "Town";
 		}
 
 		public class RegexPattern
@@ -131,6 +133,10 @@
 			public const string BlockCompanyUnavailable = "Company must be approved before been blocked!";
 
 			public const string CompanyStatusChanged = "Company {0} status has been changed to {1}!";
+
+			public const string StationAlreadyExists = "Station {0} in town {1} already exist!";
+
+			public const string StationCreated = "Station {0} in town {1} created!";
 		}
 
 		public class ContentType
@@ -172,6 +178,8 @@
 			public const string EditUser = "Users/Profile/Edit/{id}";
 
 			public const string UserTickets = "Users/MyTickets/{id}";
+
+			public const string AddStation = "Stations/Add";
 		}
 
 		public class Action
