@@ -9,7 +9,7 @@
 			return time.ToString(@"hh\:mm");
 		}
 
-		public static string ToFormatedDate(this DateTime dateTime)
+		public static string ToYearMonthDayFormat(this DateTime dateTime)
 		{
 			return dateTime.ToString("yyyy-MM-dd");
 		}

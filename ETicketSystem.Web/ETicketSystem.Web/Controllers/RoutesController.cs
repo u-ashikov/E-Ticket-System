@@ -41,7 +41,7 @@
 		{
 			if (page < 1)
 			{
-				return RedirectToAction(nameof(Search), new { startTown = startTown, endTown = endTown, date = date.ToFormatedDate(), companyId = companyId, page = 1 });
+				return RedirectToAction(nameof(Search), new { startTown = startTown, endTown = endTown, date = date.ToYearMonthDayFormat(), companyId = companyId, page = 1 });
 			}
 
 			if (!this.towns.TownExists(startTown) || !this.towns.TownExists(endTown))
@@ -67,7 +67,7 @@
 
 			if (page > routesPagination.TotalPages && routesPagination.TotalPages != 0)
 			{
-				return RedirectToAction(nameof(Search), new { startTown = startTown, endTown = endTown, date = date.ToFormatedDate(), companyId = companyId, page = routesPagination.TotalPages });
+				return RedirectToAction(nameof(Search), new { startTown = startTown, endTown = endTown, date = date.ToYearMonthDayFormat(), companyId = companyId, page = routesPagination.TotalPages });
 			}
 
 			return View(new SearchedRoutes()
