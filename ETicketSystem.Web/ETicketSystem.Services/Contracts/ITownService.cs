@@ -1,6 +1,6 @@
 ﻿namespace ETicketSystem.Services.Contracts
 {
-	using ETicketSystem.Services.Models.Town;
+	using Models.Town;
 	using System.Collections.Generic;
 
 	public interface ITownService

@@ -1,0 +1,15 @@
+﻿@model StationFormModel
+
+@{
+    ViewData["Title"] = "Edit Station";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+
+<div class="container-fluid">
+    @Html.Partial("_AdminStationForm", Model)
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

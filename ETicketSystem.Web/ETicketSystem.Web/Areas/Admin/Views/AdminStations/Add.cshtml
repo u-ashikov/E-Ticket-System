@@ -1,4 +1,4 @@
-﻿@model AddStationFormModel
+﻿@model StationFormModel
 
 @{
     ViewData["Title"] = "Add Station";
@@ -7,26 +7,7 @@
 <h2 class="text-center">@ViewData["Title"]</h2>
 
 <div class="container-fluid">
-    <form method="post" class="col-md-6 col-md-offset-3">
-        <hr />
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="form-group">
-            <label asp-for="Name"></label>
-            <input asp-for="Name" class="form-control" required />
-            <span asp-validation-for="Name" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="TownId"></label>
-            <select asp-for="TownId" asp-items="@Model.Towns" class="form-control"></select>
-            <span asp-validation-for="TownId" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Phone"></label>
-            <input asp-for="Phone" class="form-control" required />
-            <span asp-validation-for="Phone" class="text-danger"></span>
-        </div>
-        <input type="submit" class="btn btn-success" value="Save Station" />
-    </form>
+    @Html.Partial("_AdminStationForm", Model)
 </div>
 
 @section Scripts {

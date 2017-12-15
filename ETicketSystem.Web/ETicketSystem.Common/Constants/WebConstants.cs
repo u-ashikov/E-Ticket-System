@@ -122,6 +122,8 @@
 
 			public const string NonExistingTown = "Town with id: {0} does not exist!";
 
+			public const string NonExistingStation = "Station with id: {0} does not exist!";
+
 			public const string EmptyUsername = "Username cannot be empty!";
 
 			public const string IncorrectOldPassword = "Old password is incorrect.";
@@ -139,6 +141,14 @@
 			public const string StationAlreadyExists = "Station {0} in town {1} already exist!";
 
 			public const string StationCreated = "Station {0} in town {1} created!";
+
+			public const string StationNameMaxLength = "{0} cannot be more than {1} symbols long.";
+
+			public const string StationPhoneMaxLength = "{0} cannot be more than {1} symbols long.";
+
+			public const string StationEdited = "Station edited successfully!";
+
+			public const string NoChangesFound = "No changes found to edit!";
 		}
 
 		public class ContentType
@@ -186,6 +196,10 @@
 			public const string UserTickets = "Users/MyTickets/{id}";
 
 			public const string AddStation = "Stations/Add";
+
+			public const string EditStation = "Stations/Edit/{id}";
+
+			public const string AdminAllTownsUrl = "/admin/towns/all";
 		}
 
 		public class Action
@@ -195,6 +209,8 @@
 			public const string VerifyUrn = "VerifyUrn";
 
 			public const string VerifyPhoneNumber = "VerifyPhoneNumber";
+
+			public const string AdminAllTowns = "All";
 		}
 
 		public class Controller
