@@ -1,0 +1,82 @@
+﻿@model AllTowns
+
+@{
+    ViewData["Title"] = "All Towns";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@if(Model.Towns.Count() == 0)
+{
+    <h3 class="text-center">No towns!</h3>
+}
+else
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Domestic Companies</th>
+                <th>Total Stations</th>
+                <th>Stations</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var t in Model.Towns)
+            {
+                <tr>
+                    <td>@t.Name</td>
+                    <td>@t.DomesticCompanies</td>
+                    <td>@t.Stations</td>
+                    <td>
+                        <a href="/admin/towns/stations/@t.Id" class="btn btn-primary show-stations">
+                            Show Stations
+                        </a>
+                    </td>
+                    <td class="townId hidden">@t.Id</td>
+                </tr>
+                <tr class="all-stations">
+                    <td colspan="4" class="stations-info"></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @Html.Partial("_Pagination",Model.Pagination)
+}
+
+@section Scripts {
+   <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script>
+        $(function () {
+            $('tr.all-stations').css('display', 'none');
+            $('a.show-stations').click(function (event) {
+                event.preventDefault();
+                let trElement = event.target.parentElement.parentElement;
+                let townId = $(trElement).find('td.townId').html();
+
+                if ($(trElement).next('tr.all-stations').is(':hidden')) {
+                    $('tr.all-stations').css('display', 'none');
+                    $(trElement).next('tr.all-stations').show();
+                }
+                else {
+                    $(trElement).next('tr.all-stations').css('display', 'none');
+                }
+
+                let url = $(this).attr('href');
+                console.log(url);
+
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    contentType: JSON,
+                    data: { id: townId },
+                    success: function (data) {
+                        console.log(data);
+                    }
+                })
+            })
+        });
+    </script>
+}
+

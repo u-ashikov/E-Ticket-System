@@ -120,6 +120,8 @@
 
 			public const string NonExistingUser = "User with id: {0} does not exist!";
 
+			public const string NonExistingTown = "Town with id: {0} does not exist!";
+
 			public const string EmptyUsername = "Username cannot be empty!";
 
 			public const string IncorrectOldPassword = "Old password is incorrect.";
@@ -158,6 +160,10 @@
 			public const string HomeError = "/Home/Error";
 
 			public const string AllCompanies = "Companies/All";
+
+			public const string AllTowns = "Towns/All";
+
+			public const string TownStations = "Towns/Stations/{id}";
 
 			public const string ApproveCompany = "Companies/Approve/{companyId}";
 
@@ -204,6 +210,8 @@
 			public const string Users = "Users";
 
 			public const string AdminCompanies = "AdminCompanies";
+
+			public const string AdminTowns = "AdminTowns";
 		}
 
 		public class FilePath
@@ -268,6 +276,8 @@
 			public const int UserTicketsPageSize = 10;
 
 			public const int AdminCompaniesListing = 10;
+
+			public const int AdminTownsListing = 20;
 		}
 
 		public class Pdf
