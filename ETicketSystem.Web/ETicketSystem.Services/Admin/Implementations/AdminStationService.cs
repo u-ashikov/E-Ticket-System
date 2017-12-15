@@ -5,6 +5,7 @@
 	using Data;
 	using Data.Models;
 	using Models;
+	using System.Collections.Generic;
 	using System.Linq;
 
 	public class AdminStationService : IAdminStationService
@@ -14,6 +15,23 @@
 		public AdminStationService(ETicketSystemDbContext db)
 		{
 			this.db = db;
+		}
+
+		public IEnumerable<AdminStationListingServiceModel> All(string searchTerm, int page = 1, int pageSize = 10)
+		{
+			var stations = this.db.Stations.AsQueryable();
+
+			if (!string.IsNullOrEmpty(searchTerm))
+			{
+				stations = stations.Where(s => s.Name.ToLower().Contains(searchTerm.ToLower()));
+			}
+
+			return stations
+					.OrderBy(s => s.Name)
+					.Skip((page - 1) * pageSize)
+					.Take(pageSize)
+					.ProjectTo<AdminStationListingServiceModel>()
+					.ToList();
 		}
 
 		public bool Add(string name, int townId, string phone)
@@ -68,6 +86,16 @@
 			this.db.SaveChanges();
 
 			return true;
+		}
+
+		public int TotalStations(string searchTerm)
+		{
+			if (string.IsNullOrEmpty(searchTerm))
+			{
+				return this.db.Stations.Count();
+			}
+
+			return this.db.Stations.Count(s => s.Name.ToLower().Contains(searchTerm.ToLower()));
 		}
 	}
 }

@@ -13,7 +13,7 @@
 <div class="container-fluid">
     <form class="row">
         <div class="form-group col-md-6">
-            <input for="searchTerm" name="searchTerm" class="form-control" placeholder="Search towns..." />
+            <input for="searchTerm" value="@(string.IsNullOrEmpty(Model.Pagination.SearchTerm) ? string.Empty : Model.Pagination.SearchTerm)" name="searchTerm" class="form-control" placeholder="Search towns..." />
         </div>
         <input type="submit" value="Search" class="btn btn-success" />
     </form>

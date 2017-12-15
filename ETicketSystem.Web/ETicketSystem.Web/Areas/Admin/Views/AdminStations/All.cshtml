@@ -1,0 +1,52 @@
+﻿@model AllStations
+
+@{
+    ViewData["Title"] = "All Stations";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+<hr />
+<div class="container-fluid">
+    <form class="row">
+        <div class="form-group col-md-6">
+            <input for="searchTerm" value="@(string.IsNullOrEmpty(Model.Pagination.SearchTerm) ? string.Empty : Model.Pagination.SearchTerm)" name="searchTerm" class="form-control" placeholder="Search stations..." />
+        </div>
+        <input type="submit" value="Search" class="btn btn-success" />
+    </form>
+    <a asp-controller="AdminStations" asp-action="Add" class="btn btn-success">Add Station</a>
+</div>
+<hr />
+
+@if (Model.Stations.Count() == 0)
+{
+    <h3 class="text-center">No stations!</h3>
+}
+else
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Town</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var s in Model.Stations)
+            {
+                <tr>
+                    <td>@s.Name</td>
+                    <td>@s.Town</td>
+                    <td>
+                        <a asp-controller="AdminStations" asp-action="Edit" asp-route-id="@s.Id" class="btn btn-primary">
+                            Edit
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @Html.Partial("_Pagination", Model.Pagination)
+}
+

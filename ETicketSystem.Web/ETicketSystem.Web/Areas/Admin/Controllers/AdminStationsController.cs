@@ -6,6 +6,7 @@
 	using Models.AdminStations;
 	using Services.Admin.Contracts;
 	using Services.Contracts;
+	using Web.Models.Pagination;
 
 	public class AdminStationsController : BaseAdminController
     {
@@ -15,6 +16,37 @@
 			:base(towns)
 		{
 			this.stations = stations;
+		}
+
+		[Route(WebConstants.Route.AllStations)]
+		public IActionResult All(string searchTerm,int page = 1)
+		{
+			if (page < 1)
+			{
+				return RedirectToAction(nameof(All), new { page = 1, searchTerm = searchTerm });
+			}
+
+			var stations = this.stations.All(searchTerm, page, WebConstants.Pagination.AdminStationsListing);
+			var stationsPagination = new PaginationViewModel()
+			{
+				Action = nameof(All),
+				Controller = WebConstants.Controller.AdminStations,
+				CurrentPage = page,
+				PageSize = WebConstants.Pagination.AdminStationsListing,
+				SearchTerm = searchTerm,
+				TotalElements = this.stations.TotalStations(searchTerm)
+			};
+
+			if (page > stationsPagination.TotalPages && stationsPagination.TotalPages != 0)
+			{
+				return RedirectToAction(nameof(All), new { page = stationsPagination.TotalPages, searchTerm = searchTerm });
+			}
+
+			return View(new AllStations()
+			{
+				Stations = stations,
+				Pagination = stationsPagination
+			});
 		}
 
 		[Route(WebConstants.Route.AddStation)]
