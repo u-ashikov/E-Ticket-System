@@ -13,6 +13,6 @@
 
 		string GetTownNameById(int id);
 
-		bool TownExists(int id);
+		bool TownExistsById(int id);
     }
 }

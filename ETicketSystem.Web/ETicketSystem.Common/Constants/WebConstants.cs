@@ -149,6 +149,12 @@
 			public const string StationEdited = "Station edited successfully!";
 
 			public const string NoChangesFound = "No changes found to edit!";
+
+			public const string TownNameMaxLength = "{0} cannot be more than {1} symbols long.";
+
+			public const string TownAlreadyExist = "Town already exist!";
+
+			public const string TownAdded = "Town {0} created successfully!";
 		}
 
 		public class ContentType
@@ -172,6 +178,8 @@
 			public const string AllCompanies = "Companies/All";
 
 			public const string AllTowns = "Towns/All";
+
+			public const string AddTown = "Towns/Add";
 
 			public const string TownStations = "Towns/Stations/{id}";
 
@@ -211,6 +219,8 @@
 			public const string VerifyUrn = "VerifyUrn";
 
 			public const string VerifyPhoneNumber = "VerifyPhoneNumber";
+
+			public const string VerifyTownName = "VerifyTownName";
 
 			public const string AdminAllTowns = "All";
 		}

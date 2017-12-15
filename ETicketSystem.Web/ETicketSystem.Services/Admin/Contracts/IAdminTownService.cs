@@ -7,10 +7,14 @@
     {
 		IEnumerable<AdminTownListingServiceModel> All(int page, string searchTerm, int pageSize = 10);
 
+		void Add(string name);
+
 		IEnumerable<AdminTownStationsServiceModel> TownStations(int id);
 
 		int TotalTowns(string searchTerm);
 
 		bool TownExists(int id);
+
+		bool TownExistsByName(string name);
 	}
 }

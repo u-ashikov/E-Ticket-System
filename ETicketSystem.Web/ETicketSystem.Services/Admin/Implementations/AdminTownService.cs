@@ -2,7 +2,8 @@
 {
 	using AutoMapper.QueryableExtensions;
 	using Contracts;
-	using ETicketSystem.Data;
+	using Data;
+	using Data.Models;
 	using Models;
 	using System.Collections.Generic;
 	using System.Linq;
@@ -34,6 +35,12 @@
 					.ToList();
 		}
 
+		public void Add(string name)
+		{
+			this.db.Towns.Add(new Town() { Name = name });
+			this.db.SaveChanges();
+		}
+
 		public IEnumerable<AdminTownStationsServiceModel> TownStations(int id) =>
 			this.db.Stations
 				.Where(s => s.TownId == id)
@@ -51,5 +58,9 @@
 		}
 
 		public bool TownExists(int id) => this.db.Towns.Any(t => t.Id == id);
+
+		public bool TownExistsByName(string name) =>
+			this.db.Towns
+				.Any(t => t.Name.ToLower() == name.ToLower());
 	}
 }

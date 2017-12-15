@@ -59,5 +59,30 @@
 
 			return Json(this.adminTowns.TownStations(id));
 		}
-    }
+
+		[Route(WebConstants.Route.AddTown)]
+		public IActionResult Add() => View();
+
+		[HttpPost]
+		[Route(WebConstants.Route.AddTown)]
+		[ValidateAntiForgeryToken]
+		public IActionResult Add(AddTownFormModel model)
+		{
+			if (!ModelState.IsValid)
+			{
+				return View(model);
+			}
+
+			if (this.adminTowns.TownExistsByName(model.Name))
+			{
+				ModelState.AddModelError(string.Empty, WebConstants.Message.TownAlreadyExist);
+				return View(model);
+			}
+
+			this.adminTowns.Add(model.Name);
+
+			this.GenerateAlertMessage(string.Format(WebConstants.Message.TownAdded, model.Name), Alert.Success);
+			return RedirectToAction(nameof(All));
+		}
+	}
 }

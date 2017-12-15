@@ -1,17 +1,17 @@
 ﻿namespace ETicketSystem.Web.Controllers
 {
-	using ETicketSystem.Common.Constants;
-	using ETicketSystem.Common.Enums;
-	using ETicketSystem.Data.Models;
+	using Common.Constants;
+	using Common.Enums;
+	using Data.Models;
 	using ETicketSystem.Services.Contracts;
-	using ETicketSystem.Web.Infrastructure.Extensions;
-	using ETicketSystem.Web.Models.Account;
+	using Infrastructure.Extensions;
 	using Microsoft.AspNetCore.Authentication;
 	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Identity;
 	using Microsoft.AspNetCore.Mvc;
 	using Microsoft.AspNetCore.Mvc.Rendering;
 	using Microsoft.Extensions.Logging;
+	using Models.Account;
 	using System;
 	using System.Collections.Generic;
 	using System.Security.Claims;

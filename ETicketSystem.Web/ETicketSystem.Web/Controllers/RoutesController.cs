@@ -44,7 +44,7 @@
 				return RedirectToAction(nameof(Search), new { startTown = startTown, endTown = endTown, date = date.ToYearMonthDayFormat(), companyId = companyId, page = 1 });
 			}
 
-			if (!this.towns.TownExists(startTown) || !this.towns.TownExists(endTown))
+			if (!this.towns.TownExistsById(startTown) || !this.towns.TownExistsById(endTown))
 			{
 				this.GenerateAlertMessage(WebConstants.Message.InvalidTown, Alert.Danger);
 				return this.RedirectToHome();
