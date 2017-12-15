@@ -11,3 +11,7 @@
 .station-info div {
     margin-top:5px;
 }
+
+.form-inline .form-control {
+    width:100%;
+}

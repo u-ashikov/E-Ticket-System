@@ -10,6 +10,15 @@
 
 <h2 class="text-center">@ViewData["Title"]</h2>
 <hr />
+<div class="container-fluid">
+    <form class="row">
+        <div class="form-group col-md-6">
+            <input for="searchTerm" name="searchTerm" class="form-control" placeholder="Search towns..." />
+        </div>
+        <input type="submit" value="Search" class="btn btn-success" />
+    </form>
+</div>
+<hr />
 
 @if(Model.Towns.Count() == 0)
 {
