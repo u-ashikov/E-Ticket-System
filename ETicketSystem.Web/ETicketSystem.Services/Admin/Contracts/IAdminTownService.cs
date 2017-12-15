@@ -7,7 +7,7 @@
     {
 		IEnumerable<AdminTownListingServiceModel> All(int page, int pageSize = 10);
 
-		AdminTownStationsServiceModel TownStations(int id);
+		IEnumerable<AdminTownStationsServiceModel> TownStations(int id);
 
 		int TotalTowns();
 

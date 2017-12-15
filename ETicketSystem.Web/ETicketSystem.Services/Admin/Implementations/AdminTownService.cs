@@ -3,6 +3,7 @@
 	using AutoMapper.QueryableExtensions;
 	using Contracts;
 	using ETicketSystem.Data;
+	using Microsoft.EntityFrameworkCore;
 	using Models;
 	using System.Collections.Generic;
 	using System.Linq;
@@ -24,11 +25,11 @@
 				.ProjectTo<AdminTownListingServiceModel>()
 				.ToList();
 
-		public AdminTownStationsServiceModel TownStations(int id) =>
-			this.db.Towns
-				.Where(t => t.Id == id)
+		public IEnumerable<AdminTownStationsServiceModel> TownStations(int id) =>
+			this.db.Stations
+				.Where(s => s.TownId == id)
 				.ProjectTo<AdminTownStationsServiceModel>()
-				.FirstOrDefault();
+				.ToList();
 
 		public int TotalTowns() => this.db.Towns.Count();
 
