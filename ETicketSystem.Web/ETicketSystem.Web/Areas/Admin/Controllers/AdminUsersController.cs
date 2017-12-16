@@ -1,13 +1,12 @@
 ﻿namespace ETicketSystem.Web.Areas.Admin.Controllers
 {
 	using Common.Constants;
+	using Common.Enums;
 	using Data.Models;
-	using ETicketSystem.Common.Enums;
 	using Microsoft.AspNetCore.Identity;
 	using Microsoft.AspNetCore.Mvc;
 	using Models.AdminUsers;
 	using Services.Admin.Contracts;
-	using System.Linq;
 	using System.Threading.Tasks;
 	using Web.Models.Pagination;
 
