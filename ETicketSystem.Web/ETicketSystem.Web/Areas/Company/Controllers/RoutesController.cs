@@ -146,7 +146,7 @@
 
 			if (this.routes.HasReservedTickets(id))
 			{
-				this.GenerateAlertMessage(string.Format(WebConstants.Message.RouteHasReservedTickets, startTownName, endTownName), Alert.Danger);
+				this.GenerateAlertMessage(string.Format(WebConstants.Message.EditRouteWithTickets, startTownName, endTownName), Alert.Danger);
 
 				return RedirectToAction(nameof(All));
 			}
@@ -165,6 +165,7 @@
 		}
 
 		[HttpPost]
+		[ValidateAntiForgeryToken]
 		[Route(WebConstants.Route.EditCompanyRoute)]
 		public IActionResult Edit(RouteFormModel model, int id)
 		{
@@ -192,7 +193,7 @@
 
 			if (this.routes.HasReservedTickets(id))
 			{
-				this.GenerateAlertMessage(string.Format(WebConstants.Message.RouteHasReservedTickets, startTownName, endTownName), Alert.Danger);
+				this.GenerateAlertMessage(string.Format(WebConstants.Message.EditRouteWithTickets, startTownName, endTownName), Alert.Danger);
 
 				return RedirectToAction(nameof(All));
 			}
@@ -214,7 +215,18 @@
 		[Route(WebConstants.Route.ChangeCompanyRouteStatus)]
 		public IActionResult ChangeStatus(int id)
 		{
+			var routeInfo = this.routes.GetRouteBaseInfo(id, this.userManager.GetUserId(User));
+
+			if (this.routes.HasReservedTickets(id))
+			{
+				this.GenerateAlertMessage(string.Format(WebConstants.Message.DeactivateRouteWithTickets, routeInfo.StartStationTownName, routeInfo.EndStationTownName), Alert.Danger);
+
+				return RedirectToAction(nameof(All));
+			}
+
 			var success = this.routes.ChangeStatus(id, this.userManager.GetUserId(User));
+
+			routeInfo = this.routes.GetRouteBaseInfo(id, this.userManager.GetUserId(User));
 
 			if (!success)
 			{
@@ -222,9 +234,7 @@
 				return RedirectToAction(nameof(All));
 			}
 
-			var route = this.routes.GetRouteBaseInfo(id, this.userManager.GetUserId(User));
-
-			this.GenerateAlertMessage(string.Format(WebConstants.Message.RouteStatusChanged, route.StartStationTownName,route.EndStationTownName,route.DepartureTime,route.Status), Alert.Success);
+			this.GenerateAlertMessage(string.Format(WebConstants.Message.RouteStatusChanged, routeInfo.StartStationTownName,routeInfo.EndStationTownName,routeInfo.DepartureTime,routeInfo.Status), Alert.Success);
 
 			return RedirectToAction(nameof(All));
 		}

@@ -54,7 +54,7 @@ else
                 <th>End station</th>
                 <th>Departure time</th>
                 <th>Duration</th>
-                <th>Bus type</th>
+                <th>Bus</th>
                 <th>Price</th>
                 <th>Status</th>
                 <th>Actions</th>
@@ -66,22 +66,24 @@ else
                 <tr>
                     <td>@route.StartStation</td>
                     <td>@route.EndStation</td>
-                    <td>@route.DepartureTime</td>
-                    <td>@route.Duration</td>
+                    <td>@route.DepartureTime.ToHoursAndMinutes()</td>
+                    <td>@route.Duration.ToHoursAndMinutes()</td>
                     <td>@route.BusType</td>
-                    <td>$ @route.Price</td>
+                    <td>$ @route.Price.ToFormatedPrice()</td>
                     <td>@(route.IsActive ? "Active" : "Inacitve")</td>
                     <td>
-                        <a asp-controller="Routes" asp-action="Edit" asp-route-id="@route.Id" class="btn btn-primary">Edit</a>
-                        @if (route.IsActive)
-                        {
-                            <a asp-controller="Routes" asp-action="ChangeStatus" asp-route-id="@route.Id" class="btn btn-danger">Deactivate</a>
-                        }
-                        else
-                        {
-                            <a asp-controller="Routes" asp-action="ChangeStatus" asp-route-id="@route.Id" class="btn btn-success">Activate</a>
-                        }  
-                        <a asp-area="" asp-controller="Routes" asp-action="Search" asp-route-startTown="@route.StartTown" asp-route-endTown="@route.EndTown" asp-route-date="@(Model.Date < DateTime.UtcNow.ToLocalTime() ? DateTime.UtcNow.ToLocalTime().ToYearMonthDayFormat() : Model.Date.ToYearMonthDayFormat())" asp-route-companyId="@route.CompanyId" class="btn btn-primary">Tickets</a>
+                        <div class="container-fluid buttons">
+                            <a asp-controller="Routes" asp-action="Edit" asp-route-id="@route.Id" class="btn btn-primary col-md-12" style="margin-bottom:10px;">Edit</a>
+                            @if (route.IsActive)
+                            {
+                                <a asp-controller="Routes" asp-action="ChangeStatus" asp-route-id="@route.Id" class="btn btn-danger col-md-12" style="margin-bottom:10px;">Deactivate</a>
+                            }
+                            else
+                            {
+                                <a asp-controller="Routes" asp-action="ChangeStatus" asp-route-id="@route.Id" class="btn btn-success col-md-12" style="margin-bottom:10px;">Activate</a>
+                            }
+                            <a asp-area="" asp-controller="Routes" asp-action="Search" asp-route-startTown="@route.StartTown" asp-route-endTown="@route.EndTown" asp-route-date="@(Model.Date < DateTime.UtcNow.ToLocalTime() ? DateTime.UtcNow.ToLocalTime().ToYearMonthDayFormat() : Model.Date.ToYearMonthDayFormat())" asp-route-companyId="@route.CompanyId" class="btn btn-primary col-md-12">Tickets</a>
+                        </div>
                     </td>
                 </tr>
             }

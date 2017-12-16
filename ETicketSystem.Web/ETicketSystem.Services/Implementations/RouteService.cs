@@ -3,7 +3,7 @@
 	using AutoMapper;
 	using AutoMapper.QueryableExtensions;
 	using Contracts;
-	using ETicketSystem.Data;
+	using Data;
 	using Microsoft.EntityFrameworkCore;
 	using Models.Route;
 	using System;
@@ -26,7 +26,7 @@
 								.Include(r=>r.EndStation)
 								.Include(r => r.Company)
 								.Where(r=> r.StartStation.TownId == startTown
-									&& r.EndStation.TownId == endTown)
+									&& r.EndStation.TownId == endTown && r.IsActive)
 								.ToList();
 
 			if (!string.IsNullOrEmpty(companyId))
@@ -57,7 +57,7 @@
 				.Routes
 					.Include(r => r.Company)
 					.Include(r => r.Tickets)
-				.Where(r => r.Id == id)
+				.Where(r => r.Id == id && r.IsActive)
 				.ProjectTo<RouteBookTicketInfoServiceModel>(new { ticketDate = date})
 				.FirstOrDefault();
 
@@ -69,7 +69,7 @@
 		{
 			var routes = this.db.Routes
 							.Where(r => r.StartStation.TownId == startTown
-							&& r.EndStation.TownId == endTown)
+							&& r.EndStation.TownId == endTown && r.IsActive)
 							.AsQueryable();
 
 			if (date.Date > DateTime.UtcNow.Date)
