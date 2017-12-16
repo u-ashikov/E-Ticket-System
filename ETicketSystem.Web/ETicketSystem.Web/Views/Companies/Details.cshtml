@@ -72,6 +72,17 @@
         }
     </div>
 </div>
+<div class="container-fluid reviews">
+    <h1 class="text-center">Reviews:</h1>
+    <hr />
+    @foreach (var r in Model.Reviews)
+    {
+        <div>
+            <p>@r.Description</p>
+        </div>
+    }
+    @Html.Partial("_ReviewForm",Model.ReviewForm)
+</div>
 
 @section Scripts {
     <script type="text/javascript" src="~/js/route/search-form-validation.js"></script>

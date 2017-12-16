@@ -167,6 +167,10 @@
 			public const string EditRouteWithTickets = "Cannot edit route from {0} to {1} because there are already reserved tickets!";
 
 			public const string DeactivateRouteWithTickets = "Cannot deactivate route from {0} to {1} because there are already reserved tickets!";
+
+			public const string UnableToAddReview = "You are not able to add reviews for this company because you haven't used its services yet!";
+
+			public const string ReviewAdded = "Review added successfully!";
 		}
 
 		public class ContentType
@@ -325,7 +329,7 @@
 
 			public const int SearchedRoutesPageSize = 5;
 
-			public const int UserTicketsPageSize = 10;
+			public const int UserTicketsPageSize = 20;
 
 			public const int AdminCompaniesListing = 10;
 

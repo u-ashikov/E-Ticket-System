@@ -3,10 +3,10 @@
 	using Common.Constants;
 	using Common.Enums;
 	using Data.Models;
-	using ETicketSystem.Web.Models.Pagination;
 	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Identity;
 	using Microsoft.AspNetCore.Mvc;
+	using Models.Pagination;
 	using Models.Users;
 	using Services.Contracts;
 	using System.Linq;

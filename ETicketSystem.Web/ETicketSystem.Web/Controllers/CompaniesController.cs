@@ -2,6 +2,7 @@
 {
 	using Common.Constants;
 	using Common.Enums;
+	using ETicketSystem.Web.Models.Reviews;
 	using Microsoft.AspNetCore.Mvc;
 	using Models.Companies;
 	using Models.Pagination;
@@ -65,7 +66,12 @@
 				{
 					CompanyId = id,
 					Towns = this.GenerateSelectListTowns()
-				}
+				},
+				ReviewForm = new AddReviewFormModel()
+				{
+					CompanyId = id
+				},
+				Reviews = company.Reviews
 			});
 		}
     }
