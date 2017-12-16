@@ -199,6 +199,8 @@
 
 			public const string Company = "Company";
 
+			public const string CompanyProfile = "Profile/{id}";
+
 			public const string AddCompanyRoute = "Routes/Add";
 
 			public const string AllCompanyRoutes = "Routes/All";
@@ -328,6 +330,8 @@
 			public const int AdminStationsListing = 20;
 
 			public const int AdminUsersListing = 20;
+
+			public const int CompanyRoutesListing = 20;
 		}
 
 		public class Pdf

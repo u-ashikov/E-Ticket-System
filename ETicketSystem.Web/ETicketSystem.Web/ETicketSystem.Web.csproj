@@ -25,4 +25,8 @@
     <ProjectReference Include="..\ETicketSystem.Services\ETicketSystem.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Company\Models\Profile\" />
+  </ItemGroup>
+
 </Project>

@@ -3,20 +3,17 @@
 	using Common.Constants;
 	using Common.Enums;
 	using Data.Models;
-	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Identity;
 	using Microsoft.AspNetCore.Mvc;
 	using Microsoft.AspNetCore.Mvc.Rendering;
 	using Models.Routes;
 	using Services.Company.Contracts;
 	using Services.Contracts;
+	using System;
 	using System.Collections.Generic;
-	using Web.Controllers;
+	using Web.Models.Pagination;
 
-	[Route(WebConstants.Route.Company)]
-	[Area(WebConstants.Area.Company)]
-	[Authorize(Roles = WebConstants.Role.CompanyRole)]
-	public class RoutesController : BaseController
+	public class RoutesController : BaseCompanyController
     {
 		private readonly ICompanyRouteService routes;
 
@@ -33,11 +30,39 @@
 		}
 
 		[Route(WebConstants.Route.AllCompanyRoutes)]
-		public IActionResult All()
+		public IActionResult All(int startTown, int endTown, DateTime date, int page = 1)
 		{
-			var companyId = this.userManager.GetUserId(User);
+			if (page < 1)
+			{
+				return RedirectToAction(nameof(All), new { startTown = startTown, endTown = endTown, date = date, page = 1 });
+			}
 
-			return View(this.routes.All(companyId));
+			var companyId = this.userManager.GetUserId(User);
+			var routes = this.routes.All(startTown,endTown, date, companyId, page, WebConstants.Pagination.CompanyRoutesListing);
+
+			var routesPagination = new PaginationViewModel()
+			{
+				Action = nameof(All),
+				Controller = WebConstants.Controller.Routes,
+				CurrentPage = page,
+				PageSize = WebConstants.Pagination.CompanyRoutesListing,
+				TotalElements = this.routes.TotalRoutes(startTown,endTown,date,companyId)
+			};
+
+			if (page > routesPagination.TotalPages && routesPagination.TotalPages != 0)
+			{
+				return RedirectToAction(nameof(All), new { startTown = startTown, endTown = endTown, date = date, page = routesPagination.TotalPages });
+			}
+
+			return View(new AllRoutes()
+			{
+				Date = date,
+				EndTown = endTown,
+				StartTown = startTown,
+				Pagination = routesPagination,
+				Routes = routes.Routes,
+				Towns = this.GenerateSelectListTowns()
+			});
 		}
 
 		[Route(WebConstants.Route.AddCompanyRoute)]

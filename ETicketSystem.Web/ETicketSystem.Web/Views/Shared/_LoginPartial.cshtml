@@ -14,7 +14,7 @@
             <li>
                 @if (User.IsInRole(Role.Company.ToString()))
                 {
-                    <a asp-area="Company" asp-controller="Companies" asp-action="Profile" asp-route-id="@UserManager.GetUserId(User)">My Profile</a>
+                    <a asp-area="Company" asp-controller="Profile" asp-action="Index" asp-route-id="@UserManager.GetUserId(User)">My Profile</a>
                 }
                 else
                 {

@@ -1,0 +1,10 @@
+﻿@model CompanyProfileBaseServiceModel
+
+@{
+    ViewData["Title"] = "My Profile";
+    Layout = "_UserProfileLayout";
+}
+
+<h1 class="text-center">@Model.Name</h1>
+<img src="@Model.Logo.ConvertBytesToImage()" alt="@Model.Name"/>
+

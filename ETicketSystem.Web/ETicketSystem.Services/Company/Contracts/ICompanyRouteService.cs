@@ -1,7 +1,7 @@
 ﻿namespace ETicketSystem.Services.Company.Contracts
 {
-	using ETicketSystem.Data.Enums;
-	using ETicketSystem.Services.Company.Models;
+	using Data.Enums;
+	using Models;
 	using System;
 
 	public interface ICompanyRouteService
@@ -12,12 +12,14 @@
 
 		bool ChangeStatus(int routeId, string companyId);
 
-		CompanyRoutesServiceModel All(string companyId);
+		CompanyRoutesServiceModel All(int startTown, int endTown, DateTime date,string companyId, int page, int pageSize = 10);
 
 		CompanyRouteEditServiceModel GetRouteToEdit(string companyId, int routeId);
 
 		CompanyRouteBaseSerivceModel GetRouteBaseInfo(int routeId, string companyId);
 
 		bool RouteAlreadyExist(int startStation, int endStation, TimeSpan departureTime, string companyId);
+
+		int TotalRoutes(int startTown, int endTown, DateTime date,string companyId);
     }
 }

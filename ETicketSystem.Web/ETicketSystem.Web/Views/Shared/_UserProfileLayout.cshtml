@@ -6,19 +6,35 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/profile.css" />
 </environment>
+
 <div class="container col-md-12">
     <div class="row">
         <nav class="col-md-2">
             <ul class="side-nav">
                 <li>
-                    <a asp-controller="Home" asp-action="Index">Buy Tickets</a>
+                    <a asp-controller="Home" asp-action="Index">Home</a>
                 </li>
-                <li>
-                    <a asp-controller="Users" asp-action="MyTickets">My Tickets</a>
-                </li>
-                <li>
-                    <a asp-controller="Users" asp-action="EditUser">Edit Profile</a>
-                </li>
+                @if (User.IsInRole(Role.Company.ToString()))
+                {
+                    <li>
+                        <a asp-area="Company" asp-controller="Routes" asp-action="Add">Add Route</a>
+                    </li>
+                    <li>
+                        <a asp-area="Company" asp-controller="Routes" asp-action="All">My Routes</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Users" asp-action="EditUser">Edit Profile</a>
+                    </li>
+                }
+                else
+                {                   
+                    <li>
+                        <a asp-controller="Users" asp-action="MyTickets">My Tickets</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Users" asp-action="EditUser">Edit Profile</a>
+                    </li>
+                }
                 <li>
                     <form method="post" asp-action="Logout" asp-controller="Account">
                         <button class="logout-btn" type="submit">Logout</button>
