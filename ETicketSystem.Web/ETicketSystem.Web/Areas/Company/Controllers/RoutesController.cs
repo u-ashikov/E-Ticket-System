@@ -163,14 +163,16 @@
 			if (!ModelState.IsValid)
 			{
 				model.TownsStations = this.GenerateTownStationsSelectListItems();
+				model.IsEdit = true;
 				return View(model);
 			}
 
-			var alreadyExists = this.routes.RouteAlreadyExist(model.StartStation, model.EndStation, model.DepartureTime.TimeOfDay, companyId);
+			var alreadyExists = this.routes.RouteAlreadyExist(id,model.StartStation, model.EndStation, model.DepartureTime.TimeOfDay, companyId);
 
 			if (alreadyExists)
 			{
 				model.TownsStations = this.GenerateTownStationsSelectListItems();
+				model.IsEdit = true;
 				ModelState.AddModelError(string.Empty, WebConstants.Message.CompanyRouteDuplication);
 				return View(model);
 			}

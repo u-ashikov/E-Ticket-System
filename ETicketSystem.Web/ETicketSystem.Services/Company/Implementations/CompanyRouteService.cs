@@ -25,7 +25,7 @@
 				.Include(c=>c.Routes)
 				.FirstOrDefault(c=>c.Id == companyId);
 
-			if (this.RouteAlreadyExist(startStation,endStation,departureTime,companyId))
+			if (this.db.Routes.Any(r=>r.StartStationId == startStation && r.EndStationId == endStation && r.DepartureTime == departureTime && r.CompanyId == companyId))
 			{
 				return false;
 			}
@@ -96,8 +96,8 @@
 			return true;
 		}
 
-		public bool RouteAlreadyExist(int startStation, int endStation, TimeSpan departureTime, string companyId) =>
-			this.db.Routes.Any(r => r.StartStationId == startStation && r.EndStationId == endStation && r.DepartureTime == departureTime && r.CompanyId == companyId);
+		public bool RouteAlreadyExist(int routeId,int startStation, int endStation, TimeSpan departureTime, string companyId) =>
+			this.db.Routes.Any(r => r.Id != routeId && r.StartStationId == startStation && r.EndStationId == endStation && r.DepartureTime == departureTime && r.CompanyId == companyId);
 
 		public bool ChangeStatus(int routeId, string companyId)
 		{

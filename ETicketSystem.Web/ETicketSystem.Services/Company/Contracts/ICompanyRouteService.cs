@@ -18,7 +18,7 @@
 
 		CompanyRouteBaseSerivceModel GetRouteBaseInfo(int routeId, string companyId);
 
-		bool RouteAlreadyExist(int startStation, int endStation, TimeSpan departureTime, string companyId);
+		bool RouteAlreadyExist(int routeId,int startStation, int endStation, TimeSpan departureTime, string companyId);
 
 		int TotalRoutes(int startTown, int endTown, DateTime date,string companyId);
     }
