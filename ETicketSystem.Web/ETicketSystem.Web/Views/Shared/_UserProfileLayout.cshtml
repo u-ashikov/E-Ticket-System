@@ -9,7 +9,7 @@
 
 <div class="container col-md-12">
     <div class="row">
-        <nav class="col-md-2">
+        <nav class="profile-nav col-md-2">
             <ul class="side-nav">
                 <li>
                     <a asp-controller="Home" asp-action="Index">Home</a>
@@ -42,7 +42,7 @@
                 </li>
             </ul>
         </nav>
-        <div class="profile-info col-md-10">
+        <div class="profile-info col-md-9">
             @if (TempData.ContainsKey(WebConstants.TempDataKey.Message))
             {
                 <div class="alert alert-@TempData[WebConstants.TempDataKey.AlertType] alert-dismissible" role="alert">
