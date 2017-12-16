@@ -2,6 +2,7 @@
 {
 	using Common.Constants;
 	using Data.Models;
+	using ETicketSystem.Common.Enums;
 	using Microsoft.AspNetCore.Identity;
 	using Microsoft.AspNetCore.Mvc;
 	using Models.AdminUsers;
@@ -52,6 +53,50 @@
 				Users = users,
 				Pagination = usersPagination
 			});
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> ChangeRolesAsync(string userId, Role role, bool isRemove)
+		{
+			var user = await this.userManager.FindByIdAsync(userId);
+
+			if (user == null)
+			{
+				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingUser, userId), Alert.Danger);
+
+				return RedirectToAction(nameof(All));
+			}
+
+			bool isInRole = await this.userManager.IsInRoleAsync(user, role.ToString());
+
+			if (isRemove)
+			{
+				if (!isInRole)
+				{
+					this.GenerateAlertMessage(string.Format(WebConstants.Message.UserNotInRole, user.UserName, role.ToString()), Alert.Warning);
+
+					return RedirectToAction(nameof(All));
+				}
+
+				await this.userManager.RemoveFromRoleAsync(user, role.ToString());
+
+				this.GenerateAlertMessage(string.Format(WebConstants.Message.UserRemovedFromRole, user.UserName, role.ToString()), Alert.Success);
+			}
+			else
+			{
+				if (isInRole)
+				{
+					this.GenerateAlertMessage(string.Format(WebConstants.Message.UserAlreadyInRole, user.UserName, role.ToString()), Alert.Warning);
+
+					return RedirectToAction(nameof(All));
+				}
+
+				await this.userManager.AddToRoleAsync(user, role.ToString());
+
+				this.GenerateAlertMessage(string.Format(WebConstants.Message.UserAddedToRole, user.UserName, role.ToString()), Alert.Success);
+			}
+
+			return RedirectToAction(nameof(All));
 		}
     }
 }

@@ -4,6 +4,10 @@
     ViewData["Title"] = "All Users";
 }
 
+<environment include="Development">
+    <link rel="stylesheet" href="~/css/admin/admin-users.css" />
+</environment>
+
 <h2 class="text-center">@ViewData["Title"]</h2>
 <hr />
 <div class="container-fluid">
@@ -39,14 +43,19 @@ else
                     <td>@u.Name</td>
                     <td>@u.Username</td>
                     <td>@u.Email</td>
-                    <td>@(u.Roles.Count == 0 ? "No roles" : string.Join(", ", u.Roles))</td>
+                    <td class="user-roles">@(u.Roles.Count == 0 ? "No roles" : string.Join(", ", u.Roles))</td>
                     <td>
-                        <a asp-controller="AdminUsers" asp-action="AddToRole" asp-route-id="@u.Id" class="btn btn-primary">
-                            Add to role
-                        </a>
-                        <a asp-controller="AdminUsers" asp-action="RemoveFromRole" asp-route-id="@u.Id" class="btn btn-danger">
-                            Remove from role
-                        </a>
+                        <form method="post">
+                            <div class="form-group">                              
+                                <select for="role" name="role" asp-items="@Html.GetEnumSelectList(typeof(Role)).Where(r => r.Text != Role.Company.ToString())" class="form-control"></select>
+                            </div>
+                            <button asp-controller="AdminUsers" asp-action="ChangeRolesAsync" asp-route-isRemove="false" asp-route-userId="@u.Id" type="submit" class="btn btn-primary @(u.Roles.Select(ur => ur.ToString()).SequenceEqual(Enum.GetNames (typeof(Role)).Where(r => r.ToString() != Role.Company.ToString())) ? "disabled" : string.Empty)">
+                                Add to role
+                            </button>
+                            <button asp-controller="AdminUsers" asp-action="ChangeRolesAsync" asp-route-isRemove="true" asp-route-userId="@u.Id" type="submit" class="btn btn-danger  @(!u.Roles.Any() ? "disabled" : string.Empty)">
+                                Remove from role
+                            </button>
+                        </form>
                     </td>
                 </tr>
             }

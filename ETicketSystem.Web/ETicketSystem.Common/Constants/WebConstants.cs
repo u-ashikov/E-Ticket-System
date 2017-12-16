@@ -155,6 +155,14 @@
 			public const string TownAlreadyExist = "Town already exist!";
 
 			public const string TownAdded = "Town {0} created successfully!";
+
+			public const string UserAddedToRole = "User {0} added to role {1} successfully!";
+
+			public const string UserRemovedFromRole = "User {0} removed from role {1} successfully!";
+
+			public const string UserAlreadyInRole = "User {0} already in role {1}!";
+
+			public const string UserNotInRole = "User {0} not in role {1}!";
 		}
 
 		public class ContentType
@@ -172,6 +180,10 @@
 		public class Route
 		{
 			public const string Admin = "Admin";
+
+			public const string AdminUsersAddToRole = "Admin/Users/AddToRole/{userId}";
+
+			public const string AdminUsersRemoveFromRole = "Admin/Users/RemoveFromRole/{userId}";
 
 			public const string HomeError = "/Home/Error";
 
