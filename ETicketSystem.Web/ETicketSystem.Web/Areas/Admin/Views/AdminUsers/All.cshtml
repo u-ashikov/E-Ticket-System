@@ -1,0 +1,58 @@
+﻿@model AllUsers
+
+@{
+    ViewData["Title"] = "All Users";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+<hr />
+<div class="container-fluid">
+    <form class="row">
+        <div class="form-group col-md-6">
+            <input for="searchTerm" value="@(string.IsNullOrEmpty(Model.Pagination.SearchTerm) ? string.Empty : Model.Pagination.SearchTerm)" name="searchTerm" class="form-control" placeholder="Search users..." />
+        </div>
+        <input type="submit" value="Search" class="btn btn-success" />
+    </form>
+</div>
+<hr />
+
+@if (Model.Users.Count() == 0)
+{
+    <h3 class="text-center">No users!</h3>
+}
+else
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Roles</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var u in Model.Users)
+            {
+                <tr>
+                    <td>@u.Name</td>
+                    <td>@u.Username</td>
+                    <td>@u.Email</td>
+                    <td>@(u.Roles.Count == 0 ? "No roles" : string.Join(", ", u.Roles))</td>
+                    <td>
+                        <a asp-controller="AdminUsers" asp-action="AddToRole" asp-route-id="@u.Id" class="btn btn-primary">
+                            Add to role
+                        </a>
+                        <a asp-controller="AdminUsers" asp-action="RemoveFromRole" asp-route-id="@u.Id" class="btn btn-danger">
+                            Remove from role
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @Html.Partial("_Pagination", Model.Pagination)
+}
+

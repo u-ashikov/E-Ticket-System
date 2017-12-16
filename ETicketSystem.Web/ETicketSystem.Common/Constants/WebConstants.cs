@@ -207,6 +207,8 @@
 
 			public const string AllStations = "Stations/All";
 
+			public const string AllUsers = "Users/All";
+
 			public const string EditStation = "Stations/Edit/{id}";
 
 			public const string AdminAllTownsUrl = "/admin/towns/all";
@@ -242,6 +244,8 @@
 			public const string AdminTowns = "AdminTowns";
 
 			public const string AdminStations = "AdminStations";
+
+			public const string AdminUsers = "AdminUsers";
 		}
 
 		public class FilePath
@@ -310,6 +314,8 @@
 			public const int AdminTownsListing = 20;
 
 			public const int AdminStationsListing = 20;
+
+			public const int AdminUsersListing = 20;
 		}
 
 		public class Pdf
