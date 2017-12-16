@@ -149,6 +149,11 @@
 			}
 
 			return company.Routes.Count();
-		}		
+		}
+		
+		public bool HasReservedTickets(int routeId)
+		{
+			return this.db.Tickets.Any(t => t.RouteId == routeId && t.DepartureTime >= DateTime.UtcNow.ToLocalTime());
+		}
 	}
 }

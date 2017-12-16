@@ -21,5 +21,7 @@
 		bool RouteAlreadyExist(int routeId,int startStation, int endStation, TimeSpan departureTime, string companyId);
 
 		int TotalRoutes(int startTown, int endTown, DateTime date,string companyId);
+
+		bool HasReservedTickets(int routeId);
     }
 }

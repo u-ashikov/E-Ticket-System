@@ -141,6 +141,16 @@
 				return RedirectToAction(nameof(All));
 			}
 
+			var startTownName = this.towns.GetTownNameByStationId(routeToEdit.StartStationId);
+			var endTownName = this.towns.GetTownNameByStationId(routeToEdit.EndStationId);
+
+			if (this.routes.HasReservedTickets(id))
+			{
+				this.GenerateAlertMessage(string.Format(WebConstants.Message.RouteHasReservedTickets, startTownName, endTownName), Alert.Danger);
+
+				return RedirectToAction(nameof(All));
+			}
+
 			return View(new RouteFormModel()
 			{
 				StartStation = routeToEdit.StartStationId,
@@ -177,6 +187,16 @@
 				return View(model);
 			}
 
+			var startTownName = this.towns.GetTownNameByStationId(model.StartStation);
+			var endTownName = this.towns.GetTownNameByStationId(model.EndStation);
+
+			if (this.routes.HasReservedTickets(id))
+			{
+				this.GenerateAlertMessage(string.Format(WebConstants.Message.RouteHasReservedTickets, startTownName, endTownName), Alert.Danger);
+
+				return RedirectToAction(nameof(All));
+			}
+
 			var success = this.routes.Edit(id,model.StartStation,model.EndStation, model.DepartureTime.TimeOfDay, model.Duration, model.BusType, model.Price, companyId);
 
 			if (!success)
@@ -185,9 +205,6 @@
 
 				return RedirectToAction(nameof(All));
 			}
-
-			var startTownName = this.towns.GetTownNameByStationId(model.StartStation);
-			var endTownName = this.towns.GetTownNameByStationId(model.EndStation);
 
 			this.GenerateAlertMessage(string.Format(WebConstants.Message.SuccessfullyEditedRoute, startTownName, endTownName), Alert.Success);
 

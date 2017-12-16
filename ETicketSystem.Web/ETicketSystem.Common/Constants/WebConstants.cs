@@ -163,6 +163,8 @@
 			public const string UserAlreadyInRole = "User {0} already in role {1}!";
 
 			public const string UserNotInRole = "User {0} not in role {1}!";
+
+			public const string RouteHasReservedTickets = "Cannot edit route from {0} to {1} because there are already reserved tickets!";
 		}
 
 		public class ContentType

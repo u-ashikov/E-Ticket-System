@@ -14,6 +14,8 @@
 
 		public int EndTown { get; set; }
 
+		public string CompanyId { get; set; }
+
 		public string StartStation { get; set; }
 
 		public string EndStation { get; set; }
@@ -35,7 +37,8 @@
 				.ForMember(dest => dest.EndStation, cfg => cfg.MapFrom(src => $"{src.EndStation.Town.Name}, {src.EndStation.Name}"))
 				.ForMember(dest => dest.BusType, cfg => cfg.MapFrom(src => $"{src.BusType.ToString()} - {(int)Enum.Parse(typeof(BusType), src.BusType.ToString())} seats"))
 				.ForMember(dest => dest.StartTown, cfg => cfg.MapFrom(src => src.StartStation.TownId))
-				.ForMember(dest => dest.EndTown, cfg => cfg.MapFrom(src => src.EndStation.TownId));
+				.ForMember(dest => dest.EndTown, cfg => cfg.MapFrom(src => src.EndStation.TownId))
+				.ForMember(dest => dest.CompanyId, cfg => cfg.MapFrom(src => src.CompanyId));
 		}
 	}
 }
