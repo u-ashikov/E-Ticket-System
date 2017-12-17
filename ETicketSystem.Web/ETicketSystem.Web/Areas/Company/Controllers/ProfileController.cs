@@ -5,17 +5,17 @@
 	using Data.Models;
 	using Microsoft.AspNetCore.Identity;
 	using Microsoft.AspNetCore.Mvc;
-	using Services.Company.Contracts;
+	using Services.Contracts;
 
 	public class ProfileController : BaseCompanyController
     {
-		private readonly ICompanyProfileService profile;
+		private readonly IUserService users;
 
 		private readonly UserManager<User> userManager;
 
-		public ProfileController(ICompanyProfileService profile, UserManager<User> userManager)
+		public ProfileController(IUserService users, UserManager<User> userManager)
 		{
-			this.profile = profile;
+			this.users = users;
 			this.userManager = userManager;
 		}
 
@@ -30,7 +30,7 @@
 				return RedirectToHome();
 			}
 
-			return View(this.profile.ProfileDetails(companyId));
+			return View(this.users.GetCompanyProfileDetails(companyId));
 		}
 	}
 }

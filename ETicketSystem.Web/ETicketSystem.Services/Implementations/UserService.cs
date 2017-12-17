@@ -2,6 +2,7 @@
 {
 	using AutoMapper.QueryableExtensions;
 	using Common.Constants;
+	using Company.Models;
 	using Contracts;
 	using Data;
 	using Data.Models;
@@ -42,6 +43,13 @@
 			this.db.Users
 				.Where(u => u.Id == id)
 				.ProjectTo<RegularUserProfileServiceModel>()
+				.FirstOrDefault();
+
+		public CompanyProfileBaseServiceModel GetCompanyProfileDetails(string id) =>
+			this.db
+				.Companies
+				.Where(c => c.Id == id)
+				.ProjectTo<CompanyProfileBaseServiceModel>()
 				.FirstOrDefault();
 
 		public async Task<IEnumerable<IdentityError>> EditRegularUserAsync(string id, string username, string email,string newPassword, string oldPassword)

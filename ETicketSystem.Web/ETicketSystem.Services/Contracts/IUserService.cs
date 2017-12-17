@@ -1,5 +1,6 @@
 ﻿namespace ETicketSystem.Services.Contracts
 {
+	using Company.Models;
 	using Microsoft.AspNetCore.Identity;
 	using Models.User;
 	using System.Collections.Generic;
@@ -8,6 +9,8 @@
 	public interface IUserService
     {
 		Task<RegularUserProfileServiceModel> GetRegularUserProfileDetailsAsync(string id);
+
+		CompanyProfileBaseServiceModel GetCompanyProfileDetails(string id);
 
 		bool UserExists(string id);
 
