@@ -45,6 +45,12 @@
 				.ProjectTo<RegularUserProfileServiceModel>()
 				.FirstOrDefault();
 
+		public CompanyProfileServiceModel GetCompanyUserProfileToEdit(string id) =>
+			this.db.Companies
+				.Where(c => c.Id == id)
+				.ProjectTo<CompanyProfileServiceModel>()
+				.FirstOrDefault();
+
 		public CompanyProfileBaseServiceModel GetCompanyProfileDetails(string id) =>
 			this.db
 				.Companies
@@ -57,6 +63,36 @@
 			var user = this.db.Users.Find(id);
 			var errors = new HashSet<IdentityError>();
 
+			await this.EditUserBaseInfo(id, username, email, oldPassword, newPassword, errors, user);
+
+			return errors;
+		}
+
+		public async Task<IEnumerable<IdentityError>> EditCompanyAsync(string id, string username, string email, string newPassword, string oldPassword, string description, byte[] logo, string phone)
+		{
+			var company = this.db.Companies.Find(id);
+			var errors = new HashSet<IdentityError>();
+
+			await this.EditUserBaseInfo(id, username, email, oldPassword, newPassword, errors, company);
+
+			if (logo != null)
+			{
+				company.Logo = logo;
+			}
+
+			company.Description = description;
+
+			this.db.SaveChanges();
+
+			var phoneToken = await this.userManager.GenerateChangePhoneNumberTokenAsync(company, phone);
+
+			await this.userManager.ChangePhoneNumberAsync(company, phone, phoneToken);
+
+			return errors;
+		}
+
+		private async Task EditUserBaseInfo(string id,string username, string email, string oldPassword, string newPassword, HashSet<IdentityError> errors, User user)
+		{
 			if (string.IsNullOrEmpty(username))
 			{
 				errors.Add(new IdentityError()
@@ -64,7 +100,7 @@
 					Description = WebConstants.Message.EmptyUsername
 				});
 
-				return errors;
+				return;
 			}
 
 			user.UserName = username;
@@ -81,7 +117,7 @@
 						errors.Add(error);
 					}
 
-					return errors;
+					return;
 				}
 			}
 
@@ -93,7 +129,7 @@
 					Description = WebConstants.Message.BothPasswordFieldsRequired
 				});
 
-				return errors;
+				return;
 			}
 
 			if (!string.IsNullOrEmpty(newPassword) && !string.IsNullOrEmpty(oldPassword))
@@ -107,7 +143,7 @@
 						Description = WebConstants.Message.IncorrectOldPassword
 					});
 
-					return errors;
+					return;
 				}
 
 				var passwordChanged = await this.userManager.ChangePasswordAsync(user, oldPassword, newPassword);
@@ -119,11 +155,9 @@
 						errors.Add(error);
 					}
 
-					return errors;
+					return;
 				}
 			}
-
-			return errors;
 		}
 	}
 }

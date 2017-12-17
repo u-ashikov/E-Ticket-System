@@ -1,6 +1,6 @@
 ﻿namespace ETicketSystem.Web.Models.Account
 {
-	using ETicketSystem.Common.Constants;
+	using Common.Constants;
 	using Microsoft.AspNetCore.Http;
 	using Microsoft.AspNetCore.Mvc;
 	using Microsoft.AspNetCore.Mvc.Rendering;

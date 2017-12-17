@@ -179,6 +179,10 @@
 			public const string ReviewEdited = "Review edited successfully!";
 
 			public const string ReviewDeleted = "Review deleted successfully!";
+
+			public const string CompanyPhoneCannotBeEmpty = "Company phone cannot be empty!";
+
+			public const string CompanyDescriptionCannotBeEmpty = "Company description cannot be empty!";
 		}
 
 		public class ContentType
@@ -222,6 +226,8 @@
 			public const string AllCompanyRoutes = "Routes/All";
 
 			public const string EditCompanyRoute = "Routes/Edit/{id}";
+
+			public const string EditCompanyProfile = "Profile/Edit/{id}";
 
 			public const string ChangeCompanyRouteStatus = "Routes/ChangeStatus/{id}";
 

@@ -16,6 +16,10 @@
 
 		Task<IEnumerable<IdentityError>> EditRegularUserAsync(string id, string username, string email, string newPassword, string oldPassword);
 
+		Task<IEnumerable<IdentityError>> EditCompanyAsync(string id, string username, string email, string newPassword, string oldPassword, string description, byte[] Logo, string phone);
+
 		RegularUserProfileServiceModel GetRegularUserProfileToEdit(string id);
+
+		CompanyProfileServiceModel GetCompanyUserProfileToEdit(string id);
 	}
 }
