@@ -1,0 +1,27 @@
+﻿@model ReviewFormModel
+
+@{
+    ViewData["Title"] = "Edit Review";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+<hr />
+
+<div class="container-fluid">
+    <form method="post" class="col-md-6 col-md-offset-3">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="CompanyId"/>
+        <div class="form-group">
+            <label asp-for="Description"></label>
+            <textarea asp-for="Description" class="form-control" rows="6"><</textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-success col-md-2" style="margin-right:10px;">Edit</button>
+        <a class="btn btn-danger" href="/companies/details/@Model.CompanyId">Cancel</a>     
+    </form>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
+

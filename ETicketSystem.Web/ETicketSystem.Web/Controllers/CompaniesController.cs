@@ -89,7 +89,7 @@
 					CompanyId = id,
 					Towns = this.GenerateSelectListTowns()
 				},
-				ReviewForm = new AddReviewFormModel()
+				ReviewForm = new ReviewFormModel()
 				{
 					CompanyId = id
 				},

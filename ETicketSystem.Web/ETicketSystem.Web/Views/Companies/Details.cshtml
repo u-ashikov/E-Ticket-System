@@ -89,6 +89,8 @@
             <div class="user-info container-fluid">
                 <span class="user">@r.User</span>
                 <span class="date">@r.PublishDate.ToShortDateString()</span>
+                <a class="btn btn-danger delete" asp-controller="Reviews" asp-action="Delete" asp-route-id="@r.Id">Delete</a>
+                <a class="btn btn-primary edit" asp-controller="Reviews" asp-action="Edit" asp-route-id="@r.Id">Edit</a>
             </div>
             <div class="container-fluid review-container">
                 <p>@r.Description</p>

@@ -48,6 +48,28 @@
 			return true;
 		}
 
+		public bool Edit(int id, string description)
+		{
+			var reviewToEdit = this.db.Reviews.Find(id);
+
+			if (reviewToEdit == null)
+			{
+				return false;
+			}
+
+			reviewToEdit.Description = description;
+			this.db.SaveChanges();
+
+			return true;
+		}
+
+		public ReviewEditServiceModel GetReviewToEdit(int id) =>
+			this.db
+				.Reviews
+				.Where(r => r.Id == id)
+				.ProjectTo<ReviewEditServiceModel>()
+				.FirstOrDefault();
+
 		public int TotalReviews(string companyId) => this.db.Reviews.Count(r => r.CompanyId == companyId);
 	}
 }

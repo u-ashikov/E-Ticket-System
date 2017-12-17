@@ -85,3 +85,12 @@ div.user-info {
 div.user-info .user {
     margin-right:20px;
 }
+
+a.delete, 
+a.edit {
+    float: right;
+}
+
+a.edit {
+    margin-right:10px;
+}

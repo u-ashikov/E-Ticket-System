@@ -10,7 +10,7 @@
 
 		public SearchRouteFormModel SearchForm { get; set; }
 
-		public AddReviewFormModel ReviewForm { get; set; }
+		public ReviewFormModel ReviewForm { get; set; }
 
 		public AllCompanyReviews Reviews { get; set; }
 	}

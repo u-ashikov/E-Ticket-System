@@ -24,7 +24,7 @@
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public IActionResult Add(AddReviewFormModel model)
+		public IActionResult Add(ReviewFormModel model)
 		{
 			var userId = this.userManager.GetUserId(User);
 
@@ -37,6 +37,47 @@
 			}
 
 			this.GenerateAlertMessage(WebConstants.Message.ReviewAdded, Alert.Success);
+
+			return Redirect($"{WebConstants.Route.CompanyDetails}{model.CompanyId}");
+		}
+
+		[Authorize(Roles = WebConstants.Role.ModeratorRole)]
+		public IActionResult Edit(int id)
+		{
+			var review = this.reviews.GetReviewToEdit(id);
+
+			if (review == null)
+			{
+				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingReview,id), Alert.Warning);
+				return RedirectToHome();
+			}
+
+			return View(new ReviewFormModel()
+			{
+				CompanyId = review.CompanyId,
+				Description = review.Description
+			});
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		[Authorize(Roles = WebConstants.Role.ModeratorRole)]
+		public IActionResult Edit(int id,ReviewFormModel model)
+		{
+			if (!ModelState.IsValid)
+			{
+				return View(model);
+			}
+
+			bool success = this.reviews.Edit(id, model.Description);
+
+			if (!success)
+			{
+				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingReview,id), Alert.Warning);
+				return RedirectToHome();
+			}
+
+			this.GenerateAlertMessage(WebConstants.Message.ReviewEdited, Alert.Success);
 
 			return Redirect($"{WebConstants.Route.CompanyDetails}{model.CompanyId}");
 		}

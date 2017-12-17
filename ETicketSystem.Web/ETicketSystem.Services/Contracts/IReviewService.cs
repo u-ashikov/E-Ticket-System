@@ -9,6 +9,10 @@
 
 		bool Add(string companyId, string userId, string description);
 
+		bool Edit(int id, string description);
+
+		ReviewEditServiceModel GetReviewToEdit(int id);
+
 		int TotalReviews(string companyId);
 	}
 }

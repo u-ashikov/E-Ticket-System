@@ -173,6 +173,10 @@
 			public const string ReviewAdded = "Review added successfully!";
 
 			public const string CompanyReviewDescriptionLength = "The field {0} must be between {2} and {1} symbols long!";
+
+			public const string NonExistingReview = "Review with id: {0} does not exist!";
+
+			public const string ReviewEdited = "Review edited successfully!";
 		}
 
 		public class ContentType
@@ -311,6 +315,8 @@
 		public class Role
 		{
 			public const string CompanyRole = "Company";
+
+			public const string ModeratorRole = "Moderator";
 		}
 
 		public class SearchForm
