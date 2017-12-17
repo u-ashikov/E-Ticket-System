@@ -5,7 +5,11 @@
 	using Data.Models;
 	using Microsoft.AspNetCore.Identity;
 	using Microsoft.AspNetCore.Mvc;
+	using Models.Profile;
 	using Services.Contracts;
+	using System.Linq;
+	using System.Threading.Tasks;
+	using Web.Infrastructure.Extensions;
 
 	public class ProfileController : BaseCompanyController
     {
@@ -31,6 +35,65 @@
 			}
 
 			return View(this.users.GetCompanyProfileDetails(companyId));
+		}
+
+		[Route(WebConstants.Route.EditCompanyProfile)]
+		public IActionResult Edit(string id)
+		{
+			var company = this.users.GetCompanyUserProfileToEdit(id);
+
+			if (company == null)
+			{
+				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingUser, id), Alert.Danger);
+				return RedirectToHome();
+			}
+
+			if (this.userManager.GetUserId(User) != id)
+			{
+				this.GenerateAlertMessage(string.Format(WebConstants.Message.NotProfileOwner, id), Alert.Danger);
+				return RedirectToHome();
+			}
+
+			return View(new EditCompanyProfileFormModel()
+			{
+				Username = company.Username,
+				Email = company.Email,
+				Description = company.Description,
+				CurrentLogo =company.Logo,
+				PhoneNumber = company.PhoneNumber
+			});
+		}
+
+		[HttpPost]
+		[Route(WebConstants.Route.EditCompanyProfile)]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Edit(string id, EditCompanyProfileFormModel profile)
+		{
+			if (!ModelState.IsValid)
+			{
+				return View(profile);
+			}
+
+			if (!this.users.UserExists(id) || this.userManager.GetUserId(User) != id)
+			{
+				return BadRequest();
+			}
+
+			var errors = await this.users.EditCompanyAsync(id,profile.Username,profile.Email,profile.NewPassword,profile.Password,profile.Description,profile.Logo.GetFormFileBytes(), profile.PhoneNumber);
+
+			if (errors.Count() != 0)
+			{
+				foreach (var error in errors)
+				{
+					ModelState.AddModelError("", error.Description);
+				}
+
+				return View(profile);
+			}
+
+			this.GenerateAlertMessage(WebConstants.Message.ProfileEdited, Alert.Success);
+
+			return RedirectToAction(nameof(Index), new { id = id });
 		}
 	}
 }
