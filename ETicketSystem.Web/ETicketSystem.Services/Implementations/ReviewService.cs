@@ -63,6 +63,21 @@
 			return true;
 		}
 
+		public bool Delete(int id)
+		{
+			var reviewToDelete = this.db.Reviews.Find(id);
+
+			if (reviewToDelete == null)
+			{
+				return false;
+			}
+
+			this.db.Reviews.Remove(reviewToDelete);
+			this.db.SaveChanges();
+
+			return true;
+		}
+
 		public ReviewEditServiceModel GetReviewToEdit(int id) =>
 			this.db
 				.Reviews

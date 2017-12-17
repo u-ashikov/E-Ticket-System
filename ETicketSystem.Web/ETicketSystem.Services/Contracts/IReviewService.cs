@@ -11,6 +11,8 @@
 
 		bool Edit(int id, string description);
 
+		bool Delete(int id);
+
 		ReviewEditServiceModel GetReviewToEdit(int id);
 
 		int TotalReviews(string companyId);

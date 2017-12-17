@@ -81,5 +81,24 @@
 
 			return Redirect($"{WebConstants.Route.CompanyDetails}{model.CompanyId}");
 		}
+
+		[Authorize(Roles = WebConstants.Role.ModeratorRole)]
+		public IActionResult Delete(int id, string companyId, bool confirm)
+		{
+			if (confirm)
+			{
+				bool success = this.reviews.Delete(id);
+
+				if (!success)
+				{
+					this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingReview, id), Alert.Warning);
+					return RedirectToHome();
+				}
+			}
+
+			this.GenerateAlertMessage(WebConstants.Message.ReviewDeleted, Alert.Success);
+
+			return Redirect($"{WebConstants.Route.CompanyDetails}{companyId}");
+		}
     }
 }

@@ -89,7 +89,12 @@
             <div class="user-info container-fluid">
                 <span class="user">@r.User</span>
                 <span class="date">@r.PublishDate.ToShortDateString()</span>
-                <a class="btn btn-danger delete" asp-controller="Reviews" asp-action="Delete" asp-route-id="@r.Id">Delete</a>
+                @Html.ActionLink(
+                            "Delete",
+                            "Delete",
+                            "Reviews",
+                            new { confirm = true, id = r.Id, companyId = r.CompanyId },
+                            new { onclick = $"return confirm('Do you really want to delete this review from user {r.User} ?');", @class = "btn btn-danger delete" })
                 <a class="btn btn-primary edit" asp-controller="Reviews" asp-action="Edit" asp-route-id="@r.Id">Edit</a>
             </div>
             <div class="container-fluid review-container">

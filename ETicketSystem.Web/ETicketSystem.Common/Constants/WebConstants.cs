@@ -177,6 +177,8 @@
 			public const string NonExistingReview = "Review with id: {0} does not exist!";
 
 			public const string ReviewEdited = "Review edited successfully!";
+
+			public const string ReviewDeleted = "Review deleted successfully!";
 		}
 
 		public class ContentType
