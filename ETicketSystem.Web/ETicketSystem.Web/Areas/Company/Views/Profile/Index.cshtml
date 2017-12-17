@@ -5,6 +5,37 @@
     Layout = "_UserProfileLayout";
 }
 
-<h1 class="text-center">@Model.Name</h1>
-<img src="@Model.Logo.ConvertBytesToImage()" alt="@Model.Name"/>
+<environment include="Development">
+    <link rel="stylesheet" href="~/css/company/company-profile.css" />
+</environment>
+
+<div class="container-fluid info">
+    <h1 class="text-center">@Model.Name</h1>
+    <hr />
+    <div class="row col-md-8 col-md-offset-4">
+        @if (Model.Logo == null)
+        {
+            <img class="logo col-md-6 col-md-offset-3" src="~/images/common/no-logo.png" alt="@Model.Name" />
+        }
+        else
+        {
+            <img class="logo col-md-6 col-md-offset-0" src="@Model.Logo.ConvertBytesToImage()" alt="@Model.Name" />
+        }
+    </div>
+    <div class="chief">
+        <strong>Chief: </strong><span>@Model.Chief</span>
+    </div>
+    <div class="email">
+        <strong>Email: </strong><span>@Model.Email</span>
+    </div>
+    <div class="phone">
+        <strong>Phone: </strong><span>@Model.Phone</span>
+    </div>
+    <div class="routes">
+        <strong>Total routes: </strong><span>@Model.TotalRoutes</span>
+    </div>
+    <div class="tickets">
+        <strong>Tickets sold: </strong><span>@Model.TotalTicketsSold</span>
+    </div>
+</div>
 

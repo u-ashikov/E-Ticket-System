@@ -1,0 +1,9 @@
+﻿.logo {
+    width:200px;
+    height:200px;
+}
+
+.info div:not(:first-child) {
+    margin-bottom: 10px;
+    font-size:1.2em;
+}
