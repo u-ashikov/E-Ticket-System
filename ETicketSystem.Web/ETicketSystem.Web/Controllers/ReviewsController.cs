@@ -23,6 +23,7 @@
 		}
 
 		[HttpPost]
+		[ValidateAntiForgeryToken]
 		public IActionResult Add(AddReviewFormModel model)
 		{
 			var userId = this.userManager.GetUserId(User);
@@ -32,12 +33,12 @@
 			if (!success)
 			{
 				this.GenerateAlertMessage(WebConstants.Message.UnableToAddReview, Alert.Warning);
-				return Redirect($"/companies/details/{model.CompanyId}");
+				return Redirect($"{WebConstants.Route.CompanyDetails}{model.CompanyId}");
 			}
 
 			this.GenerateAlertMessage(WebConstants.Message.ReviewAdded, Alert.Success);
 
-			return RedirectToAction(nameof(CompaniesController.Details), "Details",new { id = model.CompanyId});
+			return Redirect($"{WebConstants.Route.CompanyDetails}{model.CompanyId}");
 		}
     }
 }

@@ -2,10 +2,10 @@
 {
 	using Common.Constants;
 	using Common.Enums;
-	using ETicketSystem.Web.Models.Reviews;
 	using Microsoft.AspNetCore.Mvc;
 	using Models.Companies;
 	using Models.Pagination;
+	using Models.Reviews;
 	using Models.Routes;
 	using Services.Contracts;
 
@@ -13,10 +13,13 @@
     {
 		private readonly ICompanyService companies;
 
-		public CompaniesController(ICompanyService companies,ITownService towns)
+		private readonly IReviewService reviews;
+
+		public CompaniesController(ICompanyService companies,ITownService towns, IReviewService reviews)
 			:base(towns)
 		{
 			this.companies = companies;
+			this.reviews = reviews;
 		}
 
 		public IActionResult All(string searchTerm, int page = 1)
@@ -41,14 +44,14 @@
 				return RedirectToAction(nameof(All), new { page = companiesPagination.TotalPages });
 			}
 
-			return View(new AllCompaniesViewModel()
+			return View(new AllCompanies()
 			{
 				Companies = this.companies.All(page,searchTerm, WebConstants.Pagination.CompaniesPageSize),
 				Pagination = companiesPagination
 			});
 		}
 
-		public IActionResult Details(string id)
+		public IActionResult Details(string id, int page = 1)
 		{
 			var company = this.companies.CompanyDetails(id);
 
@@ -59,7 +62,26 @@
 				return RedirectToAction(nameof(All));
 			}
 
-			return View(new CompanyDetailsViewModel()
+			if (page < 1)
+			{
+				return RedirectToAction(nameof(Details), new { id = id, page = 1 });
+			}
+
+			var reviewsPagination = new PaginationViewModel()
+			{
+				Action = nameof(Details),
+				Controller = WebConstants.Controller.Companies,
+				CurrentPage = page,
+				PageSize = WebConstants.Pagination.CompanyReviewsListing,
+				TotalElements = this.reviews.TotalReviews(id)
+			};
+
+			if (page > reviewsPagination.TotalPages && reviewsPagination.TotalPages != 0)
+			{
+				return RedirectToAction(nameof(Details), new { id = id, page = reviewsPagination.TotalPages });
+			}
+
+			return View(new CompanyDetails()
 			{
 				Company = company,
 				SearchForm = new SearchRouteFormModel()
@@ -71,7 +93,11 @@
 				{
 					CompanyId = id
 				},
-				Reviews = company.Reviews
+				Reviews = new AllCompanyReviews()
+				{
+					Reviews = this.reviews.All(id,page,WebConstants.Pagination.CompanyReviewsListing),
+					Pagination = reviewsPagination
+				}
 			});
 		}
     }

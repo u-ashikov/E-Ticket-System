@@ -1,4 +1,4 @@
-﻿@model  CompanyDetailsViewModel
+﻿@model  CompanyDetails
 
 @{
     ViewData["Title"] = "Company Details";
@@ -75,11 +75,26 @@
 <div class="container-fluid reviews">
     <h1 class="text-center">Reviews:</h1>
     <hr />
-    @foreach (var r in Model.Reviews)
+    @if (Model.Reviews.Reviews.Count() == 0)
     {
-        <div>
-            <p>@r.Description</p>
+        <div class="alert alert-success col-md-8 col-md-offset-2" role="alert">
+            <h4 class="alert-heading">Oooops!</h4>
+            <p>There are no reviews yet. Be the first to write one!</p>
         </div>
+    }
+    else
+    {
+        @foreach (var r in Model.Reviews.Reviews)
+        {
+            <div class="user-info container-fluid">
+                <span class="user">@r.User</span>
+                <span class="date">@r.PublishDate.ToShortDateString()</span>
+            </div>
+            <div class="container-fluid review-container">
+                <p>@r.Description</p>
+            </div>
+        }
+        @Html.Partial("_Pagination", Model.Reviews.Pagination)
     }
     @Html.Partial("_ReviewForm",Model.ReviewForm)
 </div>

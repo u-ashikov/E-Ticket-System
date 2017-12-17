@@ -5,7 +5,6 @@
 	using Common.Constants;
 	using Data.Models;
 	using Models.Route;
-	using Review;
 	using System.Collections.Generic;
 	using System.Linq;
 
@@ -26,8 +25,6 @@
 		public int TicketsSold { get; set; }
 
 		public IEnumerable<RouteBaseServiceModel> Routes { get; set; }
-
-		public IEnumerable<ReviewInfoServiceModel> Reviews { get; set; }
 
 		public void ConfigureMapping(Profile mapper)
 		{

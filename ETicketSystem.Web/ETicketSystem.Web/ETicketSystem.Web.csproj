@@ -26,7 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Company\Models\Profile\" />
     <Folder Include="Views\Reviews\" />
   </ItemGroup>
 

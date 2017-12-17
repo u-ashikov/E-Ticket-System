@@ -8,8 +8,7 @@
 		public string CompanyId { get; set; }
 
 		[Required]
-		[MinLength(DataConstants.Review.DescriptionMinLength)]
-		[MaxLength(DataConstants.Review.DescriptionMaxLength)]
+		[StringLength(DataConstants.Review.DescriptionMaxLength,MinimumLength = DataConstants.Review.DescriptionMinLength,ErrorMessage = WebConstants.Message.CompanyReviewDescriptionLength)]
 		public string Description { get; set; }
     }
 }

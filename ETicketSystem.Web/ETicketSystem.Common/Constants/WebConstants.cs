@@ -171,6 +171,8 @@
 			public const string UnableToAddReview = "You are not able to add reviews for this company because you haven't used its services yet!";
 
 			public const string ReviewAdded = "Review added successfully!";
+
+			public const string CompanyReviewDescriptionLength = "The field {0} must be between {2} and {1} symbols long!";
 		}
 
 		public class ContentType
@@ -234,6 +236,8 @@
 			public const string EditStation = "Stations/Edit/{id}";
 
 			public const string AdminAllTownsUrl = "/admin/towns/all";
+
+			public const string CompanyDetails = "/companies/details/";
 		}
 
 		public class Action
@@ -340,6 +344,8 @@
 			public const int AdminUsersListing = 20;
 
 			public const int CompanyRoutesListing = 20;
+
+			public const int CompanyReviewsListing = 3;
 		}
 
 		public class Pdf

@@ -64,3 +64,24 @@ img.logo {
 .route-info a {
     margin-bottom:10px;
 }
+
+div.review-container {
+    border-left: 8px solid #D23A37;
+    background: #F9F9F9;
+    font-size:1.2em;
+    margin-bottom:15px;
+}
+
+div.review-container p{
+    padding: 15px;
+}
+
+div.user-info {
+    margin-bottom: 10px;
+    font-size: 1.2em;
+    color: #A4B1C5;
+}
+
+div.user-info .user {
+    margin-right:20px;
+}
