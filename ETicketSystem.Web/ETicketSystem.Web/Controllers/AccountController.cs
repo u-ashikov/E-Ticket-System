@@ -3,7 +3,6 @@
 	using Common.Constants;
 	using Common.Enums;
 	using Data.Models;
-	using ETicketSystem.Services.Contracts;
 	using Infrastructure.Extensions;
 	using Microsoft.AspNetCore.Authentication;
 	using Microsoft.AspNetCore.Authorization;
@@ -12,6 +11,7 @@
 	using Microsoft.AspNetCore.Mvc.Rendering;
 	using Microsoft.Extensions.Logging;
 	using Models.Account;
+	using Services.Contracts;
 	using System;
 	using System.Collections.Generic;
 	using System.Security.Claims;
