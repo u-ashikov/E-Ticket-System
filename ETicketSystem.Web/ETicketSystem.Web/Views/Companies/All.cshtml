@@ -23,7 +23,7 @@
 
 @if(Model.Companies.Count() == 0)
 {
-    <h3>No companies!</h3>
+    @Html.Partial("_NoResultsFoundMessageBox")
 }
 else
 {

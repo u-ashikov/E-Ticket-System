@@ -5,7 +5,7 @@
 }
 
 <environment include="Development">
-    <link rel="stylesheet" href="~/css/search-form.css" />
+    <link rel="stylesheet" href="~/css/company/company-details.css" />
     <link rel="stylesheet" href="~/css/company-details.css" />
     <script src="~/lib/jquery/dist/jquery.js"></script>
 </environment>
@@ -57,6 +57,10 @@
     <div class="popular-routes row">
         <h3>Most popular routes</h3>
         <hr />
+        @if(Model.Company.Routes.Count() == 0)
+        {
+            <h3>The company does not have any routes yet!</h3>
+        }
         @foreach (var route in Model.Company.Routes)
         {
             <div class="route-info-container col-md-6">
