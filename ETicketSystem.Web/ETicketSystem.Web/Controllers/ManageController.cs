@@ -1,14 +1,14 @@
 ﻿namespace ETicketSystem.Web.Controllers
 {
-	using ETicketSystem.Data.Models;
-	using ETicketSystem.Services.Contracts;
-	using ETicketSystem.Web.Infrastructure.Extensions;
-	using ETicketSystem.Web.Models.Manage;
+	using Data.Models;
+	using Infrastructure.Extensions;
 	using Microsoft.AspNetCore.Authentication;
 	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Identity;
 	using Microsoft.AspNetCore.Mvc;
 	using Microsoft.Extensions.Logging;
+	using Models.Manage;
+	using Services.Contracts;
 	using System;
 	using System.Linq;
 	using System.Text;
@@ -21,7 +21,6 @@
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
         private readonly UrlEncoder _urlEncoder;
 
@@ -30,13 +29,11 @@
         public ManageController(
           UserManager<User> userManager,
           SignInManager<User> signInManager,
-          IEmailSender emailSender,
           ILogger<ManageController> logger,
           UrlEncoder urlEncoder)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _emailSender = emailSender;
             _logger = logger;
             _urlEncoder = urlEncoder;
         }
@@ -122,7 +119,6 @@
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
             var email = user.Email;
-            await _emailSender.SendEmailConfirmationAsync(email, callbackUrl);
 
             StatusMessage = "Verification email sent. Please check your email.";
             return RedirectToAction(nameof(Index));
