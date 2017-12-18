@@ -7,6 +7,41 @@
 
 <h2 class="text-center">@ViewData["Title"]</h2>
 
+<div class="container-fluid">
+    <div class="row search-container">
+        <form method="get" asp-controller="Users" asp-action="MyTickets" class="search-form col-md-12">
+            <div class="text-danger text-center form-errors" hidden>
+                Start destination and end destination cannot be equal!
+            </div>
+            <div class="form-fields row">
+                <div class="form-group col-md-3">
+                    <label asp-for="StartTown"></label>
+                    <select asp-for="StartTown" asp-items="Model.Towns" class="form-control start-town" required></select>
+                    <span asp-validation-for="StartTown" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="EndTown"></label>
+                    <select asp-for="EndTown" asp-items="Model.Towns" class="form-control end-town" required></select>
+                    <span asp-validation-for="EndTown" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="Date"></label>
+                    <input asp-for="Date" class="form-control" />
+                    <span asp-validation-for="Date" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="CompanyId"></label>
+                    <select asp-for="CompanyId" asp-items="Model.Companies" class="form-control end-town"></select>
+                    <span asp-validation-for="CompanyId" class="text-danger"></span>
+                </div>
+            </div>
+            <input type="submit" value="Search" class="btn btn-success" onclick="checkTownsEquality()" />
+            <a asp-controller="Users" asp-action="MyTickets" class="btn btn-primary">Clear</a>
+        </form>
+    </div>
+</div>
+<hr />
+
 @if(Model.Tickets.Count() == 0)
 {
     <h3 class="text-center">No tickets!</h3>
@@ -41,6 +76,21 @@ else
         </tbody>
     </table>
 
-    @Html.Partial("_Pagination",Model.Pagination)
+    <div class="container-fluid text-center">
+        <ul class="pagination">
+            <li class="page-item @(1 == Model.Pagination.CurrentPage ? "blocked":string.Empty)">
+                <a class="page-link" asp-controller="@Model.Pagination.Controller" asp-action="@Model.Pagination.Action" asp-route-startTown="@Model.StartTown" asp-route-endTown="@Model.EndTown" asp-route-companyId="@Model.CompanyId" asp-route-date="@Model.Date" asp-route-page="@Model.Pagination.PreviousPage">Previous</a>
+            </li>
+            @for (int i = 1; i <= Model.Pagination.TotalPages; i++)
+            {
+                <li class="page-item @(i == Model.Pagination.CurrentPage ? "active blocked":string.Empty)">
+                    <a class="page-link" asp-controller="@Model.Pagination.Controller" asp-action="@Model.Pagination.Action" asp-route-startTown="@Model.StartTown" asp-route-endTown="@Model.EndTown" asp-route-companyId="@Model.CompanyId" asp-route-date="@Model.Date" asp-route-page="@i">@i</a>
+                </li>
+            }
+            <li class="page-item @(Model.Pagination.TotalPages == Model.Pagination.CurrentPage ? "blocked":string.Empty)">
+                <a class="page-link" asp-controller="@Model.Pagination.Controller" asp-action="@Model.Pagination.Action" asp-route-startTown="@Model.StartTown" asp-route-endTown="@Model.EndTown" asp-route-companyId="@Model.CompanyId" asp-route-date="@Model.Date" asp-route-page="@Model.Pagination.NextPage">Next</a>
+            </li>
+        </ul>
+    </div>
 }
 
