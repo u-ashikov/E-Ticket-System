@@ -1,0 +1,35 @@
+﻿div.home-container {
+    margin: 0 auto;
+    width: 100%;
+}
+
+.slogan {
+    margin-bottom:15px;
+}
+
+div.icons {
+    margin:160px auto;
+    font-family: 'Lobster', cursive;
+}
+
+.heading {
+    font-family: 'Lobster', cursive;
+    text-align:center;
+    margin:20px 0;
+}
+
+.explanation {
+    line-height:25px;
+    text-align:center;
+    font-size:1.2em;
+}
+
+.fa {
+    font-size:4.2em;
+    margin-bottom:10px;
+}
+
+.icon-text {
+    font-size:1.3em;
+    text-align:center;
+}
