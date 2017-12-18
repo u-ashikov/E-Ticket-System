@@ -6,7 +6,7 @@ html {
     font-size: 16px;
 }
 
-.bus {
+.bus, .route-info {
     margin: 20px auto;
     max-width: 56%;
 }
@@ -34,15 +34,6 @@ ol {
     padding: 5px;
     position: relative;
 }
-
-.fuselage > li:nth-child(2) {
-    margin-bottom: 5.28571428571429%;
-}
-
-/*.fuselage > li:nth-child(1) > ol.seats li:nth-child(6),
-.fuselage > li:nth-child(2) > ol.seats li:nth-child(6) {
-    margin-right: 14.28571428571429%;
-}*/
 
 .seat input[type=checkbox] {
     position: absolute;
@@ -107,4 +98,16 @@ li.seat > input.disabled {
 .seat label:hover {
     cursor: pointer;
     box-shadow: 0 0 0px 2px #5C6AFF;
+}
+
+.buy {
+    margin-bottom:10px;
+}
+
+.route-info-container {
+    margin:20px auto;
+}
+
+.route-info-container div {
+    margin-bottom:10px;
 }

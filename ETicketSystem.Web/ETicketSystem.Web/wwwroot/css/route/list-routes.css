@@ -64,3 +64,12 @@ a.company-name {
     color:black;
     margin:0 auto;
 }
+
+.disabled {
+    pointer-events:none;
+}
+
+.seats-info {
+    font-size:1.2em;
+    font-weight:700;
+}

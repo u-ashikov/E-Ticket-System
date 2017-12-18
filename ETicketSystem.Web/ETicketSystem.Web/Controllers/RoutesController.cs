@@ -70,9 +70,15 @@
 				return RedirectToAction(nameof(Search), new { startTown = startTown, endTown = endTown, date = date.ToYearMonthDayFormat(), companyId = companyId, page = routesPagination.TotalPages });
 			}
 
+			var routes = this.routes.GetSearchedRoutes(startTown, endTown, date, companyId, page, WebConstants.Pagination.SearchedRoutesPageSize)
+				.ToList();
+
+			routes
+				.ForEach(r => r.ReservedTickets = this.tickets.GetRouteReservedTicketsCount(r.Id, new DateTime(date.Year, date.Month, date.Day, r.DepartureTime.Hours, r.DepartureTime.Minutes, r.DepartureTime.Seconds)));
+
 			return View(new SearchedRoutes()
 			{
-				Routes = this.routes.GetSearchedRoutes(startTown, endTown, date, companyId, page, WebConstants.Pagination.SearchedRoutesPageSize),
+				Routes = routes,
 				Towns = this.GenerateSelectListTowns(),
 				Companies = this.GenerateSelectListCompanies(),
 				StartTown = startTown,
@@ -157,7 +163,7 @@
 
 			for (int i = 1; i <= (int)info.BusType; i++)
 			{
-				form.Seats.Add(new BookSeatViewModel()
+				form.Seats.Add(new BusSeat()
 				{
 					Value = i,
 					Checked = false,

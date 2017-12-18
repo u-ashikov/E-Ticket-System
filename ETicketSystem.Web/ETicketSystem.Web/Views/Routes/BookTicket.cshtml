@@ -5,18 +5,38 @@
 }
 
 <environment include="Development">
-    <link rel="stylesheet" href="~/css/book-ticket.css" />
+    <link rel="stylesheet" href="~/css/route/book-ticket.css" />
 </environment>
 
 <h2 class="text-center">@ViewData["Title"]</h2>
+<hr />
 
 <a class="btn btn-primary" href="/routes/search?StartTown=@Model.StartTownId&EndTown=@Model.EndTownId&Date=@Model.DepartureDateTime.ToYearMonthDayFormat()@(string.IsNullOrEmpty(Model.CompanyId) ? string.Empty : $"&CompanyId={Model.CompanyId}")">Back</a>
 
-<p>
-    @Model.StartStation - @Model.EndStation @Model.Duration, @Model.CompanyName, @Model.DepartureDateTime
-</p>
+<div class="row route-info-container">
+    <div>
+        <i class="fa fa-calendar" aria-hidden="true"></i>
+        <strong>Departure: </strong>@Model.DepartureDateTime
+    </div>
+    <div>
+        <i class="fa fa-location-arrow" aria-hidden="true"></i>
+        <strong>Route: </strong>@Model.StartStation - @Model.EndStation
+    </div>
+    <div>
+        <i class="fa fa-clock-o" aria-hidden="true"></i>
+        <strong>Duration: </strong>@Model.Duration.Hours hours and @Model.Duration.Minutes minutes
+    </div>
+    <div>
+        <i class="fa fa-building" aria-hidden="true"></i>
+        <strong>Company: </strong>@Model.CompanyName
+    </div>
+</div>
 
-@Html.Partial("_BookTicketForm", Model)
+<div class="container-fluid col-md-12 col-lg-12 col-sm-12">
+    <div class="form-container">
+        @Html.Partial("_BookTicketForm", Model)
+    </div>
+</div>
 
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")

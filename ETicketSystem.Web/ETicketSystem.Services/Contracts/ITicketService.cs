@@ -14,6 +14,8 @@
 
 		byte[] GetPdfTicket(int ticketId, string userId);
 
+		int GetRouteReservedTicketsCount(int routeId, DateTime departureTime);
+
 		int UserTicketsCount(string id, int startTown, int endTown, string companyId, DateTime? date);
 	}
 }

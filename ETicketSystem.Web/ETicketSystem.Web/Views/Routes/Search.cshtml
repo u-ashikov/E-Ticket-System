@@ -5,8 +5,8 @@
 }
 
 <environment include="Development">
-    <link rel="stylesheet" href="~/css/list-routes.css" />
-    <link rel="stylesheet" href="~/css/horizontal-search-form.css" />
+    <link rel="stylesheet" href="~/css/route/list-routes.css" />
+    <link rel="stylesheet" href="~/css/route/horizontal-search-form.css" />
     <script src="~/lib/jquery/dist/jquery.js"></script>
 </environment>
 
@@ -87,8 +87,9 @@ else
                     <span>@route.Price.ToFormatedPrice() $</span>
                 </div>
                 <div class="tickets col-md-2 col-sm-2 col-lg-2">
+                    <div class="seats-info">@route.ReservedTickets / @route.TotalBusSeats</div>
                     <form method="get" asp-controller="Routes" asp-action="BookTicket" asp-route-id="@route.Id" asp-route-departureTime="@route.DepartureTime.ToHoursAndMinutes()" asp-route-date="@Context.Request.Query["Date"]" asp-route-companyId="@Model.CompanyId">
-                        <input class="btn btn-success" type="submit" value="Tickets" />
+                        <input class="btn btn@(route.ReservedTickets == route.TotalBusSeats ? "-danger disabled" : "-success")" type="submit" value="@(route.ReservedTickets == route.TotalBusSeats ? "Sold out" : "Tickets")" />
                     </form>
                 </div>
             </div>

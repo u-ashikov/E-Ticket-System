@@ -162,5 +162,9 @@
 
 			return this.pdfGenerator.GeneratePdfFromHtml(string.Format(WebConstants.Pdf.Ticket, ticket.Company, ticket.Route, ticket.Seat, ticket.DepartureTime));
 		}
+
+		public int GetRouteReservedTicketsCount(int routeId, DateTime departureTime) =>
+			this.db.Tickets
+				.Count(t => t.RouteId == routeId && t.DepartureTime == departureTime);
 	}
 }

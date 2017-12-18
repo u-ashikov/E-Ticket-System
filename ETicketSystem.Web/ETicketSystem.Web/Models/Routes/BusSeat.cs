@@ -1,6 +1,6 @@
 ﻿namespace ETicketSystem.Web.Models.Routes
 {
-	public class BookSeatViewModel
+	public class BusSeat
     {
 		public int Value { get; set; }
 

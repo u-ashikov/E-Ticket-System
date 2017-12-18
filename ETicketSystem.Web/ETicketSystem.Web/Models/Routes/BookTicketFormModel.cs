@@ -27,6 +27,6 @@
 		public int EndTownId { get; set; }
 
 		[AtLeastOneRequired]
-		public List<BookSeatViewModel> Seats { get; set; } = new List<BookSeatViewModel>();
+		public List<BusSeat> Seats { get; set; } = new List<BusSeat>();
     }
 }

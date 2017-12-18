@@ -1,6 +1,5 @@
 ﻿namespace ETicketSystem.Services.Implementations
 {
-	using AutoMapper;
 	using AutoMapper.QueryableExtensions;
 	using Contracts;
 	using Data;
@@ -25,31 +24,34 @@
 								.Include(r=>r.StartStation)
 								.Include(r=>r.EndStation)
 								.Include(r => r.Company)
+								.Include(r=>r.Tickets)
 								.Where(r=> r.StartStation.TownId == startTown
 									&& r.EndStation.TownId == endTown && r.IsActive)
-								.ToList();
+								.AsQueryable();
 
 			if (!string.IsNullOrEmpty(companyId))
 			{
-				routes = routes.Where(r => r.CompanyId == companyId).ToList();
+				routes = routes.Where(r => r.CompanyId == companyId).AsQueryable();
 			}
 
-			if (date.Date > DateTime.UtcNow.Date)
+			if (date.Date > DateTime.UtcNow.Date.ToLocalTime())
 			{
-				return Mapper.Map<IEnumerable<RouteSearchListingServiceModel>>(routes
-					.Where(r => r.DepartureTime >= new TimeSpan(0, 0, 0))
+				return routes
+							.Where(r => r.DepartureTime >= new TimeSpan(0, 0, 0))
 							.OrderBy(r => r.DepartureTime)
 							.Skip((page-1)*pageSize)
 							.Take(pageSize)
-							.ToList());
+							.ProjectTo<RouteSearchListingServiceModel>()
+							.ToList();
 			}
 
-			return Mapper.Map<IEnumerable<RouteSearchListingServiceModel>>(routes
-						.Where(r => r.DepartureTime > DateTime.UtcNow.TimeOfDay)
+			return routes
+						.Where(r => r.DepartureTime > DateTime.UtcNow.ToLocalTime().TimeOfDay)
 						.OrderBy(r => r.DepartureTime)
 						.Skip((page - 1) * pageSize)
 						.Take(pageSize)
-						.ToList());
+						.ProjectTo<RouteSearchListingServiceModel>()
+						.ToList();
 		}
 
 		public RouteBookTicketInfoServiceModel GetRouteTicketBookingInfo(int id, DateTime date) =>
@@ -72,7 +74,7 @@
 							&& r.EndStation.TownId == endTown && r.IsActive)
 							.AsQueryable();
 
-			if (date.Date > DateTime.UtcNow.Date)
+			if (date.Date > DateTime.UtcNow.ToLocalTime().Date)
 			{
 				routes = routes
 							.Where(r => r.DepartureTime >= new TimeSpan(0, 0, 0))
@@ -81,7 +83,7 @@
 			else
 			{
 				routes = routes
-							.Where(r => r.DepartureTime > DateTime.UtcNow.TimeOfDay)
+							.Where(r => r.DepartureTime > DateTime.UtcNow.ToLocalTime().TimeOfDay)
 							.AsQueryable();
 			}
 

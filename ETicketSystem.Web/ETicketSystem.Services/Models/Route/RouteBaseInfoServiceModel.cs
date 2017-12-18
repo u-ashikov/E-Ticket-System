@@ -1,8 +1,8 @@
 ﻿namespace ETicketSystem.Services.Models.Route
 {
 	using AutoMapper;
+	using Common.Automapper;
 	using Data.Models;
-	using ETicketSystem.Common.Automapper;
 	using System;
 
 	public class RouteBaseInfoServiceModel : IMapFrom<Route>, IHaveCustomMapping
