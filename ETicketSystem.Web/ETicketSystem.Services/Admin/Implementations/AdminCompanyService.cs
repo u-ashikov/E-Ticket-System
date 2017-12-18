@@ -122,7 +122,7 @@
 				return string.Empty;
 			}
 
-			return company.IsBlocked ? "blocked" : "unblocked";
+			return company.IsBlocked ? CompanyStatus.Blocked.ToString().ToLower() : string.Concat("un", CompanyStatus.Blocked.ToString().ToLower());
 		}
 	}
 }

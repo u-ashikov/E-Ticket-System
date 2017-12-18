@@ -14,10 +14,11 @@
     </div>
     <input type="submit" value="Filter" class="btn btn-success" />
 </form>
+<br />
 
-@if(Model.Companies.Count() == 0)
+@if (Model.Companies.Count() == 0)
 {
-    <h3 class="text-center">No companies found!</h3>
+    @Html.Partial("_NoResultsFoundMessageBox")
 }
 else
 {

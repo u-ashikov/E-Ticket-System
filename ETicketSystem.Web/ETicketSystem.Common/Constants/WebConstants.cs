@@ -225,11 +225,11 @@
 			public const string AdminAllStations = "Stations/All";
 			public const string AdminEditStation = "Stations/Edit/{id}";
 
+			public const string AdminAllCompanies = "Companies/All";
+			public const string AdminApproveCompany = "Companies/Approve/{companyId}";
+			public const string AdminBlockCompany = "Companies/Block/{companyId}";
+
 			public const string HomeError = "/Home/Error";
-
-			public const string AllCompanies = "Companies/All";
-
-			public const string ApproveCompany = "Companies/Approve/{companyId}";
 
 			public const string Company = "Company";
 

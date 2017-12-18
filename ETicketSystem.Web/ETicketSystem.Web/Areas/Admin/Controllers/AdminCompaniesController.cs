@@ -2,10 +2,12 @@
 {
 	using Common.Constants;
 	using Common.Enums;
-	using ETicketSystem.Web.Models.Pagination;
+	using Data.Models;
 	using Microsoft.AspNetCore.Mvc;
 	using Models.AdminCompanies;
 	using Services.Admin.Contracts;
+	using System;
+	using Web.Models.Pagination;
 
 	public class AdminCompaniesController : BaseAdminController
     {
@@ -16,12 +18,18 @@
 			this.companies = companies;
 		}
 
-		[Route(WebConstants.Routing.AllCompanies)]
+		[Route(WebConstants.Routing.AdminAllCompanies)]
 		public IActionResult All(CompanyStatus filter,int page = 1)
 		{
 			if (page < 1)
 			{
 				return RedirectToAction(nameof(All), new { filter = filter});
+			}
+
+			if (!Enum.IsDefined(typeof(CompanyStatus),filter))
+			{
+				filter = CompanyStatus.All;
+				return RedirectToAction(nameof(All), new { filter = filter });
 			}
 
 			var companiesPagination = new PaginationViewModel()
@@ -47,12 +55,12 @@
 			});
 		}
 
-		[Route(WebConstants.Routing.ApproveCompany)]
+		[Route(WebConstants.Routing.AdminApproveCompany)]
 		public IActionResult Approve(string companyId, CompanyStatus filter, int page)
 		{
 			if (!this.companies.CompanyExists(companyId))
 			{
-				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingCompany, companyId), Alert.Danger);
+				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingEntity,nameof(Company), companyId), Alert.Danger);
 				return RedirectToAction(nameof(All));
 			}
 
@@ -71,11 +79,12 @@
 			return RedirectToAction(nameof(All), new { page = page, filter = filter});
 		}
 
+		[Route(WebConstants.Routing.AdminBlockCompany)]
 		public IActionResult Block(string companyId, CompanyStatus filter, int page)
 		{
 			if (!this.companies.CompanyExists(companyId))
 			{
-				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingCompany, companyId), Alert.Danger);
+				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingEntity, nameof(Company), companyId), Alert.Danger);
 				return RedirectToAction(nameof(All));
 			}
 

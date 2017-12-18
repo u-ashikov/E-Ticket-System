@@ -23,10 +23,7 @@
 
 @if (Model.Towns.Count() == 0)
 {
-    <div class="alert alert-success" role="alert">
-        <h4 class="alert-heading">Oooops!</h4>
-        <p>No towns found!</p>
-    </div>
+   @Html.Partial("_NoResultsFoundMessageBox")
 }
 else
 {
