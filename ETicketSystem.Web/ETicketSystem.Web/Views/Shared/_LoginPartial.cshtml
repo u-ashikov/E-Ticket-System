@@ -9,7 +9,14 @@
     <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+                @if (User.IsInRole(Role.Company.ToString()))
+                {
+                    <a asp-area="Company" asp-controller="Profile" asp-action="Index" asp-route-id="@UserManager.GetUserId(User)">Hello @UserManager.GetUserName(User)!</a>
+                }
+                else
+                {
+                    <a asp-area="" asp-controller="Users" asp-action="Profile" asp-route-id="@UserManager.GetUserId(User)">Hello @UserManager.GetUserName(User)!</a>
+                }
             </li>
             <li>
                 @if (User.IsInRole(Role.Company.ToString()))
