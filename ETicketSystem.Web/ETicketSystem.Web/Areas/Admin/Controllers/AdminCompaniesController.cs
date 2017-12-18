@@ -16,7 +16,7 @@
 			this.companies = companies;
 		}
 
-		[Route(WebConstants.Route.AllCompanies)]
+		[Route(WebConstants.Routing.AllCompanies)]
 		public IActionResult All(CompanyStatus filter,int page = 1)
 		{
 			if (page < 1)
@@ -47,7 +47,7 @@
 			});
 		}
 
-		[Route(WebConstants.Route.ApproveCompany)]
+		[Route(WebConstants.Routing.ApproveCompany)]
 		public IActionResult Approve(string companyId, CompanyStatus filter, int page)
 		{
 			if (!this.companies.CompanyExists(companyId))

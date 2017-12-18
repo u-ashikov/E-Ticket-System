@@ -36,7 +36,7 @@
 		}
 
 		[AllowAnonymous]
-		[Route(WebConstants.Route.RoutesSearch)]
+		[Route(WebConstants.Routing.RoutesSearch)]
 		public IActionResult Search(int startTown, int endTown, DateTime date, string companyId, int page = 1)
 		{
 			if (page < 1)
@@ -89,7 +89,7 @@
 			});
 		}
 
-		[Route(WebConstants.Route.BookRouteTicket)]
+		[Route(WebConstants.Routing.BookRouteTicket)]
 		public IActionResult BookTicket(int id, TimeSpan departureTime, DateTime date, string companyId)
 		{
 			var departureDateTime = new DateTime(date.Year, date.Month, date.Day, departureTime.Hours, departureTime.Minutes, departureTime.Seconds);
@@ -121,7 +121,7 @@
 		}
 
 		[HttpPost]
-		[Route(WebConstants.Route.BookRouteTicket)]
+		[Route(WebConstants.Routing.BookRouteTicket)]
 		[ValidateAntiForgeryToken]
 		public IActionResult BookTicket(BookTicketFormModel model)
 		{

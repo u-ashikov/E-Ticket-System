@@ -6,6 +6,7 @@
 	public class AddTownFormModel
     {
 		[Required]
+		[RegularExpression(WebConstants.RegexPattern.Name, ErrorMessage = WebConstants.Message.NameOnlyLetters)]
 		[MaxLength(DataConstants.Town.TownMaxNameLength, ErrorMessage = WebConstants.Message.TownNameMaxLength)]
 		public string Name { get; set; }
 	}

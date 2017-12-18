@@ -33,12 +33,12 @@
 			if (!success)
 			{
 				this.GenerateAlertMessage(WebConstants.Message.UnableToAddReview, Alert.Warning);
-				return Redirect($"{WebConstants.Route.CompanyDetails}{model.CompanyId}");
+				return Redirect($"{WebConstants.Routing.CompanyDetails}{model.CompanyId}");
 			}
 
 			this.GenerateAlertMessage(WebConstants.Message.ReviewAdded, Alert.Success);
 
-			return Redirect($"{WebConstants.Route.CompanyDetails}{model.CompanyId}");
+			return Redirect($"{WebConstants.Routing.CompanyDetails}{model.CompanyId}");
 		}
 
 		[Authorize(Roles = WebConstants.Role.ModeratorRole)]
@@ -79,7 +79,7 @@
 
 			this.GenerateAlertMessage(WebConstants.Message.ReviewEdited, Alert.Success);
 
-			return Redirect($"{WebConstants.Route.CompanyDetails}{model.CompanyId}");
+			return Redirect($"{WebConstants.Routing.CompanyDetails}{model.CompanyId}");
 		}
 
 		[Authorize(Roles = WebConstants.Role.ModeratorRole)]
@@ -98,7 +98,7 @@
 
 			this.GenerateAlertMessage(WebConstants.Message.ReviewDeleted, Alert.Success);
 
-			return Redirect($"{WebConstants.Route.CompanyDetails}{companyId}");
+			return Redirect($"{WebConstants.Routing.CompanyDetails}{companyId}");
 		}
     }
 }

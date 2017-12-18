@@ -6,7 +6,7 @@
 	using Microsoft.AspNetCore.Mvc;
 	using Web.Controllers;
 
-	[Route(WebConstants.Route.Company)]
+	[Route(WebConstants.Routing.Company)]
 	[Area(WebConstants.Area.Company)]
 	[Authorize(Roles = WebConstants.Role.CompanyRole)]
 	public abstract class BaseCompanyController : BaseController

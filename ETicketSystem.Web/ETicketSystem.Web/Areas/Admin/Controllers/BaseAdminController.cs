@@ -6,7 +6,7 @@
 	using Services.Contracts;
 	using Web.Controllers;
 
-	[Route(WebConstants.Route.Admin)]
+	[Route(WebConstants.Routing.Admin)]
 	[Area(WebConstants.Area.Admin)]
 	[Authorize(Roles = AdminConstants.Role)]
 	public abstract class BaseAdminController : BaseController

@@ -54,7 +54,7 @@
 			return View(user);
 		}
 
-		[Route(WebConstants.Route.EditUser)]
+		[Route(WebConstants.Routing.EditUser)]
 		public IActionResult EditUser(string id)
 		{
 			if (!this.users.UserExists(id))
@@ -79,7 +79,7 @@
 		}
 
 		[HttpPost]
-		[Route(WebConstants.Route.EditUser)]
+		[Route(WebConstants.Routing.EditUser)]
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> EditUser(string id, EditUserProfileFormModel profile)
 		{
@@ -110,7 +110,7 @@
 			return RedirectToAction(nameof(Profile), new { id = id });
 		}
 
-		[Route(WebConstants.Route.UserTickets)]
+		[Route(WebConstants.Routing.UserTickets)]
 		public IActionResult MyTickets(string id, int startTown, int endTown, string companyId, DateTime? date, int page = 1)
 		{
 			if (page < 1)

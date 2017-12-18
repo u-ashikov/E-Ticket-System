@@ -66,7 +66,7 @@
             }
             else
             {
-                app.UseExceptionHandler(WebConstants.Route.HomeError);
+                app.UseExceptionHandler(WebConstants.Routing.HomeError);
             }
 
             app.UseStaticFiles();

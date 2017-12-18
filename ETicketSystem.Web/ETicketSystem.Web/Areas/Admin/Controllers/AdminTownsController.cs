@@ -1,5 +1,6 @@
 ﻿namespace ETicketSystem.Web.Areas.Admin.Controllers
 {
+	using Data.Models;
 	using Common.Constants;
 	using Common.Enums;
 	using Microsoft.AspNetCore.Mvc;
@@ -16,7 +17,7 @@
 			this.adminTowns = adminTowns;
 		}
 
-		[Route(WebConstants.Route.AllTowns)]
+		[Route(WebConstants.Routing.AdminAllTowns)]
 		public IActionResult All(string searchTerm,int page = 1)
 		{
 			if (page < 1)
@@ -25,6 +26,7 @@
 			}
 
 			var towns = this.adminTowns.All(page, searchTerm, WebConstants.Pagination.AdminTownsListing);
+
 			var townsPagination = new PaginationViewModel()
 			{
 				Action = nameof(All),
@@ -47,7 +49,7 @@
 			});
 		}
 
-		[Route(WebConstants.Route.TownStations)]
+		[Route(WebConstants.Routing.AdminTownStations)]
 		public IActionResult TownStations(int id)
 		{
 			if (!this.adminTowns.TownExists(id))
@@ -60,11 +62,11 @@
 			return Json(this.adminTowns.TownStations(id));
 		}
 
-		[Route(WebConstants.Route.AddTown)]
+		[Route(WebConstants.Routing.AdminAddTown)]
 		public IActionResult Add() => View();
 
 		[HttpPost]
-		[Route(WebConstants.Route.AddTown)]
+		[Route(WebConstants.Routing.AdminAddTown)]
 		[ValidateAntiForgeryToken]
 		public IActionResult Add(AddTownFormModel model)
 		{
@@ -75,7 +77,7 @@
 
 			if (this.adminTowns.TownExistsByName(model.Name))
 			{
-				ModelState.AddModelError(string.Empty, WebConstants.Message.TownAlreadyExist);
+				ModelState.AddModelError(string.Empty, string.Format(WebConstants.Message.EntityAlreadyExist,nameof(Town)));
 				return View(model);
 			}
 

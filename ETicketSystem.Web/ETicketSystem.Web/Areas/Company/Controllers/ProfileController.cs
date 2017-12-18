@@ -23,7 +23,7 @@
 			this.userManager = userManager;
 		}
 
-		[Route(WebConstants.Route.CompanyProfile)]
+		[Route(WebConstants.Routing.CompanyProfile)]
 		public IActionResult Index(string id)
 		{
 			var companyId = this.userManager.GetUserId(User);
@@ -37,7 +37,7 @@
 			return View(this.users.GetCompanyProfileDetails(companyId));
 		}
 
-		[Route(WebConstants.Route.EditCompanyProfile)]
+		[Route(WebConstants.Routing.EditCompanyProfile)]
 		public IActionResult Edit(string id)
 		{
 			var company = this.users.GetCompanyUserProfileToEdit(id);
@@ -65,7 +65,7 @@
 		}
 
 		[HttpPost]
-		[Route(WebConstants.Route.EditCompanyProfile)]
+		[Route(WebConstants.Routing.EditCompanyProfile)]
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Edit(string id, EditCompanyProfileFormModel profile)
 		{

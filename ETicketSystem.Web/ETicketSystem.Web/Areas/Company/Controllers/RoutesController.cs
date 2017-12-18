@@ -29,7 +29,7 @@
 			this.companies = companies;
 		}
 
-		[Route(WebConstants.Route.AllCompanyRoutes)]
+		[Route(WebConstants.Routing.AllCompanyRoutes)]
 		public IActionResult All(int startTown, int endTown, DateTime date, int page = 1)
 		{
 			if (page < 1)
@@ -65,7 +65,7 @@
 			});
 		}
 
-		[Route(WebConstants.Route.AddCompanyRoute)]
+		[Route(WebConstants.Routing.AddCompanyRoute)]
 		public IActionResult Add()
 		{
 			if (!this.companies.IsApproved(this.userManager.GetUserId(User)))
@@ -90,7 +90,7 @@
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		[Route(WebConstants.Route.AddCompanyRoute)]
+		[Route(WebConstants.Routing.AddCompanyRoute)]
 		public IActionResult Add(RouteFormModel model)
 		{
 			if (!this.companies.IsApproved(this.userManager.GetUserId(User)))
@@ -129,7 +129,7 @@
 			return RedirectToAction(nameof(All));
 		}
 
-		[Route(WebConstants.Route.EditCompanyRoute)]
+		[Route(WebConstants.Routing.EditCompanyRoute)]
 		public IActionResult Edit(int id)
 		{
 			var routeToEdit = this.routes.GetRouteToEdit(this.userManager.GetUserId(User), id);
@@ -166,7 +166,7 @@
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		[Route(WebConstants.Route.EditCompanyRoute)]
+		[Route(WebConstants.Routing.EditCompanyRoute)]
 		public IActionResult Edit(RouteFormModel model, int id)
 		{
 			var companyId = this.userManager.GetUserId(User);
@@ -212,7 +212,7 @@
 			return RedirectToAction(nameof(All));
 		}
 
-		[Route(WebConstants.Route.ChangeCompanyRouteStatus)]
+		[Route(WebConstants.Routing.ChangeCompanyRouteStatus)]
 		public IActionResult ChangeStatus(int id)
 		{
 			var routeInfo = this.routes.GetRouteBaseInfo(id, this.userManager.GetUserId(User));

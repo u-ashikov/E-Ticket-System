@@ -18,7 +18,7 @@
 			this.stations = stations;
 		}
 
-		[Route(WebConstants.Route.AllStations)]
+		[Route(WebConstants.Routing.AllStations)]
 		public IActionResult All(string searchTerm,int page = 1)
 		{
 			if (page < 1)
@@ -49,7 +49,7 @@
 			});
 		}
 
-		[Route(WebConstants.Route.AddStation)]
+		[Route(WebConstants.Routing.AddStation)]
 		public IActionResult Add() => View(new StationFormModel()
 		{
 			Towns = this.GenerateSelectListTowns()
@@ -57,7 +57,7 @@
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		[Route(WebConstants.Route.AddStation)]
+		[Route(WebConstants.Routing.AddStation)]
 		public IActionResult Add(StationFormModel model)
 		{
 			if (!ModelState.IsValid)
@@ -82,7 +82,7 @@
 			return RedirectToHome();
 		}
 
-		[Route(WebConstants.Route.EditStation)]
+		[Route(WebConstants.Routing.EditStation)]
 		public IActionResult Edit(int id)
 		{
 			var station = this.stations.GetStationToEdit(id);
@@ -90,7 +90,7 @@
 			if (station == null)
 			{
 				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingStation, id), Alert.Warning);
-				return Redirect(WebConstants.Route.AdminAllTownsUrl);
+				return Redirect(WebConstants.Routing.AdminAllTownsUrl);
 			}
 
 			return View(new StationFormModel()
@@ -105,14 +105,14 @@
 		}
 
 		[HttpPost]
-		[Route(WebConstants.Route.EditStation)]
+		[Route(WebConstants.Routing.EditStation)]
 		[ValidateAntiForgeryToken]
 		public IActionResult Edit(StationFormModel model)
 		{
 			if (!this.stations.StationExists(model.Id))
 			{
 				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingStation, model.Id), Alert.Warning);
-				return Redirect(WebConstants.Route.AdminAllTownsUrl);
+				return Redirect(WebConstants.Routing.AdminAllTownsUrl);
 			}
 
 			if (this.stations.EditedStationIsSame(model.Id,model.Name,model.Phone,model.TownId))
@@ -144,7 +144,7 @@
 
 			this.GenerateAlertMessage(WebConstants.Message.StationEdited, Alert.Success);
 
-			return Redirect(WebConstants.Route.AdminAllTownsUrl);
+			return Redirect(WebConstants.Routing.AdminAllTownsUrl);
 		}
 	}
 }

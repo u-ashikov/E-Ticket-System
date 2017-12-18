@@ -21,9 +21,12 @@
 </div>
 <hr />
 
-@if(Model.Towns.Count() == 0)
+@if (Model.Towns.Count() == 0)
 {
-    <h3 class="text-center">No towns!</h3>
+    <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Oooops!</h4>
+        <p>No towns found!</p>
+    </div>
 }
 else
 {

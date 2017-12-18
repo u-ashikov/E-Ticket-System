@@ -22,7 +22,7 @@
 			this.userManager = userManager;
 		}
 
-		[Route(WebConstants.Route.AllUsers)]
+		[Route(WebConstants.Routing.AllUsers)]
 		public async Task<IActionResult> All(string searchTerm, int page = 1)
 		{
 			if (page < 1)

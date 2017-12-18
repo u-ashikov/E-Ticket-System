@@ -90,6 +90,8 @@
 
 			public const string NonExistingEntity = "{0} with id: {1} does not exist!";
 
+			public const string EntityAlreadyExist = "{0} already exists!";
+
 			public const string NonExistingCompany = "Company with id: {0} does not exist!";
 
 			public const string CompanyAlreadyApproved = "Company {0} is already approved!";
@@ -213,23 +215,19 @@
 			public const string Company = "Company";
 		}
 
-		public class Route
+		public class Routing
 		{
 			public const string Admin = "Admin";
-
 			public const string AdminUsersAddToRole = "Admin/Users/AddToRole/{userId}";
-
 			public const string AdminUsersRemoveFromRole = "Admin/Users/RemoveFromRole/{userId}";
+
+			public const string AdminAllTowns = "Towns/All";
+			public const string AdminAddTown = "Towns/Add";
+			public const string AdminTownStations = "Towns/Stations/{id}";
 
 			public const string HomeError = "/Home/Error";
 
 			public const string AllCompanies = "Companies/All";
-
-			public const string AllTowns = "Towns/All";
-
-			public const string AddTown = "Towns/Add";
-
-			public const string TownStations = "Towns/Stations/{id}";
 
 			public const string ApproveCompany = "Companies/Approve/{companyId}";
 
