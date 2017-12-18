@@ -48,13 +48,19 @@
 			public const string Phone = @"^0\d{9}$";
 
 			public const string FriendlyUrl = @"[^A-Za-z0-9_\.~]+";
+
+			public const string Name = @"[a-zA-Z ]+";
 		}
 
 		public class Message
 		{
+			public const string NameOnlyLetters = "{0} can contain only letetrs!";
+
 			public const string InvalidEmail = "Invalid email address!";
 
 			public const string PasswordLength = "The {0} must be at least {2} and at max {1} characters long.";
+
+			public const string PasswordsMissmatch = "The password and confirmation password do not match.";
 
 			public const string UsernameLength = "The {0} must be at least {2} and at max {1} characters long.";
 
@@ -63,8 +69,6 @@
 			public const string UniqueReferenceNumberFormat = "The {0} must be between 9 and 13 symbols long, containing only digits.";
 
 			public const string CompanyChiefNameMaxLength = "The {0} must be at max {1} symbols long.";
-
-			public const string PasswordsMissmatch = "The password and confirmation password do not match.";
 
 			public const string CompanyAddressLength = "The {0} must be between {2} and {1} symbols long.";
 

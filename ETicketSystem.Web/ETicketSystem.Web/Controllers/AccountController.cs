@@ -19,12 +19,11 @@
 
 	[Authorize]
     [Route("[controller]/[action]")]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly ILogger _logger;
-		private readonly ITownService towns;
 		private readonly ICompanyService companies;
 
         public AccountController(
@@ -33,11 +32,11 @@
             ILogger<AccountController> logger,
 			ITownService towns,
 			ICompanyService companies)
+			:base(towns)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
-			this.towns = towns;
 			this.companies = companies;
         }
 
@@ -229,7 +228,7 @@
 					FirstName = model.FirstName,
 					LastName = model.LastName,
 					Gender = model.Gender,
-					RegistrationDate = DateTime.UtcNow
+					RegistrationDate = DateTime.UtcNow.ToLocalTime()
 				};
 
                 var result = await _userManager.CreateAsync(user, model.Password);
@@ -256,7 +255,7 @@
 		public IActionResult RegisterCompany() => 
 			View(new RegisterCompanyFormModel()
 			{
-				Towns = this.GenerateTownsSelectListItems()
+				Towns = this.GenerateSelectListTowns()
 			});
 
 		[HttpPost]
@@ -265,6 +264,7 @@
 		public async Task<IActionResult> RegisterCompany(RegisterCompanyFormModel model, string returnUrl = null)
 		{
 			ViewData["ReturnUrl"] = returnUrl;
+
 			if (ModelState.IsValid)
 			{
 				var company = new Company
@@ -302,7 +302,7 @@
 				AddErrors(result);
 			}
 
-			model.Towns = this.GenerateTownsSelectListItems();
+			model.Towns = this.GenerateSelectListTowns();
 			return View(model);
 		}
 
@@ -532,23 +532,6 @@
 			}
 
 			return Json(true);
-		}
-
-		private List<SelectListItem> GenerateTownsSelectListItems()
-		{
-			var list = new List<SelectListItem>();
-			var towns = this.towns.GetTownsListItems();
-
-			foreach (var town in towns)
-			{
-				list.Add(new SelectListItem()
-				{
-					Text = town.Name,
-					Value = town.Id.ToString()
-				});
-			}
-
-			return list;
 		}
 
         #region Helpers

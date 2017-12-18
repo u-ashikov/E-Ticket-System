@@ -1,6 +1,6 @@
 ﻿namespace ETicketSystem.Data.Models
 {
-	using ETicketSystem.Common.Constants;
+	using Common.Constants;
 	using System.Collections.Generic;
 	using System.ComponentModel.DataAnnotations;
 

@@ -28,6 +28,7 @@
 		public string ConfirmPassword { get; set; }
 
 		[Required]
+		[RegularExpression(WebConstants.RegexPattern.Name, ErrorMessage = WebConstants.Message.NameOnlyLetters)]
 		[Remote(action:WebConstants.Action.VerifyCompanyName,controller: WebConstants.Controller.Account)]
 		[StringLength(DataConstants.Company.NameMaxLength, ErrorMessage = WebConstants.Message.CompanyNameLength,MinimumLength = DataConstants.Company.NameMinLength)]
 		public string Name { get; set; }
@@ -45,11 +46,13 @@
 		public string UniqueReferenceNumber { get; set; }
 
 		[Required]
+		[RegularExpression(WebConstants.RegexPattern.Name, ErrorMessage = WebConstants.Message.NameOnlyLetters)]
 		[MaxLength(DataConstants.Company.ChiefNameMaxLength, ErrorMessage = WebConstants.Message.CompanyChiefNameMaxLength)]
 		[Display(Name = WebConstants.FieldDisplay.ChiefFirstName)]
 		public string ChiefFirstName { get; set; }
 
 		[Required]
+		[RegularExpression(WebConstants.RegexPattern.Name, ErrorMessage = WebConstants.Message.NameOnlyLetters)]
 		[MaxLength(DataConstants.Company.ChiefNameMaxLength, ErrorMessage = WebConstants.Message.CompanyChiefNameMaxLength)]
 		[Display(Name = WebConstants.FieldDisplay.ChiefLastName)]
 		public string ChiefLastName { get; set; }
@@ -77,9 +80,9 @@
 					yield return new ValidationResult(WebConstants.Message.LogoMaxLength);
 				}
 
-				if (!this.Logo.FileName.EndsWith(WebConstants.PictureFormat.Jpg)
-					&& !this.Logo.FileName.EndsWith(WebConstants.PictureFormat.Bmp)
-					&& !this.Logo.FileName.EndsWith(WebConstants.PictureFormat.Png))
+				if (!this.Logo.FileName.ToLower().EndsWith(WebConstants.PictureFormat.Jpg)
+					&& !this.Logo.FileName.ToLower().EndsWith(WebConstants.PictureFormat.Bmp)
+					&& !this.Logo.FileName.ToLower().EndsWith(WebConstants.PictureFormat.Png))
 				{
 					yield return new ValidationResult(WebConstants.Message.LogoAvailableFormats);
 				}

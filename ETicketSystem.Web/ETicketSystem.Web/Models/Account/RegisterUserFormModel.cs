@@ -1,7 +1,7 @@
 ﻿namespace ETicketSystem.Web.Models.Account
 {
-	using ETicketSystem.Common.Constants;
-	using ETicketSystem.Data.Enums;
+	using Common.Constants;
+	using Data.Enums;
 	using System.ComponentModel.DataAnnotations;
 
 	public class RegisterUserFormModel
@@ -15,11 +15,13 @@
 		public string Username { get; set; }
 
 		[Required]
+		[RegularExpression(WebConstants.RegexPattern.Name, ErrorMessage = WebConstants.Message.NameOnlyLetters)]
 		[Display(Name = WebConstants.FieldDisplay.FirstName)]
 		[MaxLength(DataConstants.User.NameMaxLength, ErrorMessage = WebConstants.Message.RegularUserNameMaxLength)]
 		public string FirstName { get; set; }
 
 		[Required]
+		[RegularExpression(WebConstants.RegexPattern.Name, ErrorMessage = WebConstants.Message.NameOnlyLetters)]
 		[Display(Name = WebConstants.FieldDisplay.LastName)]
 		[MaxLength(DataConstants.User.NameMaxLength, ErrorMessage = WebConstants.Message.RegularUserNameMaxLength)]
 		public string LastName { get; set; }
