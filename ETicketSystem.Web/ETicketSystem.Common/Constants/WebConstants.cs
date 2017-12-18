@@ -114,6 +114,8 @@
 
 			public const string NoneSelectedSeats = "You have to choose at least one seat.";
 
+			public const string SeatsAlreadyTaken = "Some of the seats you choose are already taken: {0}.";
+
 			public const string SuccessfullyTicketReservation = "You have successfully reservated seats: {0}, for route {1} - {2}, departing at {3}.";
 
 			public const string NotProfileOwner = "You are not owner of that profile!";

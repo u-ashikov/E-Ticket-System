@@ -35,9 +35,11 @@
 				return false;
 			}
 
+			var reservedSeats = route.Tickets.Where(t=>t.DepartureTime == departureTime).Select(t => t.SeatNumber).ToList();
+
 			foreach (var seatNumber in seats)
 			{
-				if (seatNumber < 1 || seatNumber > (int)route.BusType)
+				if (seatNumber < 1 || seatNumber > (int)route.BusType || reservedSeats.Contains(seatNumber))
 				{
 					return false;
 				}
@@ -54,6 +56,19 @@
 			this.db.SaveChanges();
 
 			return true;
+		}
+
+		public IEnumerable<int> GetAlreadyReservedTickets(int routeId, DateTime departureTime)
+		{
+			var route = this.db
+				.Routes
+				.Include(r => r.Tickets)
+				.FirstOrDefault(r => r.Id == routeId);
+
+			return route.Tickets
+						.Where(t => t.DepartureTime == departureTime)
+						.Select(t => t.SeatNumber)
+						.ToList();
 		}
 
 		public IEnumerable<UserTicketListingServiceModel> GetUserTickets(string id, int startTown, int endTown, string companyId, DateTime? date, int page, int pageSize = 10)

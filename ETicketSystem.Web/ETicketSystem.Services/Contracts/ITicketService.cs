@@ -10,6 +10,8 @@
 
 		IEnumerable<UserTicketListingServiceModel> GetUserTickets(string id, int startTown, int endTown, string companyId, DateTime? date, int page, int pageSize = 10);
 
+		IEnumerable<int> GetAlreadyReservedTickets(int routeId, DateTime departureTime);
+
 		byte[] GetPdfTicket(int ticketId, string userId);
 
 		int UserTicketsCount(string id, int startTown, int endTown, string companyId, DateTime? date);

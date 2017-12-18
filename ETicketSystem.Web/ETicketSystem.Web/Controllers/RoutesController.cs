@@ -127,6 +127,16 @@
 			}
 
 			var reservedTickets = model.Seats.Where(s => s.Checked).Select(s => s.Value).ToList();
+			var alreadyReservedTickets = this.tickets.GetAlreadyReservedTickets(model.RouteId, model.DepartureDateTime);
+
+			var matchingSeats = reservedTickets.Intersect(alreadyReservedTickets).ToList();
+
+			if (matchingSeats.Count > 0)
+			{
+				ModelState.AddModelError(string.Empty, string.Format(WebConstants.Message.SeatsAlreadyTaken,string.Join(", ",matchingSeats)));
+				this.GenerateBusSchemaSeats(model, this.routes.GetRouteTicketBookingInfo(model.RouteId, model.DepartureDateTime));
+				return View(model);
+			}
 
 			var success = this.tickets.Add(model.RouteId, model.DepartureDateTime, reservedTickets, this.userManager.GetUserId(User));
 
@@ -143,6 +153,8 @@
 
 		private void GenerateBusSchemaSeats(BookTicketFormModel form, Services.Models.Route.RouteBookTicketInfoServiceModel info)
 		{
+			form.Seats.Clear();
+
 			for (int i = 1; i <= (int)info.BusType; i++)
 			{
 				form.Seats.Add(new BookSeatViewModel()
