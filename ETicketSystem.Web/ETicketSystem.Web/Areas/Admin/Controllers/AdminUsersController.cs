@@ -42,7 +42,7 @@
 				TotalElements = this.users.TotalUsers(searchTerm)
 			};
 
-			if (page > usersPagination.TotalElements && usersPagination.TotalPages != 0)
+			if (page > usersPagination.TotalPages && usersPagination.TotalPages != 0)
 			{
 				return RedirectToAction(nameof(All), new { page = usersPagination.TotalPages, searchTerm = searchTerm });
 			}
@@ -61,7 +61,7 @@
 
 			if (user == null)
 			{
-				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingUser, userId), Alert.Danger);
+				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingEntity, nameof(User), userId), Alert.Danger);
 
 				return RedirectToAction(nameof(All));
 			}

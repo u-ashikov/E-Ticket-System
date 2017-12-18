@@ -88,6 +88,8 @@
 
 			public const string CompanyPhoneAlreadyTaken = "That phone number is already in use.";
 
+			public const string NonExistingEntity = "{0} with id: {1} does not exist!";
+
 			public const string NonExistingCompany = "Company with id: {0} does not exist!";
 
 			public const string CompanyAlreadyApproved = "Company {0} is already approved!";
@@ -195,6 +197,8 @@
 			public const string TicketCancelationDenied = "You can cancel tickets only 30 and more minutes before bus departing!";
 
 			public const string TicketCancelationSuccess = "Successfully cancelled ticket!";
+
+			public const string NoUsers = "No users found!";
 		}
 
 		public class ContentType
