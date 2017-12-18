@@ -11,7 +11,7 @@
     <script src="~/lib/jquery/dist/jquery.js"></script>
 </environment>
 
-<div class="container-fluid home-container">
+<div class="container-fluid col-md-12 home-container">
     <div class="row search-container">
         @Html.Partial("_SearchRoutesForm", Model)
         <div class="col-lg-6 icons col-md-offset-3">
@@ -38,14 +38,13 @@
             </div>
         </div>
     </div>
+    <section class="container-fluid system-info tex-center">
+        <h2 class="tex-center heading">What is eTicket System ?</h2>
+        <p class="explanation">
+            <strong>eTicket System</strong> is an online bus ticket purchase system established to facilitate your life while looking for a bus ticket suitable for your budget. Thanks to <strong>eTicket System</strong> internet site and mobile applications, you can interrogate the bus ticket and see all the options together, you can easily buy your bus ticket online via eTicket System. Moreover, <strong>eTicket System</strong> does not receive commission from you for any of these transactions, ie it works with "0 Commission". You can get 24/7 help from <strong>eTicket System</strong> Live Support whenever you need it. Do not worry that you can not find a glass side seat, so you can not find a bus ticket on holiday and stay away from your family; eTicket System is the place!
+        </p>
+    </section>
 </div>
-
-<section class="container-fluid tex-center">
-    <h2 class="tex-center heading">What is eTicket System ?</h2>
-    <p class="explanation">
-        <strong>eTicket System</strong> is an online bus ticket purchase system established to facilitate your life while looking for a bus ticket suitable for your budget. Thanks to <strong>eTicket System</strong> internet site and mobile applications, you can interrogate the bus ticket and see all the options together, you can easily buy your bus ticket online via eTicket System. Moreover, <strong>eTicket System</strong> does not receive commission from you for any of these transactions, ie it works with "0 Commission". You can get 24/7 help from <strong>eTicket System</strong> Live Support whenever you need it. Do not worry that you can not find a glass side seat, so you can not find a bus ticket on holiday and stay away from your family; eTicket System is the place!
-    </p>
-</section>
 
 @section Scripts {
     <script type="text/javascript" src="~/js/route/search-form-validation.js"></script>

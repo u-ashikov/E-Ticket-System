@@ -1,21 +1,25 @@
-﻿div.home-container {
+﻿body {
+    overflow-x: hidden;
+}
+
+div.home-container {
     margin: 0 auto;
     width: 100%;
 }
 
 .slogan {
-    margin-bottom:15px;
+    margin-bottom: 15px;
 }
 
 div.icons {
-    margin:160px auto;
+    margin: 160px auto;
     font-family: 'Lobster', cursive;
 }
 
-.heading {
+h2.heading {
     font-family: 'Lobster', cursive;
     text-align:center;
-    margin:20px 0;
+    margin:30px 0;
 }
 
 .explanation {
@@ -32,4 +36,8 @@ div.icons {
 .icon-text {
     font-size:1.3em;
     text-align:center;
+}
+
+.system-info {
+    margin-top:20px;
 }
