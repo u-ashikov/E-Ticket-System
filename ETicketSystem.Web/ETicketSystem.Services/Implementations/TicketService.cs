@@ -166,5 +166,29 @@
 		public int GetRouteReservedTicketsCount(int routeId, DateTime departureTime) =>
 			this.db.Tickets
 				.Count(t => t.RouteId == routeId && t.DepartureTime == departureTime);
+
+		public bool TicketExists(int id) =>
+			this.db.Tickets.Any(t=>t.Id == id);
+
+		public bool IsTicketOwner(int id, string userId) =>
+			this.db.Tickets.Any(t => t.Id == id && t.UserId == userId);
+
+		public bool CancelTicket(int id, string userId)
+		{
+			var ticket = this.db.Tickets.FirstOrDefault(t => t.Id == id && t.UserId == userId);
+			var currentDateTime = DateTime.UtcNow.ToLocalTime();
+
+			TimeSpan timeDifference = ticket.DepartureTime - currentDateTime;
+
+			if (timeDifference.Minutes >=  WebConstants.Ticket.CancelationMinutesDifference)
+			{
+				this.db.Tickets.Remove(ticket);
+				this.db.SaveChanges();
+
+				return true;
+			}
+
+			return false;
+		}
 	}
 }

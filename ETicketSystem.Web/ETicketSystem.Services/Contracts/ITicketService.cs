@@ -16,6 +16,12 @@
 
 		int GetRouteReservedTicketsCount(int routeId, DateTime departureTime);
 
+		bool TicketExists(int id);
+
+		bool IsTicketOwner(int id, string userId);
+
+		bool CancelTicket(int id, string userId);
+
 		int UserTicketsCount(string id, int startTown, int endTown, string companyId, DateTime? date);
 	}
 }

@@ -185,6 +185,12 @@
 			public const string CompanyPhoneCannotBeEmpty = "Company phone cannot be empty!";
 
 			public const string CompanyDescriptionCannotBeEmpty = "Company description cannot be empty!";
+
+			public const string NonExistingTicket = "Non existing ticket!";
+
+			public const string TicketCancelationDenied = "You can cancel tickets only 30 and more minutes before bus departing!";
+
+			public const string TicketCancelationSuccess = "Successfully cancelled ticket!";
 		}
 
 		public class ContentType
@@ -265,6 +271,8 @@
 			public const string VerifyTownName = "VerifyTownName";
 
 			public const string AdminAllTowns = "All";
+
+			public const string MyTickets = "MyTickets";
 		}
 
 		public class Controller
@@ -362,6 +370,11 @@
 			public const int CompanyRoutesListing = 20;
 
 			public const int CompanyReviewsListing = 3;
+		}
+
+		public class Ticket
+		{
+			public const int CancelationMinutesDifference = 30;
 		}
 
 		public class Pdf
