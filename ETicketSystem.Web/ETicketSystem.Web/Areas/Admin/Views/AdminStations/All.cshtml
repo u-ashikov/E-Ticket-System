@@ -7,12 +7,7 @@
 <h2 class="text-center">@ViewData["Title"]</h2>
 <hr />
 <div class="container-fluid">
-    <form class="row">
-        <div class="form-group col-md-6">
-            <input for="searchTerm" value="@(string.IsNullOrEmpty(Model.Pagination.SearchTerm) ? string.Empty : Model.Pagination.SearchTerm)" name="searchTerm" class="form-control" placeholder="Search stations..." />
-        </div>
-        <input type="submit" value="Search" class="btn btn-success" />
-    </form>
+    @Html.Partial("_SearchListingForm", Model.Pagination)
     <a asp-controller="AdminStations" asp-action="Add" class="btn btn-success">Add Station</a>
 </div>
 <hr />

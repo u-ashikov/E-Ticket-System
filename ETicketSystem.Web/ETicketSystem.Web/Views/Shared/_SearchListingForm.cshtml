@@ -1,0 +1,9 @@
+﻿@model PaginationViewModel
+
+<form class="row">
+    <div class="form-group col-md-6">
+        <input for="searchTerm" value="@(string.IsNullOrEmpty(Model.SearchTerm) ? string.Empty : Model.SearchTerm)" name="searchTerm" class="form-control" placeholder="Search..." />
+    </div>
+    <input type="submit" value="Search" class="btn btn-success" />
+</form>
+
