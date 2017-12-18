@@ -54,7 +54,7 @@
 		{
 			if (!this.adminTowns.TownExists(id))
 			{
-				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingTown, id), Alert.Success);
+				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingEntity, nameof(Town), id), Alert.Success);
 
 				return RedirectToAction(nameof(All));
 			}

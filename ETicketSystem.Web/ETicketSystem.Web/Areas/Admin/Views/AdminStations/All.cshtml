@@ -19,7 +19,10 @@
 
 @if (Model.Stations.Count() == 0)
 {
-    <h3 class="text-center">No stations!</h3>
+    <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Oooops!</h4>
+        <p>No stations found!</p>
+    </div>
 }
 else
 {
@@ -28,6 +31,7 @@ else
             <tr>
                 <th>Name</th>
                 <th>Town</th>
+                <th>Phone</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -37,6 +41,7 @@ else
                 <tr>
                     <td>@s.Name</td>
                     <td>@s.Town</td>
+                    <td>@s.Phone</td>
                     <td>
                         <a asp-controller="AdminStations" asp-action="Edit" asp-route-id="@s.Id" class="btn btn-primary">
                             Edit

@@ -2,6 +2,7 @@
 {
 	using Common.Constants;
 	using Common.Enums;
+	using Data.Models;
 	using Microsoft.AspNetCore.Mvc;
 	using Models.AdminStations;
 	using Services.Admin.Contracts;
@@ -18,7 +19,7 @@
 			this.stations = stations;
 		}
 
-		[Route(WebConstants.Routing.AllStations)]
+		[Route(WebConstants.Routing.AdminAllStations)]
 		public IActionResult All(string searchTerm,int page = 1)
 		{
 			if (page < 1)
@@ -49,7 +50,7 @@
 			});
 		}
 
-		[Route(WebConstants.Routing.AddStation)]
+		[Route(WebConstants.Routing.AdminAddStation)]
 		public IActionResult Add() => View(new StationFormModel()
 		{
 			Towns = this.GenerateSelectListTowns()
@@ -57,7 +58,7 @@
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		[Route(WebConstants.Routing.AddStation)]
+		[Route(WebConstants.Routing.AdminAddStation)]
 		public IActionResult Add(StationFormModel model)
 		{
 			if (!ModelState.IsValid)
@@ -79,18 +80,18 @@
 
 			this.GenerateAlertMessage(string.Format(WebConstants.Message.StationCreated, model.Name, townName), Alert.Success);
 
-			return RedirectToHome();
+			return RedirectToAction(nameof(All));
 		}
 
-		[Route(WebConstants.Routing.EditStation)]
+		[Route(WebConstants.Routing.AdminEditStation)]
 		public IActionResult Edit(int id)
 		{
 			var station = this.stations.GetStationToEdit(id);
 
 			if (station == null)
 			{
-				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingStation, id), Alert.Warning);
-				return Redirect(WebConstants.Routing.AdminAllTownsUrl);
+				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingEntity, nameof(Station), id), Alert.Warning);
+				return RedirectToAction(nameof(All));
 			}
 
 			return View(new StationFormModel()
@@ -105,13 +106,13 @@
 		}
 
 		[HttpPost]
-		[Route(WebConstants.Routing.EditStation)]
+		[Route(WebConstants.Routing.AdminEditStation)]
 		[ValidateAntiForgeryToken]
 		public IActionResult Edit(StationFormModel model)
 		{
 			if (!this.stations.StationExists(model.Id))
 			{
-				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingStation, model.Id), Alert.Warning);
+				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingEntity,nameof(Station), model.Id), Alert.Warning);
 				return Redirect(WebConstants.Routing.AdminAllTownsUrl);
 			}
 
@@ -142,9 +143,9 @@
 				return View(model);
 			}
 
-			this.GenerateAlertMessage(WebConstants.Message.StationEdited, Alert.Success);
+			this.GenerateAlertMessage(string.Format(WebConstants.Message.EntityEdited,nameof(Station)), Alert.Success);
 
-			return Redirect(WebConstants.Routing.AdminAllTownsUrl);
+			return RedirectToAction(nameof(All));
 		}
 	}
 }

@@ -19,6 +19,7 @@
 		public IEnumerable<SelectListItem> Towns { get; set; }
 
 		[Required]
+		[RegularExpression(WebConstants.RegexPattern.Phone, ErrorMessage = WebConstants.Message.PhoneNumberFormat)]
 		[MaxLength(DataConstants.Station.PhoneMaxLength, ErrorMessage = WebConstants.Message.StationPhoneMaxLength)]
 		public string Phone { get; set; }
 

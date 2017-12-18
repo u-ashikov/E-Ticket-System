@@ -12,6 +12,8 @@
 
 		public string Name { get; set; }
 
+		public string Phone { get; set; }
+
 		public void ConfigureMapping(Profile mapper)
 		{
 			mapper.CreateMap<Station, AdminStationListingServiceModel>()

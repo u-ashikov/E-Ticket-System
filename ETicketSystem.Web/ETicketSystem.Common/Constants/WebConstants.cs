@@ -92,6 +92,8 @@
 
 			public const string EntityAlreadyExist = "{0} already exists!";
 
+			public const string EntityEdited = "{0} edited successfully!";
+
 			public const string NonExistingCompany = "Company with id: {0} does not exist!";
 
 			public const string CompanyAlreadyApproved = "Company {0} is already approved!";
@@ -130,10 +132,6 @@
 
 			public const string NonExistingUser = "User with id: {0} does not exist!";
 
-			public const string NonExistingTown = "Town with id: {0} does not exist!";
-
-			public const string NonExistingStation = "Station with id: {0} does not exist!";
-
 			public const string EmptyUsername = "Username cannot be empty!";
 
 			public const string IncorrectOldPassword = "Old password is incorrect.";
@@ -155,8 +153,6 @@
 			public const string StationNameMaxLength = "{0} cannot be more than {1} symbols long.";
 
 			public const string StationPhoneMaxLength = "{0} cannot be more than {1} symbols long.";
-
-			public const string StationEdited = "Station edited successfully!";
 
 			public const string NoChangesFound = "No changes found to edit!";
 
@@ -225,6 +221,10 @@
 			public const string AdminAddTown = "Towns/Add";
 			public const string AdminTownStations = "Towns/Stations/{id}";
 
+			public const string AdminAddStation = "Stations/Add";
+			public const string AdminAllStations = "Stations/All";
+			public const string AdminEditStation = "Stations/Edit/{id}";
+
 			public const string HomeError = "/Home/Error";
 
 			public const string AllCompanies = "Companies/All";
@@ -253,13 +253,7 @@
 
 			public const string UserTickets = "Users/MyTickets/{id}";
 
-			public const string AddStation = "Stations/Add";
-
-			public const string AllStations = "Stations/All";
-
 			public const string AllUsers = "Users/All";
-
-			public const string EditStation = "Stations/Edit/{id}";
 
 			public const string AdminAllTownsUrl = "/admin/towns/all";
 
