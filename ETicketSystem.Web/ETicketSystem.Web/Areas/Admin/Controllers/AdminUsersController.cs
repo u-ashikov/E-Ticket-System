@@ -61,7 +61,7 @@
 
 			if (user == null)
 			{
-				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingEntity, nameof(User), userId), Alert.Danger);
+				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingEntity, nameof(WebConstants.Entity.User), userId), Alert.Danger);
 
 				return RedirectToAction(nameof(All));
 			}

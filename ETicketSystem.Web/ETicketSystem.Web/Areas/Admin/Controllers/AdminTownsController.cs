@@ -1,6 +1,5 @@
 ﻿namespace ETicketSystem.Web.Areas.Admin.Controllers
 {
-	using Data.Models;
 	using Common.Constants;
 	using Common.Enums;
 	using Microsoft.AspNetCore.Mvc;
@@ -54,7 +53,7 @@
 		{
 			if (!this.adminTowns.TownExists(id))
 			{
-				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingEntity, nameof(Town), id), Alert.Success);
+				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingEntity, nameof(WebConstants.Entity.Town), id), Alert.Success);
 
 				return RedirectToAction(nameof(All));
 			}
@@ -77,7 +76,7 @@
 
 			if (this.adminTowns.TownExistsByName(model.Name))
 			{
-				ModelState.AddModelError(string.Empty, string.Format(WebConstants.Message.EntityAlreadyExist,nameof(Town)));
+				ModelState.AddModelError(string.Empty, string.Format(WebConstants.Message.EntityAlreadyExist,nameof(WebConstants.Entity.Town)));
 				return View(model);
 			}
 

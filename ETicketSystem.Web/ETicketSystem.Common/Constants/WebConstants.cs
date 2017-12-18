@@ -94,8 +94,6 @@
 
 			public const string EntityEdited = "{0} edited successfully!";
 
-			public const string NonExistingCompany = "Company with id: {0} does not exist!";
-
 			public const string CompanyAlreadyApproved = "Company {0} is already approved!";
 
 			public const string CompanyApproved = "Company {0} approved successfully!";
@@ -147,27 +145,18 @@
 			public const string CompanyStatusChanged = "Company {0} status has been changed to {1}!";
 
 			public const string StationAlreadyExists = "Station {0} in town {1} already exist!";
-
 			public const string StationCreated = "Station {0} in town {1} created!";
-
 			public const string StationNameMaxLength = "{0} cannot be more than {1} symbols long.";
-
 			public const string StationPhoneMaxLength = "{0} cannot be more than {1} symbols long.";
 
 			public const string NoChangesFound = "No changes found to edit!";
 
 			public const string TownNameMaxLength = "{0} cannot be more than {1} symbols long.";
-
-			public const string TownAlreadyExist = "Town already exist!";
-
 			public const string TownAdded = "Town {0} created successfully!";
 
 			public const string UserAddedToRole = "User {0} added to role {1} successfully!";
-
 			public const string UserRemovedFromRole = "User {0} removed from role {1} successfully!";
-
 			public const string UserAlreadyInRole = "User {0} already in role {1}!";
-
 			public const string UserNotInRole = "User {0} not in role {1}!";
 
 			public const string EditRouteWithTickets = "Cannot edit route from {0} to {1} because there are already reserved tickets!";
@@ -260,19 +249,19 @@
 			public const string CompanyDetails = "/companies/details/";
 		}
 
-		public class Action
+		public class Entity
 		{
-			public const string VerifyCompanyName = "VerifyCompanyName";
+			public const string User = "User";
 
-			public const string VerifyUrn = "VerifyUrn";
+			public const string Company = "Company";
 
-			public const string VerifyPhoneNumber = "VerifyPhoneNumber";
+			public const string Town = "Town";
 
-			public const string VerifyTownName = "VerifyTownName";
+			public const string Station = "Station";
 
-			public const string AdminAllTowns = "All";
+			public const string Ticket = "Ticket";
 
-			public const string MyTickets = "MyTickets";
+			public const string Route = "Route";
 		}
 
 		public class Controller
@@ -294,6 +283,21 @@
 			public const string AdminStations = "AdminStations";
 
 			public const string AdminUsers = "AdminUsers";
+		}
+
+		public class Action
+		{
+			public const string VerifyCompanyName = "VerifyCompanyName";
+
+			public const string VerifyUrn = "VerifyUrn";
+
+			public const string VerifyPhoneNumber = "VerifyPhoneNumber";
+
+			public const string VerifyTownName = "VerifyTownName";
+
+			public const string AdminAllTowns = "All";
+
+			public const string MyTickets = "MyTickets";
 		}
 
 		public class FilePath
@@ -335,13 +339,6 @@
 			public const string CompanyRole = "Company";
 
 			public const string ModeratorRole = "Moderator";
-		}
-
-		public class SearchForm
-		{
-			public const string SearchDefaultStartTown = "Sofia";
-
-			public const string SearchDefaultEndTown = "Varna";
 		}
 
 		public class Company

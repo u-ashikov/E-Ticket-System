@@ -2,7 +2,6 @@
 {
 	using Common.Constants;
 	using Common.Enums;
-	using Data.Models;
 	using Microsoft.AspNetCore.Mvc;
 	using Models.AdminCompanies;
 	using Services.Admin.Contracts;
@@ -60,7 +59,7 @@
 		{
 			if (!this.companies.CompanyExists(companyId))
 			{
-				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingEntity,nameof(Company), companyId), Alert.Danger);
+				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingEntity,nameof(WebConstants.Entity.Company), companyId), Alert.Danger);
 				return RedirectToAction(nameof(All));
 			}
 
@@ -84,7 +83,7 @@
 		{
 			if (!this.companies.CompanyExists(companyId))
 			{
-				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingEntity, nameof(Company), companyId), Alert.Danger);
+				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingEntity, nameof(WebConstants.Entity.Company), companyId), Alert.Danger);
 				return RedirectToAction(nameof(All));
 			}
 

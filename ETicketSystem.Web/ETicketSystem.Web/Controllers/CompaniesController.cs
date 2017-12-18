@@ -57,7 +57,7 @@
 
 			if (company == null)
 			{
-				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingCompany,id), Alert.Warning);
+				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingEntity,nameof(WebConstants.Entity.Company),id), Alert.Warning);
 
 				return RedirectToAction(nameof(All));
 			}

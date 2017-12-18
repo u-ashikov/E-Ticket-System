@@ -2,7 +2,6 @@
 {
 	using Common.Constants;
 	using Common.Enums;
-	using Data.Models;
 	using Microsoft.AspNetCore.Mvc;
 	using Models.AdminStations;
 	using Services.Admin.Contracts;
@@ -90,7 +89,7 @@
 
 			if (station == null)
 			{
-				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingEntity, nameof(Station), id), Alert.Warning);
+				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingEntity, nameof(WebConstants.Entity.Station), id), Alert.Warning);
 				return RedirectToAction(nameof(All));
 			}
 
@@ -112,7 +111,7 @@
 		{
 			if (!this.stations.StationExists(model.Id))
 			{
-				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingEntity,nameof(Station), model.Id), Alert.Warning);
+				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingEntity,nameof(WebConstants.Entity.Station), model.Id), Alert.Warning);
 				return Redirect(WebConstants.Routing.AdminAllTownsUrl);
 			}
 
@@ -143,7 +142,7 @@
 				return View(model);
 			}
 
-			this.GenerateAlertMessage(string.Format(WebConstants.Message.EntityEdited,nameof(Station)), Alert.Success);
+			this.GenerateAlertMessage(string.Format(WebConstants.Message.EntityEdited,nameof(WebConstants.Entity.Station)), Alert.Success);
 
 			return RedirectToAction(nameof(All));
 		}
