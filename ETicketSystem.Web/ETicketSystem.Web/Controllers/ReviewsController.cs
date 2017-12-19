@@ -78,7 +78,7 @@
 				return RedirectToHome();
 			}
 
-			this.GenerateAlertMessage(WebConstants.Message.ReviewEdited, Alert.Success);
+			this.GenerateAlertMessage(string.Format(WebConstants.Message.EntityEdited, WebConstants.Entity.Review), Alert.Success);
 
 			return RedirectToAction(WebConstants.Action.Details, WebConstants.Controller.Companies, new { id = model.CompanyId });
 		}
@@ -98,7 +98,7 @@
 				}
 			}
 
-			this.GenerateAlertMessage(WebConstants.Message.ReviewDeleted, Alert.Success);
+			this.GenerateAlertMessage(string.Format(WebConstants.Message.EntityDeleted,WebConstants.Entity.Review), Alert.Success);
 
 			return RedirectToAction(WebConstants.Action.Details, WebConstants.Controller.Companies, new { id = companyId });
 		}

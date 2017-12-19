@@ -89,12 +89,10 @@
 			public const string CompanyPhoneAlreadyTaken = "That phone number is already in use.";
 
 			public const string NonExistingEntity = "{0} with id: {1} does not exist!";
-
 			public const string EntityAlreadyExist = "{0} already exists!";
-
-			public const string EntityEdited = "{0} edited successfully!";
-
 			public const string EntityCreated = "{0} created successfully!";
+			public const string EntityEdited = "{0} edited successfully!";
+			public const string EntityDeleted = "{0} deleted successfully!";
 
 			public const string CompanyAlreadyApproved = "Company {0} is already approved!";
 
@@ -168,10 +166,6 @@
 			public const string UnableToAddReview = "You are not able to add reviews for this company because you haven't used its services yet!";
 
 			public const string CompanyReviewDescriptionLength = "The field {0} must be between {2} and {1} symbols long!";
-
-			public const string ReviewEdited = "Review edited successfully!";
-
-			public const string ReviewDeleted = "Review deleted successfully!";
 
 			public const string CompanyPhoneCannotBeEmpty = "Company phone cannot be empty!";
 
