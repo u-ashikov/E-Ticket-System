@@ -57,7 +57,7 @@ else
                 <th>Departure time</th>
                 <th>Price</th>
                 <th>Download</th>
-                <th>Cancelation</th>
+                <th>Cancellation</th>
             </tr>
         </thead>
         <tbody>
@@ -74,7 +74,7 @@ else
                     </td>
                     <td>
                         @{  var timeSpan = t.DepartureTime - DateTime.UtcNow.ToLocalTime();}
-                        @if ((timeSpan.Minutes + timeSpan.Hours*60) >= WebConstants.Ticket.CancelationMinutesDifference)
+                        @if (timeSpan.TotalMinutes >= WebConstants.Ticket.CancelationMinutesDifference)
                         {
                             <a asp-controller="Tickets" asp-action="Cancel" asp-route-id="@t.Id" class="btn btn-danger">Cancel</a>
                         }

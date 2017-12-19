@@ -25,10 +25,12 @@
 		{
 			var userId = this.userManager.GetUserId(User);
 
-			if (!this.tickets.TicketExists(id) || !this.tickets.IsTicketOwner(id, userId))
+			if (!this.tickets.TicketExists(id) 
+				|| !this.tickets.IsTicketOwner(id, userId)
+				|| this.tickets.IsCancelled(id))
 			{
-				this.GenerateAlertMessage(WebConstants.Message.NonExistingTicket, Alert.Danger);
-				return Redirect($"/{WebConstants.Controller.Users}/{WebConstants.Action.MyTickets}/{userId}");
+				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingEntity,WebConstants.Entity.Ticket,id), Alert.Danger);
+				return RedirectToAction(WebConstants.Action.MyTickets,WebConstants.Controller.Users,new { id = userId});
 			}
 
 			bool success = this.tickets.CancelTicket(id, userId);
@@ -36,12 +38,12 @@
 			if (!success)
 			{
 				this.GenerateAlertMessage(WebConstants.Message.TicketCancelationDenied, Alert.Warning);
-				return Redirect($"/{WebConstants.Controller.Users}/{WebConstants.Action.MyTickets}/{userId}");
+				return RedirectToAction(WebConstants.Action.MyTickets, WebConstants.Controller.Users, new { id = userId });
 			}
 
 			this.GenerateAlertMessage(WebConstants.Message.TicketCancelationSuccess,Alert.Success);
 
-			return Redirect($"/{WebConstants.Controller.Users}/{WebConstants.Action.MyTickets}/{userId}");
+			return RedirectToAction(WebConstants.Action.MyTickets, WebConstants.Controller.Users, new { id = userId });
 		}
     }
 }

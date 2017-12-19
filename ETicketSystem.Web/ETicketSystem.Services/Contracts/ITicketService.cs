@@ -22,6 +22,8 @@
 
 		bool CancelTicket(int id, string userId);
 
+		bool IsCancelled(int id);
+
 		int UserTicketsCount(string id, int startTown, int endTown, string companyId, DateTime? date);
 	}
 }

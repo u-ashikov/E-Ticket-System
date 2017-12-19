@@ -74,7 +74,7 @@
 		public IEnumerable<UserTicketListingServiceModel> GetUserTickets(string id, int startTown, int endTown, string companyId, DateTime? date, int page, int pageSize = 10)
 		{
 			var tickets = this.db.Tickets
-				.Where(t => t.UserId == id)
+				.Where(t => t.UserId == id && !t.IsCancelled)
 				.OrderByDescending(t => t.DepartureTime)
 				.AsQueryable();
 
@@ -112,19 +112,19 @@
 			{
 				return this.db.Tickets
 							.Count(t => t.UserId == id && t.Route.StartStation.TownId == startTown
-							&& t.Route.EndStation.TownId == endTown);
+							&& t.Route.EndStation.TownId == endTown && !t.IsCancelled);
 			}
 
 			if (companyId != null)
 			{
 				return this.db.Tickets
-							.Count(t => t.UserId == id && t.Route.CompanyId == companyId);
+							.Count(t => t.UserId == id && t.Route.CompanyId == companyId && !t.IsCancelled);
 			}
 
 			if (date != null)
 			{
 				return this.db.Tickets
-							.Count(t => t.UserId == id && t.DepartureTime.Date == date);
+							.Count(t => t.UserId == id && t.DepartureTime.Date == date && !t.IsCancelled);
 			}
 
 			if (date != null && companyId != null && this.db.Towns.Any(t => t.Id == startTown)
@@ -134,11 +134,12 @@
 						.Count(t => t.UserId == id 
 						&& t.DepartureTime.Date == date 
 						&& t.Route.StartStation.TownId == startTown 
-						&& t.Route.EndStation.TownId == endTown);
+						&& t.Route.EndStation.TownId == endTown
+						&& !t.IsCancelled);
 			}
 			else
 			{
-				return this.db.Tickets.Count(t => t.UserId == id);
+				return this.db.Tickets.Count(t => t.UserId == id && !t.IsCancelled);
 			}
 		}
 
@@ -173,6 +174,9 @@
 		public bool IsTicketOwner(int id, string userId) =>
 			this.db.Tickets.Any(t => t.Id == id && t.UserId == userId);
 
+		public bool IsCancelled(int id) =>
+			this.db.Tickets.Find(id).IsCancelled;
+
 		public bool CancelTicket(int id, string userId)
 		{
 			var ticket = this.db.Tickets.FirstOrDefault(t => t.Id == id && t.UserId == userId);
@@ -180,9 +184,9 @@
 
 			TimeSpan timeDifference = ticket.DepartureTime - currentDateTime;
 
-			if (timeDifference.Minutes >=  WebConstants.Ticket.CancelationMinutesDifference)
+			if (timeDifference.TotalMinutes >=  WebConstants.Ticket.CancelationMinutesDifference && !ticket.IsCancelled)
 			{
-				this.db.Tickets.Remove(ticket);
+				ticket.IsCancelled = true;
 				this.db.SaveChanges();
 
 				return true;

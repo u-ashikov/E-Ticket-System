@@ -111,9 +111,7 @@
 			public const string Blocked = "You cannot add routes because you have been blocked by the site administrator!";
 
 			public const string InvalidRoute = "Invalid route!";
-
 			public const string InvalidTown = "Invalid town!";
-
 			public const string InvalidDate = "Invalid date!";
 
 			public const string SuccessfullyEditedRoute = "Successfully edited route from {0} to {1}!";
@@ -170,8 +168,6 @@
 			public const string CompanyPhoneCannotBeEmpty = "Company phone cannot be empty!";
 
 			public const string CompanyDescriptionCannotBeEmpty = "Company description cannot be empty!";
-
-			public const string NonExistingTicket = "Non existing ticket!";
 
 			public const string TicketCancelationDenied = "You can cancel tickets only 30 and more minutes before bus departing!";
 
