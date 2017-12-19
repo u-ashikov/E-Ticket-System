@@ -143,7 +143,7 @@
 
 			if (alreadyReservedTickets.Count() == form.BusSeats)
 			{
-				this.GenerateAlertMessage(string.Format(WebConstants.Message.RouteSoldOut, form.StartStation, form.EndStation, form.DepartureDateTime.Date, form.DepartureDateTime.TimeOfDay), Alert.Warning);
+				this.GenerateAlertMessage(string.Format(WebConstants.Message.RouteSoldOut, form.StartStation, form.EndStation, form.DepartureDateTime.Date.ToYearMonthDayFormat(), form.DepartureDateTime.TimeOfDay), Alert.Warning);
 
 				return RedirectToAction(nameof(Search), new { startTown = form.StartTownId, endTown = form.EndTownId, date = form.DepartureDateTime.Date, companyId = form.CompanyId });
 			}
