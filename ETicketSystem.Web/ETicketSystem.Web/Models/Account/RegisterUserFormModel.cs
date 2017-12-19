@@ -15,13 +15,13 @@
 		public string Username { get; set; }
 
 		[Required]
-		[RegularExpression(WebConstants.RegexPattern.Name, ErrorMessage = WebConstants.Message.NameOnlyLetters)]
+		[RegularExpression(WebConstants.RegexPattern.Name, ErrorMessage = WebConstants.Message.NameContainOnlyLetters)]
 		[Display(Name = WebConstants.FieldDisplay.FirstName)]
 		[MaxLength(DataConstants.User.NameMaxLength, ErrorMessage = WebConstants.Message.RegularUserNameMaxLength)]
 		public string FirstName { get; set; }
 
 		[Required]
-		[RegularExpression(WebConstants.RegexPattern.Name, ErrorMessage = WebConstants.Message.NameOnlyLetters)]
+		[RegularExpression(WebConstants.RegexPattern.Name, ErrorMessage = WebConstants.Message.NameContainOnlyLetters)]
 		[Display(Name = WebConstants.FieldDisplay.LastName)]
 		[MaxLength(DataConstants.User.NameMaxLength, ErrorMessage = WebConstants.Message.RegularUserNameMaxLength)]
 		public string LastName { get; set; }

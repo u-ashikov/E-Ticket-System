@@ -54,7 +54,7 @@
 
 		public class Message
 		{
-			public const string NameOnlyLetters = "{0} can contain only letetrs!";
+			public const string NameContainOnlyLetters = "{0} can contain only letetrs!";
 
 			public const string InvalidEmail = "Invalid email address!";
 
@@ -95,48 +95,39 @@
 			public const string EntityDeleted = "{0} deleted successfully!";
 
 			public const string CompanyAlreadyApproved = "Company {0} is already approved!";
-
 			public const string CompanyApproved = "Company {0} approved successfully!";
 
-			public const string StartStationEqualToEndStation = "Start station and end station cannot be same.";
+			public const string CompanyNotApproved = "You cannot add routes yet because you are still not approved by the site administrator!";
 
-			public const string RouteDurationZeroLength = "Route duration must be greater than 00:00.";
-
-			public const string CompanyRouteDuplication = "This route already exists!";
-
-			public const string RouteAdded = "Route from {0} to {1} added successfully!";
-
-			public const string NotApproved = "You cannot add routes yet because you are still not approved by the site administrator!";
-
-			public const string Blocked = "You cannot add routes because you have been blocked by the site administrator!";
+			public const string CompanyBlocked = "You cannot add routes because you have been blocked by the site administrator!";
 
 			public const string InvalidRoute = "Invalid route!";
 			public const string InvalidTown = "Invalid town!";
 			public const string InvalidDate = "Invalid date!";
 
-			public const string SuccessfullyEditedRoute = "Successfully edited route from {0} to {1}!";
-
+			public const string StartStationEqualToEndStation = "Start station and end station cannot be same.";
+			public const string RouteDurationZeroLength = "Route duration must be greater than 00:00.";
+			public const string CompanyRouteDuplication = "This route already exists!";
+			public const string RouteAdded = "Route from {0} to {1} added successfully!";
+			public const string RouteEdited = "Successfully edited route from {0} to {1}!";
 			public const string RouteStatusChanged = "Route from {0} to {1} departing at {2} {3}!";
+			public const string EditRouteWithTickets = "Cannot edit route from {0} to {1} because there are already reserved tickets!";
+			public const string DeactivateRouteWithTickets = "Cannot deactivate route from {0} to {1} because there are already reserved tickets!";
 
+			public const string InvalidTicket = "Invalid ticket!";
 			public const string NoneSelectedSeats = "You have to choose at least one seat.";
-
 			public const string SeatsAlreadyTaken = "Some of the seats you choose are already taken: {0}.";
-
 			public const string SuccessfullyTicketReservation = "You have successfully reservated seats: {0}, for route {1} - {2}, departing at {3}.";
+			public const string TicketCancelationDenied = "You can cancel tickets only 30 and more minutes before bus departing!";
+			public const string TicketCancelationSuccess = "Successfully cancelled ticket!";
+			public const string RouteSoldOut = "Route from {0} to {1} departing on {2} at {3} sold out!";
 
 			public const string NotProfileOwner = "You are not owner of that profile!";
 
-			public const string NonExistingUser = "User with id: {0} does not exist!";
-
 			public const string EmptyUsername = "Username cannot be empty!";
-
 			public const string IncorrectOldPassword = "Old password is incorrect.";
-
 			public const string BothPasswordFieldsRequired = "Both password fields are required!";
-
 			public const string ProfileEdited = "Profile edited successfully!";
-
-			public const string InvalidTicket = "Invalid ticket!";
 
 			public const string BlockCompanyUnavailable = "Company must be approved before been blocked!";
 
@@ -147,8 +138,6 @@
 			public const string StationNameMaxLength = "{0} cannot be more than {1} symbols long.";
 			public const string StationPhoneMaxLength = "{0} cannot be more than {1} symbols long.";
 
-			public const string NoChangesFound = "No changes found to edit!";
-
 			public const string TownNameMaxLength = "{0} cannot be more than {1} symbols long.";
 			public const string TownAdded = "Town {0} created successfully!";
 
@@ -157,9 +146,7 @@
 			public const string UserAlreadyInRole = "User {0} already in role {1}!";
 			public const string UserNotInRole = "User {0} not in role {1}!";
 
-			public const string EditRouteWithTickets = "Cannot edit route from {0} to {1} because there are already reserved tickets!";
-
-			public const string DeactivateRouteWithTickets = "Cannot deactivate route from {0} to {1} because there are already reserved tickets!";
+			public const string NoChangesFound = "No changes found to edit!";
 
 			public const string UnableToAddReview = "You are not able to add reviews for this company because you haven't used its services yet!";
 
@@ -168,14 +155,6 @@
 			public const string CompanyPhoneCannotBeEmpty = "Company phone cannot be empty!";
 
 			public const string CompanyDescriptionCannotBeEmpty = "Company description cannot be empty!";
-
-			public const string TicketCancelationDenied = "You can cancel tickets only 30 and more minutes before bus departing!";
-
-			public const string TicketCancelationSuccess = "Successfully cancelled ticket!";
-
-			public const string NoUsers = "No users found!";
-
-			public const string RouteSoldOut = "Route from {0} to {1} departing on {2} at {3} sold out!";
 		}
 
 		public class ContentType
@@ -219,9 +198,7 @@
 			public const string AllCompanyRoutes = "Routes/All";
 
 			public const string EditCompanyRoute = "Routes/Edit/{id}";
-
 			public const string EditCompanyProfile = "Profile/Edit/{id}";
-
 			public const string ChangeCompanyRouteStatus = "Routes/ChangeStatus/{id}";
 
 			public const string RoutesSearch = "Routes/Search";

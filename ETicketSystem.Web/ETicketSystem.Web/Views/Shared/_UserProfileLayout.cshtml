@@ -4,13 +4,24 @@
 <environment include="Development">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="~/css/profile.css" />
+    <link rel="stylesheet" href="~/css/account/profile.css" />
 </environment>
 
 <div class="container col-md-12">
     <div class="row">
         <nav class="profile-nav col-md-2">
             <ul class="side-nav">
+                <li class="user-identity">
+                @if (User.IsInRole(Role.Company.ToString()))
+                {               
+                    <i class="fa fa-building" aria-hidden="true"></i>
+                }
+                else
+                {
+                    <i class="fa fa-user" aria-hidden="true"></i>                   
+                }
+                    @User.Identity.Name
+                </li>
                 <li>
                     <a asp-controller="Home" asp-action="Index">Home</a>
                 </li>

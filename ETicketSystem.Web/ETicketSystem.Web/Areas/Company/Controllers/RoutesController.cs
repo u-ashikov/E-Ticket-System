@@ -70,13 +70,13 @@
 		{
 			if (!this.companies.IsApproved(this.userManager.GetUserId(User)))
 			{
-				this.GenerateAlertMessage(WebConstants.Message.NotApproved, Alert.Warning);
+				this.GenerateAlertMessage(WebConstants.Message.CompanyNotApproved, Alert.Warning);
 				return this.RedirectToHome();
 			}
 
 			if (this.companies.IsBlocked(this.userManager.GetUserId(User)))
 			{
-				this.GenerateAlertMessage(WebConstants.Message.Blocked, Alert.Warning);
+				this.GenerateAlertMessage(WebConstants.Message.CompanyBlocked, Alert.Warning);
 				return this.RedirectToHome();
 			}
 
@@ -95,7 +95,7 @@
 		{
 			if (!this.companies.IsApproved(this.userManager.GetUserId(User)))
 			{
-				this.GenerateAlertMessage(WebConstants.Message.NotApproved, Alert.Warning);
+				this.GenerateAlertMessage(WebConstants.Message.CompanyNotApproved, Alert.Warning);
 				return this.RedirectToHome();
 			}
 
@@ -207,7 +207,7 @@
 				return RedirectToAction(nameof(All));
 			}
 
-			this.GenerateAlertMessage(string.Format(WebConstants.Message.SuccessfullyEditedRoute, startTownName, endTownName), Alert.Success);
+			this.GenerateAlertMessage(string.Format(WebConstants.Message.RouteEdited, startTownName, endTownName), Alert.Success);
 
 			return RedirectToAction(nameof(All));
 		}

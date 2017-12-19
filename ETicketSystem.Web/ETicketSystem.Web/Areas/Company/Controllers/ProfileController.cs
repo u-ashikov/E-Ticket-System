@@ -44,7 +44,7 @@
 
 			if (company == null)
 			{
-				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingUser, id), Alert.Danger);
+				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingEntity,WebConstants.Entity.Company, id), Alert.Danger);
 				return RedirectToHome();
 			}
 

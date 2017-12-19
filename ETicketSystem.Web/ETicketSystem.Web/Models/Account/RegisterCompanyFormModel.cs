@@ -28,7 +28,7 @@
 		public string ConfirmPassword { get; set; }
 
 		[Required]
-		[RegularExpression(WebConstants.RegexPattern.Name, ErrorMessage = WebConstants.Message.NameOnlyLetters)]
+		[RegularExpression(WebConstants.RegexPattern.Name, ErrorMessage = WebConstants.Message.NameContainOnlyLetters)]
 		[Remote(action:WebConstants.Action.VerifyCompanyName,controller: WebConstants.Controller.Account)]
 		[StringLength(DataConstants.Company.NameMaxLength, ErrorMessage = WebConstants.Message.CompanyNameLength,MinimumLength = DataConstants.Company.NameMinLength)]
 		public string Name { get; set; }
@@ -46,13 +46,13 @@
 		public string UniqueReferenceNumber { get; set; }
 
 		[Required]
-		[RegularExpression(WebConstants.RegexPattern.Name, ErrorMessage = WebConstants.Message.NameOnlyLetters)]
+		[RegularExpression(WebConstants.RegexPattern.Name, ErrorMessage = WebConstants.Message.NameContainOnlyLetters)]
 		[MaxLength(DataConstants.Company.ChiefNameMaxLength, ErrorMessage = WebConstants.Message.CompanyChiefNameMaxLength)]
 		[Display(Name = WebConstants.FieldDisplay.ChiefFirstName)]
 		public string ChiefFirstName { get; set; }
 
 		[Required]
-		[RegularExpression(WebConstants.RegexPattern.Name, ErrorMessage = WebConstants.Message.NameOnlyLetters)]
+		[RegularExpression(WebConstants.RegexPattern.Name, ErrorMessage = WebConstants.Message.NameContainOnlyLetters)]
 		[MaxLength(DataConstants.Company.ChiefNameMaxLength, ErrorMessage = WebConstants.Message.CompanyChiefNameMaxLength)]
 		[Display(Name = WebConstants.FieldDisplay.ChiefLastName)]
 		public string ChiefLastName { get; set; }

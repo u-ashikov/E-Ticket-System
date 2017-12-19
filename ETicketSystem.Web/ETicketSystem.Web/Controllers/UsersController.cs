@@ -47,7 +47,7 @@
 
 			if (user == null)
 			{
-				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingUser, id), Alert.Danger);
+				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingEntity,WebConstants.Entity.User, id), Alert.Danger);
 				return RedirectToHome();
 			}
 
@@ -59,7 +59,7 @@
 		{
 			if (!this.users.UserExists(id))
 			{
-				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingUser, id), Alert.Danger);
+				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingEntity,WebConstants.Entity.User, id), Alert.Danger);
 				return RedirectToHome();
 			}
 
