@@ -1,7 +1,7 @@
 ﻿namespace ETicketSystem.Web.Areas.Company.Models.Routes
 {
-	using ETicketSystem.Common.Constants;
-	using ETicketSystem.Data.Enums;
+	using Common.Constants;
+	using Data.Enums;
 	using Microsoft.AspNetCore.Mvc.Rendering;
 	using System;
 	using System.Collections.Generic;

@@ -71,6 +71,7 @@
 		{
 			if (!ModelState.IsValid)
 			{
+				profile.CurrentLogo = this.users.GetCompanyLogo(id);
 				return View(profile);
 			}
 

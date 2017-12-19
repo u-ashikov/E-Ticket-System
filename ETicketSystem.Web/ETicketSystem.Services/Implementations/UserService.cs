@@ -91,6 +91,18 @@
 			return errors;
 		}
 
+		public byte[] GetCompanyLogo(string id)
+		{
+			var company = this.db.Companies.FirstOrDefault(c => c.Id == id);
+
+			if (company == null)
+			{
+				return null;
+			}
+
+			return company.Logo;
+		}
+
 		private async Task EditUserBaseInfo(string id,string username, string email, string oldPassword, string newPassword, HashSet<IdentityError> errors, User user)
 		{
 			if (string.IsNullOrEmpty(username))

@@ -6,10 +6,6 @@
 
 <h2 class="text-center">@ViewData["Title"]</h2>
 
-<div class="row">
+<div class="container-fluid">
    @Html.Partial("_RouteForm", Model)
 </div>
-
-@section Scripts {
-    @await Html.PartialAsync("_ValidationScriptsPartial")
-}

@@ -20,6 +20,8 @@
 
 		RegularUserProfileServiceModel GetRegularUserProfileToEdit(string id);
 
+		byte[] GetCompanyLogo(string id);
+
 		CompanyProfileServiceModel GetCompanyUserProfileToEdit(string id);
 	}
 }

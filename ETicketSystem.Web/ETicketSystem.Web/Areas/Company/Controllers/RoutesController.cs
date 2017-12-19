@@ -38,6 +38,7 @@
 			}
 
 			var companyId = this.userManager.GetUserId(User);
+
 			var routes = this.routes.All(startTown,endTown, date, companyId, page, WebConstants.Pagination.CompanyRoutesListing);
 
 			var routesPagination = new PaginationViewModel()

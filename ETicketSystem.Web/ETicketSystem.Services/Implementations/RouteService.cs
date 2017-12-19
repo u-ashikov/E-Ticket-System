@@ -34,7 +34,7 @@
 				routes = routes.Where(r => r.CompanyId == companyId).AsQueryable();
 			}
 
-			if (date.Date > DateTime.UtcNow.Date.ToLocalTime())
+			if (date.Date > DateTime.UtcNow.ToLocalTime().Date)
 			{
 				return routes
 							.Where(r => r.DepartureTime >= new TimeSpan(0, 0, 0))

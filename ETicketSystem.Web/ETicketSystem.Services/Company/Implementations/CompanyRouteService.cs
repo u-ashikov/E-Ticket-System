@@ -54,9 +54,9 @@
 				.ProjectTo<CompanyRoutesServiceModel>()
 				.FirstOrDefault();
 
-			var currentTime = new TimeSpan(DateTime.Now.ToLocalTime().Hour, DateTime.Now.ToLocalTime().Minute, DateTime.Now.ToLocalTime().Second);
+			var currentTime = new TimeSpan(DateTime.UtcNow.ToLocalTime().Hour, DateTime.UtcNow.ToLocalTime().Minute, DateTime.UtcNow.ToLocalTime().Second);
 
-			if (startTown != 0 && endTown !=0 && date > DateTime.UtcNow.ToLocalTime())
+			if (startTown != 0 && endTown !=0 && date.Date > DateTime.UtcNow.ToLocalTime().Date)
 			{
 				companyRoutes.Routes = companyRoutes.Routes.Where(r => r.StartTown == startTown && r.EndTown == endTown && r.DepartureTime >= new TimeSpan(0,0,0));
 			}
@@ -65,7 +65,11 @@
 				companyRoutes.Routes = companyRoutes.Routes.Where(r => r.StartTown == startTown && r.EndTown == endTown && r.DepartureTime >= currentTime);
 			}
 
-			companyRoutes.Routes = companyRoutes.Routes.Skip((page - 1) * pageSize).Take(pageSize);
+			companyRoutes.Routes = companyRoutes
+					.Routes
+					.OrderBy(r=>r.DepartureTime)
+					.Skip((page - 1) * pageSize)
+					.Take(pageSize);
 
 			return companyRoutes;
 		}

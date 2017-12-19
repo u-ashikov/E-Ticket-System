@@ -2,7 +2,6 @@
 
 @{
     ViewData["Title"] = "All Routes";
-    Layout = "_UserProfileLayout";
 }
 
 <environment include="Development">
@@ -30,7 +29,7 @@
                 </div>
                 <div class="form-group col-md-3">
                     <label asp-for="Date"></label>
-                    <input asp-for="Date" value="dd/MM/yyyy" min="@DateTime.UtcNow.ToYearMonthDayFormat()" class="form-control" />
+                    <input asp-for="Date" min="@DateTime.UtcNow.ToLocalTime().ToYearMonthDayFormat()" class="form-control" />
                     <span asp-validation-for="Date" class="text-danger"></span>
                 </div>
             </div>
@@ -42,7 +41,7 @@
 
 @if(Model.Routes.Count() == 0)
 {
-    <h3>No routes!</h3>
+    @Html.Partial("_NoResultsFoundMessageBox")
 }
 else
 {
