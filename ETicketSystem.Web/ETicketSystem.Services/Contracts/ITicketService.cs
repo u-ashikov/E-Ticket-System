@@ -24,6 +24,8 @@
 
 		bool IsCancelled(int id);
 
+		TicketDownloadInfoServiceModel GetTicketDownloadInfo(int id, string userId);
+
 		int UserTicketsCount(string id, int startTown, int endTown, string companyId, DateTime? date);
 	}
 }

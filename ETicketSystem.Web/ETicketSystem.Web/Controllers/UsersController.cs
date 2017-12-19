@@ -151,19 +151,6 @@
 			});
 		}
 
-		public IActionResult DownloadTicket(int id)
-		{
-			var ticket = this.tickets.GetPdfTicket(id, this.userManager.GetUserId(User));
-
-			if (ticket == null)
-			{
-				this.GenerateAlertMessage(WebConstants.Message.InvalidTicket, Alert.Danger);
-				return RedirectToAction(nameof(MyTickets), new { id = this.userManager.GetUserId(User) });
-			}
-
-			return File(ticket, WebConstants.ContentType.Pdf, WebConstants.Pdf.TicketName);
-		}
-
 		private List<SelectListItem> GenerateSelectListCompanies()
 		{
 			var list = new List<SelectListItem>();

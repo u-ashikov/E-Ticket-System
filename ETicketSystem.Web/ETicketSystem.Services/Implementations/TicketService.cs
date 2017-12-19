@@ -146,7 +146,7 @@
 		public byte[] GetPdfTicket(int ticketId, string userId)
 		{
 			var ticket = this.db.Tickets
-				.Where(t => t.Id == ticketId && t.UserId == userId)
+				.Where(t => t.Id == ticketId && t.UserId == userId && !t.IsCancelled)
 				.Select(t => new
 				{
 					Company = t.Route.Company.Name,
@@ -163,6 +163,12 @@
 
 			return this.pdfGenerator.GeneratePdfFromHtml(string.Format(WebConstants.Pdf.Ticket, ticket.Company, ticket.Route, ticket.Seat, ticket.DepartureTime));
 		}
+
+		public TicketDownloadInfoServiceModel GetTicketDownloadInfo(int id, string userId) =>
+			this.db.Tickets
+				.Where(t => t.Id == id && t.UserId == userId)
+				.ProjectTo<TicketDownloadInfoServiceModel>()
+				.FirstOrDefault();
 
 		public int GetRouteReservedTicketsCount(int routeId, DateTime departureTime) =>
 			this.db.Tickets

@@ -70,7 +70,7 @@ else
                     <td>@t.DepartureTime</td>
                     <td>@t.Price.ToFormatedPrice() $</td>
                     <td>
-                        <a asp-controller="Users" asp-action="DownloadTicket" asp-route-id="@t.Id" class="btn btn-primary">Download</a>
+                        <a asp-controller="Tickets" asp-action="Download" asp-route-id="@t.Id" class="btn btn-primary">Download</a>
                     </td>
                     <td>
                         @{  var timeSpan = t.DepartureTime - DateTime.UtcNow.ToLocalTime();}

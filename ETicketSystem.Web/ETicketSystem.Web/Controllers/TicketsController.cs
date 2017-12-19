@@ -45,5 +45,21 @@
 
 			return RedirectToAction(WebConstants.Action.MyTickets, WebConstants.Controller.Users, new { id = userId });
 		}
-    }
+
+		public IActionResult Download(int id)
+		{
+			var userId = this.userManager.GetUserId(User);
+			var ticket = this.tickets.GetPdfTicket(id, userId);
+
+			if (ticket == null)
+			{
+				this.GenerateAlertMessage(WebConstants.Message.InvalidTicket, Alert.Danger);
+				return RedirectToAction(WebConstants.Action.MyTickets,WebConstants.Controller.Users, new { id = this.userManager.GetUserId(User) });
+			}
+
+			var ticketInfo = this.tickets.GetTicketDownloadInfo(id, userId);
+
+			return File(ticket, WebConstants.ContentType.Pdf, string.Format(WebConstants.Pdf.TicketName,ticketInfo.StartTown, ticketInfo.EndTown, string.Concat(ticketInfo.DepartureTime)));
+		}
+	}
 }

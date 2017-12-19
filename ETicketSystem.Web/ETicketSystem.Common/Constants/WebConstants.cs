@@ -368,7 +368,7 @@
 		{
 			public const string Ticket = "<h3>Company: {0}</h3><h3>Route: {1}</h3><h3>Seat: {2}</h3><h3>Departure time: {3}</h3>";
 
-			public const string TicketName = "E-Ticket.pdf";
+			public const string TicketName = "E-Ticket_{0}_{1}_{2}.pdf";
 		}
 	}
 }
