@@ -35,7 +35,7 @@
 				return false;
 			}
 
-			var reservedSeats = route.Tickets.Where(t=>t.DepartureTime == departureTime).Select(t => t.SeatNumber).ToList();
+			var reservedSeats = route.Tickets.Where(t=>t.DepartureTime == departureTime && !t.IsCancelled).Select(t => t.SeatNumber).ToList();
 
 			foreach (var seatNumber in seats)
 			{
@@ -66,7 +66,7 @@
 				.FirstOrDefault(r => r.Id == routeId);
 
 			return route.Tickets
-						.Where(t => t.DepartureTime == departureTime)
+						.Where(t => t.DepartureTime == departureTime && !t.IsCancelled)
 						.Select(t => t.SeatNumber)
 						.ToList();
 		}
@@ -172,7 +172,7 @@
 
 		public int GetRouteReservedTicketsCount(int routeId, DateTime departureTime) =>
 			this.db.Tickets
-				.Count(t => t.RouteId == routeId && t.DepartureTime == departureTime);
+				.Count(t => t.RouteId == routeId && t.DepartureTime == departureTime && !t.IsCancelled);
 
 		public bool TicketExists(int id) =>
 			this.db.Tickets.Any(t=>t.Id == id);

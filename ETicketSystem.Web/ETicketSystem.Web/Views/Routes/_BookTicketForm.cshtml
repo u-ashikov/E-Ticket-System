@@ -14,6 +14,8 @@
     <input type="hidden" asp-for="EndStation" />
     <input type="hidden" asp-for="CompanyName" />
     <input type="hidden" asp-for="CompanyId" />
+    <input type="hidden" asp-for="StartTownId" />
+    <input type="hidden" asp-for="EndTownId" />
     <div class="bus">
         <ol class="cabin fuselage">
             @for (int r = Model.BusSeats / 10; r > 0; r--)
@@ -27,7 +29,7 @@
                                 <input type="hidden" asp-for="@Model.Seats[c-1].Text" />
                                 <input type="hidden" asp-for="@Model.Seats[c-1].Value" />
                                 <input type="hidden" asp-for="@Model.Seats[c-1].Disabled" />
-                                <label class="@(Model.Seats[c-1].Disabled ? "disabled" : string.Empty)" asp-for="@Model.Seats[c-1].Checked">@Model.Seats[c - 1].Text</label>
+                                <label class="@(Model.Seats[c-1].Disabled ? "disabled" : string.Empty)" asp-for="@Model.Seats[c-1].Checked">@Model.Seats[c-1].Text</label>
                             </li>
                         }
                     </ol>

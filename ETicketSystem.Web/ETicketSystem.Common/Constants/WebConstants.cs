@@ -174,6 +174,8 @@
 			public const string TicketCancelationSuccess = "Successfully cancelled ticket!";
 
 			public const string NoUsers = "No users found!";
+
+			public const string RouteSoldOut = "Route from {0} to {1} departing on {2} at {3} sold out!";
 		}
 
 		public class ContentType
@@ -265,11 +267,8 @@
 			public const string Users = "Users";
 
 			public const string AdminCompanies = "AdminCompanies";
-
 			public const string AdminTowns = "AdminTowns";
-
 			public const string AdminStations = "AdminStations";
-
 			public const string AdminUsers = "AdminUsers";
 		}
 

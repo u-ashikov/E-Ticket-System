@@ -11,6 +11,7 @@
 	using Models.Pagination;
 	using Models.Routes;
 	using Services.Contracts;
+	using Services.Models.Route;
 	using System;
 	using System.Collections.Generic;
 	using System.Linq;
@@ -50,7 +51,7 @@
 				return this.RedirectToHome();
 			}
 
-			if (date.Date < DateTime.UtcNow.Date)
+			if (date.Date < DateTime.UtcNow.ToLocalTime().Date)
 			{
 				this.GenerateAlertMessage(WebConstants.Message.InvalidDate, Alert.Danger);
 				return this.RedirectToHome();
@@ -123,28 +124,41 @@
 		[HttpPost]
 		[Route(WebConstants.Routing.BookRouteTicket)]
 		[ValidateAntiForgeryToken]
-		public IActionResult BookTicket(BookTicketFormModel model)
+		public IActionResult BookTicket(BookTicketFormModel form)
 		{
 			if (!ModelState.IsValid)
 			{
 				ModelState.AddModelError(string.Empty, WebConstants.Message.NoneSelectedSeats);
-				this.GenerateBusSchemaSeats(model, this.routes.GetRouteTicketBookingInfo(model.RouteId,model.DepartureDateTime));
-				return View(model);
+				this.GenerateBusSchemaSeats(form, this.routes.GetRouteTicketBookingInfo(form.RouteId, form.DepartureDateTime));
+				return View(form);
 			}
 
-			var reservedTickets = model.Seats.Where(s => s.Checked).Select(s => s.Value).ToList();
-			var alreadyReservedTickets = this.tickets.GetAlreadyReservedTickets(model.RouteId, model.DepartureDateTime);
+			if (!this.routes.RouteExists(form.RouteId, form.DepartureDateTime.TimeOfDay) || form.DepartureDateTime < DateTime.UtcNow.ToLocalTime())
+			{
+				this.GenerateAlertMessage(WebConstants.Message.InvalidRoute, Alert.Danger);
+				return this.RedirectToHome();
+			}
+
+			var alreadyReservedTickets = this.tickets.GetAlreadyReservedTickets(form.RouteId, form.DepartureDateTime);
+
+			if (alreadyReservedTickets.Count() == form.BusSeats)
+			{
+				this.GenerateAlertMessage(string.Format(WebConstants.Message.RouteSoldOut, form.StartStation, form.EndStation, form.DepartureDateTime.Date, form.DepartureDateTime.TimeOfDay), Alert.Warning);
+
+				return RedirectToAction(nameof(Search), new { startTown = form.StartTownId, endTown = form.EndTownId, date = form.DepartureDateTime.Date, companyId = form.CompanyId });
+			}
+
+			var reservedTickets = form.Seats.Where(s => s.Checked && !s.Disabled).Select(s => s.Value).ToList();
 
 			var matchingSeats = reservedTickets.Intersect(alreadyReservedTickets).ToList();
 
 			if (matchingSeats.Count > 0)
 			{
 				ModelState.AddModelError(string.Empty, string.Format(WebConstants.Message.SeatsAlreadyTaken,string.Join(", ",matchingSeats)));
-				this.GenerateBusSchemaSeats(model, this.routes.GetRouteTicketBookingInfo(model.RouteId, model.DepartureDateTime));
-				return View(model);
+				return View(form);
 			}
 
-			var success = this.tickets.Add(model.RouteId, model.DepartureDateTime, reservedTickets, this.userManager.GetUserId(User));
+			var success = this.tickets.Add(form.RouteId, form.DepartureDateTime, reservedTickets, this.userManager.GetUserId(User));
 
 			if (!success)
 			{
@@ -152,15 +166,13 @@
 				return this.RedirectToHome();
 			}
 
-			this.GenerateAlertMessage(string.Format(WebConstants.Message.SuccessfullyTicketReservation, string.Join(", ", reservedTickets), model.StartStation, model.EndStation, model.DepartureDateTime), Alert.Success);
+			this.GenerateAlertMessage(string.Format(WebConstants.Message.SuccessfullyTicketReservation, string.Join(", ", reservedTickets), form.StartStation, form.EndStation, form.DepartureDateTime), Alert.Success);
 
 			return RedirectToHome();
 		}
 
-		private void GenerateBusSchemaSeats(BookTicketFormModel form, Services.Models.Route.RouteBookTicketInfoServiceModel info)
+		private void GenerateBusSchemaSeats(BookTicketFormModel form, RouteBookTicketInfoServiceModel info)
 		{
-			form.Seats.Clear();
-
 			for (int i = 1; i <= (int)info.BusType; i++)
 			{
 				form.Seats.Add(new BusSeat()
