@@ -33,12 +33,13 @@
 			if (!success)
 			{
 				this.GenerateAlertMessage(WebConstants.Message.UnableToAddReview, Alert.Warning);
-				return Redirect($"{WebConstants.Routing.CompanyDetails}{model.CompanyId}");
+
+				return RedirectToAction(WebConstants.Action.Details, WebConstants.Controller.Companies, new { id = model.CompanyId });
 			}
 
-			this.GenerateAlertMessage(WebConstants.Message.ReviewAdded, Alert.Success);
+			this.GenerateAlertMessage(string.Format(WebConstants.Message.EntityCreated,WebConstants.Entity.Review), Alert.Success);
 
-			return Redirect($"{WebConstants.Routing.CompanyDetails}{model.CompanyId}");
+			return RedirectToAction(WebConstants.Action.Details, WebConstants.Controller.Companies, new { id = model.CompanyId });
 		}
 
 		[Authorize(Roles = WebConstants.Role.ModeratorRole)]
@@ -48,7 +49,7 @@
 
 			if (review == null)
 			{
-				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingReview,id), Alert.Warning);
+				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingEntity,WebConstants.Entity.Review,id), Alert.Warning);
 				return RedirectToHome();
 			}
 
@@ -73,13 +74,13 @@
 
 			if (!success)
 			{
-				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingReview,id), Alert.Warning);
+				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingEntity,WebConstants.Entity.Review,id), Alert.Warning);
 				return RedirectToHome();
 			}
 
 			this.GenerateAlertMessage(WebConstants.Message.ReviewEdited, Alert.Success);
 
-			return Redirect($"{WebConstants.Routing.CompanyDetails}{model.CompanyId}");
+			return RedirectToAction(WebConstants.Action.Details, WebConstants.Controller.Companies, new { id = model.CompanyId });
 		}
 
 		[Authorize(Roles = WebConstants.Role.ModeratorRole)]
@@ -91,14 +92,15 @@
 
 				if (!success)
 				{
-					this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingReview, id), Alert.Warning);
+					this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingEntity, WebConstants.Entity.Review, id), Alert.Warning);
+
 					return RedirectToHome();
 				}
 			}
 
 			this.GenerateAlertMessage(WebConstants.Message.ReviewDeleted, Alert.Success);
 
-			return Redirect($"{WebConstants.Routing.CompanyDetails}{companyId}");
+			return RedirectToAction(WebConstants.Action.Details, WebConstants.Controller.Companies, new { id = companyId });
 		}
     }
 }

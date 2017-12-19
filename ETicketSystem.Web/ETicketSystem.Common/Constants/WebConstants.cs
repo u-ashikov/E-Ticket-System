@@ -94,6 +94,8 @@
 
 			public const string EntityEdited = "{0} edited successfully!";
 
+			public const string EntityCreated = "{0} created successfully!";
+
 			public const string CompanyAlreadyApproved = "Company {0} is already approved!";
 
 			public const string CompanyApproved = "Company {0} approved successfully!";
@@ -165,11 +167,7 @@
 
 			public const string UnableToAddReview = "You are not able to add reviews for this company because you haven't used its services yet!";
 
-			public const string ReviewAdded = "Review added successfully!";
-
 			public const string CompanyReviewDescriptionLength = "The field {0} must be between {2} and {1} symbols long!";
-
-			public const string NonExistingReview = "Review with id: {0} does not exist!";
 
 			public const string ReviewEdited = "Review edited successfully!";
 
@@ -245,8 +243,6 @@
 			public const string AllUsers = "Users/All";
 
 			public const string AdminAllTownsUrl = "/admin/towns/all";
-
-			public const string CompanyDetails = "/companies/details/";
 		}
 
 		public class Entity
@@ -262,6 +258,8 @@
 			public const string Ticket = "Ticket";
 
 			public const string Route = "Route";
+
+			public const string Review = "Review";
 		}
 
 		public class Controller
@@ -298,6 +296,8 @@
 			public const string AdminAllTowns = "All";
 
 			public const string MyTickets = "MyTickets";
+
+			public const string Details = "Details";
 		}
 
 		public class FilePath

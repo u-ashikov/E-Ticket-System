@@ -33,6 +33,8 @@ namespace ETicketSystem.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(150);
 
+                    b.Property<bool>("IsDeleted");
+
                     b.Property<DateTime>("PublishDate");
 
                     b.Property<string>("UserId");
@@ -56,6 +58,8 @@ namespace ETicketSystem.Data.Migrations
                     b.Property<string>("CompanyId");
 
                     b.Property<TimeSpan>("DepartureTime");
+
+                    b.Property<TimeSpan>("Duration");
 
                     b.Property<int>("EndStationId");
 

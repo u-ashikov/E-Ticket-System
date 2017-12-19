@@ -21,7 +21,8 @@
 		public IEnumerable<ReviewInfoServiceModel> All(string companyId, int page = 1, int pageSize = 10) =>
 			this.db
 				.Reviews
-				.Where(r => r.CompanyId == companyId)
+				.Where(r => r.CompanyId == companyId && !r.IsDeleted)
+				.OrderByDescending(r=>r.PublishDate)
 				.Skip((page-1)*pageSize)
 				.Take(pageSize)
 				.ProjectTo<ReviewInfoServiceModel>()
@@ -72,7 +73,7 @@
 				return false;
 			}
 
-			this.db.Reviews.Remove(reviewToDelete);
+			reviewToDelete.IsDeleted = true;
 			this.db.SaveChanges();
 
 			return true;
