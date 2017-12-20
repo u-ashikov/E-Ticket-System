@@ -91,16 +91,16 @@ else
     <div class="container-fluid text-center">
         <ul class="pagination">
             <li class="page-item @(1 == Model.Pagination.CurrentPage ? "blocked":string.Empty)">
-                <a class="page-link" asp-controller="@Model.Pagination.Controller" asp-action="@Model.Pagination.Action" asp-route-startTown="@Model.StartTown" asp-route-endTown="@Model.EndTown" asp-route-companyId="@Model.CompanyId" asp-route-date="@Model.Date" asp-route-page="@Model.Pagination.PreviousPage">Previous</a>
+                <a class="page-link" asp-controller="@Model.Pagination.Controller" asp-action="@Model.Pagination.Action" asp-route-startTown="@Model.StartTown" asp-route-endTown="@Model.EndTown" asp-route-companyId="@Model.CompanyId" asp-route-date="@(Model.Date.HasValue ? Model.Date.Value.ToYearMonthDayFormat() : null)" asp-route-page="@Model.Pagination.PreviousPage">Previous</a>
             </li>
             @for (int i = 1; i <= Model.Pagination.TotalPages; i++)
             {
                 <li class="page-item @(i == Model.Pagination.CurrentPage ? "active blocked":string.Empty)">
-                    <a class="page-link" asp-controller="@Model.Pagination.Controller" asp-action="@Model.Pagination.Action" asp-route-startTown="@Model.StartTown" asp-route-endTown="@Model.EndTown" asp-route-companyId="@Model.CompanyId" asp-route-date="@Model.Date" asp-route-page="@i">@i</a>
+                    <a class="page-link" asp-controller="@Model.Pagination.Controller" asp-action="@Model.Pagination.Action" asp-route-startTown="@Model.StartTown" asp-route-endTown="@Model.EndTown" asp-route-companyId="@Model.CompanyId" asp-route-date="@(Model.Date.HasValue ? Model.Date.Value.ToYearMonthDayFormat() : null)" asp-route-page="@i">@i</a>
                 </li>
             }
             <li class="page-item @(Model.Pagination.TotalPages == Model.Pagination.CurrentPage ? "blocked":string.Empty)">
-                <a class="page-link" asp-controller="@Model.Pagination.Controller" asp-action="@Model.Pagination.Action" asp-route-startTown="@Model.StartTown" asp-route-endTown="@Model.EndTown" asp-route-companyId="@Model.CompanyId" asp-route-date="@Model.Date" asp-route-page="@Model.Pagination.NextPage">Next</a>
+                <a class="page-link" asp-controller="@Model.Pagination.Controller" asp-action="@Model.Pagination.Action" asp-route-startTown="@Model.StartTown" asp-route-endTown="@Model.EndTown" asp-route-companyId="@Model.CompanyId" asp-route-date="@(Model.Date.HasValue ? Model.Date.Value.ToYearMonthDayFormat() : null)" asp-route-page="@Model.Pagination.NextPage">Next</a>
             </li>
         </ul>
     </div>
