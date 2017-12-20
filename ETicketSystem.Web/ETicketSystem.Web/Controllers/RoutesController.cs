@@ -40,11 +40,6 @@
 		[Route(WebConstants.Routing.RoutesSearch)]
 		public IActionResult Search(int startTown, int endTown, DateTime date, string companyId, int page = 1)
 		{
-			if (page < 1)
-			{
-				return RedirectToAction(nameof(Search), new { startTown = startTown, endTown = endTown, date = date.ToYearMonthDayFormat(), companyId = companyId, page = 1 });
-			}
-
 			if (!this.towns.TownExistsById(startTown) || !this.towns.TownExistsById(endTown))
 			{
 				this.GenerateAlertMessage(WebConstants.Message.InvalidTown, Alert.Danger);
@@ -55,6 +50,11 @@
 			{
 				this.GenerateAlertMessage(WebConstants.Message.InvalidDate, Alert.Danger);
 				return this.RedirectToHome();
+			}
+
+			if (page < 1)
+			{
+				return RedirectToAction(nameof(Search), new { startTown = startTown, endTown = endTown, date = date.ToYearMonthDayFormat(), companyId = companyId, page = 1 });
 			}
 
 			var routesPagination = new PaginationViewModel()
