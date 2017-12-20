@@ -30,11 +30,11 @@
 		}
 
 		[Route(WebConstants.Routing.AllCompanyRoutes)]
-		public IActionResult All(int startTown, int endTown, DateTime date, int page = 1)
+		public IActionResult All(int startTown, int endTown, DateTime? date, int page = 1)
 		{
 			if (page < 1)
 			{
-				return RedirectToAction(nameof(All), new { startTown = startTown, endTown = endTown, date = date.ToShortDateString(), page = 1 });
+				return RedirectToAction(nameof(All), new { startTown = startTown, endTown = endTown, date = date.HasValue ? date.Value.ToShortDateString() : null, page = 1 });
 			}
 
 			var companyId = this.userManager.GetUserId(User);
@@ -52,7 +52,7 @@
 
 			if (page > routesPagination.TotalPages && routesPagination.TotalPages != 0)
 			{
-				return RedirectToAction(nameof(All), new { startTown = startTown, endTown = endTown, date = date.ToShortDateString(), page = routesPagination.TotalPages });
+				return RedirectToAction(nameof(All), new { startTown = startTown, endTown = endTown, date = date.HasValue ? date.Value.ToShortDateString() : null, page = routesPagination.TotalPages });
 			}
 
 			return View(new AllRoutes()

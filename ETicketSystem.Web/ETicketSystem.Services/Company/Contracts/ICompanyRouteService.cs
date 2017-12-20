@@ -12,7 +12,7 @@
 
 		bool ChangeStatus(int routeId, string companyId);
 
-		CompanyRoutesServiceModel All(int startTown, int endTown, DateTime date,string companyId, int page, int pageSize = 10);
+		CompanyRoutesServiceModel All(int startTown, int endTown, DateTime? date,string companyId, int page, int pageSize = 10);
 
 		CompanyRouteEditServiceModel GetRouteToEdit(string companyId, int routeId);
 
@@ -20,7 +20,7 @@
 
 		bool RouteAlreadyExist(int routeId,int startStation, int endStation, TimeSpan departureTime, string companyId);
 
-		int TotalRoutes(int startTown, int endTown, DateTime date,string companyId);
+		int TotalRoutes(int startTown, int endTown, DateTime? date,string companyId);
 
 		bool HasReservedTickets(int routeId);
     }

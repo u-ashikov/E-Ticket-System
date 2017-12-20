@@ -45,7 +45,7 @@
 			return true;
 		}
 
-		public CompanyRoutesServiceModel All(int startTown, int endTown, DateTime date,string companyId, int page, int pageSize = 10)
+		public CompanyRoutesServiceModel All(int startTown, int endTown, DateTime? date,string companyId, int page, int pageSize = 10)
 		{
 			var companyRoutes = this.db
 				.Companies
@@ -56,14 +56,22 @@
 
 			var currentTime = new TimeSpan(DateTime.UtcNow.ToLocalTime().Hour, DateTime.UtcNow.ToLocalTime().Minute, DateTime.UtcNow.ToLocalTime().Second);
 
-			if (startTown != 0 && endTown !=0 && date.Date > DateTime.UtcNow.ToLocalTime().Date)
+			if (startTown != 0 && endTown != 0)
 			{
-				companyRoutes.Routes = companyRoutes.Routes.Where(r => r.StartTown == startTown && r.EndTown == endTown && r.DepartureTime >= new TimeSpan(0,0,0));
+				companyRoutes.Routes = companyRoutes.Routes.Where(r => r.StartTown == startTown && r.EndTown == endTown).ToList();
 			}
-			else if (startTown != 0 && endTown != 0 && date.Date == DateTime.UtcNow.ToLocalTime().Date)
+
+			if (date != null)
 			{
-				companyRoutes.Routes = companyRoutes.Routes.Where(r => r.StartTown == startTown && r.EndTown == endTown && r.DepartureTime >= currentTime);
-			}
+				if (date.Value.Date > DateTime.UtcNow.ToLocalTime().Date)
+				{
+					companyRoutes.Routes = companyRoutes.Routes.Where(r => r.StartTown == startTown && r.EndTown == endTown && r.DepartureTime >= new TimeSpan(0, 0, 0));
+				}
+				else if (date.Value.Date == DateTime.UtcNow.ToLocalTime().Date)
+				{
+					companyRoutes.Routes = companyRoutes.Routes.Where(r => r.StartTown == startTown && r.EndTown == endTown && r.DepartureTime >= currentTime);
+				}
+			}		
 
 			companyRoutes.Routes = companyRoutes
 					.Routes
@@ -126,7 +134,7 @@
 				.ProjectTo<CompanyRouteBaseSerivceModel>()
 				.FirstOrDefault();
 
-		public int TotalRoutes(int startTown, int endTown, DateTime date,string companyId)
+		public int TotalRoutes(int startTown, int endTown, DateTime? date,string companyId)
 		{
 			var company = this.db
 							.Companies
@@ -143,13 +151,21 @@
 
 			var currentTime = new TimeSpan(DateTime.Now.ToLocalTime().Hour, DateTime.Now.ToLocalTime().Minute, DateTime.Now.ToLocalTime().Second);
 
-			if (startTown != 0 && endTown != 0 && date > DateTime.UtcNow.ToLocalTime())
+			if (startTown != 0 && endTown != 0)
 			{
-				return company.Routes.Count(r => r.StartStation.TownId == startTown && r.EndStation.TownId == endTown && r.DepartureTime >= new TimeSpan(0, 0, 0));
+				company.Routes = company.Routes.Where(r => r.StartStation.TownId == startTown && r.EndStation.TownId == endTown).ToList();
 			}
-			else if (startTown != 0 && endTown != 0 && date.Date == DateTime.UtcNow.ToLocalTime().Date)
+
+			if (date != null)
 			{
-				return company.Routes.Count(r => r.StartStation.TownId == startTown && r.EndStation.TownId == endTown && r.DepartureTime >= currentTime);
+				if (date.Value > DateTime.UtcNow.ToLocalTime())
+				{
+					return company.Routes.Count(r => r.StartStation.TownId == startTown && r.EndStation.TownId == endTown && r.DepartureTime >= new TimeSpan(0, 0, 0));
+				}
+				else if (date.Value.Date == DateTime.UtcNow.ToLocalTime().Date)
+				{
+					return company.Routes.Count(r => r.StartStation.TownId == startTown && r.EndStation.TownId == endTown && r.DepartureTime >= currentTime);
+				}
 			}
 
 			return company.Routes.Count();
