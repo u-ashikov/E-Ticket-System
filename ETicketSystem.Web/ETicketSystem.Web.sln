@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ETicketSystem.Data", "ETick
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ETicketSystem.Services", "ETicketSystem.Services\ETicketSystem.Services.csproj", "{E6FA8AFA-6226-49C0-BE86-1B8DAC4262F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ETicketSystem.Common", "ETicketSystem.Common\ETicketSystem.Common.csproj", "{DC939A60-CB4E-4BC2-8596-89CD3B6160B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ETicketSystem.Common", "ETicketSystem.Common\ETicketSystem.Common.csproj", "{DC939A60-CB4E-4BC2-8596-89CD3B6160B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ETicketSystem.Test", "ETicketSystem.Test\ETicketSystem.Test.csproj", "{F138D0B7-EE67-4AFA-BD6C-B6E9C1488F6B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{DC939A60-CB4E-4BC2-8596-89CD3B6160B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC939A60-CB4E-4BC2-8596-89CD3B6160B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC939A60-CB4E-4BC2-8596-89CD3B6160B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F138D0B7-EE67-4AFA-BD6C-B6E9C1488F6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F138D0B7-EE67-4AFA-BD6C-B6E9C1488F6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F138D0B7-EE67-4AFA-BD6C-B6E9C1488F6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F138D0B7-EE67-4AFA-BD6C-B6E9C1488F6B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
