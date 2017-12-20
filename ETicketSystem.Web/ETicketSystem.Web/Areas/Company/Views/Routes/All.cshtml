@@ -81,7 +81,7 @@ else
                             {
                                 <a asp-controller="Routes" asp-action="ChangeStatus" asp-route-id="@route.Id" class="btn btn-success col-md-12" style="margin-bottom:10px;">Activate</a>
                             }
-                            <a asp-area="" asp-controller="Routes" asp-action="Search" asp-route-startTown="@route.StartTown" asp-route-endTown="@route.EndTown" asp-route-date="@(Model.Date < DateTime.UtcNow.ToLocalTime() ? DateTime.UtcNow.ToLocalTime().ToYearMonthDayFormat() : Model.Date.ToYearMonthDayFormat())" asp-route-companyId="@route.CompanyId" class="btn btn-primary col-md-12">Tickets</a>
+                            <a asp-area="" asp-controller="Routes" asp-action="Search" asp-route-startTown="@route.StartTown" asp-route-endTown="@route.EndTown" asp-route-date="@Model.Date.ToYearMonthDayFormat()" asp-route-companyId="@route.CompanyId" class="btn btn-primary col-md-12">Tickets</a>
                         </div>
                     </td>
                 </tr>
@@ -92,18 +92,22 @@ else
     <div class="container-fluid text-center">
         <ul class="pagination">
             <li class="page-item @(1 == Model.Pagination.CurrentPage ? "blocked":string.Empty)">
-                <a class="page-link" asp-controller="@Model.Pagination.Controller" asp-action="@Model.Pagination.Action" asp-route-startTown="@Model.StartTown" asp-route-endTown="@Model.EndTown" asp-route-date="@Model.Date" asp-route-page="@Model.Pagination.PreviousPage">Previous</a>
+                <a class="page-link" asp-controller="@Model.Pagination.Controller" asp-action="@Model.Pagination.Action" asp-route-startTown="@Model.StartTown" asp-route-endTown="@Model.EndTown" asp-route-date="@Model.Date.ToYearMonthDayFormat()" asp-route-page="@Model.Pagination.PreviousPage">Previous</a>
             </li>
             @for (int i = 1; i <= Model.Pagination.TotalPages; i++)
             {
                 <li class="page-item @(i == Model.Pagination.CurrentPage ? "active blocked":string.Empty)">
-                    <a class="page-link" asp-controller="@Model.Pagination.Controller" asp-action="@Model.Pagination.Action" asp-route-startTown="@Model.StartTown" asp-route-endTown="@Model.EndTown" asp-route-date="@Model.Date" asp-route-page="@i">@i</a>
+                    <a class="page-link" asp-controller="@Model.Pagination.Controller" asp-action="@Model.Pagination.Action" asp-route-startTown="@Model.StartTown" asp-route-endTown="@Model.EndTown" asp-route-date="@Model.Date.ToYearMonthDayFormat()" asp-route-page="@i">@i</a>
                 </li>
             }
             <li class="page-item @(Model.Pagination.TotalPages == Model.Pagination.CurrentPage ? "blocked":string.Empty)">
-                <a class="page-link" asp-controller="@Model.Pagination.Controller" asp-action="@Model.Pagination.Action" asp-route-startTown="@Model.StartTown" asp-route-endTown="@Model.EndTown" asp-route-date="@Model.Date" asp-route-page="@Model.Pagination.NextPage">Next</a>
+                <a class="page-link" asp-controller="@Model.Pagination.Controller" asp-action="@Model.Pagination.Action" asp-route-startTown="@Model.StartTown" asp-route-endTown="@Model.EndTown" asp-route-date="@Model.Date.ToYearMonthDayFormat()" asp-route-page="@Model.Pagination.NextPage">Next</a>
             </li>
         </ul>
     </div>
+}
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
 }
 

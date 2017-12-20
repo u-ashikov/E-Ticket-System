@@ -115,7 +115,7 @@
 		{
 			if (page < 1)
 			{
-				return RedirectToAction(nameof(MyTickets), new { id = id, startTown = startTown, endTown = endTown, companyId = companyId, date = date, page = 1 });
+				return RedirectToAction(nameof(MyTickets), new { id = id, startTown = startTown, endTown = endTown, companyId = companyId, date = (date.HasValue ? date.Value.ToShortDateString() : null), page = 1 });
 			}
 
 			if (this.userManager.GetUserId(User) != id)
@@ -135,7 +135,7 @@
 
 			if (page > pagination.TotalPages && pagination.TotalPages != 0)
 			{
-				return RedirectToAction(nameof(MyTickets), new { id = id, startTown = startTown, endTown = endTown, companyId = companyId, date = date, page = pagination.TotalPages });
+				return RedirectToAction(nameof(MyTickets), new { id = id, startTown = startTown, endTown = endTown, companyId = companyId, date = (date.HasValue ? date.Value.ToShortDateString() : null), page = pagination.TotalPages });
 			}
 
 			return View(new UserTickets()
