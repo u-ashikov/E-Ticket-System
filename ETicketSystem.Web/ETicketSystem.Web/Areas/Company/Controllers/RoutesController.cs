@@ -19,14 +19,17 @@
 
 		private readonly ICompanyService companies;
 
+		private readonly IStationService stations;
+
 		private readonly UserManager<User> userManager;
 
-		public RoutesController(ICompanyRouteService routes, ITownService towns, UserManager<User> userManager, ICompanyService companies)
+		public RoutesController(ICompanyRouteService routes, ITownService towns, UserManager<User> userManager, ICompanyService companies, IStationService stations)
 			:base(towns)
 		{
 			this.routes = routes;
 			this.userManager = userManager;
 			this.companies = companies;
+			this.stations = stations;
 		}
 
 		[Route(WebConstants.Routing.AllCompanyRoutes)]
@@ -100,7 +103,19 @@
 				return this.RedirectToHome();
 			}
 
-			if (model.StartStation == model.EndStation)
+			if (this.companies.IsBlocked(this.userManager.GetUserId(User)))
+			{
+				this.GenerateAlertMessage(WebConstants.Message.CompanyBlocked, Alert.Warning);
+				return this.RedirectToHome();
+			}
+
+			if (!this.stations.StationExist(model.StartStation) || !this.stations.StationExist(model.EndStation))
+			{
+				this.GenerateAlertMessage(WebConstants.Message.InvalidStation, Alert.Warning);
+				return this.RedirectToHome();
+			}
+
+			if (model.StartStation == model.EndStation || this.stations.AreStationsInSameTown(model.StartStation, model.EndStation))
 			{
 				ModelState.AddModelError(string.Empty,WebConstants.Message.StartStationEqualToEndStation);
 				model.TownsStations = this.GenerateTownStationsSelectListItems();

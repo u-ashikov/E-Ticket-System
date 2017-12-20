@@ -75,7 +75,9 @@
 
 			companyRoutes.Routes = companyRoutes
 					.Routes
-					.OrderBy(r=>r.DepartureTime)
+					.OrderBy(r=>r.StartTown)
+					.ThenBy(r=>r.EndTown)
+					.ThenBy(r=>r.DepartureTime)
 					.Skip((page - 1) * pageSize)
 					.Take(pageSize);
 

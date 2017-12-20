@@ -104,8 +104,9 @@
 			public const string InvalidRoute = "Invalid route!";
 			public const string InvalidTown = "Invalid town!";
 			public const string InvalidDate = "Invalid date!";
+			public const string InvalidStation = "Invalid station!";
 
-			public const string StartStationEqualToEndStation = "Start station and end station cannot be same.";
+			public const string StartStationEqualToEndStation = "Start station and end station cannot be same or in same town.";
 			public const string RouteDurationZeroLength = "Route duration must be greater than 00:00.";
 			public const string CompanyRouteDuplication = "This route already exists!";
 			public const string RouteAdded = "Route from {0} to {1} added successfully!";
@@ -190,23 +191,17 @@
 			public const string HomeError = "/Home/Error";
 
 			public const string Company = "Company";
-
 			public const string CompanyProfile = "Profile/{id}";
-
 			public const string AddCompanyRoute = "Routes/Add";
-
 			public const string AllCompanyRoutes = "Routes/All";
-
 			public const string EditCompanyRoute = "Routes/Edit/{id}";
 			public const string EditCompanyProfile = "Profile/Edit/{id}";
 			public const string ChangeCompanyRouteStatus = "Routes/ChangeStatus/{id}";
 
 			public const string RoutesSearch = "Routes/Search";
-
 			public const string BookRouteTicket = "Routes/BookTicket/{id}/{departureTime}/{date}/{companyId?}";
 
 			public const string EditUser = "Users/Profile/Edit/{id}";
-
 			public const string UserTickets = "Users/MyTickets/{id}";
 
 			public const string AllUsers = "Users/All";

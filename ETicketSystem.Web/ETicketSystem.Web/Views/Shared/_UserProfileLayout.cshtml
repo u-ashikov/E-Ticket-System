@@ -1,6 +1,9 @@
 ﻿@{
     ViewData["Title"] = "My Profile";
 }
+
+@inject UserManager<User> UserManager
+
 <environment include="Development">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/site.css" />
@@ -34,7 +37,7 @@
                         <a asp-area="Company" asp-controller="Routes" asp-action="All">My Routes</a>
                     </li>
                     <li>
-                        <a asp-area="Company" asp-controller="Profile" asp-action="Edit">Edit Profile</a>
+                        <a asp-area="Company" asp-controller="Profile" asp-action="Edit" asp-route-id="@UserManager.GetUserId(User)">Edit Profile</a>
                     </li>
                 }
                 else

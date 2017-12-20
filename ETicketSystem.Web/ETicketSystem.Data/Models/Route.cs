@@ -1,7 +1,7 @@
 ﻿namespace ETicketSystem.Data.Models
 {
+	using Common.Constants;
 	using Enums;
-	using ETicketSystem.Common.Constants;
 	using System;
 	using System.Collections.Generic;
 	using System.ComponentModel.DataAnnotations;
