@@ -124,6 +124,8 @@
 				return RedirectToHome();
 			}
 
+			var tickets = this.tickets.GetUserTickets(id, startTown, endTown, companyId, date, page, WebConstants.Pagination.UserTicketsPageSize);
+
 			var pagination = new PaginationViewModel()
 			{
 				Action = nameof(MyTickets),
@@ -140,7 +142,7 @@
 
 			return View(new UserTickets()
 			{
-				Tickets = this.tickets.GetUserTickets(id,startTown,endTown,companyId,date,page,WebConstants.Pagination.UserTicketsPageSize),
+				Tickets = tickets,
 				Pagination = pagination,
 				Towns = this.GenerateSelectListTowns(),
 				Companies = this.GenerateSelectListCompanies(),
