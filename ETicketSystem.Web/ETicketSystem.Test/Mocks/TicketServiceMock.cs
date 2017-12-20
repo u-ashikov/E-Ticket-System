@@ -1,4 +1,4 @@
-﻿namespace ETicketSystem.Test.Mocks
+﻿namespace ETicketSystem.Test.Mock
 {
 	using ETicketSystem.Services.Contracts;
 	using Moq;

@@ -8,7 +8,7 @@
 	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Mvc;
 	using Microsoft.AspNetCore.Mvc.ViewFeatures;
-	using Mocks;
+	using Mock;
 	using Moq;
 	using System.Linq;
 	using Xunit;

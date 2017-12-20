@@ -1,4 +1,4 @@
-﻿namespace ETicketSystem.Test.Mocks
+﻿namespace ETicketSystem.Test.Mock
 {
 	using Moq;
 	using System.Security.Claims;

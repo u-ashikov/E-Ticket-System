@@ -26,7 +26,7 @@
 		{
 			if (page < 1)
 			{
-				return RedirectToAction(nameof(All));
+				return RedirectToAction(nameof(All),new { searchTerm = searchTerm});
 			}
 
 			var companiesPagination = new PaginationViewModel()
@@ -41,7 +41,7 @@
 
 			if (page > companiesPagination.TotalPages && companiesPagination.TotalPages != 0)
 			{
-				return RedirectToAction(nameof(All), new { page = companiesPagination.TotalPages });
+				return RedirectToAction(nameof(All), new { searchTerm = searchTerm,page = companiesPagination.TotalPages });
 			}
 
 			return View(new AllCompanies()

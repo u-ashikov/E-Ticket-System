@@ -3,7 +3,7 @@
 	using ETicketSystem.Data.Models;
 	using Microsoft.AspNetCore.Http;
 	using Microsoft.AspNetCore.Identity;
-	using Mocks;
+	using Mock;
 	using Moq;
 	using System.Security.Claims;
 
