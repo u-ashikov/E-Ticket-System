@@ -68,7 +68,7 @@
 		{
 			var reviewToDelete = this.db.Reviews.Find(id);
 
-			if (reviewToDelete == null)
+			if (reviewToDelete == null || reviewToDelete.IsDeleted)
 			{
 				return false;
 			}
