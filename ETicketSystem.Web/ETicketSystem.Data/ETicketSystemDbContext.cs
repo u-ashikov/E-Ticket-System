@@ -1,8 +1,8 @@
 ﻿namespace ETicketSystem.Data
 {
-	using ETicketSystem.Data.Models;
 	using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 	using Microsoft.EntityFrameworkCore;
+	using Models;
 
 	public class ETicketSystemDbContext : IdentityDbContext<User>
     {
@@ -21,9 +21,7 @@
 		public DbSet<Ticket> Tickets { get; set; }
 
         public ETicketSystemDbContext(DbContextOptions<ETicketSystemDbContext> options)
-            : base(options)
-        {
-        }
+            : base(options) {}
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

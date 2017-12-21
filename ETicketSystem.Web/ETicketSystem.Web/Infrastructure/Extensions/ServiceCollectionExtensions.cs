@@ -1,7 +1,7 @@
 ﻿namespace ETicketSystem.Web.Infrastructure.Extensions
 {
-	using ETicketSystem.Services.Contracts;
 	using Microsoft.Extensions.DependencyInjection;
+	using Services.Contracts;
 	using System.Linq;
 	using System.Reflection;
 

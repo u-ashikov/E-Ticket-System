@@ -1,6 +1,6 @@
 ﻿namespace ETicketSystem.Web.Infrastructure.Extensions
 {
-	using ETicketSystem.Common.Constants;
+	using Common.Constants;
 	using System.Text.RegularExpressions;
 
 	public static class StringExtensions

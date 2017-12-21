@@ -41,10 +41,6 @@
 
 		public Town Town { get; set; }
 
-		public int UpVotes { get; set; }
-
-		public int DownVotes { get; set; }
-
 		public bool IsApproved { get; set; }
 
 		public bool IsBlocked { get; set; }

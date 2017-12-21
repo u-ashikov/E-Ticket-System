@@ -58,10 +58,6 @@
 			public const string DurationMinValue = "00:00";
 
 			public const string DurationMaxValue = "24:00";
-
-			public const double DurationMinutesMinValue = 0;
-
-			public const double DurationMinutesMaxValue = 1440;
 		}
 
 		public class Review

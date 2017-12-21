@@ -325,8 +325,6 @@ namespace ETicketSystem.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(3000);
 
-                    b.Property<int>("DownVotes");
-
                     b.Property<bool>("IsApproved");
 
                     b.Property<bool>("IsBlocked");
@@ -343,8 +341,6 @@ namespace ETicketSystem.Data.Migrations
                     b.Property<string>("UniqueReferenceNumber")
                         .IsRequired()
                         .HasMaxLength(13);
-
-                    b.Property<int>("UpVotes");
 
                     b.HasIndex("Name")
                         .IsUnique()

@@ -1,6 +1,6 @@
 ﻿namespace ETicketSystem.Web.Infrastructure.Attributes.Validation
 {
-	using ETicketSystem.Web.Models.Routes;
+	using Models.Routes;
 	using System.ComponentModel.DataAnnotations;
 	using System.Linq;
 
