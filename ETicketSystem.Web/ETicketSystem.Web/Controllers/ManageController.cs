@@ -478,8 +478,8 @@
         {
             return string.Format(
                 AuthenicatorUriFormat,
-                _urlEncoder.Encode("ETicketSystem.Web"),
-                _urlEncoder.Encode(email),
+                this.urlEncoder.Encode("ETicketSystem.Web"),
+                this.urlEncoder.Encode(email),
                 unformattedKey);
         }
 

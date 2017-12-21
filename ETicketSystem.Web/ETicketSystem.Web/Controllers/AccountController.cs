@@ -281,17 +281,6 @@
 			return Json(true);
 		}
 
-		[AllowAnonymous]
-		public IActionResult VerifyPhoneNumber(string phoneNumber)
-		{
-			if (this.companies.IsCompanyPhoneNumberRegistered(phoneNumber))
-			{
-				return Json(data: WebConstants.Message.CompanyPhoneAlreadyTaken);
-			}
-
-			return Json(true);
-		}
-
         #region Helpers
 
         private void AddErrors(IdentityResult result)

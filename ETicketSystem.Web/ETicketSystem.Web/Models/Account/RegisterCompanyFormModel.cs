@@ -65,7 +65,6 @@
 
 		[Required]
 		[RegularExpression(WebConstants.RegexPattern.Phone, ErrorMessage =  WebConstants.Message.PhoneNumberFormat)]
-		[Remote(action:WebConstants.Action.VerifyPhoneNumber,controller:WebConstants.Controller.Account)]
 		[Display(Name = WebConstants.FieldDisplay.PhoneNumber)]
 		public string PhoneNumber { get; set; }
 

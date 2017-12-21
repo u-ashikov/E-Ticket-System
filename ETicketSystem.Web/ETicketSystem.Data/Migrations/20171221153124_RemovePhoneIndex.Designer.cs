@@ -13,9 +13,10 @@ using System;
 namespace ETicketSystem.Data.Migrations
 {
     [DbContext(typeof(ETicketSystemDbContext))]
-    partial class ETicketSystemDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171221153124_RemovePhoneIndex")]
+    partial class RemovePhoneIndex
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

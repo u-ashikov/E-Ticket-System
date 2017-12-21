@@ -47,10 +47,6 @@
 				.IsUnique();
 
 			builder.Entity<Company>()
-				.HasIndex(c => c.PhoneNumber)
-				.IsUnique();
-
-			builder.Entity<Company>()
 				.HasMany(c => c.Routes)
 				.WithOne(r => r.Company)
 				.HasForeignKey(r => r.CompanyId);

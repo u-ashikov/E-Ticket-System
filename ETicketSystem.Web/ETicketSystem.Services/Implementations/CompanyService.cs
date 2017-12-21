@@ -41,14 +41,11 @@
 		public bool IsUniqueReferenceNumberRegistered(string uniqueReferenceNumber) =>
 			this.db.Companies.Any(c => c.UniqueReferenceNumber == uniqueReferenceNumber);
 
-		public bool IsCompanyPhoneNumberRegistered(string phoneNumber) =>
-			this.db.Companies.Any(c => c.PhoneNumber == phoneNumber);
-
 		public bool IsApproved(string companyId) =>
-			this.db.Companies.FirstOrDefault(c => c.Id == companyId).IsApproved;
+			this.db.Companies.Any(c => c.Id == companyId && c.IsApproved);
 
 		public bool IsBlocked(string companyId) =>
-			this.db.Companies.FirstOrDefault(c => c.Id == companyId).IsBlocked;
+			this.db.Companies.Any(c => c.Id == companyId && c.IsBlocked);
 
 		public int TotalCompanies(string searchTerm)
 		{
