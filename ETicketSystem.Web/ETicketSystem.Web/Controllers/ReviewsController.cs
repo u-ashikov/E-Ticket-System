@@ -25,7 +25,18 @@
 		[HttpPost]
 		public IActionResult Add(ReviewFormModel model)
 		{
+			if (!ModelState.IsValid)
+			{
+				return View(model);
+			}
+
 			var userId = this.userManager.GetUserId(User);
+
+			if (model.CompanyId == userId)
+			{
+				this.GenerateAlertMessage(WebConstants.Message.OwnerAddReview, Alert.Warning);
+				return RedirectToAction(WebConstants.Action.Details, WebConstants.Controller.Companies, new { id = model.CompanyId });
+			}
 
 			bool success = this.reviews.Add(model.CompanyId, userId, model.Description);
 

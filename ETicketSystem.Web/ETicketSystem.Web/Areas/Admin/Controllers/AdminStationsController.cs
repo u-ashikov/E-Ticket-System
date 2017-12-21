@@ -56,7 +56,6 @@
 		});
 
 		[HttpPost]
-		[ValidateAntiForgeryToken]
 		[Route(WebConstants.Routing.AdminAddStation)]
 		public IActionResult Add(StationFormModel model)
 		{
@@ -106,7 +105,6 @@
 
 		[HttpPost]
 		[Route(WebConstants.Routing.AdminEditStation)]
-		[ValidateAntiForgeryToken]
 		public IActionResult Edit(StationFormModel model)
 		{
 			if (!this.stations.StationExists(model.Id))

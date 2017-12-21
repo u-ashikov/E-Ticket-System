@@ -156,6 +156,8 @@
 
 			public const string UnableToAddReview = "You are not able to add reviews for this company because you haven't used its services yet!";
 
+			public const string OwnerAddReview = "You are the owner and you cannot add reviews to yourself!";
+
 			public const string CompanyReviewDescriptionLength = "The field {0} must be between {2} and {1} symbols long!";
 
 			public const string CompanyPhoneCannotBeEmpty = "Company phone cannot be empty!";

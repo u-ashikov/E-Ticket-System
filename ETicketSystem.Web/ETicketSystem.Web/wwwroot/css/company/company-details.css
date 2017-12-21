@@ -1,18 +1,16 @@
-﻿@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
-
-.search-container {
+﻿.search-container {
     background: url('../../images/common/bus.jpg');
     background-repeat: no-repeat;
     background-size: 60%;
     background-position: right;
 }
 
-div.details-container {
+.details-container {
     margin: 0 auto;
     width: 100%;
 }
 
-img.logo {
+.logo {
     width:100px;
     height:100px;
     display:inline-block;
@@ -32,7 +30,7 @@ img.logo {
     margin:40px 0;
 }
 
-.icons div.info {
+.icons .info {
     display:inline-block;
     border-right:1px solid black;
     margin-right:40px;
@@ -52,7 +50,6 @@ img.logo {
 
 .popular-routes h3 {
     font-size:2.4em;
-    font-weight:600;
     letter-spacing:3px;
 }
 
@@ -86,11 +83,11 @@ div.user-info .user {
     margin-right:20px;
 }
 
-a.delete, 
-a.edit {
+.delete, 
+.edit {
     float: right;
 }
 
-a.edit {
+.edit {
     margin-right:10px;
 }

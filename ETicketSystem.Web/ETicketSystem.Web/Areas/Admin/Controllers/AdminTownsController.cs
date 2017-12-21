@@ -66,7 +66,6 @@
 
 		[HttpPost]
 		[Route(WebConstants.Routing.AdminAddTown)]
-		[ValidateAntiForgeryToken]
 		public IActionResult Add(AddTownFormModel model)
 		{
 			if (!ModelState.IsValid)
