@@ -88,7 +88,7 @@ else
                 </div>
                 <div class="tickets col-md-2 col-sm-2 col-lg-2">
                     <div class="seats-info">@route.ReservedTickets / @route.TotalBusSeats</div>
-                    <form method="get" asp-controller="Routes" asp-action="BookTicket" asp-route-id="@route.Id" asp-route-departureTime="@route.DepartureTime.ToHoursAndMinutes()" asp-route-date="@Model.Date" asp-route-companyId="@Model.CompanyId">
+                    <form method="get" asp-controller="Routes" asp-action="BookTicket" asp-route-id="@route.Id" asp-route-departureTime="@route.DepartureTime.ToHoursAndMinutes()" asp-route-date="@Model.Date.ToYearMonthDayFormat()" asp-route-companyId="@Model.CompanyId">
                         <input class="btn btn@(route.ReservedTickets == route.TotalBusSeats ? "-danger disabled" : "-success")" type="submit" value="@(route.ReservedTickets == route.TotalBusSeats ? "Sold out" : "Tickets")" />
                     </form>
                 </div>

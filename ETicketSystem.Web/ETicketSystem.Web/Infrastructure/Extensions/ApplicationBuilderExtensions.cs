@@ -172,7 +172,7 @@
 		{
 			if (File.Exists(WebConstants.FilePath.Users))
 			{
-				var users = File.ReadAllText(WebConstants.FilePath.Users).Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+				var users = File.ReadAllText(WebConstants.FilePath.Users).Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
 
 				for (int i = 1; i < users.Length; i++)
 				{
@@ -208,7 +208,7 @@
 		{
 			if (File.Exists(WebConstants.FilePath.Companies))
 			{
-				var companies = File.ReadAllText(WebConstants.FilePath.Companies).Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+				var companies = File.ReadAllText(WebConstants.FilePath.Companies).Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
 
 				var random = new Random();
 				var townsCount = db.Towns.Count();
@@ -291,7 +291,7 @@
 		{
 			if (File.Exists(WebConstants.FilePath.Stations))
 			{
-				var stations = File.ReadAllText(WebConstants.FilePath.Stations).Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+				var stations = File.ReadAllText(WebConstants.FilePath.Stations).Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
 
 				for (int i = 1; i < stations.Length; i++)
 				{
@@ -336,7 +336,7 @@
 		{
 			if (File.Exists(WebConstants.FilePath.Towns))
 			{
-				var towns = File.ReadAllText(WebConstants.FilePath.Towns).Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+				var towns = File.ReadAllText(WebConstants.FilePath.Towns).Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
 
 				for (int i = 1; i < towns.Length; i++)
 				{

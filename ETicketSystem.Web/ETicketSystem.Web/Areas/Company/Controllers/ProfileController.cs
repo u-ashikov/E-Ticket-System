@@ -88,6 +88,8 @@
 					ModelState.AddModelError("", error.Description);
 				}
 
+				profile.CurrentLogo = this.users.GetCompanyLogo(id);
+
 				return View(profile);
 			}
 

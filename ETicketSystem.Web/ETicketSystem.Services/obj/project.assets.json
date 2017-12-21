@@ -2930,7 +2930,7 @@
       ]
     },
     "Portable.BouncyCastle/1.8.1.3": {
-      "sha512": "imXKRLrhXlEoeus5w5h1t6E1uwSP45N1qn7Gz+kp8GaFKkNuN0GOMMlIWDQ0P0O6OmHL7odRyd+npNmJQTcgwg==",
+      "sha512": "1jUpszv0ETm+hl78HKnYgY3wPzt6qRtjxaPENNrGCuB8nondbR/j75WAKdd6sxXzOzBcX07WMZhZEYc4s5jVWg==",
       "type": "package",
       "path": "portable.bouncycastle/1.8.1.3",
       "files": [
@@ -6873,7 +6873,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Ulian\\.nuget\\packages\\": {},
+    "C:\\Users\\Kamelia\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
@@ -6882,31 +6882,31 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\Ulian\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Services\\ETicketSystem.Services.csproj",
+      "projectUniqueName": "C:\\Users\\Kamelia\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Services\\ETicketSystem.Services.csproj",
       "projectName": "ETicketSystem.Services",
-      "projectPath": "C:\\Users\\Ulian\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Services\\ETicketSystem.Services.csproj",
-      "packagesPath": "C:\\Users\\Ulian\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Ulian\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Services\\obj\\",
+      "projectPath": "C:\\Users\\Kamelia\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Services\\ETicketSystem.Services.csproj",
+      "packagesPath": "C:\\Users\\Kamelia\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Kamelia\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Services\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Ulian\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\Kamelia\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netstandard2.0"
       ],
       "sources": {
-        "C:\\Program Files\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "C:\\Users\\Ulian\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Data\\ETicketSystem.Data.csproj": {
-              "projectPath": "C:\\Users\\Ulian\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Data\\ETicketSystem.Data.csproj"
+            "C:\\Users\\Kamelia\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Data\\ETicketSystem.Data.csproj": {
+              "projectPath": "C:\\Users\\Kamelia\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Data\\ETicketSystem.Data.csproj"
             }
           }
         }

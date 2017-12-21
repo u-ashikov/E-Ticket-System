@@ -83,7 +83,7 @@ else
                             }
                             @if (Model.Date.HasValue && (new DateTime(Model.Date.Value.Year,Model.Date.Value.Month,Model.Date.Value.Day,route.DepartureTime.Hours,route.DepartureTime.Minutes,route.DepartureTime.Seconds) > DateTime.UtcNow.ToLocalTime()))
                             {
-                                <a asp-area="" asp-controller="Routes" asp-action="Search" asp-route-startTown="@route.StartTown" asp-route-endTown="@route.EndTown" asp-route-date="@(Model.Date.HasValue ? Model.Date.Value.ToShortDateString() : string.Empty)" asp-route-companyId="@route.CompanyId" class="btn btn-primary col-md-12">Tickets</a>
+                                <a asp-area="" asp-controller="Routes" asp-action="Search" asp-route-startTown="@route.StartTown" asp-route-endTown="@route.EndTown" asp-route-date="@(Model.Date.HasValue ? Model.Date.Value.ToYearMonthDayFormat() : string.Empty)" asp-route-companyId="@route.CompanyId" class="btn btn-primary col-md-12">Tickets</a>
                             }
                         </div>
                     </td>

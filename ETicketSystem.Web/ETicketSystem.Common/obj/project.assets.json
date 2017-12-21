@@ -3705,7 +3705,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Ulian\\.nuget\\packages\\": {},
+    "C:\\Users\\Kamelia\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
@@ -3714,24 +3714,24 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\Ulian\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Common\\ETicketSystem.Common.csproj",
+      "projectUniqueName": "C:\\Users\\Kamelia\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Common\\ETicketSystem.Common.csproj",
       "projectName": "ETicketSystem.Common",
-      "projectPath": "C:\\Users\\Ulian\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Common\\ETicketSystem.Common.csproj",
-      "packagesPath": "C:\\Users\\Ulian\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Ulian\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Common\\obj\\",
+      "projectPath": "C:\\Users\\Kamelia\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Common\\ETicketSystem.Common.csproj",
+      "packagesPath": "C:\\Users\\Kamelia\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Kamelia\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Common\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Ulian\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\Kamelia\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netstandard2.0"
       ],
       "sources": {
-        "C:\\Program Files\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

@@ -20,7 +20,7 @@
 		public IEnumerable<AdminCompanyListingServiceModel> All(int page, string filter, int pageSize = 10)
 		{
 			var companies = this.db.Companies
-				.OrderBy(c => c.RegistrationDate)
+				.OrderBy(c => c.Name)
 				.AsQueryable();
 
 			if (filter == CompanyStatus.Approved.ToString())

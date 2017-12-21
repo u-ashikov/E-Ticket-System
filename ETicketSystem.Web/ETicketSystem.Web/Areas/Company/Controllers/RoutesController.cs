@@ -3,6 +3,7 @@
 	using Common.Constants;
 	using Common.Enums;
 	using Data.Models;
+	using ETicketSystem.Web.Infrastructure.Extensions;
 	using Microsoft.AspNetCore.Identity;
 	using Microsoft.AspNetCore.Mvc;
 	using Microsoft.AspNetCore.Mvc.Rendering;
@@ -37,7 +38,7 @@
 		{
 			if (page < 1)
 			{
-				return RedirectToAction(nameof(All), new { startTown = startTown, endTown = endTown, date = date.HasValue ? date.Value.ToShortDateString() : null, page = 1 });
+				return RedirectToAction(nameof(All), new { startTown = startTown, endTown = endTown, date = date.HasValue ? date.Value.ToYearMonthDayFormat() : null, page = 1 });
 			}
 
 			var companyId = this.userManager.GetUserId(User);
@@ -55,7 +56,7 @@
 
 			if (page > routesPagination.TotalPages && routesPagination.TotalPages != 0)
 			{
-				return RedirectToAction(nameof(All), new { startTown = startTown, endTown = endTown, date = date.HasValue ? date.Value.ToShortDateString() : null, page = routesPagination.TotalPages });
+				return RedirectToAction(nameof(All), new { startTown = startTown, endTown = endTown, date = date.HasValue ? date.Value.ToYearMonthDayFormat() : null, page = routesPagination.TotalPages });
 			}
 
 			return View(new AllRoutes()

@@ -37,11 +37,13 @@
                         <a asp-area="Company" asp-controller="Routes" asp-action="All">My Routes</a>
                     </li>
                     <li>
-                        <a asp-area="Company" asp-controller="Profile" asp-action="Edit" asp-route-id="@UserManager.GetUserId(User)">Edit Profile</a>
+                        <a asp-controller="Users" asp-action="MyTickets" asp-route-id="@UserManager.GetUserId(User)">My Tickets</a>
                     </li>
-                }
+                    <li>
+                        <a asp-area="Company" asp-controller="Profile" asp-action="Edit" asp-route-id="@UserManager.GetUserId(User)">Edit Profile</a>
+                    </li>}
                 else
-                {                   
+                {
                     <li>
                         <a asp-controller="Users" asp-action="MyTickets">My Tickets</a>
                     </li>
