@@ -27,7 +27,7 @@
 		[Display(Name = WebConstants.FieldDisplay.RouteBusType)]
 		public BusType BusType { get; set; }
 
-		[Range(DataConstants.Route.PriceMinValue, double.MaxValue)]
+		[Range(DataConstants.Route.PriceMinValue, double.MaxValue,ErrorMessage = WebConstants.Message.PositivePrice)]
 		public decimal Price { get; set; }
 
 		public bool IsEdit { get; set; }

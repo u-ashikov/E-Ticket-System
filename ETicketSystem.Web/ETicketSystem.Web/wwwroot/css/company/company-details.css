@@ -1,7 +1,7 @@
 ﻿@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 
 .search-container {
-    background: url('../images/common/bus.jpg');
+    background: url('../../images/common/bus.jpg');
     background-repeat: no-repeat;
     background-size: 60%;
     background-position: right;

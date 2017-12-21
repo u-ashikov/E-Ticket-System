@@ -1,9 +1,9 @@
 ﻿namespace ETicketSystem.Services.Models.Route
 {
 	using AutoMapper;
+	using Common.Automapper;
+	using Data.Enums;
 	using Data.Models;
-	using ETicketSystem.Common.Automapper;
-	using ETicketSystem.Data.Enums;
 	using System;
 	using System.Collections.Generic;
 	using System.Linq;

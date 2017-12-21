@@ -32,7 +32,7 @@
 				.ForMember(dest => dest.Town, cfg => cfg.MapFrom(src => src.Town.Name))
 				.ForMember(dest => dest.Chief, cfg => cfg.MapFrom(src => $"{src.ChiefFirstName} {src.ChiefLastName}"))
 				.ForMember(dest => dest.TicketsSold, cfg => cfg.MapFrom(src => src.Routes.Sum(r => r.Tickets.Count)))
-				.ForMember(dest => dest.Routes, cfg => cfg.MapFrom(src => src.Routes.OrderByDescending(r => r.Tickets.Count).Take(WebConstants.Company.TopRoutesCount)));
+				.ForMember(dest => dest.Routes, cfg => cfg.MapFrom(src => src.Routes.Where(r=>r.Tickets.Count > 0).OrderByDescending(r => r.Tickets.Count).Take(WebConstants.Company.TopRoutesCount)));
 		}
 	}
 }

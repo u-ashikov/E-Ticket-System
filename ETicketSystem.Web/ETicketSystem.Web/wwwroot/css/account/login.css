@@ -28,3 +28,7 @@ form.login-form {
     position:relative;
     left:165px;
 }
+
+footer {
+    background-color:none !important;
+}

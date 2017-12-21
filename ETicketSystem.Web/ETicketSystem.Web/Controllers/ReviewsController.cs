@@ -23,7 +23,6 @@
 		}
 
 		[HttpPost]
-		[ValidateAntiForgeryToken]
 		public IActionResult Add(ReviewFormModel model)
 		{
 			var userId = this.userManager.GetUserId(User);
@@ -61,7 +60,6 @@
 		}
 
 		[HttpPost]
-		[ValidateAntiForgeryToken]
 		[Authorize(Roles = WebConstants.Role.ModeratorRole)]
 		public IActionResult Edit(int id,ReviewFormModel model)
 		{

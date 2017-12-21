@@ -72,16 +72,18 @@
 		[Route(WebConstants.Routing.AddCompanyRoute)]
 		public IActionResult Add()
 		{
-			if (!this.companies.IsApproved(this.userManager.GetUserId(User)))
+			var companyId = this.userManager.GetUserId(User);
+
+			if (!this.companies.IsApproved(companyId))
 			{
 				this.GenerateAlertMessage(WebConstants.Message.CompanyNotApproved, Alert.Warning);
-				return this.RedirectToHome();
+				return this.RedirectToAction(nameof(All));
 			}
 
-			if (this.companies.IsBlocked(this.userManager.GetUserId(User)))
+			if (this.companies.IsBlocked(companyId))
 			{
-				this.GenerateAlertMessage(WebConstants.Message.CompanyBlocked, Alert.Warning);
-				return this.RedirectToHome();
+				this.GenerateAlertMessage(WebConstants.Message.AddRouteCompanyBlocked, Alert.Warning);
+				return this.RedirectToAction(nameof(All));
 			}
 
 			var townsWithStationsList = this.GenerateTownStationsSelectListItems();
@@ -93,26 +95,27 @@
 		}
 
 		[HttpPost]
-		[ValidateAntiForgeryToken]
 		[Route(WebConstants.Routing.AddCompanyRoute)]
 		public IActionResult Add(RouteFormModel model)
 		{
-			if (!this.companies.IsApproved(this.userManager.GetUserId(User)))
+			var companyId = this.userManager.GetUserId(User);
+
+			if (!this.companies.IsApproved(companyId))
 			{
 				this.GenerateAlertMessage(WebConstants.Message.CompanyNotApproved, Alert.Warning);
-				return this.RedirectToHome();
+				return this.RedirectToAction(nameof(All));
 			}
 
-			if (this.companies.IsBlocked(this.userManager.GetUserId(User)))
+			if (this.companies.IsBlocked(companyId))
 			{
-				this.GenerateAlertMessage(WebConstants.Message.CompanyBlocked, Alert.Warning);
-				return this.RedirectToHome();
+				this.GenerateAlertMessage(WebConstants.Message.AddRouteCompanyBlocked, Alert.Warning);
+				return this.RedirectToAction(nameof(All));
 			}
 
 			if (!this.stations.StationExist(model.StartStation) || !this.stations.StationExist(model.EndStation))
 			{
 				this.GenerateAlertMessage(WebConstants.Message.InvalidStation, Alert.Warning);
-				return this.RedirectToHome();
+				return this.RedirectToAction(nameof(All));
 			}
 
 			if (model.StartStation == model.EndStation || this.stations.AreStationsInSameTown(model.StartStation, model.EndStation))
@@ -148,7 +151,21 @@
 		[Route(WebConstants.Routing.EditCompanyRoute)]
 		public IActionResult Edit(int id)
 		{
-			var routeToEdit = this.routes.GetRouteToEdit(this.userManager.GetUserId(User), id);
+			var companyId = this.userManager.GetUserId(User);
+
+			if (!this.companies.IsApproved(companyId))
+			{
+				this.GenerateAlertMessage(WebConstants.Message.ChangeRouteCompanyNotApproved, Alert.Warning);
+				return this.RedirectToAction(nameof(All));
+			}
+
+			if (this.companies.IsBlocked(companyId))
+			{
+				this.GenerateAlertMessage(WebConstants.Message.ChangeRouteCompanyBlocked, Alert.Warning);
+				return this.RedirectToAction(nameof(All));
+			}
+
+			var routeToEdit = this.routes.GetRouteToEdit(companyId, id);
 
 			if (routeToEdit == null)
 			{
@@ -181,11 +198,22 @@
 		}
 
 		[HttpPost]
-		[ValidateAntiForgeryToken]
 		[Route(WebConstants.Routing.EditCompanyRoute)]
 		public IActionResult Edit(RouteFormModel model, int id)
 		{
 			var companyId = this.userManager.GetUserId(User);
+
+			if (!this.companies.IsApproved(companyId))
+			{
+				this.GenerateAlertMessage(WebConstants.Message.ChangeRouteCompanyNotApproved, Alert.Warning);
+				return this.RedirectToAction(nameof(All));
+			}
+
+			if (this.companies.IsBlocked(companyId))
+			{
+				this.GenerateAlertMessage(WebConstants.Message.ChangeRouteCompanyBlocked, Alert.Warning);
+				return this.RedirectToAction(nameof(All));
+			}
 
 			if (!ModelState.IsValid)
 			{
@@ -231,7 +259,21 @@
 		[Route(WebConstants.Routing.ChangeCompanyRouteStatus)]
 		public IActionResult ChangeStatus(int id)
 		{
-			var routeInfo = this.routes.GetRouteBaseInfo(id, this.userManager.GetUserId(User));
+			var companyId = this.userManager.GetUserId(User);
+
+			if (!this.companies.IsApproved(companyId))
+			{
+				this.GenerateAlertMessage(WebConstants.Message.ChangeRouteCompanyNotApproved, Alert.Warning);
+				return this.RedirectToAction(nameof(All));
+			}
+
+			if (this.companies.IsBlocked(companyId))
+			{
+				this.GenerateAlertMessage(WebConstants.Message.ChangeRouteCompanyBlocked, Alert.Warning);
+				return this.RedirectToAction(nameof(All));
+			}
+
+			var routeInfo = this.routes.GetRouteBaseInfo(id, companyId);
 
 			if (this.routes.HasReservedTickets(id))
 			{
@@ -240,9 +282,9 @@
 				return RedirectToAction(nameof(All));
 			}
 
-			var success = this.routes.ChangeStatus(id, this.userManager.GetUserId(User));
+			var success = this.routes.ChangeStatus(id, companyId);
 
-			routeInfo = this.routes.GetRouteBaseInfo(id, this.userManager.GetUserId(User));
+			routeInfo = this.routes.GetRouteBaseInfo(id, companyId);
 
 			if (!success)
 			{

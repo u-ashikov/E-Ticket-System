@@ -80,7 +80,6 @@
 
 		[HttpPost]
 		[Route(WebConstants.Routing.EditUser)]
-		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> EditUser(string id, EditUserProfileFormModel profile)
 		{
 			if (!ModelState.IsValid)
@@ -140,11 +139,14 @@
 				return RedirectToAction(nameof(MyTickets), new { id = id, startTown = startTown, endTown = endTown, companyId = companyId, date = (date.HasValue ? date.Value.ToShortDateString() : null), page = pagination.TotalPages });
 			}
 
+			var selectListTowns = this.GenerateSelectListTowns();
+			selectListTowns.First().Disabled = false;
+
 			return View(new UserTickets()
 			{
 				Tickets = tickets,
 				Pagination = pagination,
-				Towns = this.GenerateSelectListTowns(),
+				Towns = selectListTowns,
 				Companies = this.GenerateSelectListCompanies(),
 				CompanyId = companyId,
 				Date = date,

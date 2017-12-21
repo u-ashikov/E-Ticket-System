@@ -170,7 +170,7 @@
 							.Where(t => t.Route.EndStation.TownId == endTown);
 			}
 
-			if (companyId != null)
+			if (companyId != null && this.db.Companies.Any(c=>c.Id == companyId))
 			{
 				tickets = tickets
 							.Where(t => t.Route.CompanyId == companyId);

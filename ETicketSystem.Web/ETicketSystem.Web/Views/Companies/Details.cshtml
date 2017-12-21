@@ -10,7 +10,7 @@
     <script src="~/lib/jquery/dist/jquery.js"></script>
 </environment>
 
-<a class="btn btn-primary back" asp-controller="Companies" asp-action="All">Back</a>
+<a class="btn btn-primary back" asp-controller="Companies" asp-action="All">Back To All</a>
 <div class="container-fluid details-container">
     <div class="row search-container">
         @Html.Partial("_SearchRoutesForm", Model.SearchForm)
@@ -59,7 +59,7 @@
         <hr />
         @if(Model.Company.Routes.Count() == 0)
         {
-            <h3>The company does not have any routes yet!</h3>
+            <h3>The company haven't sold any tickets yet! Be the first ?</h3>
         }
         @foreach (var route in Model.Company.Routes)
         {

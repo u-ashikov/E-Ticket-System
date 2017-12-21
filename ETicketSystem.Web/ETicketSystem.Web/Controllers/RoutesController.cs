@@ -103,27 +103,26 @@
 
 			var form = new BookTicketFormModel();
 
-			var info = this.routes.GetRouteTicketBookingInfo(id, departureDateTime);
+			var routeTicketBookingInfo = this.routes.GetRouteTicketBookingInfo(id, departureDateTime);
 
-			this.GenerateBusSchemaSeats(form, info);
+			this.GenerateBusSchemaSeats(form, routeTicketBookingInfo);
 
-			form.BusSeats = (int)info.BusType;
+			form.BusSeats = (int)routeTicketBookingInfo.BusType;
 			form.DepartureDateTime = departureDateTime;
-			form.Duration = info.Duration;
+			form.Duration = routeTicketBookingInfo.Duration;
 			form.RouteId = id;
-			form.StartTownId = info.StartTownId;
-			form.EndTownId = info.EndTownId;
-			form.CompanyName = info.CompanyName;
+			form.StartTownId = routeTicketBookingInfo.StartTownId;
+			form.EndTownId = routeTicketBookingInfo.EndTownId;
+			form.CompanyName = routeTicketBookingInfo.CompanyName;
 			form.CompanyId = companyId;
-			form.StartStation = info.StartStation;
-			form.EndStation = info.EndStation;
+			form.StartStation = routeTicketBookingInfo.StartStation;
+			form.EndStation = routeTicketBookingInfo.EndStation;
 
 			return View(form);
 		}
 
 		[HttpPost]
 		[Route(WebConstants.Routing.BookRouteTicket)]
-		[ValidateAntiForgeryToken]
 		public IActionResult BookTicket(BookTicketFormModel form)
 		{
 			if (!ModelState.IsValid)
@@ -148,7 +147,10 @@
 				return RedirectToAction(nameof(Search), new { startTown = form.StartTownId, endTown = form.EndTownId, date = form.DepartureDateTime.Date, companyId = form.CompanyId });
 			}
 
-			var reservedTickets = form.Seats.Where(s => s.Checked && !s.Disabled).Select(s => s.Value).ToList();
+			var reservedTickets = form.Seats
+										.Where(s => s.Checked && !s.Disabled)
+										.Select(s => s.Value)
+										.ToList();
 
 			var matchingSeats = reservedTickets.Intersect(alreadyReservedTickets).ToList();
 

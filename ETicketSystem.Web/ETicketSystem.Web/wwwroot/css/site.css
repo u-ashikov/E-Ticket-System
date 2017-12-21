@@ -36,7 +36,7 @@ li.bus-companies a::before {
 
 footer {
     text-align:center;
-    background-color:white;
+    background-color:none;
 }
 
 select.disabled {

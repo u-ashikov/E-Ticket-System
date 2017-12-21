@@ -24,29 +24,29 @@
 								.Include(r=>r.StartStation)
 								.Include(r=>r.EndStation)
 								.Include(r => r.Company)
-								.Include(r=>r.Tickets)
 								.Where(r=> r.StartStation.TownId == startTown
 									&& r.EndStation.TownId == endTown && r.IsActive)
 								.AsQueryable();
 
-			if (!string.IsNullOrEmpty(companyId))
+			if (!string.IsNullOrEmpty(companyId) && this.db.Companies.Any(c=>c.Id == companyId))
 			{
 				routes = routes.Where(r => r.CompanyId == companyId).AsQueryable();
 			}
 
 			if (date.Date > DateTime.UtcNow.ToLocalTime().Date)
 			{
-				return routes
+				routes = routes
 							.Where(r => r.DepartureTime >= new TimeSpan(0, 0, 0))
-							.OrderBy(r => r.DepartureTime)
-							.Skip((page-1)*pageSize)
-							.Take(pageSize)
-							.ProjectTo<RouteSearchListingServiceModel>()
-							.ToList();
+							.AsQueryable();
+			}
+			else if (date.Date == DateTime.UtcNow.ToLocalTime().Date)
+			{
+				routes = routes
+						.Where(r => r.DepartureTime > DateTime.UtcNow.ToLocalTime().TimeOfDay)
+						.AsQueryable();
 			}
 
-			return routes
-						.Where(r => r.DepartureTime > DateTime.UtcNow.ToLocalTime().TimeOfDay)
+			return  routes
 						.OrderBy(r => r.DepartureTime)
 						.Skip((page - 1) * pageSize)
 						.Take(pageSize)
@@ -80,14 +80,14 @@
 							.Where(r => r.DepartureTime >= new TimeSpan(0, 0, 0))
 							.AsQueryable();
 			}
-			else
+			else if (date.Date == DateTime.UtcNow.ToLocalTime().Date)
 			{
 				routes = routes
 							.Where(r => r.DepartureTime > DateTime.UtcNow.ToLocalTime().TimeOfDay)
 							.AsQueryable();
 			}
 
-			if (!string.IsNullOrEmpty(companyId))
+			if (!string.IsNullOrEmpty(companyId) && this.db.Companies.Any(c=>c.Id == companyId))
 			{
 				return routes.Count(r => r.CompanyId == companyId);
 			}

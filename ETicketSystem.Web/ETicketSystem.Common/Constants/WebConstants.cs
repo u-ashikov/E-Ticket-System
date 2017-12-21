@@ -99,7 +99,11 @@
 
 			public const string CompanyNotApproved = "You cannot add routes yet because you are still not approved by the site administrator!";
 
-			public const string CompanyBlocked = "You cannot add routes because you have been blocked by the site administrator!";
+			public const string AddRouteCompanyBlocked = "You cannot add routes because you have been blocked by the site administrator!";
+
+			public const string ChangeRouteCompanyBlocked = "You cannot manupulate routes because you have been blocked by the site administrator!";
+
+			public const string ChangeRouteCompanyNotApproved = "You cannot manupulate routes because you are still not approved by the site administrator!";
 
 			public const string InvalidRoute = "Invalid route!";
 			public const string InvalidTown = "Invalid town!";
@@ -114,6 +118,7 @@
 			public const string RouteStatusChanged = "Route from {0} to {1} departing at {2} {3}!";
 			public const string EditRouteWithTickets = "Cannot edit route from {0} to {1} because there are already reserved tickets!";
 			public const string DeactivateRouteWithTickets = "Cannot deactivate route from {0} to {1} because there are already reserved tickets!";
+			public const string PositivePrice = "Price must be positive number!";
 
 			public const string InvalidTicket = "Invalid ticket!";
 			public const string NoneSelectedSeats = "You have to choose at least one seat.";
@@ -259,6 +264,8 @@
 			public const string MyTickets = "MyTickets";
 
 			public const string Details = "Details";
+
+			public const string Index = "Index";
 		}
 
 		public class FilePath

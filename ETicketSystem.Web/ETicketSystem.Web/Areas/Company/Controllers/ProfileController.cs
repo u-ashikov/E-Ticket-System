@@ -66,7 +66,6 @@
 
 		[HttpPost]
 		[Route(WebConstants.Routing.EditCompanyProfile)]
-		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Edit(string id, EditCompanyProfileFormModel profile)
 		{
 			if (!ModelState.IsValid)
