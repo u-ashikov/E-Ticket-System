@@ -173,9 +173,12 @@
 			return company.Routes.Count();
 		}
 		
-		public bool HasReservedTickets(int routeId)
+		public bool HasReservedTickets(int routeId, string companyId)
 		{
-			return this.db.Tickets.Any(t => t.RouteId == routeId && t.DepartureTime >= DateTime.UtcNow.ToLocalTime());
+			return this.db.Tickets.Any(t => t.RouteId == routeId && t.Route.CompanyId == companyId && t.DepartureTime >= DateTime.UtcNow.ToLocalTime());
 		}
+
+		public bool IsRouteOwner(int id, string companyId) =>
+			this.db.Routes.Any(r => r.CompanyId == companyId && r.Id == id);
 	}
 }

@@ -22,6 +22,8 @@
 
 		int TotalRoutes(int startTown, int endTown, DateTime? date,string companyId);
 
-		bool HasReservedTickets(int routeId);
+		bool HasReservedTickets(int routeId, string companyId);
+
+		bool IsRouteOwner(int id, string companyId);
     }
 }

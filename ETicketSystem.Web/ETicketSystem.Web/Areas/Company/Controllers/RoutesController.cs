@@ -3,7 +3,6 @@
 	using Common.Constants;
 	using Common.Enums;
 	using Data.Models;
-	using ETicketSystem.Web.Infrastructure.Extensions;
 	using Microsoft.AspNetCore.Identity;
 	using Microsoft.AspNetCore.Mvc;
 	using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,6 +11,7 @@
 	using Services.Contracts;
 	using System;
 	using System.Collections.Generic;
+	using Web.Infrastructure.Extensions;
 	using Web.Models.Pagination;
 
 	public class RoutesController : BaseCompanyController
@@ -132,7 +132,7 @@
 				return View(model);
 			}
 
-			var isAdded = this.routes.Add(model.StartStation, model.EndStation, model.DepartureTime.TimeOfDay, model.Duration, model.BusType, model.Price, this.userManager.GetUserId(User));
+			var isAdded = this.routes.Add(model.StartStation, model.EndStation, model.DepartureTime.TimeOfDay, model.Duration, model.BusType, model.Price, companyId);
 
 			if (!isAdded)
 			{
@@ -153,6 +153,13 @@
 		public IActionResult Edit(int id)
 		{
 			var companyId = this.userManager.GetUserId(User);
+
+			if (!this.routes.IsRouteOwner(id,companyId))
+			{
+				this.GenerateAlertMessage(WebConstants.Message.InvalidRoute, Alert.Danger);
+
+				return RedirectToAction(nameof(All));
+			}
 
 			if (!this.companies.IsApproved(companyId))
 			{
@@ -178,7 +185,7 @@
 			var startTownName = this.towns.GetTownNameByStationId(routeToEdit.StartStationId);
 			var endTownName = this.towns.GetTownNameByStationId(routeToEdit.EndStationId);
 
-			if (this.routes.HasReservedTickets(id))
+			if (this.routes.HasReservedTickets(id, companyId))
 			{
 				this.GenerateAlertMessage(string.Format(WebConstants.Message.EditRouteWithTickets, startTownName, endTownName), Alert.Danger);
 
@@ -203,6 +210,13 @@
 		public IActionResult Edit(RouteFormModel model, int id)
 		{
 			var companyId = this.userManager.GetUserId(User);
+
+			if (!this.routes.IsRouteOwner(id, companyId))
+			{
+				this.GenerateAlertMessage(WebConstants.Message.InvalidRoute, Alert.Danger);
+
+				return RedirectToAction(nameof(All));
+			}
 
 			if (!this.companies.IsApproved(companyId))
 			{
@@ -236,7 +250,7 @@
 			var startTownName = this.towns.GetTownNameByStationId(model.StartStation);
 			var endTownName = this.towns.GetTownNameByStationId(model.EndStation);
 
-			if (this.routes.HasReservedTickets(id))
+			if (this.routes.HasReservedTickets(id, companyId))
 			{
 				this.GenerateAlertMessage(string.Format(WebConstants.Message.EditRouteWithTickets, startTownName, endTownName), Alert.Danger);
 
@@ -262,6 +276,13 @@
 		{
 			var companyId = this.userManager.GetUserId(User);
 
+			if (!this.routes.IsRouteOwner(id, companyId))
+			{
+				this.GenerateAlertMessage(WebConstants.Message.InvalidRoute, Alert.Danger);
+
+				return RedirectToAction(nameof(All));
+			}
+
 			if (!this.companies.IsApproved(companyId))
 			{
 				this.GenerateAlertMessage(WebConstants.Message.ChangeRouteCompanyNotApproved, Alert.Warning);
@@ -276,7 +297,7 @@
 
 			var routeInfo = this.routes.GetRouteBaseInfo(id, companyId);
 
-			if (this.routes.HasReservedTickets(id))
+			if (this.routes.HasReservedTickets(id, companyId))
 			{
 				this.GenerateAlertMessage(string.Format(WebConstants.Message.DeactivateRouteWithTickets, routeInfo.StartStationTownName, routeInfo.EndStationTownName), Alert.Danger);
 
