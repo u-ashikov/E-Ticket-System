@@ -102,13 +102,7 @@
 		{
 			var ticket = this.db.Tickets
 				.Where(t => t.Id == ticketId && t.UserId == userId && !t.IsCancelled)
-				.Select(t => new
-				{
-					Company = t.Route.Company.Name,
-					Route = $"{t.Route.StartStation.Town.Name}, {t.Route.StartStation.Name} -> {t.Route.EndStation.Town.Name}, {t.Route.EndStation.Name}",
-					Seat = t.SeatNumber,
-					DepartureTime = t.DepartureTime
-				})
+				.ProjectTo<TicketPdfServiceModel>()
 				.FirstOrDefault();
 
 			if (ticket == null)

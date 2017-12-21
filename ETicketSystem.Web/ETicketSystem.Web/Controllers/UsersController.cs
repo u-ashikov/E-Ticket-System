@@ -3,7 +3,7 @@
 	using Common.Constants;
 	using Common.Enums;
 	using Data.Models;
-	using ETicketSystem.Web.Infrastructure.Extensions;
+	using Infrastructure.Extensions;
 	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Identity;
 	using Microsoft.AspNetCore.Mvc;
@@ -115,7 +115,6 @@
 		{
 			if (page < 1)
 			{
-				var dateSome = date.Value;
 				return RedirectToAction(nameof(MyTickets), new { id = id, startTown = startTown, endTown = endTown, companyId = companyId, date = (date.HasValue ? date.Value.ToYearMonthDayFormat() : null), page = 1 });
 			}
 
