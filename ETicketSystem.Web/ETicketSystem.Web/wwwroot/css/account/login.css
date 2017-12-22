@@ -16,7 +16,7 @@ form.login-form {
     background-color:white;
     padding:10px 20px;
     border-radius:20px;
-    box-shadow:5px 5px 20px #ffffff;
+    box-shadow:5px 5px 20px 10px #ffffff;
 }
 
 .arrow-up {
@@ -26,7 +26,7 @@ form.login-form {
     border-right: 15px solid transparent;
     border-bottom: 15px solid white;
     position:relative;
-    left:165px;
+    left:45%;
 }
 
 footer {
