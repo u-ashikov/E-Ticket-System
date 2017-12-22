@@ -234,7 +234,8 @@
 						ChiefLastName = companyInfo[8],
 						Address = companyInfo[9],
 						PhoneNumber = companyInfo[10],
-						TownId = random.Next(firstTownId, townsCount)
+						TownId = random.Next(firstTownId, townsCount),
+						RegistrationDate = DateTime.UtcNow.ToLocalTime()
 					};
 
 					Task.Run(async () =>
@@ -274,7 +275,7 @@
 									IsActive = true
 								};
 
-								if (!currentCompany.Routes.Any(cr => cr.StartStationId == startStationId && cr.EndStationId == endStationId))
+								if (!currentCompany.Routes.Any(cr => cr.StartStationId == startStationId && cr.EndStationId == endStationId && cr.DepartureTime == departureTime))
 								{
 									currentCompany.Routes.Add(route);
 									db.SaveChanges();
