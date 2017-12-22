@@ -163,7 +163,7 @@
 
 			list.Add(new SelectListItem()
 			{
-				Text = " -- All -- ",
+				Text = WebConstants.SelectListDefaultItem.All,
 				Value = string.Empty,
 				Selected = true
 			});

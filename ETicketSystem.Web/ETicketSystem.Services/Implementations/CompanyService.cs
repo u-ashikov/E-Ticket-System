@@ -68,5 +68,8 @@
 				.OrderBy(c => c.Name)
 				.ProjectTo<CompanyBaseServiceModel>()
 				.ToList();
+
+		public bool Exists(string companyId) =>
+			this.db.Companies.Any(c => c.Id == companyId);
 	}
 }

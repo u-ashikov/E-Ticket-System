@@ -38,8 +38,8 @@
 			list.Add(new SelectListItem()
 			{
 				Disabled = true,
-				Text = " -- Select town -- ",
-				Value = "0",
+				Text = WebConstants.SelectListDefaultItem.SelectTown,
+				Value = WebConstants.SelectListDefaultItem.DefaultItemValue,
 				Selected = true
 			});
 

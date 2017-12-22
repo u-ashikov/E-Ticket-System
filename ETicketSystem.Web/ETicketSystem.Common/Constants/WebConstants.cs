@@ -39,6 +39,15 @@
 			public const string Town = "Town";
 		}
 
+		public class SelectListDefaultItem
+		{
+			public const string All = " -- All -- ";
+
+			public const string SelectTown = " -- Select town -- ";
+
+			public const string DefaultItemValue = "0";
+		}
+
 		public class RegexPattern
 		{
 			public const string Email = @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$";
@@ -336,7 +345,7 @@
 
 			public const int CompanyRoutesListing = 20;
 
-			public const int CompanyReviewsListing = 3;
+			public const int CompanyReviewsListing = 7;
 		}
 
 		public class Ticket

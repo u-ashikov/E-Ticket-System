@@ -256,13 +256,13 @@
 			var controller = new CompaniesController(companyService.Object, null, reviewService.Object);
 
 			//Act
-			var result = controller.Details(CompanyId, 3);
+			var result = controller.Details(CompanyId, 7);
 
 			//Assert
 			result.Should().BeOfType<RedirectToActionResult>();
 			(result as RedirectToActionResult).ActionName.Should().Be(nameof(CompaniesController.Details));
 			(result as RedirectToActionResult).RouteValues[RouteValueKeyId].Should().Be(CompanyId);
-			(result as RedirectToActionResult).RouteValues[RouteValueKeyPage].Should().Be(2);
+			(result as RedirectToActionResult).RouteValues[RouteValueKeyPage].Should().Be(1);
 		}
 
 		[Fact]

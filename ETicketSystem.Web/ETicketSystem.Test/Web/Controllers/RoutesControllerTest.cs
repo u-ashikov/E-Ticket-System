@@ -244,13 +244,18 @@
 			var departureDateTime = new DateTime(date.Year, date.Month, date.Day, departureTime.Hours, departureTime.Minutes, departureTime.Seconds);
 
 			var routeService = RouteServiceMock.New;
+			var companyService = CompanyServiceMock.New;
+
 			routeService.Setup(r => r.RouteExists(It.IsAny<int>(), It.IsAny<TimeSpan>()))
 				.Returns(true);
 
 			routeService.Setup(r => r.GetRouteTicketBookingInfo(It.IsAny<int>(), It.IsAny<DateTime>()))
 				.Returns(this.GetRouteInfo());
 
-			var controller = new RoutesController(null, routeService.Object, null, null, null);
+			companyService.Setup(c => c.Exists(It.IsAny<string>()))
+				.Returns(true);
+
+			var controller = new RoutesController(null, routeService.Object, null, companyService.Object, null);
 
 			//Act
 			var result = controller.BookTicket(RouteId, departureTime, date, CompanyId);

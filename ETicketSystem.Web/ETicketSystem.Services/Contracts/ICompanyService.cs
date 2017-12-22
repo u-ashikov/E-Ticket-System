@@ -15,6 +15,8 @@
 
 		bool IsBlocked(string companyId);
 
+		bool Exists(string companyId);
+
 		int TotalCompanies(string searchTerm);
 
 		IEnumerable<CompanyBaseServiceModel> GetCompaniesSelectListItems();
