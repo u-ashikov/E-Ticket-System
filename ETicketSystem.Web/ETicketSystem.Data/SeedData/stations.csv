@@ -1,89 +1,89 @@
 Name,TownId,Phone
-Bus Station Aytos,1,055822137
-Bus Station Albena,2, 057962411
-Bus Station Asenovgrad,3,033164071
-Bus Station Ahtopol,4,055062022
-Bus Station Balchik,5, 057974069
-Bus Station Bansko,6,074952157
-Bus Station Banya,7, 031322220
-Bus Station Belene,8,065823247 
-Bus Station Belogradchik,9,09364521 
-Bus Station Blagoevgrad,10,073884009 
-Private Bus Station Blagoevgrad,10,073831312 
-Bus Station Botevgrad,11,072366820
-Bus Station Burgas - West,12,056831427
-Bus Station Burgas - South,12,056842692
-Bus Station Byala Slatina,13,091582628 
-Central Bus Station Varna,14,052748349
-Private Bus Station Varna,14,052500039
-Bus Station Veliki Preslav,15,053842525 
-Bus Station Veliko Tarnovo - West,16,062640908
-Bus Station Veliko Tarnovo - South,16, 062620014
+Bus Station Aytos,1,0558221371
+Bus Station Albena,2, 0579624111
+Bus Station Asenovgrad,3,0331640711
+Bus Station Ahtopol,4,0550620221
+Bus Station Balchik,5, 0579740691
+Bus Station Bansko,6,0749521571
+Bus Station Banya,7, 0313222201
+Bus Station Belene,8,0658232471
+Bus Station Belogradchik,9,0936452112
+Bus Station Blagoevgrad,10,0738840091
+Private Bus Station Blagoevgrad,10,0738313121
+Bus Station Botevgrad,11,0723668201
+Bus Station Burgas - West,12,0568314271
+Bus Station Burgas - South,12,0568426921
+Bus Station Byala Slatina,13,0915826281
+Central Bus Station Varna,14,0527483491
+Private Bus Station Varna,14,0525000391
+Bus Station Veliki Preslav,15,0538425252
+Bus Station Veliko Tarnovo - West,16,0626409082
+Bus Station Veliko Tarnovo - South,16, 0626200143
 Bus Station Velingrad,17,0898714952
-Bus Station Vraca,18, 092622558
-Bus Station Vurshec,19,095272019 
-Bus Station Gabrovo,20,066805566
-Bus Station General Toshevo,21,057312130 
-Bus Station Gorna Oryahovica,22,061860697 
-Bus Station Goce Delchev,23,075161212 
-Bus Station Galabovo,24,041862216 
-Bus Station Djebel,25,036322062 
-Bus Station Dimitrovgrad,26,0878966360 
-Bus Station Dobrich,27,058690120 
-Bus Station Dupnica,28,070140854 
-Bus Station Elhovo,29,047888204 
-Bus Station Zlatograd,30,030712013 
+Bus Station Vraca,18, 0926225584
+Bus Station Vurshec,19,0952720194
+Bus Station Gabrovo,20,0668055666
+Bus Station General Toshevo,21,0573121309
+Bus Station Gorna Oryahovica,22,0618606973
+Bus Station Goce Delchev,23,0751612127
+Bus Station Galabovo,24,0418622168
+Bus Station Djebel,25,0363220621
+Bus Station Dimitrovgrad,26,0878966360
+Bus Station Dobrich,27,0586901205
+Bus Station Dupnica,28,0701408548
+Bus Station Elhovo,29,0478882043
+Bus Station Zlatograd,30,0307120137
 Bus Station Isperih,31,0894472589
-Bus Station Ihtiman,32,072482071 
-Bus Station Kavarna,33,057082390
-Bus Station Kazanlak,34,043162383
-Bus Station Karnobat,35,055922050
-Bus Station Kiten,36,055036366
+Bus Station Ihtiman,32,0724820710
+Bus Station Kavarna,33,0570823909
+Bus Station Kazanlak,34,0431623836
+Bus Station Karnobat,35,0559220502
+Bus Station Kiten,36,0550363665
 Bus Station Kneja,37,0882741789
-Bus Station Kozlodui,38,097380917
-Bus Station Koprivshtica,39,071843044
-Bus Station Kotel,40,04532052
-Bus Station Kubrat,41,084872637
-Bus Station Kardjali - 21st century,42,036166751
-Municipality Bus Station Kardjali,42,036162766
-Bus Station Kyustendil,43,078550141
-Bus Station Levski,44,065082073
-Bus Station Lovech,45,068603618
-Bus Station Lom,46,0971668 46
-Bus Station Montana,49,096306770
-Private Bus Station Nova Zagora,51, 045722237
-Bus Station Obzor,53,055633296
-Bus Station Omurtag,54,06052170
-Bus Station Pazardjik,56, 034990009
-Bus Station Pernik,57,076603870
-Bus Station Pleven,60,064888666
-Bus Station Plovdiv - Rodopi,61,032657828
-Bus Station Plovdiv - North,61,032953705
-Bus Station Plovdiv - South,61,032626937
-Bus Station Razgrad,68,084660811
-Bus Station Ruse - East,70,082845064
-Bus Station Ruse - South,70,082828151
-Bus Station Samokov,71,072266540
-Bus Station Svilengrad,73,037971309
-Bus Station Svishtov,74,063160725
-Bus Station Silistra,77,086820280
-Bus Station Sliven,78,044662629
-Bus Station Slanchev Bryag,79,055422633
-Bus Station Smolyan,80,030163104
-Bus Station Smolyan - Ustovo,80,030164585
-Bus Station Sofia - West,82,029555362
+Bus Station Kozlodui,38,0973809174
+Bus Station Koprivshtica,39,0718430446
+Bus Station Kotel,40,0453205246
+Bus Station Kubrat,41,0848726370
+Bus Station Kardjali - 21st century,42,0361667513
+Municipality Bus Station Kardjali,42,0361627665
+Bus Station Kyustendil,43,0785501416
+Bus Station Levski,44,0650820739
+Bus Station Lovech,45,0686036188
+Bus Station Lom,46,0971668466
+Bus Station Montana,49,0963067707
+Private Bus Station Nova Zagora,51, 0457222376
+Bus Station Obzor,53,0556332969
+Bus Station Omurtag,54,0605217012
+Bus Station Pazardjik,56, 0349900091
+Bus Station Pernik,57,0766038708
+Bus Station Pleven,60,0648886661
+Bus Station Plovdiv - Rodopi,61,0326578281
+Bus Station Plovdiv - North,61,0329537051
+Bus Station Plovdiv - South,61,0326269376
+Bus Station Razgrad,68,0846608118
+Bus Station Ruse - East,70,0828450641
+Bus Station Ruse - South,70,0828281514
+Bus Station Samokov,71,0722665406
+Bus Station Svilengrad,73,0379713095
+Bus Station Svishtov,74,0631607258
+Bus Station Silistra,77,0868202807
+Bus Station Sliven,78,0446626296
+Bus Station Slanchev Bryag,79,0554226332
+Bus Station Smolyan,80,0301631047
+Bus Station Smolyan - Ustovo,80,0301645857
+Bus Station Sofia - West,82,0295553628
 International Bus Station Serdika,82,0885009954
-Bus Station Sofia - Poduene,82,028474262
-Central Bus Station Sofia,82,090021000
-Bus Station Sofia - South,82,028722345
-Bus Station Stara Zagora,84,042605349
-Bus Station Troyan,86,067062172
-Bus Station Targovishte,87, 060166435
-Bus Station Harmanli,88,03732664
-Bus Station Haskovo,89,038664602
-Bus Station Chirpan,90,04163214
-Bus Station Shumen,91,054830890
-Private Bus Station Yambol,92,046663750
-Central Bus Station Yambol,92, 046661917
-Bus Station Shabla,93,057432335
-Bus Station Carevo,94,055052068
+Bus Station Sofia - Poduene,82,0284742625
+Central Bus Station Sofia,82,0900210006
+Bus Station Sofia - South,82,0287223457
+Bus Station Stara Zagora,84,0426053497
+Bus Station Troyan,86,0670621726
+Bus Station Targovishte,87, 0601664357
+Bus Station Harmanli,88,037326647
+Bus Station Haskovo,89,0386646027
+Bus Station Chirpan,90,0416321454
+Bus Station Shumen,91,0548308901
+Private Bus Station Yambol,92,0466637508
+Central Bus Station Yambol,92, 0466619175
+Bus Station Shabla,93,0574323356
+Bus Station Carevo,94,0550520687
