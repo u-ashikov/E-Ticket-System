@@ -1,7 +1,6 @@
 ﻿namespace ETicketSystem.Test.Web.Controllers
 {
-	using ETicketSystem.Common.Constants;
-	using ETicketSystem.Services.Models.Ticket;
+	using Common.Constants;
 	using ETicketSystem.Web.Controllers;
 	using Fixtures;
 	using FluentAssertions;
@@ -10,6 +9,7 @@
 	using Microsoft.AspNetCore.Mvc.ViewFeatures;
 	using Mock;
 	using Moq;
+	using Services.Models.Ticket;
 	using System.Linq;
 	using Xunit;
 

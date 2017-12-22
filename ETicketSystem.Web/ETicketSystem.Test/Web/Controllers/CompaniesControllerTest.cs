@@ -1,7 +1,6 @@
 ﻿namespace ETicketSystem.Test.Web.Controllers
 {
-	using ETicketSystem.Common.Constants;
-	using ETicketSystem.Services.Models.Company;
+	using Common.Constants;
 	using ETicketSystem.Web.Controllers;
 	using ETicketSystem.Web.Models.Companies;
 	using FluentAssertions;
@@ -10,6 +9,7 @@
 	using Mock;
 	using Mocks;
 	using Moq;
+	using Services.Models.Company;
 	using System.Collections.Generic;
 	using System.Linq;
 	using Xunit;

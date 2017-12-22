@@ -1,10 +1,7 @@
 ﻿namespace ETicketSystem.Test.Web.Controllers
 {
-	using ETicketSystem.Common.Constants;
-	using ETicketSystem.Data.Enums;
-	using ETicketSystem.Services.Models.Company;
-	using ETicketSystem.Services.Models.Route;
-	using ETicketSystem.Services.Models.Town;
+	using Common.Constants;
+	using Data.Enums;
 	using ETicketSystem.Web.Controllers;
 	using ETicketSystem.Web.Infrastructure.Extensions;
 	using ETicketSystem.Web.Models.Routes;
@@ -15,6 +12,9 @@
 	using Mock;
 	using Mocks;
 	using Moq;
+	using Services.Models.Company;
+	using Services.Models.Route;
+	using Services.Models.Town;
 	using System;
 	using System.Collections.Generic;
 	using System.Linq;
@@ -85,7 +85,7 @@
 			controller.TempData = tempData.Object;
 
 			//Act
-			var result = controller.Search(StartTownId, EndTownId, new DateTime(2017, 12, 19),CompanyId);
+			var result = controller.Search(StartTownId, EndTownId, DateTime.UtcNow.ToLocalTime().Date,CompanyId);
 
 			//Assert
 			result.Should().BeOfType<RedirectToActionResult>();
@@ -128,7 +128,7 @@
 		{
 			//Arrange
 			const int RouteTicketsCount = 10;
-			var date = new DateTime(2017, 12, 22);
+			var date = DateTime.UtcNow.ToLocalTime().Date;
 
 			var townService = TownServiceMock.New;
 			var routeService = RouteServiceMock.New;
@@ -178,7 +178,7 @@
 		{
 			//Arrange
 			var departureTime = new TimeSpan(0, 0, 0);
-			var date = new DateTime(2017, 12, 22);
+			var date = DateTime.UtcNow.ToLocalTime().Date;
 			var routeService = RouteServiceMock.New;
 			routeService.Setup(r => r.RouteExists(It.IsAny<int>(),It.IsAny<TimeSpan>()))
 				.Returns(false);
@@ -209,7 +209,7 @@
 		{
 			//Arrange
 			var departureTime = new TimeSpan(0, 0, 0);
-			var date = new DateTime(2017, 11, 22);
+			var date = new DateTime(2017,11,11);
 			var routeService = RouteServiceMock.New;
 			routeService.Setup(r => r.RouteExists(It.IsAny<int>(), It.IsAny<TimeSpan>()))
 				.Returns(true);
@@ -240,7 +240,7 @@
 		{
 			//Arrange
 			var departureTime = new TimeSpan(23, 10, 10);
-			var date = new DateTime(2017, 12, 22);
+			var date = DateTime.UtcNow.ToLocalTime().Date;
 			var departureDateTime = new DateTime(date.Year, date.Month, date.Day, departureTime.Hours, departureTime.Minutes, departureTime.Seconds);
 
 			var routeService = RouteServiceMock.New;
@@ -275,8 +275,8 @@
 		public void Post_BookTicket_ShouldReturnViewForInvalidModel()
 		{
 			//Arrange
-			var departureTime = new TimeSpan(10, 11, 12);
-			var date = new DateTime(2017, 12, 22);
+			var departureTime = new TimeSpan(23, 10, 10);
+			var date = DateTime.UtcNow.ToLocalTime().Date;
 			var departureDateTime = new DateTime(date.Year, date.Month, date.Day, departureTime.Hours, departureTime.Minutes, departureTime.Seconds);
 
 			var routeService = RouteServiceMock.New;
@@ -330,7 +330,7 @@
 		{
 			//Arrange
 			var departureTime = new TimeSpan(10, 11, 12);
-			var date = new DateTime(2017, 11, 22);
+			var date = new DateTime(2017, 11, 11);
 			var departureDateTime = new DateTime(date.Year, date.Month, date.Day, departureTime.Hours, departureTime.Minutes, departureTime.Seconds);
 
 			var routeService = RouteServiceMock.New;
@@ -399,7 +399,7 @@
 		private BookTicketFormModel GenerateBookTicketForm()
 		{
 			var departureTime = new TimeSpan(23, 10, 10);
-			var date = new DateTime(2017, 12, 22);
+			var date = DateTime.UtcNow.ToLocalTime().Date;
 			var departureDateTime = new DateTime(date.Year, date.Month, date.Day, departureTime.Hours, departureTime.Minutes, departureTime.Seconds);
 
 			return new BookTicketFormModel() { DepartureDateTime = departureDateTime, StartStation = StartStation, EndStation = EndStation, StartTownId = StartTownId, EndTownId = EndTownId, CompanyId = CompanyId, BusSeats = 20 };

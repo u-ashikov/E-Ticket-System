@@ -1,6 +1,6 @@
 ﻿namespace ETicketSystem.Test.Web.Controllers.Fixtures
 {
-	using ETicketSystem.Data.Models;
+	using Data.Models;
 	using Microsoft.AspNetCore.Http;
 	using Microsoft.AspNetCore.Identity;
 	using Mock;
