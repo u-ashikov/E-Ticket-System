@@ -95,7 +95,7 @@
 		{
 			var departureDateTime = new DateTime(date.Year, date.Month, date.Day, departureTime.Hours, departureTime.Minutes, departureTime.Seconds);
 
-			if (!this.routes.RouteExists(id, departureTime) || departureDateTime < DateTime.UtcNow.ToLocalTime() || !this.companies.Exists(companyId))
+			if (!this.routes.RouteExists(id, departureTime) || departureDateTime < DateTime.UtcNow.ToLocalTime())
 			{
 				this.GenerateAlertMessage(WebConstants.Message.InvalidRoute, Alert.Danger);
 				return this.RedirectToHome();

@@ -369,6 +369,7 @@
 			//Arrange
 			var routeService = RouteServiceMock.New;
 			var ticketService = TicketServiceMock.New;
+			var companyService = CompanyServiceMock.New;
 
 			routeService.Setup(r => r.RouteExists(It.IsAny<int>(), It.IsAny<TimeSpan>()))
 				.Returns(true);
@@ -376,7 +377,10 @@
 			ticketService.Setup(t => t.GetAlreadyReservedTickets(It.IsAny<int>(), It.IsAny<DateTime>()))
 				.Returns(new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 });
 
-			var controller = new RoutesController(null, routeService.Object, ticketService.Object, null, null);
+			companyService.Setup(c => c.Exists(It.IsAny<string>()))
+				.Returns(true);
+
+			var controller = new RoutesController(null, routeService.Object, ticketService.Object, companyService.Object, null);
 
 			string errorMessage = null;
 
