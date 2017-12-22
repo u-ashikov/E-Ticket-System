@@ -128,7 +128,7 @@
 		{
 			//Arrange
 			const int RouteTicketsCount = 10;
-			var date = new DateTime(2017, 12, 21);
+			var date = new DateTime(2017, 12, 22);
 
 			var townService = TownServiceMock.New;
 			var routeService = RouteServiceMock.New;
@@ -239,7 +239,7 @@
 		public void Get_BookTicket_ShouldReturnBusSchemaWithValidData()
 		{
 			//Arrange
-			var departureTime = new TimeSpan(10, 11, 12);
+			var departureTime = new TimeSpan(23, 10, 10);
 			var date = new DateTime(2017, 12, 22);
 			var departureDateTime = new DateTime(date.Year, date.Month, date.Day, departureTime.Hours, departureTime.Minutes, departureTime.Seconds);
 
@@ -267,7 +267,7 @@
 			model.As<BookTicketFormModel>().EndTownId.Should().Be(2);
 			model.As<BookTicketFormModel>().CompanyName.Should().Be("Azimut");
 			model.As<BookTicketFormModel>().DepartureDateTime.Should().Be(departureDateTime);
-			model.As<BookTicketFormModel>().Duration.Should().Be(new TimeSpan(10,10,10));
+			model.As<BookTicketFormModel>().Duration.Should().Be(new TimeSpan(23,10,10));
 			model.As<BookTicketFormModel>().CompanyId.Should().Be(CompanyId);
 		}
 
@@ -398,7 +398,7 @@
 
 		private BookTicketFormModel GenerateBookTicketForm()
 		{
-			var departureTime = new TimeSpan(10, 11, 12);
+			var departureTime = new TimeSpan(23, 10, 10);
 			var date = new DateTime(2017, 12, 22);
 			var departureDateTime = new DateTime(date.Year, date.Month, date.Day, departureTime.Hours, departureTime.Minutes, departureTime.Seconds);
 
@@ -411,7 +411,7 @@
 			{
 				BusType = BusType.Mini,
 				CompanyName = "Azimut",
-				Duration = new TimeSpan(10, 10, 10),
+				Duration = new TimeSpan(23, 10, 10),
 				StartTownId = 1,
 				EndTownId = 2,
 				StartStation = "Albena",
@@ -458,12 +458,12 @@
 			{
 				new RouteSearchListingServiceModel()
 					{
-						DepartureTime = new TimeSpan(0,10,10),
+						DepartureTime = new TimeSpan(23,10,10),
 						CompanyName = "Aguila"
 					},
 				new RouteSearchListingServiceModel()
 					{
-						DepartureTime = new TimeSpan(10,20,20),
+						DepartureTime = new TimeSpan(23,20,20),
 						CompanyName = "Azimut"
 					}
 			};
