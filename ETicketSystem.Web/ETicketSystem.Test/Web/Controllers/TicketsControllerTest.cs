@@ -1,6 +1,7 @@
 ﻿namespace ETicketSystem.Test.Web.Controllers
 {
 	using Common.Constants;
+	using ETicketSystem.Services.Contracts;
 	using ETicketSystem.Web.Controllers;
 	using Fixtures;
 	using FluentAssertions;
@@ -8,6 +9,7 @@
 	using Microsoft.AspNetCore.Mvc;
 	using Microsoft.AspNetCore.Mvc.ViewFeatures;
 	using Mock;
+	using Mocks;
 	using Moq;
 	using Services.Models.Ticket;
 	using System.Linq;
@@ -20,6 +22,12 @@
 		const string RouteValueKeyId = "id";
 
 		private readonly UserManagerGetUserIdFixture fixture;
+
+		private readonly Mock<ITicketService> ticketService = TicketServiceMock.New;
+
+		private readonly Mock<ITempDataDictionary> tempData = TempDataMock.New;
+
+		private string customMessage = string.Empty;
 
 		public TicketsControllerTest(UserManagerGetUserIdFixture fixture)
 		{
@@ -45,34 +53,20 @@
 		public void Cancel_WithNotExistingTicketShouldReturnRedirectToUserTicketsPage()
 		{
 			//Arrange
-			var ticketService = TicketServiceMock.New;
-
-			ticketService
+			this.ticketService
 				.Setup(t => t.TicketExists(It.IsAny<int>()))
 				.Returns(false);
 
-			Mock<ITempDataDictionary> tempData = new Mock<ITempDataDictionary>();
+			this.PrepareTempData();
 
-			string errorMessage = null;
-
-			tempData.SetupSet(t => t[WebConstants.TempDataKey.Message] = It.IsAny<string>())
-				.Callback((string key, object message) => errorMessage = message as string);
-
-			var controller = new TicketsController(ticketService.Object, fixture.UserManagerMockInstance.Object)
-			{
-				ControllerContext = new ControllerContext
-				{
-					HttpContext = fixture.HttpContextMockInstance.Object
-				}
-			};
-			controller.TempData = tempData.Object;
+			TicketsController controller = PrepareController();
 
 			//Act
 			IActionResult result = controller.Cancel(1);
 
 			//Assert
 			result.Should().BeOfType<RedirectToActionResult>();
-			errorMessage.Should().Be(string.Format(WebConstants.Message.NonExistingEntity,WebConstants.Entity.Ticket,1));
+			this.customMessage.Should().Be(string.Format(WebConstants.Message.NonExistingEntity, WebConstants.Entity.Ticket, 1));
 			this.AssertRedirect(UserId, result as RedirectToActionResult);
 		}
 
@@ -80,32 +74,20 @@
 		public void Cancel_WithNotTicketOwnerShouldReturnRedirectToUserTicketsPage()
 		{
 			//Arrange
-			var ticketService = TicketServiceMock.New;
-			ticketService.Setup(t => t.IsTicketOwner(It.IsAny<int>(), It.IsAny<string>()))
+			this.ticketService
+				.Setup(t => t.IsTicketOwner(It.IsAny<int>(), It.IsAny<string>()))
 				.Returns(false);
 
-			Mock<ITempDataDictionary> tempData = new Mock<ITempDataDictionary>();
+			this.PrepareTempData();
 
-			string errorMessage = null;
-
-			tempData.SetupSet(t => t[WebConstants.TempDataKey.Message] = It.IsAny<string>())
-				.Callback((string key, object message) => errorMessage = message as string);
-
-			var controller = new TicketsController(ticketService.Object, fixture.UserManagerMockInstance.Object)
-			{
-				ControllerContext = new ControllerContext
-				{
-					HttpContext = fixture.HttpContextMockInstance.Object
-				}
-			};
-			controller.TempData = tempData.Object;
+			TicketsController controller = this.PrepareController();
 
 			//Act
 			IActionResult result = controller.Cancel(1);
 
 			//Assert
 			result.Should().BeOfType<RedirectToActionResult>();
-			errorMessage.Should().Be(string.Format(WebConstants.Message.NonExistingEntity, WebConstants.Entity.Ticket, 1));
+			this.customMessage.Should().Be(string.Format(WebConstants.Message.NonExistingEntity, WebConstants.Entity.Ticket, 1));
 			this.AssertRedirect(UserId, result as RedirectToActionResult);
 		}
 
@@ -113,32 +95,20 @@
 		public void Cancel_WithCancelledTicketShouldReturnRedirectToUserTicketsPage()
 		{
 			//Arrange
-			var ticketService = TicketServiceMock.New;
-			ticketService.Setup(t => t.IsCancelled(It.IsAny<int>()))
+			this.ticketService
+				.Setup(t => t.IsCancelled(It.IsAny<int>()))
 				.Returns(true);
 
-			Mock<ITempDataDictionary> tempData = new Mock<ITempDataDictionary>();
+			this.PrepareTempData();
 
-			string errorMessage = null;
-
-			tempData.SetupSet(t => t[WebConstants.TempDataKey.Message] = It.IsAny<string>())
-				.Callback((string key, object message) => errorMessage = message as string);
-
-			var controller = new TicketsController(ticketService.Object, fixture.UserManagerMockInstance.Object)
-			{
-				ControllerContext = new ControllerContext
-				{
-					HttpContext = fixture.HttpContextMockInstance.Object
-				}
-			};
-			controller.TempData = tempData.Object;
+			var controller = this.PrepareController();
 
 			//Act
 			IActionResult result = controller.Cancel(1);
 
 			//Assert
 			result.Should().BeOfType<RedirectToActionResult>();
-			errorMessage.Should().Be(string.Format(WebConstants.Message.NonExistingEntity, WebConstants.Entity.Ticket, 1));
+			this.customMessage.Should().Be(string.Format(WebConstants.Message.NonExistingEntity, WebConstants.Entity.Ticket, 1));
 			this.AssertRedirect(UserId, result as RedirectToActionResult);
 		}
 
@@ -146,42 +116,29 @@
 		public void Cancel_WithTicketDepartureTimeLessThanThirtyMinutesShouldReturnRedirectToUserTicketsPage()
 		{
 			//Arrange
-			var ticketService = TicketServiceMock.New;
-
-			ticketService.Setup(t => t.IsCancelled(It.IsAny<int>()))
+			this.ticketService
+				.Setup(t => t.IsCancelled(It.IsAny<int>()))
 				.Returns(false);
 
-			ticketService.Setup(t => t.IsTicketOwner(It.IsAny<int>(),It.IsAny<string>()))
+			this.ticketService.Setup(t => t.IsTicketOwner(It.IsAny<int>(),It.IsAny<string>()))
 				.Returns(true);
 
-			ticketService.Setup(t => t.TicketExists(It.IsAny<int>()))
+			this.ticketService.Setup(t => t.TicketExists(It.IsAny<int>()))
 				.Returns(true);
 
-			ticketService.Setup(t => t.CancelTicket(It.IsAny<int>(),It.IsAny<string>()))
+			this.ticketService.Setup(t => t.CancelTicket(It.IsAny<int>(),It.IsAny<string>()))
 				.Returns(false);
 
-			Mock<ITempDataDictionary> tempData = new Mock<ITempDataDictionary>();
+			this.PrepareTempData();
 
-			string errorMessage = null;
-
-			tempData.SetupSet(t => t[WebConstants.TempDataKey.Message] = It.IsAny<string>())
-				.Callback((string key, object message) => errorMessage = message as string);
-
-			var controller = new TicketsController(ticketService.Object, fixture.UserManagerMockInstance.Object)
-			{
-				ControllerContext = new ControllerContext
-				{
-					HttpContext = fixture.HttpContextMockInstance.Object
-				}
-			};
-			controller.TempData = tempData.Object;
+			var controller = this.PrepareController();
 
 			//Act
 			IActionResult result = controller.Cancel(1);
 
 			//Assert
 			result.Should().BeOfType<RedirectToActionResult>();
-			errorMessage.Should().Be(WebConstants.Message.TicketCancelationDenied);
+			this.customMessage.Should().Be(WebConstants.Message.TicketCancelationDenied);
 			this.AssertRedirect(UserId, result as RedirectToActionResult);
 		}
 
@@ -189,42 +146,28 @@
 		public void Cancel_WithValidDataShouldCancelTicketAndRedirectToUserTicketsPage()
 		{
 			//Arrange
-			var ticketService = TicketServiceMock.New;
-
-			ticketService.Setup(t => t.IsCancelled(It.IsAny<int>()))
+			this.ticketService.Setup(t => t.IsCancelled(It.IsAny<int>()))
 				.Returns(false);
 
-			ticketService.Setup(t => t.IsTicketOwner(It.IsAny<int>(), It.IsAny<string>()))
+			this.ticketService.Setup(t => t.IsTicketOwner(It.IsAny<int>(), It.IsAny<string>()))
 				.Returns(true);
 
-			ticketService.Setup(t => t.TicketExists(It.IsAny<int>()))
+			this.ticketService.Setup(t => t.TicketExists(It.IsAny<int>()))
 				.Returns(true);
 
-			ticketService.Setup(t => t.CancelTicket(It.IsAny<int>(), It.IsAny<string>()))
+			this.ticketService.Setup(t => t.CancelTicket(It.IsAny<int>(), It.IsAny<string>()))
 				.Returns(true);
 
-			Mock<ITempDataDictionary> tempData = new Mock<ITempDataDictionary>();
+			this.PrepareTempData();
 
-			string errorMessage = null;
-
-			tempData.SetupSet(t => t[WebConstants.TempDataKey.Message] = It.IsAny<string>())
-				.Callback((string key, object message) => errorMessage = message as string);
-
-			var controller = new TicketsController(ticketService.Object, fixture.UserManagerMockInstance.Object)
-			{
-				ControllerContext = new ControllerContext
-				{
-					HttpContext = fixture.HttpContextMockInstance.Object
-				}
-			};
-			controller.TempData = tempData.Object;
+			var controller = this.PrepareController();
 
 			//Act
 			IActionResult result = controller.Cancel(1);
 
 			//Assert
 			result.Should().BeOfType<RedirectToActionResult>();
-			errorMessage.Should().Be(WebConstants.Message.TicketCancelationSuccess);
+			this.customMessage.Should().Be(WebConstants.Message.TicketCancelationSuccess);
 			this.AssertRedirect(UserId, result as RedirectToActionResult);
 		}
 
@@ -233,34 +176,42 @@
 		{
 			//Arrange
 			byte[] ticket = null; 
-			
-			var ticketService = TicketServiceMock.New;
 
-			ticketService.Setup(t => t.GetPdfTicket(It.IsAny<int>(), It.IsAny<string>()))
+			this.ticketService.Setup(t => t.GetPdfTicket(It.IsAny<int>(), It.IsAny<string>()))
 				.Returns(ticket);
 
-			Mock<ITempDataDictionary> tempData = new Mock<ITempDataDictionary>();
+			this.PrepareTempData();
 
-			string errorMessage = null;
-
-			tempData.SetupSet(t => t[WebConstants.TempDataKey.Message] = It.IsAny<string>())
-				.Callback((string key, object message) => errorMessage = message as string);
-
-			var controller = new TicketsController(ticketService.Object, fixture.UserManagerMockInstance.Object)
-			{
-				ControllerContext = new ControllerContext
-				{
-					HttpContext = fixture.HttpContextMockInstance.Object
-				}
-			};
-			controller.TempData = tempData.Object;
+			var controller = this.PrepareController();
 
 			//Act
 			IActionResult result = controller.Download(1);
 
 			//Assert
 			result.Should().BeOfType<RedirectToActionResult>();
-			errorMessage.Should().Be(string.Format(WebConstants.Message.InvalidTicket));
+			this.customMessage.Should().Be(string.Format(WebConstants.Message.InvalidTicket));
+			this.AssertRedirect(UserId, result as RedirectToActionResult);
+		}
+
+		[Fact]
+		public void Download_WithNotTicketOwnerShouldRedirectToUserTicketsPage()
+		{
+			//Arrange
+			byte[] ticket = null;
+
+			this.ticketService.Setup(t => t.GetPdfTicket(It.IsAny<int>(), It.IsAny<string>()))
+				.Returns(ticket);
+
+			this.PrepareTempData();
+
+			var controller = this.PrepareController();
+
+			//Act
+			var result = controller.Download(1);
+
+			//Assert
+			result.Should().BeOfType<RedirectToActionResult>();
+			this.customMessage.Should().Be(string.Format(WebConstants.Message.InvalidTicket));
 			this.AssertRedirect(UserId, result as RedirectToActionResult);
 		}
 
@@ -270,12 +221,12 @@
 			//Arrange
 			byte[] ticket = new byte[100];
 
-			var ticketService = TicketServiceMock.New;
-
-			ticketService.Setup(t => t.GetPdfTicket(It.IsAny<int>(), It.IsAny<string>()))
+			this.ticketService
+				.Setup(t => t.GetPdfTicket(It.IsAny<int>(), It.IsAny<string>()))
 				.Returns(ticket);
 
-			ticketService.Setup(t => t.GetTicketDownloadInfo(It.IsAny<int>(), It.IsAny<string>()))
+			this.ticketService
+				.Setup(t => t.GetTicketDownloadInfo(It.IsAny<int>(), It.IsAny<string>()))
 				.Returns(new TicketDownloadInfoServiceModel()
 				{
 					DepartureTime = "14:30:00",
@@ -283,13 +234,7 @@
 					StartTown = "Albena"
 				});
 
-			var controller = new TicketsController(ticketService.Object, fixture.UserManagerMockInstance.Object)
-			{
-				ControllerContext = new ControllerContext
-				{
-					HttpContext = fixture.HttpContextMockInstance.Object
-				}
-			};
+			var controller = this.PrepareController();
 
 			//Act
 			IActionResult result = controller.Download(1);
@@ -303,6 +248,27 @@
 			result.ActionName.Should().Be(WebConstants.Action.MyTickets);
 			result.ControllerName.Should().Be(WebConstants.Controller.Users);
 			result.RouteValues[RouteValueKeyId].Should().Be(userId);
+		}
+
+		private TicketsController PrepareController()
+		{
+			var controller = new TicketsController(this.ticketService.Object, fixture.UserManagerMockInstance.Object)
+			{
+				ControllerContext = new ControllerContext
+				{
+					HttpContext = fixture.HttpContextMockInstance.Object
+				}
+			};
+
+			controller.TempData = this.tempData.Object;
+
+			return controller;
+		}
+
+		private void PrepareTempData()
+		{
+			this.tempData.SetupSet(t => t[WebConstants.TempDataKey.Message] = It.IsAny<string>())
+							.Callback((string key, object message) => this.customMessage = message as string);
 		}
 	}
 }
