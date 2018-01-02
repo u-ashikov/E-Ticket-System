@@ -2,10 +2,10 @@
 {
 	using ETicketSystem.Common.Constants;
 	using ETicketSystem.Services.Contracts;
-	using ETicketSystem.Test.Infrastructure;
 	using ETicketSystem.Web.Controllers;
 	using Fixtures;
 	using FluentAssertions;
+	using Infrastructure;
 	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Mvc;
 	using Mock;
@@ -13,7 +13,6 @@
 	using Services.Models.Ticket;
 	using System.Linq;
 	using Xunit;
-
 	using static Common.TestConstants;
 
 	public class TicketsControllerTest : BaseControllerTest,IClassFixture<UserManagerGetUserIdFixture>

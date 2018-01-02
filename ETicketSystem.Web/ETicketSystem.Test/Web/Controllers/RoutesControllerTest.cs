@@ -164,7 +164,7 @@
 			model.RouteValues.Values.Should().Contain(date.ToShortDateString());
 			model.RouteValues.Keys.Should().Contain(RouteValueCompanyIdKey);
 			model.RouteValues.Values.Should().Contain(string.Empty);
-			model.RouteValues.Keys.Should().Contain(RouteValuePage);
+			model.RouteValues.Keys.Should().Contain(RouteValueKeyPage);
 			model.RouteValues.Values.Should().Contain(1);
 		}
 
@@ -212,7 +212,7 @@
 			model.RouteValues.Values.Should().Contain(date.ToShortDateString());
 			model.RouteValues.Keys.Should().Contain(RouteValueCompanyIdKey);
 			model.RouteValues.Values.Should().Contain(string.Empty);
-			model.RouteValues.Keys.Should().Contain(RouteValuePage);
+			model.RouteValues.Keys.Should().Contain(RouteValueKeyPage);
 			model.RouteValues.Values.Should().Contain(2);
 		}
 

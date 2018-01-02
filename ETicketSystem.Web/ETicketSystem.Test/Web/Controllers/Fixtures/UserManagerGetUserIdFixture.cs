@@ -9,7 +9,7 @@
 
 	public class UserManagerGetUserIdFixture
 	{
-		private const string UserId = "SomeuserId";
+		private const string UserId = "SomeUserId";
 
 		public Mock<UserManager<User>> UserManagerMockInstance { get; private set; }
 		public Mock<ClaimsPrincipal> ClaimsPrincipalMockInstance { get; private set; }
