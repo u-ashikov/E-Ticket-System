@@ -5388,7 +5388,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Kamelia\\.nuget\\packages\\": {},
+    "C:\\Users\\Ulian\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
@@ -5397,31 +5397,31 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\Kamelia\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Data\\ETicketSystem.Data.csproj",
+      "projectUniqueName": "C:\\Users\\Ulian\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Data\\ETicketSystem.Data.csproj",
       "projectName": "ETicketSystem.Data",
-      "projectPath": "C:\\Users\\Kamelia\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Data\\ETicketSystem.Data.csproj",
-      "packagesPath": "C:\\Users\\Kamelia\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Kamelia\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Data\\obj\\",
+      "projectPath": "C:\\Users\\Ulian\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Data\\ETicketSystem.Data.csproj",
+      "packagesPath": "C:\\Users\\Ulian\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Ulian\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Data\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Kamelia\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\Ulian\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netstandard2.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "C:\\Users\\Kamelia\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Common\\ETicketSystem.Common.csproj": {
-              "projectPath": "C:\\Users\\Kamelia\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Common\\ETicketSystem.Common.csproj"
+            "C:\\Users\\Ulian\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Common\\ETicketSystem.Common.csproj": {
+              "projectPath": "C:\\Users\\Ulian\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Common\\ETicketSystem.Common.csproj"
             }
           }
         }
