@@ -1,33 +1,26 @@
 ﻿namespace ETicketSystem.Test.Web.Controllers
 {
-	using Common.Constants;
+	using ETicketSystem.Common.Constants;
 	using ETicketSystem.Services.Contracts;
+	using ETicketSystem.Test.Infrastructure;
 	using ETicketSystem.Web.Controllers;
 	using Fixtures;
 	using FluentAssertions;
 	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Mvc;
-	using Microsoft.AspNetCore.Mvc.ViewFeatures;
 	using Mock;
-	using Mocks;
 	using Moq;
 	using Services.Models.Ticket;
 	using System.Linq;
 	using Xunit;
 
-	public class TicketsControllerTest : IClassFixture<UserManagerGetUserIdFixture>
+	using static Common.TestConstants;
+
+	public class TicketsControllerTest : BaseControllerTest,IClassFixture<UserManagerGetUserIdFixture>
 	{
-		const string UserId = "SomeuserId";
-
-		const string RouteValueKeyId = "id";
-
 		private readonly UserManagerGetUserIdFixture fixture;
 
 		private readonly Mock<ITicketService> ticketService = TicketServiceMock.New;
-
-		private readonly Mock<ITempDataDictionary> tempData = TempDataMock.New;
-
-		private string customMessage = string.Empty;
 
 		public TicketsControllerTest(UserManagerGetUserIdFixture fixture)
 		{
@@ -263,12 +256,6 @@
 			controller.TempData = this.tempData.Object;
 
 			return controller;
-		}
-
-		private void PrepareTempData()
-		{
-			this.tempData.SetupSet(t => t[WebConstants.TempDataKey.Message] = It.IsAny<string>())
-							.Callback((string key, object message) => this.customMessage = message as string);
 		}
 	}
 }

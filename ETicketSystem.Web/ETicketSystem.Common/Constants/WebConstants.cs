@@ -277,6 +277,8 @@
 			public const string Details = "Details";
 
 			public const string Index = "Index";
+
+			public const string Search = "Search";
 		}
 
 		public class FilePath

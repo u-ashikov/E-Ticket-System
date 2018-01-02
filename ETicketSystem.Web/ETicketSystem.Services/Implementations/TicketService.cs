@@ -35,7 +35,10 @@
 				return false;
 			}
 
-			var reservedSeats = route.Tickets.Where(t=>t.DepartureTime == departureTime && !t.IsCancelled).Select(t => t.SeatNumber).ToList();
+			var reservedSeats = route.Tickets
+				.Where(t=>t.DepartureTime == departureTime && !t.IsCancelled)
+				.Select(t => t.SeatNumber)
+				.ToList();
 
 			foreach (var seatNumber in seats)
 			{

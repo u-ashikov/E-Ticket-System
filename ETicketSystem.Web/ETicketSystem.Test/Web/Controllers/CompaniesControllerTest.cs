@@ -1,6 +1,6 @@
 ﻿namespace ETicketSystem.Test.Web.Controllers
 {
-	using Common.Constants;
+	using ETicketSystem.Common.Constants;
 	using ETicketSystem.Web.Controllers;
 	using ETicketSystem.Web.Models.Companies;
 	using FluentAssertions;

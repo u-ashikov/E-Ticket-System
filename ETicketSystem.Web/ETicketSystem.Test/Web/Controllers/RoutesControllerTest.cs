@@ -1,14 +1,17 @@
 ﻿namespace ETicketSystem.Test.Web.Controllers
 {
-	using Common.Constants;
 	using Data.Enums;
+	using ETicketSystem.Common.Constants;
+	using ETicketSystem.Data.Models;
+	using ETicketSystem.Services.Contracts;
 	using ETicketSystem.Web.Controllers;
 	using ETicketSystem.Web.Infrastructure.Extensions;
 	using ETicketSystem.Web.Models.Routes;
 	using FluentAssertions;
+	using Infrastructure;
 	using Microsoft.AspNetCore.Authorization;
+	using Microsoft.AspNetCore.Identity;
 	using Microsoft.AspNetCore.Mvc;
-	using Microsoft.AspNetCore.Mvc.ViewFeatures;
 	using Mock;
 	using Mocks;
 	using Moq;
@@ -20,7 +23,9 @@
 	using System.Linq;
 	using Xunit;
 
-	public class RoutesControllerTest
+	using static Common.TestConstants;
+
+	public class RoutesControllerTest : BaseControllerTest
     {
 		private const int StartTownId = 1;
 
@@ -34,10 +39,15 @@
 
 		private const string EndStation = "Balchik";
 
-		public const string RouteValueStartTownKey = "startTown";
-		public const string RouteValueEndTownKey = "endTown";
-		public const string RouteValueDateKey = "date";
-		public const string RouteValueCompanyIdKey = "companyId";
+		private readonly Mock<ITownService> townService = TownServiceMock.New;
+
+		private readonly Mock<ITicketService> ticketService = TicketServiceMock.New;
+
+		private readonly Mock<ICompanyService> companyService = CompanyServiceMock.New;
+
+		private readonly Mock<IRouteService> routeService = RouteServiceMock.New;
+
+		private readonly Mock<UserManager<User>> userManager = UserManagerMock.New;
 
 		[Fact]
 		public void RoutesControllerShouldBeForAuthorizedUsersOnly()
@@ -66,61 +76,144 @@
 		}
 
 		[Fact]
-		public void Search_ShouldRedirectToHomeWithNonExistingStartTown()
+		public void Search_ShouldRedirectToHomeWithNonExistingTown()
 		{
 			//Arrange
-			var townService = TownServiceMock.New;
-			townService.Setup(t => t.TownExistsById(It.IsAny<int>()))
+			this.townService.Setup(t => t.TownExistsById(It.IsAny<int>()))
 				.Returns(false);
 
 			var controller = new RoutesController(townService.Object, null, null, null, null);
+			this.SetControllerTempData(controller);
 
-			var tempData = new Mock<ITempDataDictionary>();
-
-			string errorMessage = null;
-
-			tempData.SetupSet(t => t[WebConstants.TempDataKey.Message] = It.IsAny<string>())
-				.Callback((string key, object msg) => errorMessage = msg as string);
-
-			controller.TempData = tempData.Object;
+			this.PrepareTempData();
 
 			//Act
-			var result = controller.Search(StartTownId, EndTownId, DateTime.UtcNow.ToLocalTime().Date,CompanyId);
+			var result = controller.Search(StartTownId, EndTownId, DateTime.UtcNow.ToLocalTime().Date, CompanyId);
 
 			//Assert
 			result.Should().BeOfType<RedirectToActionResult>();
 			result.As<RedirectToActionResult>().ActionName.Should().Be(nameof(HomeController.Index));
 			result.As<RedirectToActionResult>().ControllerName.Should().Be(WebConstants.Controller.Home);
-			errorMessage.Should().Be(WebConstants.Message.InvalidTown);
+			this.customMessage.Should().Be(WebConstants.Message.InvalidTown);
 		}
 
 		[Fact]
 		public void Search_ShouldRedirectToHomeWithPastDate()
 		{
 			//Arrange
-			var townService = TownServiceMock.New;
 			townService.Setup(t => t.TownExistsById(It.IsAny<int>()))
 				.Returns(true);
 
 			var controller = new RoutesController(townService.Object, null, null, null, null);
+			this.SetControllerTempData(controller);
 
-			var tempData = new Mock<ITempDataDictionary>();
-
-			string errorMessage = null;
-
-			tempData.SetupSet(t => t[WebConstants.TempDataKey.Message] = It.IsAny<string>())
-				.Callback((string key, object msg) => errorMessage = msg as string);
-
-			controller.TempData = tempData.Object;
+			this.PrepareTempData();
 
 			//Act
-			var result = controller.Search(StartTownId, EndTownId, new DateTime(2017, 11, 19), CompanyId);
+			var result = controller.Search(StartTownId, EndTownId, DateTime.UtcNow.AddMonths(-1), CompanyId);
 
 			//Assert
 			result.Should().BeOfType<RedirectToActionResult>();
 			result.As<RedirectToActionResult>().ActionName.Should().Be(nameof(HomeController.Index));
 			result.As<RedirectToActionResult>().ControllerName.Should().Be(WebConstants.Controller.Home);
-			errorMessage.Should().Be(WebConstants.Message.InvalidDate);
+			this.customMessage.Should().Be(WebConstants.Message.InvalidDate);
+		}
+
+		[Theory]
+		[InlineData(-1)]
+		[InlineData(0)]
+		public void Search_ShouldRedirectToSearchWithPageLessThanOrEqualToZero(int page)
+		{
+			//Arrange
+			const int RouteTicketsCount = 10;
+			var date = DateTime.UtcNow.ToLocalTime().Date;
+
+			this.companyService.Setup(c => c.GetCompaniesSelectListItems())
+				.Returns(this.GetCompaniesSelectListItems());
+
+			this.townService.Setup(t => t.GetTownsListItems())
+				.Returns(this.GetTownsSelectListItems());
+
+			this.townService.Setup(t => t.TownExistsById(It.IsAny<int>()))
+				.Returns(true);
+
+			this.ticketService.Setup(t => t.GetRouteReservedTicketsCount(It.IsAny<int>(), It.IsAny<DateTime>()))
+				.Returns(RouteTicketsCount);
+
+			this.routeService.Setup(r => r.GetSearchedRoutes(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<DateTime>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()))
+				.Returns(this.GetRoutes());
+
+			this.routeService.Setup(r => r.GetSearchedRoutesCount(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<DateTime>(), It.IsAny<string>()))
+				.Returns(2);
+
+			var controller = new RoutesController(this.townService.Object, this.routeService.Object, this.ticketService.Object, this.companyService.Object, null);
+
+			//Act
+			var result = controller.Search(StartTownId, EndTownId, date, string.Empty,page);
+
+			//Assert
+			result.Should().BeOfType<RedirectToActionResult>();
+			var model = result.As<RedirectToActionResult>();
+			model.ActionName = WebConstants.Action.Search;
+			model.ControllerName = WebConstants.Controller.Routes;
+			model.RouteValues.Keys.Should().Contain(RouteValueStartTownKey);
+			model.RouteValues.Values.Should().Contain(StartTownId);
+			model.RouteValues.Keys.Should().Contain(RouteValueEndTownKey);
+			model.RouteValues.Values.Should().Contain(EndTownId);
+			model.RouteValues.Keys.Should().Contain(RouteValueDateKey);
+			model.RouteValues.Values.Should().Contain(date.ToShortDateString());
+			model.RouteValues.Keys.Should().Contain(RouteValueCompanyIdKey);
+			model.RouteValues.Values.Should().Contain(string.Empty);
+			model.RouteValues.Keys.Should().Contain(RouteValuePage);
+			model.RouteValues.Values.Should().Contain(1);
+		}
+
+		[Theory]
+		[InlineData(10)]
+		public void Search_ShouldRedirectToSearchWithPageGreaterThanTotalPages(int page)
+		{
+			//Arrange
+			const int RouteTicketsCount = 10;
+			var date = DateTime.UtcNow.ToLocalTime().Date;
+
+			this.companyService.Setup(c => c.GetCompaniesSelectListItems())
+				.Returns(this.GetCompaniesSelectListItems());
+
+			this.townService.Setup(t => t.GetTownsListItems())
+				.Returns(this.GetTownsSelectListItems());
+
+			this.townService.Setup(t => t.TownExistsById(It.IsAny<int>()))
+				.Returns(true);
+
+			this.ticketService.Setup(t => t.GetRouteReservedTicketsCount(It.IsAny<int>(), It.IsAny<DateTime>()))
+				.Returns(RouteTicketsCount);
+
+			this.routeService.Setup(r => r.GetSearchedRoutes(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<DateTime>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()))
+				.Returns(this.GetRoutes());
+
+			this.routeService.Setup(r => r.GetSearchedRoutesCount(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<DateTime>(), It.IsAny<string>()))
+				.Returns(2);
+
+			var controller = new RoutesController(this.townService.Object, this.routeService.Object, this.ticketService.Object, this.companyService.Object, null);
+
+			//Act
+			var result = controller.Search(StartTownId, EndTownId, date, string.Empty, page);
+
+			//Assert
+			result.Should().BeOfType<RedirectToActionResult>();
+			var model = result.As<RedirectToActionResult>();
+			model.ActionName = WebConstants.Action.Search;
+			model.ControllerName = WebConstants.Controller.Routes;
+			model.RouteValues.Keys.Should().Contain(RouteValueStartTownKey);
+			model.RouteValues.Values.Should().Contain(StartTownId);
+			model.RouteValues.Keys.Should().Contain(RouteValueEndTownKey);
+			model.RouteValues.Values.Should().Contain(EndTownId);
+			model.RouteValues.Keys.Should().Contain(RouteValueDateKey);
+			model.RouteValues.Values.Should().Contain(date.ToShortDateString());
+			model.RouteValues.Keys.Should().Contain(RouteValueCompanyIdKey);
+			model.RouteValues.Values.Should().Contain(string.Empty);
+			model.RouteValues.Keys.Should().Contain(RouteValuePage);
+			model.RouteValues.Values.Should().Contain(2);
 		}
 
 		[Fact]
@@ -130,47 +223,91 @@
 			const int RouteTicketsCount = 10;
 			var date = DateTime.UtcNow.ToLocalTime().Date;
 
-			var townService = TownServiceMock.New;
-			var routeService = RouteServiceMock.New;
-			var companyService = CompanyServiceMock.New;
-			var ticketService = TicketServiceMock.New;
-
-			companyService.Setup(c => c.GetCompaniesSelectListItems())
+			this.companyService.Setup(c => c.GetCompaniesSelectListItems())
 				.Returns(this.GetCompaniesSelectListItems());
 
-			townService.Setup(t => t.GetTownsListItems())
+			this.townService.Setup(t => t.GetTownsListItems())
 				.Returns(this.GetTownsSelectListItems());
 
-			townService.Setup(t => t.TownExistsById(It.IsAny<int>()))
+			this.townService.Setup(t => t.TownExistsById(It.IsAny<int>()))
 				.Returns(true);
 
-			ticketService.Setup(t => t.GetRouteReservedTicketsCount(It.IsAny<int>(), It.IsAny<DateTime>()))
+			this.ticketService.Setup(t => t.GetRouteReservedTicketsCount(It.IsAny<int>(), It.IsAny<DateTime>()))
 				.Returns(RouteTicketsCount);
 
-			routeService.Setup(r => r.GetSearchedRoutes(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<DateTime>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()))
+			this.routeService.Setup(r => r.GetSearchedRoutes(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<DateTime>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()))
 				.Returns(this.GetRoutes());
 
-			routeService.Setup(r => r.GetSearchedRoutesCount(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<DateTime>(), It.IsAny<string>()))
-				.Returns(2);
+			this.routeService.Setup(r => r.GetSearchedRoutesCount(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<DateTime>(), It.IsAny<string>()))
+				.Returns(6);
 
-			var controller = new RoutesController(townService.Object, routeService.Object, ticketService.Object, companyService.Object, null);
+			var controller = new RoutesController(this.townService.Object, this.routeService.Object, this.ticketService.Object, this.companyService.Object, null);
 
 			//Act
-			var result = controller.Search(StartTownId, EndTownId, date, CompanyId);
+			var result = controller.Search(StartTownId, EndTownId, date, string.Empty);
 
 			//Assert
 			result.Should().BeOfType<ViewResult>();
 			var model = result.As<ViewResult>().Model;
+			var searchedRoutes = model.As<SearchedRoutes>();
 			model.Should().BeOfType<SearchedRoutes>();
-			model.As<SearchedRoutes>().CompanyId.Should().Be(CompanyId);
-			model.As<SearchedRoutes>().Date.Should().Be(date);
-			model.As<SearchedRoutes>().StartTown.Should().Be(StartTownId);
-			model.As<SearchedRoutes>().EndTown.Should().Be(EndTownId);
-			model.As<SearchedRoutes>().Routes.Should().HaveCount(2);
-			model.As<SearchedRoutes>().Towns.Should().HaveCount(6);
-			model.As<SearchedRoutes>().Companies.Should().HaveCount(6);
-			model.As<SearchedRoutes>().Pagination.TotalElements.Should().Be(2);
-			model.As<SearchedRoutes>().Pagination.TotalPages.Should().Be(1);
+			searchedRoutes.CompanyId.Should().Be(string.Empty);
+			searchedRoutes.Date.Should().Be(date);
+			searchedRoutes.StartTown.Should().Be(StartTownId);
+			searchedRoutes.EndTown.Should().Be(EndTownId);
+			searchedRoutes.Routes.Should().HaveCount(6);
+			searchedRoutes.Towns.Should().HaveCount(6);
+			searchedRoutes.Companies.Should().HaveCount(6);
+			searchedRoutes.Pagination.TotalElements.Should().Be(6);
+			searchedRoutes.Pagination.TotalPages.Should().Be(2);
+		}
+
+		[Theory]
+		[InlineData("Test")]
+		[InlineData("")]
+		[InlineData(null)]
+		public void Search_ShouldReturnNoResultsForNonExistingCompany(string companyId)
+		{
+			//Arrange
+			var date = DateTime.UtcNow.ToLocalTime().Date;
+
+			this.companyService.Setup(c => c.GetCompaniesSelectListItems())
+				.Returns(this.GetCompaniesSelectListItems());
+
+			this.townService.Setup(t => t.GetTownsListItems())
+				.Returns(this.GetTownsSelectListItems());
+
+			this.townService.Setup(t => t.TownExistsById(It.IsAny<int>()))
+				.Returns(true);
+
+			this.ticketService.Setup(t => t.GetRouteReservedTicketsCount(It.IsAny<int>(), It.IsAny<DateTime>()))
+				.Returns(0);
+
+			this.routeService.Setup(r => r.GetSearchedRoutes(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<DateTime>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()))
+				.Returns(new List<RouteSearchListingServiceModel>());
+
+			this.routeService.Setup(r => r.GetSearchedRoutesCount(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<DateTime>(), It.IsAny<string>()))
+				.Returns(0);
+
+			var controller = new RoutesController(this.townService.Object, this.routeService.Object, this.ticketService.Object, this.companyService.Object, null);
+
+			//Act
+			var result = controller.Search(StartTownId, EndTownId, date, companyId);
+
+			//Assert
+			result.Should().BeOfType<ViewResult>();
+			var model = result.As<ViewResult>().Model;
+			var searchedRoutes = model.As<SearchedRoutes>();
+			model.Should().BeOfType<SearchedRoutes>();
+			searchedRoutes.CompanyId.Should().Be(companyId);
+			searchedRoutes.Date.Should().Be(date);
+			searchedRoutes.StartTown.Should().Be(StartTownId);
+			searchedRoutes.EndTown.Should().Be(EndTownId);
+			searchedRoutes.Routes.Should().HaveCount(0);
+			searchedRoutes.Towns.Should().HaveCount(6);
+			searchedRoutes.Companies.Should().HaveCount(6);
+			searchedRoutes.Pagination.TotalElements.Should().Be(0);
+			searchedRoutes.Pagination.TotalPages.Should().Be(0);
 		}
 
 		[Fact]
@@ -179,20 +316,15 @@
 			//Arrange
 			var departureTime = new TimeSpan(0, 0, 0);
 			var date = DateTime.UtcNow.ToLocalTime().Date;
-			var routeService = RouteServiceMock.New;
-			routeService.Setup(r => r.RouteExists(It.IsAny<int>(),It.IsAny<TimeSpan>()))
+
+			this.routeService.Setup(r => r.RouteExists(It.IsAny<int>(),It.IsAny<TimeSpan>()))
 				.Returns(false);
 
 			var controller = new RoutesController(null, routeService.Object, null, null, null);
 
-			var tempData = new Mock<ITempDataDictionary>();
+			this.PrepareTempData();
 
-			string errorMessage = null;
-
-			tempData.SetupSet(t => t[WebConstants.TempDataKey.Message] = It.IsAny<string>())
-				.Callback((string key, object msg) => errorMessage = msg as string);
-
-			controller.TempData = tempData.Object;
+			this.SetControllerTempData(controller);
 
 			//Act
 			var result = controller.BookTicket(StartTownId, departureTime, date, CompanyId);
@@ -201,7 +333,7 @@
 			result.Should().BeOfType<RedirectToActionResult>();
 			result.As<RedirectToActionResult>().ActionName.Should().Be(nameof(HomeController.Index));
 			result.As<RedirectToActionResult>().ControllerName.Should().Be(WebConstants.Controller.Home);
-			errorMessage.Should().Be(WebConstants.Message.InvalidRoute);
+			this.customMessage.Should().Be(WebConstants.Message.InvalidRoute);
 		}
 
 		[Fact]
@@ -210,20 +342,15 @@
 			//Arrange
 			var departureTime = new TimeSpan(0, 0, 0);
 			var date = new DateTime(2017,11,11);
-			var routeService = RouteServiceMock.New;
-			routeService.Setup(r => r.RouteExists(It.IsAny<int>(), It.IsAny<TimeSpan>()))
+
+			this.routeService.Setup(r => r.RouteExists(It.IsAny<int>(), It.IsAny<TimeSpan>()))
 				.Returns(true);
 
 			var controller = new RoutesController(null, routeService.Object, null, null, null);
 
-			var tempData = new Mock<ITempDataDictionary>();
+			this.PrepareTempData();
 
-			string errorMessage = null;
-
-			tempData.SetupSet(t => t[WebConstants.TempDataKey.Message] = It.IsAny<string>())
-				.Callback((string key, object msg) => errorMessage = msg as string);
-
-			controller.TempData = tempData.Object;
+			this.SetControllerTempData(controller);
 
 			//Act
 			var result = controller.BookTicket(StartTownId, departureTime, date, CompanyId);
@@ -232,7 +359,7 @@
 			result.Should().BeOfType<RedirectToActionResult>();
 			result.As<RedirectToActionResult>().ActionName.Should().Be(nameof(HomeController.Index));
 			result.As<RedirectToActionResult>().ControllerName.Should().Be(WebConstants.Controller.Home);
-			errorMessage.Should().Be(WebConstants.Message.InvalidRoute);
+			this.customMessage.Should().Be(WebConstants.Message.InvalidRoute);
 		}
 
 		[Fact]
@@ -243,16 +370,13 @@
 			var date = DateTime.UtcNow.ToLocalTime().Date;
 			var departureDateTime = new DateTime(date.Year, date.Month, date.Day, departureTime.Hours, departureTime.Minutes, departureTime.Seconds);
 
-			var routeService = RouteServiceMock.New;
-			var companyService = CompanyServiceMock.New;
-
-			routeService.Setup(r => r.RouteExists(It.IsAny<int>(), It.IsAny<TimeSpan>()))
+			this.routeService.Setup(r => r.RouteExists(It.IsAny<int>(), It.IsAny<TimeSpan>()))
 				.Returns(true);
 
-			routeService.Setup(r => r.GetRouteTicketBookingInfo(It.IsAny<int>(), It.IsAny<DateTime>()))
+			this.routeService.Setup(r => r.GetRouteTicketBookingInfo(It.IsAny<int>(), It.IsAny<DateTime>()))
 				.Returns(this.GetRouteInfo());
 
-			companyService.Setup(c => c.Exists(It.IsAny<string>()))
+			this.companyService.Setup(c => c.Exists(It.IsAny<string>()))
 				.Returns(true);
 
 			var controller = new RoutesController(null, routeService.Object, null, companyService.Object, null);
@@ -264,16 +388,18 @@
 			result.Should().BeOfType<ViewResult>();
 			var model = result.As<ViewResult>().Model;
 			model.Should().BeOfType<BookTicketFormModel>();
-			model.As<BookTicketFormModel>().BusSeats.Should().Be(20);
-			model.As<BookTicketFormModel>().RouteId.Should().Be(RouteId);
-			model.As<BookTicketFormModel>().StartStation.Should().Be("Albena");
-			model.As<BookTicketFormModel>().EndStation.Should().Be("Balchik");
-			model.As<BookTicketFormModel>().StartTownId.Should().Be(1);
-			model.As<BookTicketFormModel>().EndTownId.Should().Be(2);
-			model.As<BookTicketFormModel>().CompanyName.Should().Be("Azimut");
-			model.As<BookTicketFormModel>().DepartureDateTime.Should().Be(departureDateTime);
-			model.As<BookTicketFormModel>().Duration.Should().Be(new TimeSpan(23,10,10));
-			model.As<BookTicketFormModel>().CompanyId.Should().Be(CompanyId);
+			var form = model.As<BookTicketFormModel>();
+
+			form.BusSeats.Should().Be(20);
+			form.RouteId.Should().Be(RouteId);
+			form.StartStation.Should().Be("Albena");
+			form.EndStation.Should().Be("Balchik");
+			form.StartTownId.Should().Be(1);
+			form.EndTownId.Should().Be(2);
+			form.CompanyName.Should().Be("Azimut");
+			form.DepartureDateTime.Should().Be(departureDateTime);
+			form.Duration.Should().Be(new TimeSpan(23,10,10));
+			form.CompanyId.Should().Be(CompanyId);
 		}
 
 		[Fact]
@@ -284,9 +410,7 @@
 			var date = DateTime.UtcNow.ToLocalTime().Date;
 			var departureDateTime = new DateTime(date.Year, date.Month, date.Day, departureTime.Hours, departureTime.Minutes, departureTime.Seconds);
 
-			var routeService = RouteServiceMock.New;
-
-			routeService.Setup(r => r.GetRouteTicketBookingInfo(It.IsAny<int>(), It.IsAny<DateTime>()))
+			this.routeService.Setup(r => r.GetRouteTicketBookingInfo(It.IsAny<int>(), It.IsAny<DateTime>()))
 				.Returns(this.GetRouteInfo());
 
 			var controller = new RoutesController(null, routeService.Object, null, null, null);
@@ -305,21 +429,13 @@
 		public void Post_BookTicket_ShouldRedirectToHomeWithNonExistingRoute()
 		{
 			//Arrange
-			var routeService = RouteServiceMock.New;
-
-			routeService.Setup(r => r.RouteExists(It.IsAny<int>(), It.IsAny<TimeSpan>()))
+			this.routeService.Setup(r => r.RouteExists(It.IsAny<int>(), It.IsAny<TimeSpan>()))
 				.Returns(false);
 
 			var controller = new RoutesController(null, routeService.Object, null, null, null);
 
-			string errorMessage = null;
-
-			var tempData = new Mock<ITempDataDictionary>();
-			tempData
-				.SetupSet(t => t[WebConstants.TempDataKey.Message] = It.IsAny<string>())
-				.Callback((string key, object msg) => errorMessage = msg as string);
-
-			controller.TempData = tempData.Object;
+			this.PrepareTempData();
+			this.SetControllerTempData(controller);
 
 			//Act
 			var result = controller.BookTicket(new BookTicketFormModel());
@@ -327,7 +443,7 @@
 			//Assert
 			result.Should().BeOfType<RedirectToActionResult>();
 			result.As<RedirectToActionResult>().ActionName.Should().Be(nameof(HomeController.Index), WebConstants.Controller.Home);
-			errorMessage.Should().Be(WebConstants.Message.InvalidRoute);
+			this.customMessage.Should().Be(WebConstants.Message.InvalidRoute);
 		}
 
 		[Fact]
@@ -338,21 +454,13 @@
 			var date = new DateTime(2017, 11, 11);
 			var departureDateTime = new DateTime(date.Year, date.Month, date.Day, departureTime.Hours, departureTime.Minutes, departureTime.Seconds);
 
-			var routeService = RouteServiceMock.New;
-
 			routeService.Setup(r => r.RouteExists(It.IsAny<int>(), It.IsAny<TimeSpan>()))
 				.Returns(true);
 
 			var controller = new RoutesController(null, routeService.Object, null, null, null);
 
-			string errorMessage = null;
-
-			var tempData = new Mock<ITempDataDictionary>();
-			tempData
-				.SetupSet(t => t[WebConstants.TempDataKey.Message] = It.IsAny<string>())
-				.Callback((string key, object msg) => errorMessage = msg as string);
-
-			controller.TempData = tempData.Object;
+			this.PrepareTempData();
+			this.SetControllerTempData(controller);
 
 			//Act
 			var result = controller.BookTicket(new BookTicketFormModel() { DepartureDateTime = departureDateTime});
@@ -360,36 +468,26 @@
 			//Assert
 			result.Should().BeOfType<RedirectToActionResult>();
 			result.As<RedirectToActionResult>().ActionName.Should().Be(nameof(HomeController.Index), WebConstants.Controller.Home);
-			errorMessage.Should().Be(WebConstants.Message.InvalidRoute);
+			this.customMessage.Should().Be(WebConstants.Message.InvalidRoute);
 		}
 
 		[Fact]
 		public void Post_BookTicket_ShouldRedirectToSearchWhenBusIsAlreadyReserved()
 		{
 			//Arrange
-			var routeService = RouteServiceMock.New;
-			var ticketService = TicketServiceMock.New;
-			var companyService = CompanyServiceMock.New;
-
-			routeService.Setup(r => r.RouteExists(It.IsAny<int>(), It.IsAny<TimeSpan>()))
+			this.routeService.Setup(r => r.RouteExists(It.IsAny<int>(), It.IsAny<TimeSpan>()))
 				.Returns(true);
 
-			ticketService.Setup(t => t.GetAlreadyReservedTickets(It.IsAny<int>(), It.IsAny<DateTime>()))
+			this.ticketService.Setup(t => t.GetAlreadyReservedTickets(It.IsAny<int>(), It.IsAny<DateTime>()))
 				.Returns(new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 });
 
-			companyService.Setup(c => c.Exists(It.IsAny<string>()))
+			this.companyService.Setup(c => c.Exists(It.IsAny<string>()))
 				.Returns(true);
 
 			var controller = new RoutesController(null, routeService.Object, ticketService.Object, companyService.Object, null);
 
-			string errorMessage = null;
-
-			var tempData = new Mock<ITempDataDictionary>();
-			tempData
-				.SetupSet(t => t[WebConstants.TempDataKey.Message] = It.IsAny<string>())
-				.Callback((string key, object msg) => errorMessage = msg as string);
-
-			controller.TempData = tempData.Object;
+			this.PrepareTempData();
+			this.SetControllerTempData(controller);
 
 			//Act
 			var form = this.GenerateBookTicketForm();
@@ -402,7 +500,119 @@
 			result.As<RedirectToActionResult>().RouteValues[RouteValueEndTownKey].Should().Be(form.EndTownId);
 			result.As<RedirectToActionResult>().RouteValues[RouteValueDateKey].Should().Be(form.DepartureDateTime.Date);
 			result.As<RedirectToActionResult>().RouteValues[RouteValueCompanyIdKey].Should().Be(form.CompanyId);
-			errorMessage.Should().Be(string.Format(WebConstants.Message.RouteSoldOut, form.StartStation, form.EndStation, form.DepartureDateTime.Date.ToYearMonthDayFormat(), form.DepartureDateTime.TimeOfDay));
+			this.customMessage.Should().Be(string.Format(WebConstants.Message.RouteSoldOut, form.StartStation, form.EndStation, form.DepartureDateTime.Date.ToYearMonthDayFormat(), form.DepartureDateTime.TimeOfDay));
+		}
+
+		[Fact]
+		public void Post_BookTicket_ShouldReturnBusSchemaWhenSomeOfTheSelectedSeatsAreAlreadyReserved()
+		{
+			//Arrange
+			this.routeService.Setup(r => r.RouteExists(It.IsAny<int>(), It.IsAny<TimeSpan>()))
+				.Returns(true);
+
+			this.routeService.Setup(r => r.GetRouteTicketBookingInfo(It.IsAny<int>(), It.IsAny<DateTime>()))
+				.Returns(new RouteBookTicketInfoServiceModel() { BusType = BusType.Mini, ReservedTickets =  new List<int>()});
+
+			this.ticketService.Setup(t => t.GetAlreadyReservedTickets(It.IsAny<int>(), It.IsAny<DateTime>()))
+				.Returns(new List<int>() { 1, 2, 3, 4 });
+
+			this.companyService.Setup(c => c.Exists(It.IsAny<string>()))
+				.Returns(true);
+
+			var controller = new RoutesController(null, this.routeService.Object, this.ticketService.Object, this.companyService.Object, this.userManager.Object);
+
+			controller.ModelState.AddModelError(string.Empty, "Error");
+
+			this.PrepareTempData();
+			this.SetControllerTempData(controller);
+
+			var matchingSeats = new List<int>() { 1, 2 };
+
+			//Act
+			var form = this.GenerateBookTicketForm();
+			var result = controller.BookTicket(form);
+
+			//Assert
+			result.Should().BeOfType<ViewResult>();
+			var model = result.As<ViewResult>().Model;
+			model.Should().BeOfType<BookTicketFormModel>();
+		}
+
+		[Fact]
+		public void Post_BookTicket_ShouldRedirectToHomeWithInvalidData()
+		{
+			//Arrange
+			this.routeService.Setup(r => r.RouteExists(It.IsAny<int>(), It.IsAny<TimeSpan>()))
+				.Returns(true);
+
+			this.routeService.Setup(r => r.GetRouteTicketBookingInfo(It.IsAny<int>(), It.IsAny<DateTime>()))
+				.Returns(new RouteBookTicketInfoServiceModel() { BusType = BusType.Mini, ReservedTickets = new List<int>() });
+
+			this.ticketService.Setup(t => t.GetAlreadyReservedTickets(It.IsAny<int>(), It.IsAny<DateTime>()))
+				.Returns(new List<int>() { 1, 2, 3, 4 });
+
+			this.ticketService.Setup(t => t.Add(It.IsAny<int>(), It.IsAny<DateTime>(), It.IsAny<IEnumerable<int>>(), It.IsAny<string>()))
+				.Returns(false);
+
+			this.companyService.Setup(c => c.Exists(It.IsAny<string>()))
+				.Returns(true);
+
+			var controller = new RoutesController(null, this.routeService.Object, this.ticketService.Object, this.companyService.Object, this.userManager.Object);
+
+			this.PrepareTempData();
+			this.SetControllerTempData(controller);
+
+			//Act
+			var form = this.GenerateBookTicketForm();
+			var result = controller.BookTicket(form);
+
+			//Assert
+			result.Should().BeOfType<RedirectToActionResult>();
+			var model = result.As<RedirectToActionResult>();
+			model.ActionName.Should().Be(WebConstants.Action.Index);
+			model.ControllerName.Should().Be(WebConstants.Controller.Home);
+			this.customMessage.Should().Be(WebConstants.Message.InvalidRoute);
+		}
+
+		[Fact]
+		public void Post_BookTicket_ShouldRedirectToHomeAfterSuccessfullReservation()
+		{
+			//Arrange
+			this.routeService.Setup(r => r.RouteExists(It.IsAny<int>(), It.IsAny<TimeSpan>()))
+				.Returns(true);
+
+			this.routeService.Setup(r => r.GetRouteTicketBookingInfo(It.IsAny<int>(), It.IsAny<DateTime>()))
+				.Returns(new RouteBookTicketInfoServiceModel() { BusType = BusType.Mini, ReservedTickets = new List<int>() });
+
+			this.ticketService.Setup(t => t.GetAlreadyReservedTickets(It.IsAny<int>(), It.IsAny<DateTime>()))
+				.Returns(new List<int>() { 1, 2, 3, 4 });
+
+			this.ticketService.Setup(t => t.Add(It.IsAny<int>(), It.IsAny<DateTime>(), It.IsAny<IEnumerable<int>>(), It.IsAny<string>()))
+				.Returns(true);
+
+			this.companyService.Setup(c => c.Exists(It.IsAny<string>()))
+				.Returns(true);
+
+			var controller = new RoutesController(null, this.routeService.Object, this.ticketService.Object, this.companyService.Object, this.userManager.Object);
+
+			this.PrepareTempData();
+			this.SetControllerTempData(controller);
+
+			//Act
+			var form = this.GenerateBookTicketForm();
+			form.Seats.FirstOrDefault(s => s.Value == 10).Checked = true;
+			form.Seats.FirstOrDefault(s => s.Value == 11).Checked = true;
+
+			var reservedTickets = new List<int>() { 10, 11 };
+
+			var result = controller.BookTicket(form);
+
+			//Assert
+			result.Should().BeOfType<RedirectToActionResult>();
+			var model = result.As<RedirectToActionResult>();
+			model.ActionName.Should().Be(WebConstants.Action.Index);
+			model.ControllerName.Should().Be(WebConstants.Controller.Home);
+			this.customMessage.Should().Be(string.Format(WebConstants.Message.SuccessfullyTicketReservation, string.Join(", ", reservedTickets), form.StartStation, form.EndStation, form.DepartureDateTime));
 		}
 
 		private BookTicketFormModel GenerateBookTicketForm()
@@ -411,7 +621,14 @@
 			var date = DateTime.UtcNow.ToLocalTime().Date;
 			var departureDateTime = new DateTime(date.Year, date.Month, date.Day, departureTime.Hours, departureTime.Minutes, departureTime.Seconds);
 
-			return new BookTicketFormModel() { DepartureDateTime = departureDateTime, StartStation = StartStation, EndStation = EndStation, StartTownId = StartTownId, EndTownId = EndTownId, CompanyId = CompanyId, BusSeats = 20 };
+			var seats = new List<BusSeat>();
+
+			for (int i = 1; i <= 20; i++)
+			{
+				seats.Add(new BusSeat() { Value = i, Checked = false, Disabled = false });
+			}
+
+			return new BookTicketFormModel() { DepartureDateTime = departureDateTime, StartStation = StartStation, EndStation = EndStation, StartTownId = StartTownId, EndTownId = EndTownId, CompanyId = CompanyId, BusSeats = 20, Seats = seats };
 		}
 
 		private RouteBookTicketInfoServiceModel GetRouteInfo()
@@ -425,7 +642,7 @@
 				EndTownId = 2,
 				StartStation = "Albena",
 				EndStation = "Balchik",
-				ReservedTickets = new List<int>() { 1,2,3}
+				ReservedTickets = new List<int>() { 1,2,3 }
 			};
 		}
 
@@ -474,8 +691,33 @@
 					{
 						DepartureTime = new TimeSpan(23,20,20),
 						CompanyName = "Azimut"
+					},
+				new RouteSearchListingServiceModel()
+					{
+						DepartureTime = new TimeSpan(23,30,20),
+						CompanyName = "Aguila"
+					},
+				new RouteSearchListingServiceModel()
+					{
+						DepartureTime = new TimeSpan(23,34,20),
+						CompanyName = "Aguila"
+					},
+				new RouteSearchListingServiceModel()
+					{
+						DepartureTime = new TimeSpan(23,44,20),
+						CompanyName = "Azimut"
+					},
+				new RouteSearchListingServiceModel()
+					{
+						DepartureTime = new TimeSpan(23,46,20),
+						CompanyName = "Aguila"
 					}
 			};
+		}
+
+		private void SetControllerTempData(RoutesController controller)
+		{
+			controller.TempData = this.tempData.Object;
 		}
 	}
 }
