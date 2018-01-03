@@ -273,6 +273,8 @@
 
 			public const string AdminAllTowns = "All";
 
+			public const string AdminAllCompanies = "All";
+
 			public const string MyTickets = "MyTickets";
 
 			public const string Details = "Details";

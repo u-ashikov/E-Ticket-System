@@ -9,6 +9,7 @@
 		public const string RouteValueKeyId = "id";
 		public const string RouteValueKeyPage = "page";
 		public const string RouteValueKeySearchTerm = "searchTerm";
+		public const string RouteValueKeyAdminCompaniesFilter = "filter";
 
 		public const string UserId = "SomeUserId";
 		public const string CompanyId = "SomeCompanyId";
