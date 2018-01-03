@@ -13,6 +13,8 @@
 		public const string UserId = "SomeUserId";
 		public const string CompanyId = "SomeCompanyId";
 
+		public const string UserUsername = "user12";
+
 		public const int MinPageSize = 1;
 	}
 }

@@ -41,6 +41,7 @@
 			if (this.userManager.GetUserId(User) != id)
 			{
 				this.GenerateAlertMessage(WebConstants.Message.NotProfileOwner, Alert.Danger);
+
 				return RedirectToHome();
 			}
 
@@ -61,12 +62,14 @@
 			if (!this.users.UserExists(id))
 			{
 				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingEntity,WebConstants.Entity.User, id), Alert.Danger);
+
 				return RedirectToHome();
 			}
 
 			if (this.userManager.GetUserId(User) != id)
 			{
 				this.GenerateAlertMessage(string.Format(WebConstants.Message.NotProfileOwner, id), Alert.Danger);
+
 				return RedirectToHome();
 			}
 
@@ -113,15 +116,16 @@
 		[Route(WebConstants.Routing.UserTickets)]
 		public IActionResult MyTickets(string id, int startTown, int endTown, string companyId, DateTime? date, int page = 1)
 		{
-			if (page < 1)
-			{
-				return RedirectToAction(nameof(MyTickets), new { id = id, startTown = startTown, endTown = endTown, companyId = companyId, date = (date.HasValue ? date.Value.ToYearMonthDayFormat() : null), page = 1 });
-			}
-
 			if (this.userManager.GetUserId(User) != id)
 			{
 				this.GenerateAlertMessage(WebConstants.Message.NotProfileOwner, Alert.Danger);
+
 				return RedirectToHome();
+			}
+
+			if (page < 1)
+			{
+				return RedirectToAction(nameof(MyTickets), new { id = id, startTown = startTown, endTown = endTown, companyId = companyId, date = (date.HasValue ? date.Value.ToYearMonthDayFormat() : null), page = 1 });
 			}
 
 			var tickets = this.tickets.GetUserTickets(id, startTown, endTown, companyId, date, page, WebConstants.Pagination.UserTicketsPageSize);
