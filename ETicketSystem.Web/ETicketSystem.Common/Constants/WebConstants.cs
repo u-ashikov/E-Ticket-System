@@ -118,6 +118,7 @@
 			public const string InvalidTown = "Invalid town!";
 			public const string InvalidDate = "Invalid date!";
 			public const string InvalidStation = "Invalid station!";
+			public const string InvalidCompany = "Invalid company!";
 
 			public const string StartStationEqualToEndStation = "Start station and end station cannot be same or in same town.";
 			public const string RouteDurationZeroLength = "Route duration must be greater than 00:00.";
@@ -279,6 +280,10 @@
 			public const string Index = "Index";
 
 			public const string Search = "Search";
+
+			public const string Edit = "Edit";
+
+			public const string Delete = "Delete";
 		}
 
 		public class FilePath

@@ -16,10 +16,13 @@
 
 		private readonly IReviewService reviews;
 
-		public ReviewsController(UserManager<User> userManager, IReviewService reviews)
+		private readonly ICompanyService companies;
+
+		public ReviewsController(UserManager<User> userManager, IReviewService reviews, ICompanyService companies)
 		{
 			this.userManager = userManager;
 			this.reviews = reviews;
+			this.companies = companies;
 		}
 
 		[HttpPost]
@@ -30,11 +33,19 @@
 				return View(model);
 			}
 
+			if (!this.companies.Exists(model.CompanyId))
+			{
+				this.GenerateAlertMessage(WebConstants.Message.InvalidCompany, Alert.Danger);
+
+				return RedirectToAction(WebConstants.Action.Index,WebConstants.Controller.Home);
+			}
+
 			var userId = this.userManager.GetUserId(User);
 
 			if (model.CompanyId == userId)
 			{
 				this.GenerateAlertMessage(WebConstants.Message.OwnerAddReview, Alert.Warning);
+
 				return RedirectToAction(WebConstants.Action.Details, WebConstants.Controller.Companies, new { id = model.CompanyId });
 			}
 
@@ -84,6 +95,7 @@
 			if (!success)
 			{
 				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingEntity,WebConstants.Entity.Review,id), Alert.Warning);
+
 				return RedirectToHome();
 			}
 
@@ -105,9 +117,9 @@
 
 					return RedirectToHome();
 				}
-			}
 
-			this.GenerateAlertMessage(string.Format(WebConstants.Message.EntityDeleted,WebConstants.Entity.Review), Alert.Success);
+				this.GenerateAlertMessage(string.Format(WebConstants.Message.EntityDeleted, WebConstants.Entity.Review), Alert.Success);
+			}
 
 			return RedirectToAction(WebConstants.Action.Details, WebConstants.Controller.Companies, new { id = companyId });
 		}
