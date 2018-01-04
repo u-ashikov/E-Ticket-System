@@ -7,6 +7,7 @@
 	using ETicketSystem.Web.Areas.Admin.Controllers;
 	using ETicketSystem.Web.Areas.Admin.Models.AdminCompanies;
 	using FluentAssertions;
+	using Infrastructure;
 	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Mvc;
 	using Mocks.Admin;
@@ -17,7 +18,7 @@
 
 	using static Common.TestConstants;
 
-	public class AdminCompaniesControllerTest
+	public class AdminCompaniesControllerTest : BaseControllerTest
     {
 		private const int TotalCompaniesCount = 15;
 
@@ -25,7 +26,26 @@
 
 		private const int LastPage = 2;
 
+		private const string CompanyStatusBlocked = "blocked";
+
+		private const string CompanyStatusUnblocked = "unblocked";
+
 		private readonly Mock<IAdminCompanyService> companyService = AdminCompanyServiceMock.New;
+
+		[Fact]
+		public void ControllerShouldBeInAdminArea()
+		{
+			//Arrange
+			var controller = new AdminCompaniesController(null);
+
+			//Act
+			var attributes = controller.GetType().GetCustomAttributes(true);
+
+			//Assert
+			attributes.Any(a => a.GetType() == typeof(AreaAttribute));
+			var areaAttribute = attributes.FirstOrDefault(a => a.GetType() == typeof(AreaAttribute));
+			areaAttribute.As<AreaAttribute>().RouteValue.Should().Be(WebConstants.Area.Admin);
+		}
 
 		[Fact]
 		public void ControllerShouldBeForAuthorizedUsers()
@@ -254,6 +274,222 @@
 			model.Pagination.NextPage.Should().Be(FirstPage);
 			model.Pagination.PreviousPage.Should().Be(FirstPage);
 			model.Pagination.SearchTerm.Should().Be(CompanyStatus.Unapproved.ToString());
+		}
+
+		[Theory]
+		[InlineData(null)]
+		[InlineData("")]
+		[InlineData("Company_Id")]
+		public void Approve_WithInvalidCompanyIdShouldRedirectToAllCompanies(string companyId)
+		{
+			//Arrange
+			var controller = new AdminCompaniesController(this.companyService.Object);
+
+			this.companyService.Setup(c => c.CompanyExists(It.IsAny<string>()))
+				.Returns(false);
+
+			this.PrepareTempData();
+
+			controller.TempData = this.tempData.Object;
+
+			//Act
+			var result = controller.Approve(companyId,CompanyStatus.Unapproved,MinPageSize);
+
+			//Assert
+			result.Should().BeOfType<RedirectToActionResult>();
+			var model = result.As<RedirectToActionResult>();
+			model.ActionName.Should().Be(WebConstants.Action.AdminAllCompanies);
+			this.customMessage.Should().Be(string.Format(WebConstants.Message.NonExistingEntity, nameof(WebConstants.Entity.Company), companyId));
+		}
+
+		[Fact]
+		public void Approve_WithAlreadyApprovedCompanyShouldRedirectToAllCompanies()
+		{
+			//Arrange
+			var controller = new AdminCompaniesController(this.companyService.Object);
+
+			this.companyService.Setup(c => c.CompanyExists(It.IsAny<string>()))
+				.Returns(true);
+
+			this.companyService.Setup(c => c.Approve(It.IsAny<string>()))
+				.Returns(false);
+
+			this.companyService.Setup(c => c.GetCompanyName(It.IsAny<string>()))
+				.Returns(CompanyName);
+
+			this.PrepareTempData();
+
+			controller.TempData = this.tempData.Object;
+
+			//Act
+			var result = controller.Approve(CompanyId, CompanyStatus.Unapproved, MinPageSize);
+
+			//Assert
+			result.Should().BeOfType<RedirectToActionResult>();
+			var model = result.As<RedirectToActionResult>();
+			model.ActionName.Should().Be(WebConstants.Action.AdminAllCompanies);
+			model.RouteValues.Keys.Should().Contain(RouteValueKeyPage);
+			model.RouteValues.Values.Should().Contain(MinPageSize);
+			model.RouteValues.Keys.Should().Contain(RouteValueKeyAdminCompaniesFilter);
+			model.RouteValues.Values.Should().Contain(CompanyStatus.Unapproved);
+			this.customMessage.Should().Be(string.Format(WebConstants.Message.CompanyAlreadyApproved, CompanyName));
+		}
+
+		[Fact]
+		public void Approve_WithValidDataShouldRedirectToAllCompanies()
+		{
+			//Arrange
+			var controller = new AdminCompaniesController(this.companyService.Object);
+
+			this.companyService.Setup(c => c.CompanyExists(It.IsAny<string>()))
+				.Returns(true);
+
+			this.companyService.Setup(c => c.Approve(It.IsAny<string>()))
+				.Returns(true);
+
+			this.companyService.Setup(c => c.GetCompanyName(It.IsAny<string>()))
+				.Returns(CompanyName);
+
+			this.PrepareTempData();
+
+			controller.TempData = this.tempData.Object;
+
+			//Act
+			var result = controller.Approve(CompanyId, CompanyStatus.Unapproved, MinPageSize);
+
+			//Assert
+			result.Should().BeOfType<RedirectToActionResult>();
+			var model = result.As<RedirectToActionResult>();
+			model.ActionName.Should().Be(WebConstants.Action.AdminAllCompanies);
+			model.RouteValues.Keys.Should().Contain(RouteValueKeyPage);
+			model.RouteValues.Values.Should().Contain(MinPageSize);
+			model.RouteValues.Keys.Should().Contain(RouteValueKeyAdminCompaniesFilter);
+			model.RouteValues.Values.Should().Contain(CompanyStatus.Unapproved);
+			this.customMessage.Should().Be(string.Format(WebConstants.Message.CompanyApproved, CompanyName));
+		}
+
+		[Theory]
+		[InlineData(null)]
+		[InlineData("")]
+		[InlineData("Company_Id")]
+		public void Block_WithInvalidCompanyIdShouldRedirectToAllCompanies(string companyId)
+		{
+			//Arrange
+			var controller = new AdminCompaniesController(this.companyService.Object);
+
+			this.companyService.Setup(c => c.CompanyExists(It.IsAny<string>()))
+				.Returns(false);
+
+			this.PrepareTempData();
+
+			controller.TempData = this.tempData.Object;
+
+			//Act
+			var result = controller.Block(companyId, CompanyStatus.Unapproved, MinPageSize);
+
+			//Assert
+			result.Should().BeOfType<RedirectToActionResult>();
+			var model = result.As<RedirectToActionResult>();
+			model.ActionName.Should().Be(WebConstants.Action.AdminAllCompanies);
+			this.customMessage.Should().Be(string.Format(WebConstants.Message.NonExistingEntity, nameof(WebConstants.Entity.Company), companyId));
+		}
+
+		[Fact]
+		public void Block_UnapprovedCompanyShouldRedirectToAllCompanies()
+		{
+			//Arrange
+			var controller = new AdminCompaniesController(this.companyService.Object);
+
+			this.companyService.Setup(c => c.CompanyExists(It.IsAny<string>()))
+				.Returns(true);
+
+			this.companyService.Setup(c => c.ChangeStatus(It.IsAny<string>()))
+				.Returns(false);
+
+			this.PrepareTempData();
+
+			controller.TempData = this.tempData.Object;
+
+			//Act
+			var result = controller.Block(CompanyId, CompanyStatus.All, MinPageSize);
+
+			//Assert
+			result.Should().BeOfType<RedirectToActionResult>();
+			var model = result.As<RedirectToActionResult>();
+			model.ActionName.Should().Be(WebConstants.Action.AdminAllCompanies);
+			this.customMessage.Should().Be(string.Format(WebConstants.Message.BlockCompanyUnavailable, CompanyId));
+		}
+
+		[Fact]
+		public void Block_WithValidDataShouldRedirectToAllCompanies()
+		{
+			//Arrange
+			var controller = new AdminCompaniesController(this.companyService.Object);
+
+			this.companyService.Setup(c => c.CompanyExists(It.IsAny<string>()))
+				.Returns(true);
+
+			this.companyService.Setup(c => c.ChangeStatus(It.IsAny<string>()))
+				.Returns(true);
+
+			this.companyService.Setup(c => c.GetCompanyName(It.IsAny<string>()))
+				.Returns(CompanyName);
+
+			this.companyService.Setup(c => c.GetBlockStatus(It.IsAny<string>()))
+				.Returns(CompanyStatusBlocked);
+
+			this.PrepareTempData();
+
+			controller.TempData = this.tempData.Object;
+
+			//Act
+			var result = controller.Block(CompanyId, CompanyStatus.All, MinPageSize);
+
+			//Assert
+			result.Should().BeOfType<RedirectToActionResult>();
+			var model = result.As<RedirectToActionResult>();
+			model.ActionName.Should().Be(WebConstants.Action.AdminAllCompanies);
+			model.RouteValues.Keys.Should().Contain(RouteValueKeyPage);
+			model.RouteValues.Values.Should().Contain(MinPageSize);
+			model.RouteValues.Keys.Should().Contain(RouteValueKeyAdminCompaniesFilter);
+			model.RouteValues.Values.Should().Contain(CompanyStatus.All);
+			this.customMessage.Should().Be(string.Format(WebConstants.Message.CompanyStatusChanged, CompanyName, CompanyStatusBlocked));
+		}
+
+		[Fact]
+		public void UnBlock_WithValidDataShouldRedirectToAllCompanies()
+		{
+			//Arrange
+			var controller = new AdminCompaniesController(this.companyService.Object);
+
+			this.companyService.Setup(c => c.CompanyExists(It.IsAny<string>()))
+				.Returns(true);
+
+			this.companyService.Setup(c => c.ChangeStatus(It.IsAny<string>()))
+				.Returns(true);
+
+			this.companyService.Setup(c => c.GetCompanyName(It.IsAny<string>()))
+				.Returns(CompanyName);
+
+			this.companyService.Setup(c => c.GetBlockStatus(It.IsAny<string>()))
+				.Returns(CompanyStatusUnblocked);
+
+			this.PrepareTempData();
+
+			controller.TempData = this.tempData.Object;
+
+			//Act
+			var result = controller.Block(CompanyId, CompanyStatus.All, MinPageSize);
+
+			//Assert
+			result.Should().BeOfType<RedirectToActionResult>();
+			var model = result.As<RedirectToActionResult>();
+			model.ActionName.Should().Be(WebConstants.Action.AdminAllCompanies);
+			model.RouteValues.Keys.Should().Contain(RouteValueKeyPage);
+			model.RouteValues.Values.Should().Contain(MinPageSize);
+			model.RouteValues.Keys.Should().Contain(RouteValueKeyAdminCompaniesFilter);
+			model.RouteValues.Values.Should().Contain(CompanyStatus.All);
+			this.customMessage.Should().Be(string.Format(WebConstants.Message.CompanyStatusChanged, CompanyName, CompanyStatusUnblocked));
 		}
 
 		private IEnumerable<AdminCompanyListingServiceModel> GetAllCompanies()

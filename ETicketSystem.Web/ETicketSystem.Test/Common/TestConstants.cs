@@ -15,6 +15,7 @@
 		public const string CompanyId = "SomeCompanyId";
 
 		public const string UserUsername = "user12";
+		public const string CompanyName = "Aguila";
 
 		public const int MinPageSize = 1;
 	}
