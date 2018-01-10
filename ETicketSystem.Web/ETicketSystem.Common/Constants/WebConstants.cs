@@ -275,6 +275,8 @@
 
 			public const string AdminAllCompanies = "All";
 
+			public const string AdminAllStations = "All";
+
 			public const string MyTickets = "MyTickets";
 
 			public const string Details = "Details";

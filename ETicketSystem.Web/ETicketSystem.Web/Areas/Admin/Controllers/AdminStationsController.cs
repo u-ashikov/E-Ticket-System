@@ -110,6 +110,7 @@
 			if (!this.stations.StationExists(model.Id))
 			{
 				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingEntity,nameof(WebConstants.Entity.Station), model.Id), Alert.Warning);
+
 				return Redirect(WebConstants.Routing.AdminAllTownsUrl);
 			}
 
