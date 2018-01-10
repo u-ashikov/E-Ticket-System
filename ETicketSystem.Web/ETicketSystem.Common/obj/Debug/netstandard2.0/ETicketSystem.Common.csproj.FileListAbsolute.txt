@@ -20,3 +20,14 @@ C:\Users\Kamelia\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSyste
 C:\Users\Kamelia\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Common\obj\Debug\netstandard2.0\ETicketSystem.Common.AssemblyInfo.cs
 C:\Users\Kamelia\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Common\obj\Debug\netstandard2.0\ETicketSystem.Common.dll
 C:\Users\Kamelia\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Common\obj\Debug\netstandard2.0\ETicketSystem.Common.pdb
+C:\Users\uashi\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Common\bin\Debug\netstandard2.0\ETicketSystem.Common.deps.json
+C:\Users\uashi\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Common\bin\Debug\netstandard2.0\ETicketSystem.Common.dll
+C:\Users\uashi\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Common\bin\Debug\netstandard2.0\ETicketSystem.Common.pdb
+C:\Users\uashi\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Common\bin\Debug\netstandard2.0\System.ComponentModel.Annotations.dll
+C:\Users\uashi\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Common\bin\Debug\netstandard2.0\System.ComponentModel.Annotations.xml
+C:\Users\uashi\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Common\obj\Debug\netstandard2.0\ETicketSystem.Common.csprojResolveAssemblyReference.cache
+C:\Users\uashi\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Common\obj\Debug\netstandard2.0\ETicketSystem.Common.csproj.CoreCompileInputs.cache
+C:\Users\uashi\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Common\obj\Debug\netstandard2.0\ETicketSystem.Common.AssemblyInfoInputs.cache
+C:\Users\uashi\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Common\obj\Debug\netstandard2.0\ETicketSystem.Common.AssemblyInfo.cs
+C:\Users\uashi\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Common\obj\Debug\netstandard2.0\ETicketSystem.Common.dll
+C:\Users\uashi\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Common\obj\Debug\netstandard2.0\ETicketSystem.Common.pdb

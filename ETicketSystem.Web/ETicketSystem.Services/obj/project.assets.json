@@ -639,7 +639,7 @@
           }
         }
       },
-      "NETStandard.Library/2.0.0": {
+      "NETStandard.Library/2.0.1": {
         "type": "package",
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.1.0"
@@ -2777,12 +2777,14 @@
         "version.txt"
       ]
     },
-    "NETStandard.Library/2.0.0": {
-      "sha512": "7jnbRU+L08FXKMxqUflxEXtVymWvNOrS8yHgu9s6EM8Anr6T/wIX4nZ08j/u3Asz+tCufp3YVwFSEvFTPYmBPA==",
+    "NETStandard.Library/2.0.1": {
+      "sha512": "oA6nwv9MhEKYvLpjZ0ggSpb1g4CQViDVQjLUcDWg598jtvJbpfeP2reqwI1GLW2TbxC/Ml7xL6BBR1HmKPXlTg==",
       "type": "package",
-      "path": "netstandard.library/2.0.0",
+      "path": "netstandard.library/2.0.1",
       "files": [
         "LICENSE.TXT",
+        "NETStandard.Library.2.0.1.nupkg.sha512",
+        "NETStandard.Library.nuspec",
         "THIRD-PARTY-NOTICES.TXT",
         "build/NETStandard.Library.targets",
         "build/netstandard2.0/NETStandard.Library.targets",
@@ -2900,9 +2902,7 @@
         "build/netstandard2.0/ref/mscorlib.dll",
         "build/netstandard2.0/ref/netstandard.dll",
         "build/netstandard2.0/ref/netstandard.xml",
-        "lib/netstandard1.0/_._",
-        "netstandard.library.2.0.0.nupkg.sha512",
-        "netstandard.library.nuspec"
+        "lib/netstandard1.0/_._"
       ]
     },
     "Newtonsoft.Json/9.0.1": {
@@ -2930,7 +2930,7 @@
       ]
     },
     "Portable.BouncyCastle/1.8.1.3": {
-      "sha512": "imXKRLrhXlEoeus5w5h1t6E1uwSP45N1qn7Gz+kp8GaFKkNuN0GOMMlIWDQ0P0O6OmHL7odRyd+npNmJQTcgwg==",
+      "sha512": "1jUpszv0ETm+hl78HKnYgY3wPzt6qRtjxaPENNrGCuB8nondbR/j75WAKdd6sxXzOzBcX07WMZhZEYc4s5jVWg==",
       "type": "package",
       "path": "portable.bouncycastle/1.8.1.3",
       "files": [
@@ -6868,12 +6868,13 @@
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
       "ETicketSystem.Data >= 1.0.0",
-      "NETStandard.Library >= 2.0.0",
+      "NETStandard.Library >= 2.0.1",
       "iTextSharp.LGPLv2.Core >= 1.3.4"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Ulian\\.nuget\\packages\\": {},
+    "C:\\Users\\uashi\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
@@ -6882,31 +6883,33 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\Ulian\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Services\\ETicketSystem.Services.csproj",
+      "projectUniqueName": "C:\\Users\\uashi\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Services\\ETicketSystem.Services.csproj",
       "projectName": "ETicketSystem.Services",
-      "projectPath": "C:\\Users\\Ulian\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Services\\ETicketSystem.Services.csproj",
-      "packagesPath": "C:\\Users\\Ulian\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Ulian\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Services\\obj\\",
+      "projectPath": "C:\\Users\\uashi\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Services\\ETicketSystem.Services.csproj",
+      "packagesPath": "C:\\Users\\uashi\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\uashi\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Services\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Ulian\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\uashi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.Fallback.config"
       ],
       "originalTargetFrameworks": [
         "netstandard2.0"
       ],
       "sources": {
-        "C:\\Program Files\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "C:\\Users\\Ulian\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Data\\ETicketSystem.Data.csproj": {
-              "projectPath": "C:\\Users\\Ulian\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Data\\ETicketSystem.Data.csproj"
+            "C:\\Users\\uashi\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Data\\ETicketSystem.Data.csproj": {
+              "projectPath": "C:\\Users\\uashi\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Data\\ETicketSystem.Data.csproj"
             }
           }
         }
@@ -6920,15 +6923,15 @@
     "frameworks": {
       "netstandard2.0": {
         "dependencies": {
-          "iTextSharp.LGPLv2.Core": {
-            "target": "Package",
-            "version": "1.3.4"
-          },
           "NETStandard.Library": {
             "suppressParent": "All",
             "target": "Package",
-            "version": "2.0.0",
+            "version": "[2.0.1, )",
             "autoReferenced": true
+          },
+          "iTextSharp.LGPLv2.Core": {
+            "target": "Package",
+            "version": "[1.3.4, )"
           }
         },
         "imports": [

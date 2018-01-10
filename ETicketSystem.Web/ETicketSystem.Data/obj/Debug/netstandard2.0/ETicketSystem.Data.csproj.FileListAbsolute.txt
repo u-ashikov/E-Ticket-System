@@ -20,3 +20,14 @@ C:\Users\Kamelia\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSyste
 C:\Users\Kamelia\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Data\obj\Debug\netstandard2.0\ETicketSystem.Data.AssemblyInfo.cs
 C:\Users\Kamelia\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Data\obj\Debug\netstandard2.0\ETicketSystem.Data.dll
 C:\Users\Kamelia\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Data\obj\Debug\netstandard2.0\ETicketSystem.Data.pdb
+C:\Users\uashi\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Data\bin\Debug\netstandard2.0\ETicketSystem.Data.deps.json
+C:\Users\uashi\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Data\bin\Debug\netstandard2.0\ETicketSystem.Data.dll
+C:\Users\uashi\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Data\bin\Debug\netstandard2.0\ETicketSystem.Data.pdb
+C:\Users\uashi\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Data\bin\Debug\netstandard2.0\ETicketSystem.Common.dll
+C:\Users\uashi\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Data\bin\Debug\netstandard2.0\ETicketSystem.Common.pdb
+C:\Users\uashi\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Data\obj\Debug\netstandard2.0\ETicketSystem.Data.csprojResolveAssemblyReference.cache
+C:\Users\uashi\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Data\obj\Debug\netstandard2.0\ETicketSystem.Data.csproj.CoreCompileInputs.cache
+C:\Users\uashi\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Data\obj\Debug\netstandard2.0\ETicketSystem.Data.AssemblyInfoInputs.cache
+C:\Users\uashi\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Data\obj\Debug\netstandard2.0\ETicketSystem.Data.AssemblyInfo.cs
+C:\Users\uashi\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Data\obj\Debug\netstandard2.0\ETicketSystem.Data.dll
+C:\Users\uashi\Documents\GitHub\E-Ticket-System\ETicketSystem.Web\ETicketSystem.Data\obj\Debug\netstandard2.0\ETicketSystem.Data.pdb

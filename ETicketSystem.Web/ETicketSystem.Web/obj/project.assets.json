@@ -8243,7 +8243,7 @@
       ]
     },
     "Portable.BouncyCastle/1.8.1.3": {
-      "sha512": "imXKRLrhXlEoeus5w5h1t6E1uwSP45N1qn7Gz+kp8GaFKkNuN0GOMMlIWDQ0P0O6OmHL7odRyd+npNmJQTcgwg==",
+      "sha512": "1jUpszv0ETm+hl78HKnYgY3wPzt6qRtjxaPENNrGCuB8nondbR/j75WAKdd6sxXzOzBcX07WMZhZEYc4s5jVWg==",
       "type": "package",
       "path": "portable.bouncycastle/1.8.1.3",
       "files": [
@@ -13578,7 +13578,8 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Ulian\\.nuget\\packages\\": {},
+    "C:\\Users\\uashi\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
@@ -13587,34 +13588,36 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\Ulian\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Web\\ETicketSystem.Web.csproj",
+      "projectUniqueName": "C:\\Users\\uashi\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Web\\ETicketSystem.Web.csproj",
       "projectName": "ETicketSystem.Web",
-      "projectPath": "C:\\Users\\Ulian\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Web\\ETicketSystem.Web.csproj",
-      "packagesPath": "C:\\Users\\Ulian\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Ulian\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Web\\obj\\",
+      "projectPath": "C:\\Users\\uashi\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Web\\ETicketSystem.Web.csproj",
+      "packagesPath": "C:\\Users\\uashi\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\uashi\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Web\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Ulian\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\uashi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.Fallback.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.0"
       ],
       "sources": {
-        "C:\\Program Files\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "C:\\Users\\Ulian\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Data\\ETicketSystem.Data.csproj": {
-              "projectPath": "C:\\Users\\Ulian\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Data\\ETicketSystem.Data.csproj"
+            "C:\\Users\\uashi\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Services\\ETicketSystem.Services.csproj": {
+              "projectPath": "C:\\Users\\uashi\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Services\\ETicketSystem.Services.csproj"
             },
-            "C:\\Users\\Ulian\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Services\\ETicketSystem.Services.csproj": {
-              "projectPath": "C:\\Users\\Ulian\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Services\\ETicketSystem.Services.csproj"
+            "C:\\Users\\uashi\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Data\\ETicketSystem.Data.csproj": {
+              "projectPath": "C:\\Users\\uashi\\Documents\\GitHub\\E-Ticket-System\\ETicketSystem.Web\\ETicketSystem.Data\\ETicketSystem.Data.csproj"
             }
           }
         }
@@ -13628,32 +13631,32 @@
     "frameworks": {
       "netcoreapp2.0": {
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Tools": {
-            "suppressParent": "All",
+          "AutoMapper": {
             "target": "Package",
-            "version": "2.0.1"
+            "version": "[6.2.1, )"
           },
           "AutoMapper.Extensions.Microsoft.DependencyInjection": {
             "target": "Package",
-            "version": "3.2.0"
+            "version": "[3.2.0, )"
+          },
+          "Microsoft.AspNetCore.All": {
+            "target": "Package",
+            "version": "[2.0.3, )"
+          },
+          "Microsoft.EntityFrameworkCore.Tools": {
+            "suppressParent": "All",
+            "target": "Package",
+            "version": "[2.0.1, )"
+          },
+          "Microsoft.NETCore.App": {
+            "target": "Package",
+            "version": "[2.0.0, )",
+            "autoReferenced": true
           },
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
             "suppressParent": "All",
             "target": "Package",
-            "version": "2.0.1"
-          },
-          "Microsoft.NETCore.App": {
-            "target": "Package",
-            "version": "2.0.0",
-            "autoReferenced": true
-          },
-          "AutoMapper": {
-            "target": "Package",
-            "version": "6.2.1"
-          },
-          "Microsoft.AspNetCore.All": {
-            "target": "Package",
-            "version": "2.0.3"
+            "version": "[2.0.1, )"
           }
         },
         "imports": [

@@ -435,7 +435,75 @@
 			form.TownId.Should().Be(StationTownId);
 		}
 
-		private IEnumerable<AdminStationListingServiceModel> GetStations()
+        [Fact]
+        public void Post_Edit_WhenEditedStationIsSameWithExistingOneShouldReturnView()
+        {
+            //Arrange
+            var controller = new AdminStationsController(this.townService.Object, this.stationService.Object);
+
+            this.stationService.Setup(s => s.StationExists(It.IsAny<int>()))
+                .Returns(true);
+
+            this.stationService.Setup(s => s.EditedStationIsSame(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>()))
+                .Returns(false);
+
+            this.stationService.Setup(s => s.Edit(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>()))
+                .Returns(false);
+
+            this.townService.Setup(t => t.GetTownNameById(It.IsAny<int>()))
+                .Returns(TownName);
+
+            this.PrepareTempData();
+
+            controller.TempData = this.tempData.Object;
+
+            //Act
+            var result = controller.Edit(this.GetEditStationFormModel());
+
+            //Assert
+            result.Should().BeOfType<ViewResult>();
+            var model = result.As<ViewResult>().Model;
+            model.Should().BeOfType<StationFormModel>();
+            var form = model.As<StationFormModel>();
+            form.Id.Should().Be(EditStationId);
+            form.Name.Should().Be(StationName);
+            form.Phone.Should().Be(StationPhone);
+            form.TownId.Should().Be(StationTownId);
+            form.IsEdit.Should().BeTrue();
+            this.customMessage.Should().Be(string.Format(WebConstants.Message.StationAlreadyExists, form.Name, TownName));
+        }
+
+        [Fact]
+        public void Post_Edit_WithCorrectDataShouldRedirectToAllStations()
+        {
+            //Arrange
+            var controller = new AdminStationsController(this.townService.Object, this.stationService.Object);
+
+            this.stationService.Setup(s => s.StationExists(It.IsAny<int>()))
+                .Returns(true);
+
+            this.stationService.Setup(s => s.EditedStationIsSame(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>()))
+                .Returns(false);
+
+            this.stationService.Setup(s => s.Edit(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>()))
+                .Returns(true);
+
+            this.townService.Setup(t => t.GetTownNameById(It.IsAny<int>()))
+                .Returns(TownName);
+
+            this.PrepareTempData();
+
+            controller.TempData = this.tempData.Object;
+
+            //Act
+            var result = controller.Edit(this.GetEditStationFormModel());
+
+            //Assert
+            result.Should().BeOfType<RedirectToActionResult>();
+            this.customMessage.Should().Be(string.Format(WebConstants.Message.EntityEdited, nameof(WebConstants.Entity.Station)));
+        }
+
+        private IEnumerable<AdminStationListingServiceModel> GetStations()
 		{
 			var list = new List<AdminStationListingServiceModel>();
 

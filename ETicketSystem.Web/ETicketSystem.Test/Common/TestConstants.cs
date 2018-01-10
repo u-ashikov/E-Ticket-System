@@ -16,6 +16,7 @@
 
 		public const string UserUsername = "user12";
 		public const string CompanyName = "Aguila";
+        public const string TownName = "Sofia";
 
 		public const int MinPageSize = 1;
 	}
