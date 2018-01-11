@@ -21,7 +21,7 @@
 		{
 			if (page < 1)
 			{
-				return RedirectToAction(nameof(All), new { page = 1, searchTerm = searchTerm });
+				return RedirectToAction(nameof(All), new { page = 1, searchTerm });
 			}
 
 			var towns = this.adminTowns.All(page, searchTerm, WebConstants.Pagination.AdminTownsListing);
@@ -76,12 +76,14 @@
 			if (this.adminTowns.TownExistsByName(model.Name))
 			{
 				ModelState.AddModelError(string.Empty, string.Format(WebConstants.Message.EntityAlreadyExist,nameof(WebConstants.Entity.Town)));
+
 				return View(model);
 			}
 
 			this.adminTowns.Add(model.Name);
 
 			this.GenerateAlertMessage(string.Format(WebConstants.Message.TownAdded, model.Name), Alert.Success);
+
 			return RedirectToAction(nameof(All));
 		}
 	}
