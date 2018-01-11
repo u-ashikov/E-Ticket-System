@@ -27,7 +27,7 @@
 		{
 			if (page < 1)
 			{
-				return RedirectToAction(nameof(All), new { page = 1, searchTerm = searchTerm });
+				return RedirectToAction(nameof(All), new { page = 1, searchTerm });
 			}
 
 			var users = await this.users.AllAsync(searchTerm, page, WebConstants.Pagination.AdminUsersListing);
@@ -44,7 +44,7 @@
 
 			if (page > usersPagination.TotalPages && usersPagination.TotalPages != 0)
 			{
-				return RedirectToAction(nameof(All), new { page = usersPagination.TotalPages, searchTerm = searchTerm });
+				return RedirectToAction(nameof(All), new { page = usersPagination.TotalPages, searchTerm });
 			}
 
 			return View(new AllUsers()
