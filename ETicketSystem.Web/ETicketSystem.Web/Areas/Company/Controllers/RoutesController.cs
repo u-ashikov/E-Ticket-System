@@ -38,7 +38,7 @@
 		{
 			if (page < 1)
 			{
-				return RedirectToAction(nameof(All), new { startTown = startTown, endTown = endTown, date = date.HasValue ? date.Value.ToYearMonthDayFormat() : null, page = 1 });
+				return RedirectToAction(nameof(All), new { startTown, endTown, date = date.HasValue ? date.Value.ToYearMonthDayFormat() : null, page = 1 });
 			}
 
 			var companyId = this.userManager.GetUserId(User);
@@ -56,7 +56,7 @@
 
 			if (page > routesPagination.TotalPages && routesPagination.TotalPages != 0)
 			{
-				return RedirectToAction(nameof(All), new { startTown = startTown, endTown = endTown, date = date.HasValue ? date.Value.ToYearMonthDayFormat() : null, page = routesPagination.TotalPages });
+				return RedirectToAction(nameof(All), new { startTown, endTown, date = date.HasValue ? date.Value.ToYearMonthDayFormat() : null, page = routesPagination.TotalPages });
 			}
 
 			return View(new AllRoutes()
@@ -78,12 +78,14 @@
 			if (!this.companies.IsApproved(companyId))
 			{
 				this.GenerateAlertMessage(WebConstants.Message.CompanyNotApproved, Alert.Warning);
+
 				return this.RedirectToAction(nameof(All));
 			}
 
 			if (this.companies.IsBlocked(companyId))
 			{
 				this.GenerateAlertMessage(WebConstants.Message.AddRouteCompanyBlocked, Alert.Warning);
+
 				return this.RedirectToAction(nameof(All));
 			}
 
@@ -104,18 +106,21 @@
 			if (!this.companies.IsApproved(companyId))
 			{
 				this.GenerateAlertMessage(WebConstants.Message.CompanyNotApproved, Alert.Warning);
+
 				return this.RedirectToAction(nameof(All));
 			}
 
 			if (this.companies.IsBlocked(companyId))
 			{
 				this.GenerateAlertMessage(WebConstants.Message.AddRouteCompanyBlocked, Alert.Warning);
+
 				return this.RedirectToAction(nameof(All));
 			}
 
 			if (!this.stations.StationExist(model.StartStation) || !this.stations.StationExist(model.EndStation))
 			{
 				this.GenerateAlertMessage(WebConstants.Message.InvalidStation, Alert.Warning);
+
 				return this.RedirectToAction(nameof(All));
 			}
 
@@ -128,7 +133,8 @@
 
 			if (!ModelState.IsValid)
 			{
-				model.TownsStations = this.GenerateTownStationsSelectListItems();
+                model.TownsStations = this.GenerateTownStationsSelectListItems();
+
 				return View(model);
 			}
 
@@ -164,12 +170,14 @@
 			if (!this.companies.IsApproved(companyId))
 			{
 				this.GenerateAlertMessage(WebConstants.Message.ChangeRouteCompanyNotApproved, Alert.Warning);
+
 				return this.RedirectToAction(nameof(All));
 			}
 
 			if (this.companies.IsBlocked(companyId))
 			{
 				this.GenerateAlertMessage(WebConstants.Message.ChangeRouteCompanyBlocked, Alert.Warning);
+
 				return this.RedirectToAction(nameof(All));
 			}
 

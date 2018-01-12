@@ -279,6 +279,8 @@
 
 			public const string AdminAllUsers = "All";
 
+            public const string CompanyAllRoutes = "All";
+
             public const string MyTickets = "MyTickets";
 
 			public const string Details = "Details";

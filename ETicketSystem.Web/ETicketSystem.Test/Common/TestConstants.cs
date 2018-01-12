@@ -12,6 +12,7 @@
 		public const string RouteValueKeyAdminCompaniesFilter = "filter";
 
 		public const string UserId = "SomeUserId";
+        public const int RouteId = 10;
 
 		public const string UserUsername = "user12";
         public const string TownName = "Sofia";
