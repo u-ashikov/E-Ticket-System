@@ -45,17 +45,17 @@
 				.ProjectTo<RegularUserProfileServiceModel>()
 				.FirstOrDefault();
 
-		public CompanyProfileServiceModel GetCompanyUserProfileToEdit(string id) =>
+        public CompanyProfileBaseServiceModel GetCompanyProfileDetails(string id) =>
+            this.db
+                .Companies
+                .Where(c => c.Id == id)
+                .ProjectTo<CompanyProfileBaseServiceModel>()
+                .FirstOrDefault();
+
+        public CompanyProfileServiceModel GetCompanyUserProfileToEdit(string id) =>
 			this.db.Companies
 				.Where(c => c.Id == id)
 				.ProjectTo<CompanyProfileServiceModel>()
-				.FirstOrDefault();
-
-		public CompanyProfileBaseServiceModel GetCompanyProfileDetails(string id) =>
-			this.db
-				.Companies
-				.Where(c => c.Id == id)
-				.ProjectTo<CompanyProfileBaseServiceModel>()
 				.FirstOrDefault();
 
 		public async Task<IEnumerable<IdentityError>> EditRegularUserAsync(string id, string username, string email,string newPassword, string oldPassword)

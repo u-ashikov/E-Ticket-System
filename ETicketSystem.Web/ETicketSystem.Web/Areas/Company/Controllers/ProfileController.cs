@@ -1,17 +1,17 @@
 ﻿namespace ETicketSystem.Web.Areas.Company.Controllers
 {
-	using Common.Constants;
-	using Common.Enums;
-	using Data.Models;
-	using Microsoft.AspNetCore.Identity;
-	using Microsoft.AspNetCore.Mvc;
-	using Models.Profile;
-	using Services.Contracts;
-	using System.Linq;
-	using System.Threading.Tasks;
-	using Web.Infrastructure.Extensions;
+    using Common.Constants;
+    using Common.Enums;
+    using Data.Models;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+    using Models.Profile;
+    using Services.Contracts;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Web.Infrastructure.Extensions;
 
-	public class ProfileController : BaseCompanyController
+    public class ProfileController : BaseCompanyController
     {
 		private readonly IUserService users;
 
@@ -31,6 +31,7 @@
 			if (companyId != id)
 			{
 				this.GenerateAlertMessage(WebConstants.Message.NotProfileOwner, Alert.Danger);
+
 				return RedirectToHome();
 			}
 
@@ -45,12 +46,14 @@
 			if (company == null)
 			{
 				this.GenerateAlertMessage(string.Format(WebConstants.Message.NonExistingEntity,WebConstants.Entity.Company, id), Alert.Danger);
+
 				return RedirectToHome();
 			}
 
 			if (this.userManager.GetUserId(User) != id)
 			{
 				this.GenerateAlertMessage(string.Format(WebConstants.Message.NotProfileOwner, id), Alert.Danger);
+
 				return RedirectToHome();
 			}
 
@@ -71,6 +74,7 @@
 			if (!ModelState.IsValid)
 			{
 				profile.CurrentLogo = this.users.GetCompanyLogo(id);
+
 				return View(profile);
 			}
 
@@ -95,7 +99,7 @@
 
 			this.GenerateAlertMessage(WebConstants.Message.ProfileEdited, Alert.Success);
 
-			return RedirectToAction(nameof(Index), new { id = id });
+			return RedirectToAction(nameof(Index), new { id });
 		}
 	}
 }

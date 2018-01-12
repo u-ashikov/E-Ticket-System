@@ -12,12 +12,19 @@
 		public const string RouteValueKeyAdminCompaniesFilter = "filter";
 
 		public const string UserId = "SomeUserId";
-		public const string CompanyId = "SomeCompanyId";
 
 		public const string UserUsername = "user12";
-		public const string CompanyName = "Aguila";
         public const string TownName = "Sofia";
 
 		public const int MinPageSize = 1;
-	}
+
+        public const string CompanyName = "Aguila";
+        public const string CompanyId = "SomeCompanyId";
+        public const string CompanyChief = "Ivan Ivanov";
+        public const string CompanyEmail = "company@company.com";
+        public const int TotalRoutes = 20;
+        public const int TicketsSold = 198;
+        public const string CompanyPhone = "0898899881";
+        public static byte[] CompanyLogo = new byte[100];
+    }
 }
